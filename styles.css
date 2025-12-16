@@ -145,6 +145,13 @@ p {
   gap: 1rem;
 }
 
+/* Sur mobile et tablette, centrer le contenu */
+@media (max-width: 767px) {
+  .hero-left-content {
+    align-items: center;
+  }
+}
+
 .logo-container {
   cursor: pointer;
   width: 100%;
@@ -184,6 +191,13 @@ p {
   white-space: normal;
   opacity: 0;
   animation: titleAppear 1.2s ease-out 1.8s forwards;
+}
+
+/* Sur mobile et tablette, centrer le texte */
+@media (max-width: 767px) {
+  .hero-title {
+    text-align: center;
+  }
 }
 
 /* Colonne droite - 30% */
