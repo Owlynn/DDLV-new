@@ -210,7 +210,7 @@ p {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: 0.5rem;
+  padding-bottom: 4rem;
 }
 
 .page-hero-image {
@@ -255,9 +255,9 @@ p {
   z-index: 3;
   text-align: center;
   max-width: 900px;
-  padding: 2.5rem 3rem 1rem;
+  padding: 2.5rem 3rem;
   margin: 0 2rem;
-  transform: translateY(1rem);
+  transform: translateY(2rem);
   border-radius: 16px;
   background: none;
 }
@@ -283,7 +283,7 @@ p {
 /* Introduction section (sans bloc de contenu) */
 .page-intro {
   position: relative;
-  padding: 0.5rem 2rem 4rem;
+  padding: 2rem 2rem 4rem;
   display: flex;
   justify-content: center;
   z-index: 1;
@@ -398,15 +398,15 @@ p {
   
   .page-hero {
     min-height: 60vh;
-    padding-bottom: 0.25rem;
+    padding-bottom: 2rem;
     margin-top: 60px;
   }
   
   .page-hero-content {
-    padding: 2rem 1.5rem 0.5rem;
+    padding: 2rem 1.5rem;
     border-radius: 12px;
     margin: 0 1rem;
-    transform: translateY(0.5rem);
+    transform: translateY(1.5rem);
   }
   
   .page-hero h1 {
