@@ -39,7 +39,7 @@ Le site sera accessible sur [http://localhost:3000](http://localhost:3000)
 ├── index.html              # Page d'accueil
 ├── styles.css              # Styles CSS
 ├── script.js               # Scripts JavaScript
-├── public/                 # Assets statiques
+├── assets/                 # Assets statiques
 │   ├── logo-ddlv.png      # Logo
 │   └── hexagon-pattern.svg # Pattern hexagonal
 └── documentation/          # Documentation du projet

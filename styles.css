@@ -22,6 +22,24 @@ body {
   height: 100%;
 }
 
+/* Skip link pour l'accessibilité */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: -9999px;
+  background: #3605af;
+  color: #FFFFFF;
+  padding: 8px 16px;
+  text-decoration: none;
+  z-index: 100;
+  border-radius: 0 0 4px 0;
+}
+
+.skip-link:focus {
+  top: 0;
+  left: 0;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Josefin Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
@@ -133,6 +151,7 @@ p {
   max-width: 90%;
   display: flex;
   justify-content: flex-end;
+  text-decoration: none;
   opacity: 0;
   transform: scale(0.1);
   animation: logoAppear 1.8s ease-out forwards;
@@ -141,6 +160,12 @@ p {
 .logo-container:hover {
   transform: scale(1.05);
   transition: transform 0.3s ease-out;
+}
+
+.logo-container:focus {
+  outline: 2px solid #3605af;
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 .logo-image {
@@ -181,6 +206,15 @@ p {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-items li {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .menu-item {
@@ -197,6 +231,12 @@ p {
 
 .menu-item:hover {
   opacity: 0.8;
+}
+
+.menu-item:focus {
+  outline: 2px solid #3605af;
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 .menu-item:nth-child(even):hover {

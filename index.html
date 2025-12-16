@@ -37,16 +37,19 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <section class="hero-section">
+  <!-- Skip link pour la navigation au clavier -->
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+  
+  <main id="main-content" class="hero-section" role="main">
     <div class="hero-container">
       <div class="hero-content">
         <!-- Colonne gauche - 70% -->
         <div class="hero-left">
           <div class="hero-left-content">
             <!-- Logo -->
-            <div class="logo-container">
-              <img src="public/logo-ddlv.png" alt="Donner de la Voix - Logo" class="logo-image">
-            </div>
+            <a href="#" class="logo-container" aria-label="Retour à l'accueil - Donner de la Voix">
+              <img src="assets/logo-ddlv.png" alt="Donner de la Voix - Logo" class="logo-image">
+            </a>
             
             <!-- Texte en dessous du logo -->
             <h1 class="hero-title">
@@ -56,77 +59,91 @@
         </div>
 
         <!-- Colonne droite - 30% -->
-        <div class="hero-right">
-          <div class="menu-items">
-            <a href="#" class="menu-item">
-              <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M9 18V5l12-2v13"></path>
-                <circle cx="6" cy="18" r="3"></circle>
-                <circle cx="18" cy="16" r="3"></circle>
-              </svg>
-              <span class="menu-label">Les cours de chant</span>
-            </a>
-            <a href="#" class="menu-item">
-              <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
-                <path d="M5 3v4"></path>
-                <path d="M19 17v4"></path>
-                <path d="M3 5h4"></path>
-                <path d="M17 19h4"></path>
-              </svg>
-              <span class="menu-label">L'impro vocale</span>
-            </a>
-            <a href="#" class="menu-item">
-              <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M8 2v4"></path>
-                <path d="M16 2v4"></path>
-                <rect width="18" height="18" x="3" y="4" rx="2"></rect>
-                <path d="M3 10h18"></path>
-              </svg>
-              <span class="menu-label">Les ateliers</span>
-            </a>
-            <a href="#" class="menu-item">
-              <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-              <span class="menu-label">La prof</span>
-            </a>
-            <a href="#" class="menu-item">
-              <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M8 2v4"></path>
-                <path d="M16 2v4"></path>
-                <rect width="18" height="18" x="3" y="4" rx="2"></rect>
-                <path d="M3 10h18"></path>
-                <path d="M8 14h.01"></path>
-                <path d="M12 14h.01"></path>
-                <path d="M16 14h.01"></path>
-                <path d="M8 18h.01"></path>
-                <path d="M12 18h.01"></path>
-                <path d="M16 18h.01"></path>
-              </svg>
-              <span class="menu-label">Prendre RDV</span>
-            </a>
-            <a href="#" class="menu-item">
-              <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-              </svg>
-              <span class="menu-label">Contact</span>
-            </a>
-            <a href="#" class="menu-item">
-              <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M12 16v-4"></path>
-                <path d="M12 8h.01"></path>
-              </svg>
-              <span class="menu-label">Newsletter</span>
-            </a>
-          </div>
-        </div>
+        <nav class="hero-right" aria-label="Navigation principale">
+          <ul class="menu-items" role="list">
+            <li>
+              <a href="#" class="menu-item" aria-label="Découvrir les cours de chant">
+                <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M9 18V5l12-2v13"></path>
+                  <circle cx="6" cy="18" r="3"></circle>
+                  <circle cx="18" cy="16" r="3"></circle>
+                </svg>
+                <span class="menu-label">Les cours de chant</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item" aria-label="Découvrir l'improvisation vocale">
+                <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
+                  <path d="M5 3v4"></path>
+                  <path d="M19 17v4"></path>
+                  <path d="M3 5h4"></path>
+                  <path d="M17 19h4"></path>
+                </svg>
+                <span class="menu-label">L'impro vocale</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item" aria-label="Découvrir les ateliers">
+                <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M8 2v4"></path>
+                  <path d="M16 2v4"></path>
+                  <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+                  <path d="M3 10h18"></path>
+                </svg>
+                <span class="menu-label">Les ateliers</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item" aria-label="Découvrir la professeure">
+                <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span class="menu-label">La prof</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item" aria-label="Prendre rendez-vous">
+                <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M8 2v4"></path>
+                  <path d="M16 2v4"></path>
+                  <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+                  <path d="M3 10h18"></path>
+                  <path d="M8 14h.01"></path>
+                  <path d="M12 14h.01"></path>
+                  <path d="M16 14h.01"></path>
+                  <path d="M8 18h.01"></path>
+                  <path d="M12 18h.01"></path>
+                  <path d="M16 18h.01"></path>
+                </svg>
+                <span class="menu-label">Prendre RDV</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item" aria-label="Nous contacter">
+                <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+                <span class="menu-label">Contact</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item" aria-label="S'inscrire à la newsletter">
+                <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M12 16v-4"></path>
+                  <path d="M12 8h.01"></path>
+                </svg>
+                <span class="menu-label">Newsletter</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
-  </section>
+  </main>
   <script src="script.js"></script>
 </body>
 </html>
