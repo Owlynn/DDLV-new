@@ -55,14 +55,19 @@
   <main id="main-content" role="main">
     <!-- Conteneur des cartes -->
     <div class="cards-container">
-      <div class="cards-grid workshops-list">
-        <!-- Bloc titre -->
-        <div class="card card-full page-title-card">
-          <div class="page-title-content">
-            <h1 class="page-title">Les prochains ateliers</h1>
-            <p class="page-subtitle">Voici les ateliers à venir. Rejoignez-nous pour explorer l'improvisation vocale et les circle songs dans un cadre bienveillant et créatif.</p>
+      <!-- Bloc titre (toujours visible) -->
+      <div class="card card-full page-title-card">
+        <div class="page-title-content">
+          <h1 class="page-title">Les prochains ateliers</h1>
+          <p class="page-subtitle">Voici les ateliers à venir. Rejoignez-nous pour explorer l'improvisation vocale et les circle songs dans un cadre bienveillant et créatif.</p>
+          <div class="view-toggle">
+            <button class="view-btn active" data-view="list">Liste</button>
+            <button class="view-btn" data-view="calendar">Calendrier</button>
           </div>
         </div>
+      </div>
+      
+      <div class="cards-grid workshops-list" id="workshops-list-view">
         <!-- Carte Atelier 1 -->
         <div class="card card-workshop">
           <div class="workshop-image" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=80');"></div>
@@ -150,6 +155,22 @@
           </div>
           <div class="workshop-overlay">
             <span class="workshop-overlay-text">En savoir plus</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Vue calendrier -->
+      <div class="calendar-view" id="calendar-view" style="display: none;">
+        <div class="calendar-container">
+          <div class="calendar-month">
+            <div class="calendar-header">
+              <button class="calendar-nav-btn" id="prev-month">←</button>
+              <h2 class="calendar-month-title" id="month-title">Mars 2024</h2>
+              <button class="calendar-nav-btn" id="next-month">→</button>
+            </div>
+            <div class="calendar-grid" id="calendar-grid">
+              <!-- Le calendrier sera généré par JavaScript -->
+            </div>
           </div>
         </div>
       </div>

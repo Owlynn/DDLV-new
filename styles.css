@@ -718,6 +718,194 @@ p {
   margin-left: calc(-50vw + 50%);
 }
 
+/* Boutons de basculement vue liste/calendrier */
+.view-toggle {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  justify-content: center;
+}
+
+.view-btn {
+  padding: 0.5rem 1.5rem;
+  background: transparent;
+  border: 2px solid rgba(212, 197, 255, 0.5);
+  color: #3605af;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.view-btn:hover {
+  background: rgba(212, 197, 255, 0.2);
+  border-color: rgba(212, 197, 255, 0.7);
+}
+
+.view-btn.active {
+  background: rgba(54, 5, 175, 0.1);
+  border-color: #3605af;
+  color: #3605af;
+}
+
+/* Vue calendrier */
+.calendar-view {
+  padding: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.calendar-container {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(212, 197, 255, 0.02) 50%, rgba(255, 255, 255, 0.05) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.calendar-month-title {
+  font-size: 1.75rem;
+  color: #3605af;
+  font-weight: 500;
+  margin: 0;
+}
+
+.calendar-nav-btn {
+  background: transparent;
+  border: 2px solid rgba(212, 197, 255, 0.5);
+  color: #3605af;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.calendar-nav-btn:hover {
+  background: rgba(212, 197, 255, 0.2);
+  border-color: rgba(212, 197, 255, 0.7);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
+.calendar-day-header {
+  text-align: center;
+  font-weight: 600;
+  color: #3605af;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  min-height: 80px;
+  overflow: hidden;
+}
+
+.calendar-day.empty {
+  background: transparent;
+  border: none;
+}
+
+.calendar-day .day-number {
+  font-weight: 500;
+  color: #333;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.calendar-day.has-workshop {
+  background: rgba(212, 197, 255, 0.15);
+  border-color: rgba(54, 5, 175, 0.3);
+}
+
+.calendar-day.has-workshop .day-number {
+  color: #3605af;
+  font-weight: 600;
+}
+
+.workshop-indicator {
+  font-size: 0.7rem;
+  color: #3605af;
+  text-align: center;
+  line-height: 1.2;
+  font-weight: 500;
+  margin-top: 0.25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  transition: filter 0.3s ease;
+}
+
+/* Overlay pour les jours du calendrier avec ateliers */
+.calendar-day.has-workshop:hover .day-number,
+.calendar-day.has-workshop:hover .workshop-indicator {
+  filter: blur(8px);
+  transition: filter 0.3s ease;
+}
+
+.calendar-day.has-workshop .workshop-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(54, 5, 175, 0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease, backdrop-filter 0.3s ease;
+  z-index: 10;
+  pointer-events: none;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.calendar-day.has-workshop:hover .workshop-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.calendar-day.has-workshop .workshop-overlay .workshop-overlay-text {
+  color: #3605af;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+}
+
 .page-title {
   font-size: 2.5rem;
   color: #3605af;
