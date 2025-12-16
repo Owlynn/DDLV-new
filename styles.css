@@ -404,6 +404,22 @@ p {
   align-items: stretch;
 }
 
+/* Layout en liste pour les ateliers */
+.cards-grid.workshops-list {
+  display: flex;
+  flex-direction: column;
+  grid-template-columns: none;
+  gap: 1rem;
+  padding: 3rem;
+  max-width: 1200px;
+}
+
+.cards-grid.workshops-list .card {
+  width: 100%;
+  max-width: 100%;
+  grid-column: span 1 !important;
+}
+
 /* Variantes de largeur */
 .card-small {
   grid-column: span 1;
@@ -495,9 +511,143 @@ p {
     rgba(255, 255, 255, 0.08) 100%);
 }
 
+/* Cartes ateliers */
+.card-workshop {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  position: relative;
+}
+
+.workshop-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(54, 5, 175, 0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease, backdrop-filter 0.3s ease;
+  z-index: 10;
+  pointer-events: none;
+  cursor: pointer;
+}
+
+.card-workshop:hover .workshop-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.card-workshop:hover .workshop-image,
+.card-workshop:hover .workshop-content {
+  filter: blur(8px);
+  transition: filter 0.3s ease;
+}
+
+.workshop-overlay-text {
+  color: #3605af;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+.workshop-image {
+  width: 300px;
+  min-width: 300px;
+  height: auto;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+
+.workshop-content {
+  padding: 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.workshop-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.workshop-title {
+  font-size: 1.5rem;
+  color: #3605af;
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+.workshop-date,
+.workshop-location {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 0;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.workshop-button {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background: linear-gradient(135deg, rgba(212, 197, 255, 0.3), rgba(180, 160, 240, 0.3));
+  color: #3605af;
+  text-decoration: none;
+  white-space: nowrap;
+  align-self: center;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 197, 255, 0.5);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-align: center;
+  align-self: flex-start;
+}
+
+.workshop-button:hover {
+  background: linear-gradient(135deg, rgba(212, 197, 255, 0.4), rgba(180, 160, 240, 0.4));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(54, 5, 175, 0.2);
+}
+
 @media (max-width: 1024px) {
   .cards-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .card-workshop {
+    flex-direction: column;
+  }
+  
+  .workshop-image {
+    width: 100%;
+    height: 200px;
+    min-width: auto;
+  }
+  
+  .workshop-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .workshop-button {
+    align-self: flex-start;
+    margin-top: 1rem;
   }
   
   .card-medium,
@@ -525,9 +675,63 @@ p {
 
 .cards-container {
   position: relative;
-  padding: 2.5rem 0 0;
+  padding: 1rem 0 0;
   z-index: 1;
-  margin-top: 35px;
+  margin-top: 20px;
+}
+
+/* Section titre de page dans une carte */
+.page-title-card {
+  text-align: center;
+  background: transparent !important;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  padding: 0;
+}
+
+.page-title-card:hover {
+  background: transparent !important;
+  transform: none;
+  box-shadow: none;
+}
+
+.page-title-content {
+  padding: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+.page-title-content::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(212, 197, 255, 0.3);
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+.page-title {
+  font-size: 2.5rem;
+  color: #3605af;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.page-subtitle {
+  font-size: 1rem;
+  color: #333;
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0;
 }
 
 /* Introduction section (transformée en carte) */
