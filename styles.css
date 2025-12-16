@@ -210,7 +210,7 @@ p {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: 4rem;
+  padding-bottom: 0.5rem;
 }
 
 .page-hero-image {
@@ -255,9 +255,9 @@ p {
   z-index: 3;
   text-align: center;
   max-width: 900px;
-  padding: 2.5rem 3rem;
+  padding: 2.5rem 3rem 1rem;
   margin: 0 2rem;
-  transform: translateY(2rem);
+  transform: translateY(1rem);
   border-radius: 16px;
   background: none;
 }
@@ -278,6 +278,33 @@ p {
   line-height: 1.5;
   max-width: 700px;
   margin: 0 auto;
+}
+
+/* Introduction section (sans bloc de contenu) */
+.page-intro {
+  position: relative;
+  padding: 0.5rem 2rem 4rem;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+}
+
+.intro-text {
+  max-width: 900px;
+  width: 100%;
+  text-align: left;
+}
+
+.intro-text p {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+  color: #333;
+  font-weight: 300;
+}
+
+.intro-text p:last-child {
+  margin-bottom: 0;
 }
 
 /* Content Sections */
@@ -356,17 +383,30 @@ p {
 
 /* Responsive content sections */
 @media (max-width: 768px) {
+  .page-intro {
+    padding: 3rem 1.5rem;
+  }
+  
+  .intro-text {
+    max-width: 100%;
+  }
+  
+  .intro-text p {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  
   .page-hero {
     min-height: 60vh;
-    padding-bottom: 2rem;
+    padding-bottom: 0.25rem;
     margin-top: 60px;
   }
   
   .page-hero-content {
-    padding: 2rem 1.5rem;
+    padding: 2rem 1.5rem 0.5rem;
     border-radius: 12px;
     margin: 0 1rem;
-    transform: translateY(1.5rem);
+    transform: translateY(0.5rem);
   }
   
   .page-hero h1 {
