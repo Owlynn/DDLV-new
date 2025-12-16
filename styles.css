@@ -425,6 +425,29 @@ p {
   align-self: start;
 }
 
+/* Dégradés légers pour certaines cartes - Nuances de violet */
+.card-gradient-subtle-1 {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.12) 0%, 
+    rgba(212, 197, 255, 0.18) 30%,
+    rgba(180, 160, 240, 0.15) 70%,
+    rgba(255, 255, 255, 0.12) 100%);
+}
+
+.card-gradient-subtle-2 {
+  background: linear-gradient(135deg, 
+    rgba(212, 197, 255, 0.16) 0%, 
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(212, 197, 255, 0.16) 100%);
+}
+
+.card-gradient-subtle-3 {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.12) 0%, 
+    rgba(200, 180, 235, 0.16) 40%,
+    rgba(255, 255, 255, 0.12) 100%);
+}
+
 /* Cartes avec seulement des images */
 .card-image-only {
   background-size: cover;
