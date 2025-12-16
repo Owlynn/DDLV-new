@@ -101,11 +101,17 @@ p {
 
 /* Header réutilisable pour toutes les pages sauf index.html */
 .site-header {
-  position: relative;
-  background-color: #FFFFFF;
-  padding: 1rem 2rem;
-  border-bottom: 1px solid #D4C5FF;
-  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.021);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 0.75rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  z-index: 100;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .header-container {
@@ -180,7 +186,7 @@ p {
   }
   
   .header-logo-image {
-    height: 50px;
+    height: 40px;
   }
   
   .header-menu {
@@ -197,31 +203,81 @@ p {
 .page-hero {
   position: relative;
   overflow: hidden;
-  min-height: 50vh;
+  min-height: 70vh;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4rem 2rem 2rem;
+  margin-top: 70px;
   z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 4rem;
+}
+
+.page-hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/improvocale.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0.8) 40%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0) 80%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0.8) 40%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0) 80%);
+}
+
+.page-hero-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));
+  z-index: 2;
+  opacity: 0.5;
+}
+
+/* Classe commune pour l'effet glassmorphism */
+.glassmorphism {
+  background-color: rgba(255, 255, 255, 0.021);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
 .page-hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   text-align: center;
-  max-width: 800px;
+  max-width: 900px;
+  padding: 2.5rem 3rem;
+  margin: 0 2rem;
+  transform: translateY(2rem);
+  border-radius: 16px;
+  background: none;
 }
 
 .page-hero h1 {
   font-size: 3rem;
-  margin-bottom: 1rem;
+  margin: 0;
+  color: #3605af;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
 }
 
 .page-hero-subtitle {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   color: #4A07D4;
-  font-weight: 400;
+  font-weight: 300;
+  line-height: 1.5;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 /* Content Sections */
@@ -243,12 +299,6 @@ p {
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.021);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   padding: 3rem;
   position: relative;
   z-index: 1;
@@ -307,12 +357,21 @@ p {
 /* Responsive content sections */
 @media (max-width: 768px) {
   .page-hero {
-    min-height: 40vh;
-    padding: 3rem 1rem 2rem;
+    min-height: 60vh;
+    padding-bottom: 2rem;
+    margin-top: 60px;
+  }
+  
+  .page-hero-content {
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+    margin: 0 1rem;
+    transform: translateY(1.5rem);
   }
   
   .page-hero h1 {
-    font-size: 2rem;
+    font-size: 1.75rem;
+    margin: 0;
   }
   
   .page-hero-subtitle {
