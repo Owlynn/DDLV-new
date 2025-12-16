@@ -1,0 +1,13 @@
+{
+  "name": "donner-de-la-voix-static",
+  "version": "1.0.0",
+  "description": "Site statique Donner de la Voix",
+  "scripts": {
+    "dev": "npx http-server . -p 3000 -o",
+    "serve": "npx http-server . -p 3000"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
+

@@ -8,8 +8,6 @@
 
 html {
   scroll-behavior: smooth;
-  overflow: hidden;
-  height: 100%;
 }
 
 body {
@@ -18,6 +16,33 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('assets/hexagon-pattern.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  opacity: 1;
+  filter: contrast(1) brightness(1) saturate(1);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Empêcher le scroll uniquement sur index.html */
+body.no-scroll {
+  overflow: hidden;
+  height: 100%;
+}
+
+html.no-scroll {
   overflow: hidden;
   height: 100%;
 }
@@ -168,7 +193,153 @@ p {
   }
 }
 
-/* Hero Section */
+/* Page Hero (pour les pages avec header) */
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 50vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem 2rem;
+  z-index: 1;
+}
+
+.page-hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 800px;
+}
+
+.page-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.page-hero-subtitle {
+  font-size: 1.5rem;
+  color: #4A07D4;
+  font-weight: 400;
+}
+
+/* Content Sections */
+.content-section {
+  position: relative;
+  padding: 4rem 2rem;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 1;
+}
+
+
+.content-container {
+  max-width: 80%;
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.021);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.content-text {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  position: relative;
+  z-index: 1;
+}
+
+.content-text p {
+  font-weight: 300;
+}
+
+.content-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #3605af;
+}
+
+.content-text h3 {
+  font-size: 1.75rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.content-text ul {
+  margin: 1.5rem 0;
+  padding-left: 2rem;
+}
+
+.content-text li {
+  margin-bottom: 0.75rem;
+}
+
+.content-text strong {
+  color: #3605af;
+  font-weight: 600;
+}
+
+.content-image {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.placeholder-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive content sections */
+@media (max-width: 768px) {
+  .page-hero {
+    min-height: 40vh;
+    padding: 3rem 1rem 2rem;
+  }
+  
+  .page-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .page-hero-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .content-section {
+    padding: 2rem 1rem;
+  }
+  
+  .content-container {
+    max-width: 90%;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem;
+  }
+  
+  .content-text h2 {
+    font-size: 2rem;
+  }
+  
+  .content-text {
+    font-size: 1rem;
+  }
+}
+
+/* Hero Section (pour index.html) */
 .hero-section {
   position: relative;
   background-color: #FFFFFF;
