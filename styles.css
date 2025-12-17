@@ -118,13 +118,22 @@ p {
   top: 0;
   left: 0;
   right: 0;
-  background-color: rgba(255, 255, 255, 0.021);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.773) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding: 0.75rem 2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   z-index: 100;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
+}
+
+/* Styles spécifiques pour ateliers copy.html */
+.ateliers-copy-page .site-header {
+  box-shadow: none;
+  border-bottom: none;
+  background: rgba(255, 255, 255, 0.773) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .header-container {
@@ -346,7 +355,7 @@ p {
   pointer-events: none;
 }
 
-.card:hover {
+.card:hover:not(.page-title-card) {
   transform: translateY(-8px);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 
               0 8px 20px rgba(0, 0, 0, 0.1),
@@ -358,7 +367,7 @@ p {
   border-color: rgba(255, 255, 255, 0.5);
 }
 
-.card:hover::after {
+.card:hover:not(.page-title-card)::after {
   opacity: 1;
 }
 
@@ -412,6 +421,21 @@ p {
   gap: 1rem;
   padding: 3rem;
   max-width: 1200px;
+}
+
+/* Largeur à 70% de l'écran pour ateliers copy.html */
+.ateliers-copy-page .cards-grid.workshops-list {
+  max-width: 50vw;
+  width: 70%;
+}
+
+/* Même largeur pour la vue calendrier sur ateliers copy.html */
+.ateliers-copy-page .calendar-view {
+  max-width: 50vw;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 3rem;
 }
 
 .cards-grid.workshops-list .card {
@@ -523,14 +547,32 @@ p {
   background: linear-gradient(135deg,
     rgba(255, 255, 255, 0.08) 0%,
     rgba(212, 197, 255, 0.05) 50%,
-    rgba(255, 255, 255, 0.08) 100%);
+    rgba(255, 255, 255, 0.08) 100%) !important;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04),
-              2px 0 8px rgba(0, 0, 0, 0.02);
-  /* Pas de transitions */
+              2px 0 8px rgba(0, 0, 0, 0.02) !important;
+  /* Pas de transitions ni animations */
+  transition: none !important;
+  transform: none !important;
+}
+
+.card-workshop:hover {
+  transform: none !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04),
+              2px 0 8px rgba(0, 0, 0, 0.02) !important;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(212, 197, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.08) 100%) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.card-workshop::before,
+.card-workshop::after {
+  display: none;
 }
 
 .workshop-overlay {
@@ -539,7 +581,7 @@ p {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(54, 5, 175, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   display: flex;
@@ -557,7 +599,12 @@ p {
   pointer-events: auto;
 }
 
-/* Pas d'animations sur les images et contenu au hover */
+/* Effet de flou sur le contenu au hover */
+.card-workshop:hover .workshop-image,
+.card-workshop:hover .workshop-content {
+  filter: blur(3px);
+  transition: filter 0.3s ease;
+}
 
 .workshop-overlay-text {
   color: #3605af;
@@ -576,6 +623,7 @@ p {
   background-position: center;
   background-repeat: no-repeat;
   flex-shrink: 0;
+  transition: filter 0.3s ease;
 }
 
 .workshop-content {
@@ -586,6 +634,7 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
+  transition: filter 0.3s ease;
 }
 
 .workshop-content-wrapper {
@@ -686,76 +735,249 @@ p {
   padding: 0;
   z-index: 1;
   margin-top: 90px;
+  padding-top: 0;
 }
 
-/* Section titre de page dans une carte */
+/* Sur ateliers copy.html, pas d'espace entre header et bloc titre */
+.ateliers-copy-page .cards-container {
+  margin-top: 70px;
+  padding-top: 0;
+}
+
+/* ============================================
+   BLOC TITRE DE PAGE
+   ============================================ */
 .page-title-card {
   text-align: center;
-  background: transparent !important;
-  border: none;
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  padding: 0;
+  background: rgba(255, 255, 255, 0.773) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12),
+              0 4px 12px rgba(0, 0, 0, 0.08),
+              2px 0 12px rgba(0, 0, 0, 0.06) !important;
+  padding: 1.25rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  margin-bottom: 1.5rem;
+  transition: none !important;
+  transform: translate(0, 0) !important;
+  pointer-events: auto;
+  will-change: auto;
 }
 
-.page-title-card:hover {
-  background: transparent !important;
-  transform: none;
-  box-shadow: none;
+/* Désactiver les pseudo-éléments hérités de .card */
+.page-title-card::before,
+.page-title-card::after {
+  display: none !important;
+  content: none !important;
 }
+
+/* AUCUNE réaction au hover - état identique */
+.page-title-card:hover,
+.card.page-title-card:hover {
+  transform: translate(0, 0) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12),
+              0 4px 12px rgba(0, 0, 0, 0.08),
+              2px 0 12px rgba(0, 0, 0, 0.06) !important;
+  background: rgba(255, 255, 255, 0.773) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  transition: none !important;
+}
+
+/* Styles spécifiques pour ateliers copy.html */
+.ateliers-copy-page .cards-container {
+  margin-top: 70px;
+  padding-top: 0;
+}
+
+.ateliers-copy-page .page-title-card {
+  top: 70px;
+  border-radius: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  margin-top: 0;
+  box-shadow: none !important;
+}
+
+.ateliers-copy-page .page-title-card:hover,
+.ateliers-copy-page .card.page-title-card:hover {
+  box-shadow: none !important;
+  transform: translate(0, 0) !important;
+  background: rgba(255, 255, 255, 0.773) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-radius: 0 !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  transition: none !important;
+}
+
+
+
 
 .page-title-content {
-  padding: 1.5rem 0;
+  padding: 0.75rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  padding-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+}
+
+/* Sur ateliers copy.html, ajuster le padding du bloc titre */
+.ateliers-copy-page .page-title-content {
+  padding-bottom: 0.75rem;
 }
 
 .page-title-content::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: rgba(212, 197, 255, 0.3);
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  display: none;
+}
+
+/* Conteneur des boutons de basculement vue liste/calendrier */
+.view-toggle-container {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+}
+
+/* Sur ateliers copy.html, positionner les boutons au-dessus de la liste */
+.ateliers-copy-page .view-toggle-container {
+  max-width: 50vw;
+  width: 70%;
+  margin-left: 0;
+  margin-right: auto;
+  padding: 0.25rem 3rem;
+  margin-bottom: 0.5rem;
 }
 
 /* Boutons de basculement vue liste/calendrier */
 .view-toggle {
   display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  justify-content: center;
+  gap: 0.75rem;
+  justify-content: flex-start;
 }
 
+/* Bouton toggle unique avec deux parties */
+.view-toggle-btn {
+  display: flex;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(212, 197, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.08) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Josefin Sans', sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04),
+              1px 0 4px rgba(0, 0, 0, 0.02);
+}
+
+.view-toggle-part {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.85rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.view-toggle-left {
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.view-toggle-right {
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.view-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+  color: #7a6ac7;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+/* Partie active (enfoncée) */
+.view-toggle-part.active {
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.15),
+              inset 0 1px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(1px);
+}
+
+/* Partie inactive (relevée) */
+.view-toggle-part:not(.active) {
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.view-toggle-btn:hover .view-toggle-part:not(.active) {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Anciens styles pour compatibilité (à supprimer si plus utilisés) */
 .view-btn {
-  padding: 0.5rem 1.5rem;
-  background: transparent;
-  border: 2px solid rgba(212, 197, 255, 0.5);
+  padding: 0.75rem;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(212, 197, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.08) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   color: #3605af;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: 'Josefin Sans', sans-serif;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04),
+              2px 0 8px rgba(0, 0, 0, 0.02);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
 }
 
 .view-btn:hover {
-  background: rgba(212, 197, 255, 0.2);
-  border-color: rgba(212, 197, 255, 0.7);
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(212, 197, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.12) 100%);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06),
+              2px 0 10px rgba(0, 0, 0, 0.03);
 }
 
 .view-btn.active {
-  background: rgba(54, 5, 175, 0.1);
-  border-color: #3605af;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(212, 197, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.2) 100%);
+  border-color: rgba(255, 255, 255, 0.4);
   color: #3605af;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12),
+              0 4px 12px rgba(0, 0, 0, 0.08),
+              inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px);
 }
 
 /* Vue calendrier */
@@ -1143,7 +1365,7 @@ p {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(54, 5, 175, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   display: flex;
@@ -1880,6 +2102,9 @@ p {
 .article-toc-link:hover,
 .article-toc-link:focus {
   background-color: rgba(212, 197, 255, 0.35);
+  outline: none;
+}
+.article-toc-link:focus {
   outline: none;
 }
 
