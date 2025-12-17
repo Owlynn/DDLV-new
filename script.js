@@ -143,6 +143,7 @@ function renderCalendar() {
     if (dayWorkshops.length > 0) {
       dayElement.classList.add('has-workshop');
       const workshop = dayWorkshops[0];
+      dayElement.setAttribute('data-workshop-title', workshop.title);
       dayElement.innerHTML += `
         <div class="workshop-indicator" title="${workshop.title}">${workshop.title}</div>
         <div class="workshop-overlay">
