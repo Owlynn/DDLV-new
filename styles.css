@@ -2268,6 +2268,56 @@ p {
   scrollbar-color: rgba(212, 197, 255, 0.4) transparent;
 }
 
+/* Styles pour les tableaux dans les articles */
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.article-content thead {
+  background: rgba(54, 5, 175, 0.1);
+}
+
+.article-content th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  color: #3605af;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.article-content th:last-child {
+  text-align: right;
+}
+
+.article-content td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(54, 5, 175, 0.1);
+  color: #333;
+}
+
+.article-content td:last-child {
+  text-align: right;
+  font-weight: 500;
+  color: #3605af;
+}
+
+.article-content tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.article-content h3 {
+  font-size: 1.5rem;
+  color: #3605af;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
 /* Header de l'article */
 .article-header {
   text-align: center;
