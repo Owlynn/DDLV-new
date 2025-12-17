@@ -189,8 +189,6 @@ p {
 
 .header-menu-item:hover {
   opacity: 0.8;
-  transform: rotate(1deg);
-  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .header-menu-item:focus {
@@ -640,6 +638,28 @@ p {
   justify-content: space-between;
   gap: 2rem;
   transition: filter 0.3s ease;
+}
+
+/* Padding de 20px et effet de transparence dégradée pour ateliers.html */
+.ateliers-copy-page .card-workshop .workshop-content {
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, 
+    rgba(0, 0, 0, 1) 0%, 
+    rgba(0, 0, 0, 1) 60%, 
+    rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, 
+    rgba(0, 0, 0, 1) 0%, 
+    rgba(0, 0, 0, 1) 60%, 
+    rgba(0, 0, 0, 0) 100%);
+  mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+}
+
+.ateliers-copy-page .workshop-content-wrapper {
+  padding: 20px;
 }
 
 .workshop-content-wrapper {
@@ -2081,7 +2101,7 @@ p {
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #7a6ac7;
+  color: #fe66c3;
   margin-bottom: 1.25rem;
 }
 
@@ -2096,22 +2116,46 @@ p {
   line-height: 1.5;
   color: #3605af;
   text-decoration: none;
-  padding: 0.35rem 0.25rem;
-  border-radius: 6px;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+  position: relative;
+  border: 1px solid transparent;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.article-toc-link:hover,
-.article-toc-link:focus {
-  background-color: rgba(212, 197, 255, 0.35);
-  outline: none;
+.article-toc-link:hover {
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(212, 197, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.08) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04),
+              0 2px 8px rgba(0, 0, 0, 0.02);
+  transform: translateY(-2px) rotate(1deg);
 }
+
 .article-toc-link:focus {
   outline: none;
 }
 
 .article-toc-link.active {
-  color: #fe66c3;
+  color: #3605af;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(212, 197, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.08) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04),
+              0 2px 8px rgba(0, 0, 0, 0.02);
+  transform: translateY(-2px);
 }
 
 .article-main {
