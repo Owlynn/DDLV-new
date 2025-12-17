@@ -114,17 +114,17 @@ p {
   width: calc(100% - 4rem);
   max-width: 1100px;
   background: linear-gradient(135deg,
-    rgba(255, 255, 255, 0.4) 0%,
-    rgba(248, 245, 255, 0.3) 50%,
-    rgba(255, 255, 255, 0.5) 100%) !important;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(212, 197, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.08) 100%) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.4) !important;
   border-radius: 8px;
   padding: 0.75rem 2rem;
   z-index: 100;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04),
-              2px 0 8px rgba(0, 0, 0, 0.02) !important;
+              0 2px 8px rgba(0, 0, 0, 0.02) !important;
   box-sizing: border-box;
 }
 
@@ -2179,15 +2179,16 @@ p {
   padding: 1.75rem 1.5rem;
   padding-right: 1rem;
   background: linear-gradient(135deg,
-    rgba(255, 255, 255, 0.3) 0%,
-    rgba(248, 245, 255, 0.25) 50%,
-    rgba(255, 255, 255, 0.3) 100%);
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(212, 197, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.08) 100%);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 8px 0 0 8px;
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-right: none;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04),
+              0 2px 8px rgba(0, 0, 0, 0.02),
               2px 0 8px rgba(0, 0, 0, 0.02);
   display: flex;
   flex-direction: column;
@@ -2320,16 +2321,17 @@ p {
   display: flex;
   flex-direction: column;
   background: linear-gradient(135deg,
-    rgba(255, 255, 255, 0.3) 0%,
-    rgba(248, 245, 255, 0.25) 50%,
-    rgba(255, 255, 255, 0.3) 100%);
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(212, 197, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.08) 100%);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 0 8px 8px 0;
   border-left: none;
-  box-shadow: inset 2px 0 16px rgba(0, 0, 0, 0.08),
-              0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04),
+              0 2px 8px rgba(0, 0, 0, 0.02),
+              inset 2px 0 8px rgba(0, 0, 0, 0.03);
   position: relative;
   z-index: 1;
 }
