@@ -430,6 +430,9 @@ p {
 .ateliers-copy-page .cards-grid.workshops-list {
   max-width: 50vw;
   width: 70%;
+  padding-top: 0.5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 
 /* Même largeur pour la vue calendrier sur ateliers.html */
@@ -878,10 +881,12 @@ p {
 .ateliers-copy-page .view-toggle-container {
   max-width: 50vw;
   width: 70%;
-  margin-left: 0;
+  margin-left: auto;
   margin-right: auto;
-  padding: 0.25rem 3rem;
-  margin-bottom: 0.5rem;
+  padding: 0 3rem;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: flex-start;
 }
 
 /* Boutons de basculement vue liste/calendrier */
