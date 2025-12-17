@@ -6,6 +6,11 @@
   box-sizing: border-box;
 }
 
+*:focus,
+*:focus-visible {
+  outline: none !important;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -184,12 +189,12 @@ p {
 
 .header-menu-item:hover {
   opacity: 0.8;
+  transform: rotate(1deg);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .header-menu-item:focus {
-  outline: 2px solid #3605af;
-  outline-offset: 4px;
-  border-radius: 4px;
+  outline: none;
 }
 
 .header-menu-item.active {
@@ -1785,9 +1790,7 @@ p {
 }
 
 .logo-container:focus {
-  outline: 2px solid #3605af;
-  outline-offset: 4px;
-  border-radius: 4px;
+  outline: none;
 }
 
 .logo-image {
@@ -1852,28 +1855,31 @@ p {
   justify-content: flex-start;
   color: #3605af;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   gap: 12px;
-  transform: rotate(0deg);
   width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: transparent;
+  position: relative;
+  border: 1px solid transparent;
 }
 
 .menu-item:hover {
-  opacity: 0.8;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(212, 197, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.08) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04),
+              0 2px 8px rgba(0, 0, 0, 0.02);
+  transform: translateY(-2px) rotate(1deg);
 }
 
 .menu-item:focus {
-  outline: 2px solid #3605af;
-  outline-offset: 4px;
-  border-radius: 4px;
-}
-
-.menu-item:nth-child(even):hover {
-  transform: rotate(2deg);
-}
-
-.menu-item:nth-child(odd):hover {
-  transform: rotate(-2deg);
+  outline: none;
 }
 
 .menu-icon {
@@ -1976,12 +1982,8 @@ p {
     transform: scale(1.4);
   }
   
-  .menu-item:nth-child(even):hover {
-    transform: scale(1.4) rotate(2deg);
-  }
-  
-  .menu-item:nth-child(odd):hover {
-    transform: scale(1.4) rotate(-2deg);
+  .menu-item:hover {
+    transform: scale(1.4) translateY(-2px) rotate(1deg);
   }
   
   .menu-icon {
