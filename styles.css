@@ -127,7 +127,7 @@ p {
   box-shadow: none;
 }
 
-/* Styles spécifiques pour ateliers copy.html */
+/* Styles spécifiques pour ateliers.html */
 .ateliers-copy-page .site-header {
   box-shadow: none;
   border-bottom: none;
@@ -423,13 +423,13 @@ p {
   max-width: 1200px;
 }
 
-/* Largeur à 70% de l'écran pour ateliers copy.html */
+/* Largeur à 70% de l'écran pour ateliers.html */
 .ateliers-copy-page .cards-grid.workshops-list {
   max-width: 50vw;
   width: 70%;
 }
 
-/* Même largeur pour la vue calendrier sur ateliers copy.html */
+/* Même largeur pour la vue calendrier sur ateliers.html */
 .ateliers-copy-page .calendar-view {
   max-width: 50vw;
   width: 70%;
@@ -738,7 +738,7 @@ p {
   padding-top: 0;
 }
 
-/* Sur ateliers copy.html, pas d'espace entre header et bloc titre */
+/* Sur ateliers.html, pas d'espace entre header et bloc titre */
 .ateliers-copy-page .cards-container {
   margin-top: 70px;
   padding-top: 0;
@@ -789,7 +789,7 @@ p {
   transition: none !important;
 }
 
-/* Styles spécifiques pour ateliers copy.html */
+/* Styles spécifiques pour ateliers.html */
 .ateliers-copy-page .cards-container {
   margin-top: 70px;
   padding-top: 0;
@@ -832,7 +832,7 @@ p {
   padding-bottom: 0.75rem;
 }
 
-/* Sur ateliers copy.html, ajuster le padding du bloc titre */
+/* Sur ateliers.html, ajuster le padding du bloc titre */
 .ateliers-copy-page .page-title-content {
   padding-bottom: 0.75rem;
 }
@@ -849,7 +849,7 @@ p {
   margin-bottom: 1rem;
 }
 
-/* Sur ateliers copy.html, positionner les boutons au-dessus de la liste */
+/* Sur ateliers.html, positionner les boutons au-dessus de la liste */
 .ateliers-copy-page .view-toggle-container {
   max-width: 50vw;
   width: 70%;

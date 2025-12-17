@@ -23,7 +23,7 @@
   <link rel="canonical" href="https://donnerdelavoix.fr/ateliers">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="ateliers-copy-page">
   <!-- Header -->
   <header class="site-header" role="banner">
     <div class="header-container">
@@ -60,10 +60,19 @@
         <div class="page-title-content">
           <h1 class="page-title">Les prochains ateliers</h1>
           <p class="page-subtitle">Voici les ateliers à venir. Rejoignez-nous pour explorer l'improvisation vocale et les circle songs dans un cadre bienveillant et créatif.</p>
-          <div class="view-toggle">
-            <button class="view-btn active" data-view="list">Liste</button>
-            <button class="view-btn" data-view="calendar">Calendrier</button>
-          </div>
+        </div>
+      </div>
+      
+      <div class="view-toggle-container">
+        <div class="view-toggle">
+          <button class="view-toggle-btn" aria-label="Basculer entre vue liste et calendrier">
+            <span class="view-toggle-part view-toggle-left active" data-view="list">
+              <span class="view-icon">≡</span>
+            </span>
+            <span class="view-toggle-part view-toggle-right" data-view="calendar">
+              <span class="view-icon">📅</span>
+            </span>
+          </button>
         </div>
       </div>
       

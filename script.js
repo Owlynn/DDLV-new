@@ -13,16 +13,24 @@ let currentDate = new Date(2024, 2, 1); // Mars 2024
 
 // Basculement entre liste et calendrier
 document.addEventListener('DOMContentLoaded', function() {
+  const viewToggleBtn = document.querySelector('.view-toggle-btn');
   const viewButtons = document.querySelectorAll('.view-btn');
   const listView = document.getElementById('workshops-list-view');
   const calendarView = document.getElementById('calendar-view');
+  const toggleLeft = document.querySelector('.view-toggle-left');
+  const toggleRight = document.querySelector('.view-toggle-right');
 
-  viewButtons.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const view = this.getAttribute('data-view');
+  // Nouveau système de toggle
+  if (viewToggleBtn && toggleLeft && toggleRight) {
+    viewToggleBtn.addEventListener('click', function(e) {
+      const target = e.target.closest('.view-toggle-part');
+      if (!target) return;
       
-      viewButtons.forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
+      const view = target.getAttribute('data-view');
+      
+      // Mettre à jour les classes active
+      toggleLeft.classList.toggle('active', view === 'list');
+      toggleRight.classList.toggle('active', view === 'calendar');
       
       if (view === 'list') {
         listView.style.display = 'flex';
@@ -33,34 +41,67 @@ document.addEventListener('DOMContentLoaded', function() {
         renderCalendar();
       }
     });
-  });
+  }
+
+  // Ancien système (pour compatibilité avec ateliers.html)
+  if (viewButtons.length > 0) {
+    viewButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const view = this.getAttribute('data-view');
+        
+        viewButtons.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        if (view === 'list') {
+          listView.style.display = 'flex';
+          calendarView.style.display = 'none';
+        } else {
+          listView.style.display = 'none';
+          calendarView.style.display = 'block';
+          renderCalendar();
+        }
+      });
+    });
+  }
   
   // Initialiser le calendrier si nécessaire
-  if (calendarView.style.display === 'block') {
+  if (calendarView && calendarView.style.display === 'block') {
     renderCalendar();
   }
 
   // Navigation du calendrier
-  document.getElementById('prev-month').addEventListener('click', function() {
-    currentDate.setMonth(currentDate.getMonth() - 1);
-    renderCalendar();
-  });
+  const prevMonthBtn = document.getElementById('prev-month');
+  const nextMonthBtn = document.getElementById('next-month');
+  
+  if (prevMonthBtn) {
+    prevMonthBtn.addEventListener('click', function() {
+      currentDate.setMonth(currentDate.getMonth() - 1);
+      renderCalendar();
+    });
+  }
 
-  document.getElementById('next-month').addEventListener('click', function() {
-    currentDate.setMonth(currentDate.getMonth() + 1);
-    renderCalendar();
-  });
+  if (nextMonthBtn) {
+    nextMonthBtn.addEventListener('click', function() {
+      currentDate.setMonth(currentDate.getMonth() + 1);
+      renderCalendar();
+    });
+  }
 });
 
 // Rendu du calendrier
 function renderCalendar() {
+  const calendarGrid = document.getElementById('calendar-grid');
+  const monthTitle = document.getElementById('month-title');
+  
+  if (!calendarGrid || !monthTitle) return; // Si on n'est pas sur une page avec calendrier
+  
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
   
   // Mise à jour du titre
   const monthNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 
                       'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-  document.getElementById('month-title').textContent = `${monthNames[month]} ${year}`;
+  monthTitle.textContent = `${monthNames[month]} ${year}`;
   
   // Premier jour du mois et nombre de jours
   const firstDay = new Date(year, month, 1);
@@ -72,7 +113,6 @@ function renderCalendar() {
   const weekDays = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
   
   // Génération du calendrier
-  const calendarGrid = document.getElementById('calendar-grid');
   calendarGrid.innerHTML = '';
   
   // En-têtes des jours
@@ -178,4 +218,57 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Initialiser
   updateSlider();
+});
+
+// Navigation par sections pour impro-vocale.html
+document.addEventListener('DOMContentLoaded', function() {
+  const tocLinks = document.querySelectorAll('.article-toc-link');
+  const sections = document.querySelectorAll('.article-section');
+  
+  if (tocLinks.length === 0) return; // Si on n'est pas sur la page avec le sommaire
+  
+  function showSection(sectionId) {
+    // Masquer toutes les sections
+    sections.forEach(section => {
+      section.style.display = 'none';
+      section.classList.remove('active-section');
+    });
+    
+    // Afficher la section sélectionnée
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+      targetSection.style.display = 'block';
+      targetSection.classList.add('active-section');
+    }
+    
+    // Mettre à jour les liens actifs
+    tocLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('data-section') === sectionId) {
+        link.classList.add('active');
+      }
+    });
+  }
+  
+  // Gérer les clics sur les liens du sommaire
+  tocLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const sectionId = this.getAttribute('data-section');
+      showSection(sectionId);
+      
+      // Scroll vers le haut du contenu
+      const articleMain = document.querySelector('.article-main');
+      if (articleMain) {
+        articleMain.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+  
+  // Afficher la première section par défaut
+  if (sections.length > 0) {
+    const firstSection = sections[0];
+    const firstSectionId = firstSection.id;
+    showSection(firstSectionId);
+  }
 });
