@@ -65,34 +65,47 @@
   </header>
   
   <main id="main-content" role="main">
-    <article class="article-container contact-container">
-      <div class="contact-content">
-        <h1 class="contact-title">Contact</h1>
-        <p class="contact-intro">Vous avez des questions sur les cours de chant, les ateliers d'improvisation vocale ou les circle songs ? N'hésitez pas à me contacter, je serai ravie de vous répondre.</p>
-        
-        <form class="contact-form" action="#" method="POST" aria-label="Formulaire de contact">
-          <div class="form-group">
-            <label for="name" class="form-label">Nom *</label>
-            <input type="text" id="name" name="name" class="form-input" required aria-required="true">
-          </div>
-          
-          <div class="form-group">
-            <label for="email" class="form-label">Email *</label>
-            <input type="email" id="email" name="email" class="form-input" required aria-required="true">
-          </div>
-          
-          <div class="form-group">
-            <label for="subject" class="form-label">Sujet</label>
-            <input type="text" id="subject" name="subject" class="form-input" placeholder="Ex: Question sur les cours de chant">
-          </div>
-          
-          <div class="form-group">
-            <label for="message" class="form-label">Message *</label>
-            <textarea id="message" name="message" class="form-textarea" rows="8" required aria-required="true" placeholder="Votre message..."></textarea>
-          </div>
-          
-          <button type="submit" class="form-submit">Envoyer le message</button>
-        </form>
+    <article class="article-container">
+      <div class="article-layout">
+        <!-- Sommaire latéral -->
+        <aside class="article-toc" aria-label="Sommaire de la page">
+          <p class="article-toc-title">Contact</p>
+          <p class="article-toc-subtitle">N'hésitez pas à me contacter pour toute question</p>
+        </aside>
+
+        <!-- Contenu principal -->
+        <div class="article-main">
+          <section class="article-section glass-section active-section">
+            <div class="article-content">
+              <h1>Contact</h1>
+              <p>Vous avez des questions sur les cours de chant, les ateliers d'improvisation vocale ou les circle songs ? N'hésitez pas à me contacter, je serai ravie de vous répondre.</p>
+              
+              <form class="contact-form" action="#" method="POST" aria-label="Formulaire de contact">
+                <div class="form-group">
+                  <label for="name" class="form-label">Nom *</label>
+                  <input type="text" id="name" name="name" class="form-input" required aria-required="true">
+                </div>
+                
+                <div class="form-group">
+                  <label for="email" class="form-label">Email *</label>
+                  <input type="email" id="email" name="email" class="form-input" required aria-required="true">
+                </div>
+                
+                <div class="form-group">
+                  <label for="subject" class="form-label">Sujet</label>
+                  <input type="text" id="subject" name="subject" class="form-input" placeholder="Ex: Question sur les cours de chant">
+                </div>
+                
+                <div class="form-group">
+                  <label for="message" class="form-label">Message *</label>
+                  <textarea id="message" name="message" class="form-textarea" rows="5" required aria-required="true" placeholder="Votre message..."></textarea>
+                </div>
+                
+                <button type="submit" class="form-submit">Envoyer le message</button>
+              </form>
+            </div>
+          </section>
+        </div>
       </div>
     </article>
   </main>
