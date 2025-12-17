@@ -1,3 +1,65 @@
+// Menu hamburger pour mobile
+document.addEventListener('DOMContentLoaded', function() {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const headerNav = document.querySelector('.header-nav');
+  
+  if (menuToggle && headerNav) {
+    // Créer le bouton hamburger s'il n'existe pas
+    if (!menuToggle.innerHTML) {
+      menuToggle.innerHTML = '<span></span><span></span><span></span>';
+    }
+    
+    // Créer l'overlay si il n'existe pas
+    let menuOverlay = document.querySelector('.menu-overlay');
+    if (!menuOverlay) {
+      menuOverlay = document.createElement('div');
+      menuOverlay.className = 'menu-overlay';
+      document.body.appendChild(menuOverlay);
+    }
+    
+    function toggleMenu() {
+      const isActive = menuToggle.classList.toggle('active');
+      headerNav.classList.toggle('active');
+      menuOverlay.classList.toggle('active');
+      menuToggle.setAttribute('aria-expanded', isActive);
+      
+      // Empêcher le scroll du body quand le menu est ouvert
+      if (isActive) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+    
+    menuToggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleMenu();
+    });
+    
+    // Fermer le menu quand on clique sur l'overlay
+    menuOverlay.addEventListener('click', function() {
+      menuToggle.classList.remove('active');
+      headerNav.classList.remove('active');
+      menuOverlay.classList.remove('active');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+    
+    // Fermer le menu quand on clique sur un lien
+    const menuLinks = headerNav.querySelectorAll('.header-menu-item');
+    menuLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        menuToggle.classList.remove('active');
+        headerNav.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+  
+});
+
 // Données des ateliers
 const workshops = [
   { title: "Atelier d'improvisation vocale", date: "2024-03-15", time: "14h-17h", location: "Toulouse, Studio La Voix", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=80" },
@@ -134,25 +196,28 @@ function renderCalendar() {
   }
 }
 
-// Navigation par sections pour impro-vocale.html
+// Navigation par sections avec scroll
 document.addEventListener('DOMContentLoaded', function() {
   const tocLinks = document.querySelectorAll('.article-toc-link');
   const sections = document.querySelectorAll('.article-section');
   
   if (tocLinks.length === 0) return; // Si on n'est pas sur la page avec le sommaire
   
+  const isMobile = window.innerWidth <= 768;
+  
   function showSection(sectionId) {
-    // Masquer toutes les sections
-    sections.forEach(section => {
-      section.style.display = 'none';
-      section.classList.remove('active-section');
-    });
-    
-    // Afficher la section sélectionnée
-    const targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-      targetSection.style.display = 'block';
-      targetSection.classList.add('active-section');
+    // Sur desktop, utiliser le système existant (affichage/masquage)
+    if (!isMobile) {
+      sections.forEach(section => {
+        section.style.display = 'none';
+        section.classList.remove('active-section');
+      });
+      
+      const targetSection = document.getElementById(sectionId);
+      if (targetSection) {
+        targetSection.style.display = 'block';
+        targetSection.classList.add('active-section');
+      }
     }
     
     // Mettre à jour les liens actifs
@@ -169,18 +234,34 @@ document.addEventListener('DOMContentLoaded', function() {
     link.addEventListener('click', function(e) {
       e.preventDefault();
       const sectionId = this.getAttribute('data-section');
-      showSection(sectionId);
+      const targetSection = document.getElementById(sectionId);
       
-      // Scroll vers le haut du contenu
-      const articleMain = document.querySelector('.article-main');
-      if (articleMain) {
-        articleMain.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (targetSection) {
+        if (isMobile) {
+          // Sur mobile : scroll vers la section
+          const headerHeight = document.querySelector('.site-nav')?.offsetHeight || 0;
+          const offset = headerHeight + 20; // Offset pour le header + marge
+          const sectionPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
+          const sectionTop = sectionPosition - offset;
+          
+          window.scrollTo({
+            top: sectionTop,
+            behavior: 'smooth'
+          });
+        } else {
+          // Sur desktop : affichage/masquage
+          showSection(sectionId);
+        }
+        
+        // Mettre à jour le lien actif
+        tocLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
       }
     });
   });
   
-  // Afficher la première section par défaut
-  if (sections.length > 0) {
+  // Afficher la première section par défaut sur desktop
+  if (!isMobile && sections.length > 0) {
     const firstSection = sections[0];
     const firstSectionId = firstSection.id;
     showSection(firstSectionId);
