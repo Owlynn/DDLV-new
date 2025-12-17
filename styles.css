@@ -299,7 +299,10 @@ li {
 }
 
 .header-menu-item:hover { opacity: 0.8; }
-.header-menu-item.active { color: var(--color-accent); }
+.header-menu-item.active {
+  color: var(--color-accent);
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.4);
+}
 .menu-item-home { display: none; }
 
 .menu-toggle {
@@ -1115,6 +1118,7 @@ li {
   border-radius: 8px;
   border: none;
   box-shadow: none;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .article-toc-subtitle {
@@ -1255,6 +1259,10 @@ li {
   line-height: 1.2;
   margin-bottom: var(--spacing-md);
   margin-top: 0;
+}
+
+.article-content h1 {
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .article-content h3 {
