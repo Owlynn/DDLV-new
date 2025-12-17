@@ -519,6 +519,18 @@ p {
   flex-direction: row;
   align-items: stretch;
   position: relative;
+  /* Glassmorphism uniformisé avec impro-vocale.html */
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(212, 197, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.08) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04),
+              2px 0 8px rgba(0, 0, 0, 0.02);
+  /* Pas de transitions */
 }
 
 .workshop-overlay {
@@ -534,7 +546,7 @@ p {
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: opacity 0.3s ease, backdrop-filter 0.3s ease;
+  /* Pas de transition */
   z-index: 10;
   pointer-events: none;
   cursor: pointer;
@@ -545,11 +557,7 @@ p {
   pointer-events: auto;
 }
 
-.card-workshop:hover .workshop-image,
-.card-workshop:hover .workshop-content {
-  filter: blur(8px);
-  transition: filter 0.3s ease;
-}
+/* Pas d'animations sur les images et contenu au hover */
 
 .workshop-overlay-text {
   color: #3605af;
@@ -1793,6 +1801,342 @@ p {
   
   .menu-items {
     gap: 2rem;
+  }
+}
+
+/* ============================================
+   STYLES ARTICLE DE BLOG - impro-vocale.html
+   ============================================ */
+
+/* Conteneur article - 80% de largeur */
+.article-container {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 0;
+  position: relative;
+  z-index: 1;
+  margin-top: 90px;
+}
+
+/* Layout en deux colonnes : sommaire + contenu */
+.article-layout {
+  display: flex;
+  gap: 0;
+  height: calc(100vh - 200px);
+  min-height: 600px;
+  box-sizing: border-box;
+}
+
+.article-toc {
+  flex: 0 0 300px;
+  height: 100%;
+  padding: 1.75rem 1.5rem;
+  padding-right: 1rem;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(212, 197, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.08) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 8px 0 0 8px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-right: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04),
+              2px 0 8px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  z-index: 2;
+  position: relative;
+}
+
+.article-toc-title {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #7a6ac7;
+  margin-bottom: 1.25rem;
+}
+
+.article-toc-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.article-toc-link {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #3605af;
+  text-decoration: none;
+  padding: 0.35rem 0.25rem;
+  border-radius: 6px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.article-toc-link:hover,
+.article-toc-link:focus {
+  background-color: rgba(212, 197, 255, 0.35);
+  outline: none;
+}
+
+.article-toc-link.active {
+  color: #fe66c3;
+}
+
+.article-main {
+  flex: 1;
+  max-width: 720px;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+  padding-right: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(212, 197, 255, 0.02) 50%,
+    rgba(255, 255, 255, 0.04) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 0 8px 8px 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-left: none;
+  box-shadow: inset 2px 0 16px rgba(0, 0, 0, 0.08),
+              0 4px 16px rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 1;
+}
+
+/* Styles de scrollbar glassmorphism pour .article-toc et .article-main */
+.article-toc::-webkit-scrollbar,
+.article-main::-webkit-scrollbar {
+  width: 8px;
+}
+
+.article-toc::-webkit-scrollbar-track,
+.article-main::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 8px;
+}
+
+.article-toc::-webkit-scrollbar-thumb,
+.article-main::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(212, 197, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.2) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.article-toc::-webkit-scrollbar-thumb:hover,
+.article-main::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(212, 197, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0.3) 100%);
+}
+
+/* Styles pour Firefox */
+.article-toc,
+.article-main {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 197, 255, 0.4) transparent;
+}
+
+/* Header de l'article */
+.article-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem 0;
+}
+
+.article-content h1 {
+  font-size: 2rem;
+  color: #3605af;
+  font-weight: 400;
+  line-height: 1.3;
+  margin-bottom: 1.5rem;
+  margin-top: 0;
+}
+
+/* Sections de l'article avec glassmorphism - SANS animations */
+.article-section {
+  background: transparent;
+  padding: 3rem 4rem;
+  margin-bottom: 2rem;
+  /* PAS de transition ni transform */
+}
+
+/* Contenu de l'article */
+.article-content {
+  max-width: 100%;
+}
+
+.article-content p {
+  font-size: 1.125rem;
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-weight: 300;
+}
+
+.article-content .lead {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.article-content h2 {
+  font-size: 2rem;
+  color: #3605af;
+  margin-bottom: 1.5rem;
+  margin-top: 0;
+  font-weight: 400;
+}
+
+.article-content ul {
+  margin: 1.5rem 0;
+  padding-left: 2rem;
+}
+
+.article-content li {
+  font-size: 1.125rem;
+  line-height: 1.9;
+  margin-bottom: 0.75rem;
+  color: #333;
+}
+
+.article-content strong {
+  color: #3605af;
+  font-weight: 600;
+}
+
+/* Images dans l'article */
+.article-image {
+  width: 60%;
+  max-width: 60%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1rem auto 2rem auto;
+  object-fit: cover;
+  display: block;
+  padding: 0.5rem;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(212, 197, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.1) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Images dans l'article - border-radius subtil */
+.article-image-full {
+  width: 100%;
+  height: 400px;
+  margin: 3rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.article-image-full::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.05) 0%, 
+    rgba(212, 197, 255, 0.02) 50%,
+    rgba(255, 255, 255, 0.05) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 8px;
+  z-index: 1;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .article-container {
+    max-width: 90%;
+    padding: 1.5rem 0;
+  }
+  
+  .article-layout {
+    flex-direction: column;
+  }
+
+  .article-toc {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .article-main {
+    max-width: 100%;
+  }
+  
+  .article-section {
+    padding: 2rem 2.5rem;
+  }
+  
+  .article-image-full {
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .article-container {
+    max-width: 95%;
+    padding: 1rem 0;
+    margin-top: 60px;
+  }
+  
+  .article-content h1 {
+    font-size: 1.5rem;
+  }
+  
+  .article-section {
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .article-content h2 {
+    font-size: 1.5rem;
+  }
+  
+  .article-content p {
+    font-size: 1rem;
+  }
+  
+  .article-content .lead {
+    font-size: 1.125rem;
+  }
+  
+  .article-image-full {
+    height: 250px;
+    margin: 2rem 0;
   }
 }
 
