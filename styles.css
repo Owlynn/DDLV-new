@@ -1344,7 +1344,7 @@ p {
   margin: 0;
   margin-top: 0;
   opacity: 0;
-  animation: titleAppear 1.2s ease-out 1.8s forwards;
+  animation: titleAppear 1.2s ease-out 0.8s forwards;
 }
 
 .hero-content > .hero-title {
@@ -1446,7 +1446,7 @@ p {
 
 .menu-label {
   font-family: 'Josefin Sans', sans-serif;
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 400;
   color: #5b2ab5;
   line-height: 1.2;
@@ -2695,7 +2695,7 @@ p {
   }
 
   .menu-label {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 500;
   }
 }
@@ -2913,7 +2913,7 @@ p {
   }
 
   .menu-label {
-    font-size: 1.125rem;
+    font-size: 1rem;
   }
 }
 
