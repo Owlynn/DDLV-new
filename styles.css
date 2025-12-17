@@ -169,7 +169,7 @@ p {
     rgba(255, 255, 255, 0.35) 100%);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: none;
   border-radius: 8px;
   padding: 0.75rem 2rem;
   z-index: 100;
@@ -1599,7 +1599,8 @@ p {
 }
 
 .article-toc {
-  flex: 0 0 300px;
+  flex: 0 0 302.5px;
+  width: 302.5px;
   padding: 1.75rem 1.5rem;
   background: linear-gradient(135deg,
     rgba(255, 255, 255, 0.35) 0%,
@@ -1608,20 +1609,32 @@ p {
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: none;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04),
               0 2px 8px rgba(0, 0, 0, 0.02);
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   z-index: 50;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 8.5rem;
+  position: fixed;
+  top: 9.5rem;
+  left: 2rem;
   align-self: flex-start;
   max-height: calc(100vh - 10rem);
   overflow-y: auto;
   will-change: transform;
+}
+
+@media (min-width: 1025px) {
+  .article-main {
+    margin-left: calc(302.5px + 1.5rem); /* largeur TOC + gap */
+  }
+}
+
+@media (min-width: 1144px) {
+  .article-toc {
+    left: calc((100% - 1100px) / 2);
+  }
 }
 
 .article-toc-title {
@@ -1706,7 +1719,7 @@ p {
     rgba(255, 255, 255, 0.35) 100%);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: none;
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04),
               0 2px 8px rgba(0, 0, 0, 0.02);
