@@ -196,31 +196,15 @@ function renderCalendar() {
   }
 }
 
-// Navigation par sections avec scroll
+// Navigation par sections avec scroll automatique
 document.addEventListener('DOMContentLoaded', function() {
   const tocLinks = document.querySelectorAll('.article-toc-link');
   const sections = document.querySelectorAll('.article-section');
   
   if (tocLinks.length === 0) return; // Si on n'est pas sur la page avec le sommaire
   
-  const isMobile = window.innerWidth <= 768;
-  
-  function showSection(sectionId) {
-    // Sur desktop, utiliser le système existant (affichage/masquage)
-    if (!isMobile) {
-      sections.forEach(section => {
-        section.style.display = 'none';
-        section.classList.remove('active-section');
-      });
-      
-      const targetSection = document.getElementById(sectionId);
-      if (targetSection) {
-        targetSection.style.display = 'block';
-        targetSection.classList.add('active-section');
-      }
-    }
-    
-    // Mettre à jour les liens actifs
+  // Fonction pour mettre à jour le lien actif dans le TOC
+  function updateActiveLink(sectionId) {
     tocLinks.forEach(link => {
       link.classList.remove('active');
       if (link.getAttribute('data-section') === sectionId) {
@@ -229,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Gérer les clics sur les liens du sommaire
+  // Gérer les clics sur les liens du sommaire - scroll vers la section
   tocLinks.forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
@@ -237,33 +221,61 @@ document.addEventListener('DOMContentLoaded', function() {
       const targetSection = document.getElementById(sectionId);
       
       if (targetSection) {
-        if (isMobile) {
-          // Sur mobile : scroll vers la section
-          const headerHeight = document.querySelector('.site-nav')?.offsetHeight || 0;
-          const offset = headerHeight + 20; // Offset pour le header + marge
-          const sectionPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
-          const sectionTop = sectionPosition - offset;
-          
-          window.scrollTo({
-            top: sectionTop,
-            behavior: 'smooth'
-          });
-        } else {
-          // Sur desktop : affichage/masquage
-          showSection(sectionId);
-        }
+        const headerHeight = document.querySelector('.site-nav')?.offsetHeight || 0;
+        const articleTocHeight = document.querySelector('.article-toc')?.offsetHeight || 0;
+        const offset = headerHeight + 20; // Offset pour le header + marge
+        const sectionPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
+        const sectionTop = sectionPosition - offset;
         
-        // Mettre à jour le lien actif
-        tocLinks.forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
+        window.scrollTo({
+          top: sectionTop,
+          behavior: 'smooth'
+        });
+        
+        // Mettre à jour le lien actif immédiatement
+        updateActiveLink(sectionId);
       }
     });
   });
   
-  // Afficher la première section par défaut sur desktop
-  if (!isMobile && sections.length > 0) {
-    const firstSection = sections[0];
-    const firstSectionId = firstSection.id;
-    showSection(firstSectionId);
+  // Détection automatique de la section visible au scroll avec Intersection Observer
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -60% 0px', // La section est considérée active quand elle est dans le tiers supérieur de la fenêtre
+    threshold: 0
+  };
+  
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const sectionId = entry.target.id;
+        updateActiveLink(sectionId);
+      }
+    });
+  }, observerOptions);
+  
+  // Observer toutes les sections
+  sections.forEach(section => {
+    observer.observe(section);
+  });
+  
+  // Mettre à jour le lien actif au chargement de la page selon la position du scroll
+  function setInitialActiveLink() {
+    const scrollPosition = window.pageYOffset;
+    const headerHeight = document.querySelector('.site-nav')?.offsetHeight || 0;
+    const offset = headerHeight + 100; // Offset pour déterminer quelle section est visible
+    
+    for (let i = sections.length - 1; i >= 0; i--) {
+      const section = sections[i];
+      const sectionTop = section.getBoundingClientRect().top + scrollPosition;
+      
+      if (scrollPosition + offset >= sectionTop) {
+        updateActiveLink(section.id);
+        break;
+      }
+    }
   }
+  
+  // Appeler au chargement et après un court délai pour s'assurer que le DOM est prêt
+  setTimeout(setInitialActiveLink, 100);
 });
