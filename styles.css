@@ -31,28 +31,16 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('assets/hexagon-pattern.svg');
+  background-image: url('./assets/hexagon-pattern.svg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  opacity: 1;
-  filter: contrast(2) brightness(0.5) saturate(1.3) blur(0.5px);
+  opacity: 0.5;
+  filter: brightness(0.9) contrast(1.2);
   z-index: -1;
   pointer-events: none;
 }
 
-body::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 20% 50%, rgba(212, 197, 255, 0.15) 0%, transparent 50%),
-              radial-gradient(circle at 80% 80%, rgba(254, 102, 195, 0.1) 0%, transparent 50%);
-  z-index: -1;
-  pointer-events: none;
-}
 
 /* Empêcher le scroll uniquement sur index.html */
 body.no-scroll {
@@ -70,7 +58,7 @@ html.no-scroll {
   position: absolute;
   top: -6.25rem;
   left: -9999px;
-  background: #3605af;
+  background: #5b2ab5;
   color: #FFFFFF;
   padding: 0.5rem 1rem;
   text-decoration: none;
@@ -91,26 +79,26 @@ h1 {
   font-size: 2.25rem;
   font-weight: 400;
   line-height: 1.2;
-  color: #3605af;
+  color: #5b2ab5;
 }
 
 h2 {
   font-size: 1.875rem;
   font-weight: 400;
   line-height: 1.2;
-  color: #4A07D4;
+  color: #5b2ab5;
 }
 
 h3 {
   font-size: 1.5rem;
   font-weight: 400;
-  color: #4A07D4;
+  color: #5b2ab5;
 }
 
 h4 {
   font-size: 1.25rem;
   font-weight: 400;
-  color: #4A07D4;
+  color: #5b2ab5;
 }
 
 p {
@@ -126,9 +114,9 @@ p {
   width: calc(100% - 4rem);
   max-width: 1100px;
   background: linear-gradient(135deg,
-    rgba(255, 255, 255, 0.15) 0%,
-    rgba(248, 245, 255, 0.08) 50%,
-    rgba(255, 255, 255, 0.35) 100%) !important;
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(248, 245, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.5) 100%) !important;
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.4) !important;
@@ -139,60 +127,6 @@ p {
               2px 0 8px rgba(0, 0, 0, 0.02) !important;
   box-sizing: border-box;
 }
-
-/* Styles spécifiques pour index-copy.html */
-.index-copy-page .article-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100%;
-  padding: 2rem;
-}
-
-.index-copy-page .logo-container {
-  max-width: 100%;
-  justify-content: center;
-  width: auto;
-  opacity: 1 !important;
-  transform: scale(1) !important;
-  animation: none !important;
-  -webkit-animation: none !important;
-  visibility: visible !important;
-}
-
-.index-copy-page .logo-container * {
-  animation: none !important;
-  -webkit-animation: none !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-.index-copy-page .logo-image {
-  max-width: 100%;
-  width: auto;
-  height: auto;
-}
-
-/* Nav en bas pour index-copy.html */
-.index-copy-page .site-nav {
-  text-align: center;
-}
-
-.index-copy-page .site-nav .header-container {
-  justify-content: center;
-  align-items: center;
-  min-height: 3.75rem;
-}
-
-.index-copy-nav-title {
-  font-size: 1.25rem;
-  font-weight: 400;
-  color: #3605af;
-  margin: 0;
-  font-family: 'Josefin Sans', sans-serif;
-  line-height: 1.5;
-}
-
 
 .header-container {
   max-width: 100%;
@@ -234,7 +168,7 @@ p {
 .header-menu-item {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 1rem;
-  color: #3605af;
+  color: #5b2ab5;
   text-decoration: none;
   transition: opacity 0.3s ease;
   white-space: nowrap;
@@ -343,7 +277,7 @@ p {
 .page-hero h1 {
   font-size: 3rem;
   margin: 0;
-  color: #3605af;
+  color: #5b2ab5;
   font-weight: 400;
   line-height: 1.3;
   letter-spacing: -0.02em;
@@ -351,7 +285,7 @@ p {
 
 .page-hero-subtitle {
   font-size: 1.75rem;
-  color: #4A07D4;
+  color: #5b2ab5;
   font-weight: 300;
   line-height: 1.5;
   max-width: 700px;
@@ -361,9 +295,9 @@ p {
 /* Système de cartes glassmorphism */
 .card {
   background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.05) 0%, 
-    rgba(212, 197, 255, 0.02) 50%,
-    rgba(255, 255, 255, 0.05) 100%);
+    rgba(255, 255, 255, 0.25) 0%, 
+    rgba(212, 197, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.25) 100%);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 24px;
@@ -437,7 +371,7 @@ p {
 .card-hero .hero-title {
   font-size: 3rem;
   margin: 0;
-  color: #3605af;
+  color: #5b2ab5;
   font-weight: 400;
   line-height: 1.3;
   letter-spacing: -0.02em;
@@ -672,7 +606,7 @@ p {
 }
 
 .workshop-overlay-text {
-  color: #3605af;
+  color: #5b2ab5;
   font-size: 1.25rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -735,7 +669,7 @@ p {
 
 .workshop-title {
   font-size: 1.25rem;
-  color: #3605af;
+  color: #5b2ab5;
   margin-bottom: 0;
   font-weight: 500;
 }
@@ -753,7 +687,7 @@ p {
   display: inline-block;
   padding: 0.75rem 2rem;
   background: linear-gradient(135deg, rgba(212, 197, 255, 0.3), rgba(180, 160, 240, 0.3));
-  color: #3605af;
+  color: #5b2ab5;
   text-decoration: none;
   white-space: nowrap;
   align-self: center;
@@ -768,7 +702,7 @@ p {
 .workshop-button:hover {
   background: linear-gradient(135deg, rgba(212, 197, 255, 0.4), rgba(180, 160, 240, 0.4));
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(54, 5, 175, 0.2);
+  box-shadow: 0 4px 12px rgba(91, 42, 181, 0.2);
 }
 
 @media (max-width: 1024px) {
@@ -1032,7 +966,7 @@ p {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.4);
-  color: #3605af;
+  color: #5b2ab5;
   border-radius: 8px;
   font-size: 1.25rem;
   font-weight: 500;
@@ -1065,7 +999,7 @@ p {
     rgba(212, 197, 255, 0.15) 50%,
     rgba(255, 255, 255, 0.2) 100%);
   border-color: rgba(255, 255, 255, 0.4);
-  color: #3605af;
+  color: #5b2ab5;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12),
               0 4px 12px rgba(0, 0, 0, 0.08),
               inset 0 1px 0 rgba(255, 255, 255, 0.6);
@@ -1098,7 +1032,7 @@ p {
 
 .calendar-month-title {
   font-size: 1.75rem;
-  color: #3605af;
+  color: #5b2ab5;
   font-weight: 500;
   margin: 0;
 }
@@ -1106,7 +1040,7 @@ p {
 .calendar-nav-btn {
   background: transparent;
   border: 2px solid rgba(212, 197, 255, 0.5);
-  color: #3605af;
+  color: #5b2ab5;
   border-radius: 8px;
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
@@ -1129,7 +1063,7 @@ p {
 .calendar-day-header {
   text-align: center;
   font-weight: 600;
-  color: #3605af;
+  color: #5b2ab5;
   padding: 0.5rem;
   font-size: 0.85rem;
 }
@@ -1162,17 +1096,17 @@ p {
 
 .calendar-day.has-workshop {
   background: rgba(212, 197, 255, 0.15);
-  border-color: rgba(54, 5, 175, 0.3);
+  border-color: rgba(91, 42, 181, 0.3);
 }
 
 .calendar-day.has-workshop .day-number {
-  color: #3605af;
+  color: #5b2ab5;
   font-weight: 600;
 }
 
 .workshop-indicator {
   font-size: 0.7rem;
-  color: #3605af;
+  color: #5b2ab5;
   text-align: center;
   line-height: 1.2;
   font-weight: 500;
@@ -1262,7 +1196,7 @@ p {
 
 .slider-card-title {
   font-size: 2rem;
-  color: #3605af;
+  color: #5b2ab5;
   margin-bottom: 1.5rem;
   font-weight: 500;
   text-align: left;
@@ -1313,7 +1247,7 @@ p {
 }
 
 .slider-card-text a {
-  color: #3605af;
+  color: #5b2ab5;
   text-decoration: underline;
 }
 
@@ -1334,7 +1268,7 @@ p {
   cursor: pointer;
   transition: all 0.3s ease;
   z-index: 10;
-  color: #3605af;
+  color: #5b2ab5;
   font-size: 1.5rem;
   font-weight: bold;
 }
@@ -1366,14 +1300,14 @@ p {
   height: 0.75rem;
   border-radius: 50%;
   background: rgba(212, 197, 255, 0.3);
-  border: 2px solid rgba(54, 5, 175, 0.2);
+  border: 2px solid rgba(91, 42, 181, 0.2);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .slider-dot.active {
   background: rgba(212, 197, 255, 0.6);
-  border-color: rgba(54, 5, 175, 0.5);
+  border-color: rgba(91, 42, 181, 0.5);
   transform: scale(1.2);
 }
 
@@ -1495,7 +1429,7 @@ p {
   border-radius: 8px;
   padding: 0.5rem 0.75rem;
   font-size: 0.85rem;
-  color: #3605af;
+  color: #5b2ab5;
   font-weight: 500;
   white-space: nowrap;
   opacity: 0;
@@ -1512,7 +1446,7 @@ p {
 }
 
 .calendar-day.has-workshop .workshop-overlay .workshop-overlay-text {
-  color: #3605af;
+  color: #5b2ab5;
   font-size: 0.7rem;
   font-weight: 400;
   text-align: center;
@@ -1520,7 +1454,7 @@ p {
 
 .page-title {
   font-size: 2.5rem;
-  color: #3605af;
+  color: #5b2ab5;
   margin-bottom: 0.5rem;
   font-weight: 500;
 }
@@ -1555,7 +1489,7 @@ p {
 .intro-text h2 {
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
-  color: #3605af;
+  color: #5b2ab5;
   font-weight: 400;
 }
 
@@ -1630,12 +1564,12 @@ p {
 .content-text h2 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: #3605af;
+  color: #5b2ab5;
   transition: color 0.3s ease;
 }
 
 .card:hover .content-text h2 {
-  color: #4A07D4;
+  color: #5b2ab5;
 }
 
 .content-text h3 {
@@ -1654,7 +1588,7 @@ p {
 }
 
 .content-text strong {
-  color: #3605af;
+  color: #5b2ab5;
   font-weight: 600;
 }
 
@@ -1817,7 +1751,7 @@ p {
 /* Hero Section (pour index.html) */
 .hero-section {
   position: relative;
-  background-color: #FFFFFF;
+  background-color: transparent;
   overflow: hidden;
   height: 100vh;
   width: 100%;
@@ -1825,23 +1759,6 @@ p {
   align-items: center;
   justify-content: center;
   padding: 1rem 0;
-}
-
-.hero-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('assets/hexagon-pattern.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  opacity: 1;
-  filter: contrast(2) brightness(0.5) saturate(1.3);
-  z-index: 0;
-  pointer-events: none;
 }
 
 .hero-container {
@@ -1924,7 +1841,7 @@ p {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 1rem;
   font-weight: 600;
-  color: #3605af;
+  color: #5b2ab5;
   text-align: right;
   white-space: normal;
   opacity: 0;
@@ -1973,7 +1890,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  color: #3605af;
+  color: #5b2ab5;
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   gap: 12px;
@@ -2024,7 +1941,7 @@ p {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 1rem;
   font-weight: 400;
-  color: #3605af;
+  color: #5b2ab5;
   line-height: 1.2;
   display: flex;
   align-items: center;
@@ -2183,7 +2100,7 @@ p {
 
 .form-label {
   font-size: 1rem;
-  color: #3605af;
+  color: #5b2ab5;
   font-weight: 400;
   font-family: 'Josefin Sans', sans-serif;
 }
@@ -2205,9 +2122,9 @@ p {
 .form-input:focus,
 .form-textarea:focus {
   outline: none;
-  border-color: rgba(54, 5, 175, 0.5);
+  border-color: rgba(91, 42, 181, 0.5);
   background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 2px 8px rgba(54, 5, 175, 0.1);
+  box-shadow: 0 2px 8px rgba(91, 42, 181, 0.1);
 }
 
 .form-textarea {
@@ -2219,7 +2136,7 @@ p {
 .form-submit {
   padding: 0.7rem 1.75rem;
   background: linear-gradient(135deg,
-    rgba(54, 5, 175, 0.8) 0%,
+    rgba(91, 42, 181, 0.8) 0%,
     rgba(122, 106, 199, 0.8) 100%);
   color: white;
   border: none;
@@ -2230,14 +2147,14 @@ p {
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 0.25rem;
-  box-shadow: 0 4px 12px rgba(54, 5, 175, 0.2);
+  box-shadow: 0 4px 12px rgba(91, 42, 181, 0.2);
 }
 
 .form-submit:hover {
   background: linear-gradient(135deg,
-    rgba(54, 5, 175, 0.9) 0%,
+    rgba(91, 42, 181, 0.9) 0%,
     rgba(122, 106, 199, 0.9) 100%);
-  box-shadow: 0 6px 16px rgba(54, 5, 175, 0.3);
+  box-shadow: 0 6px 16px rgba(91, 42, 181, 0.3);
   transform: translateY(-2px);
 }
 
@@ -2260,9 +2177,9 @@ p {
   padding: 1.75rem 1.5rem;
   padding-right: 1rem;
   background: linear-gradient(135deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(212, 197, 255, 0.05) 50%,
-    rgba(255, 255, 255, 0.08) 100%);
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(248, 245, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.3) 100%);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 8px 0 0 8px;
@@ -2287,6 +2204,47 @@ p {
   margin-bottom: 1rem;
 }
 
+/* Styles pour les tableaux de tarifs */
+.pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.pricing-table thead tr {
+  border-bottom: 2px solid rgba(91, 42, 181, 0.2);
+}
+
+.pricing-table th {
+  text-align: left;
+  padding: 0.75rem;
+  color: #5b2ab5;
+  font-weight: 500;
+}
+
+.pricing-table th:last-child {
+  text-align: right;
+}
+
+.pricing-table tbody tr {
+  border-bottom: 1px solid rgba(91, 42, 181, 0.1);
+}
+
+.pricing-table td {
+  padding: 0.75rem;
+}
+
+.pricing-table td:last-child {
+  text-align: right;
+  font-weight: 500;
+}
+
+/* Image article avec fond transparent */
+.article-image-transparent {
+  object-fit: contain;
+  background: transparent;
+}
+
 .article-toc-subtitle {
   font-size: 0.85rem;
   line-height: 1.5;
@@ -2304,7 +2262,7 @@ p {
 .article-toc-link {
   font-size: 0.95rem;
   line-height: 1.5;
-  color: #3605af;
+  color: #5b2ab5;
   text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 8px;
@@ -2335,7 +2293,7 @@ p {
 }
 
 .article-toc-link.active {
-  color: #3605af;
+  color: #5b2ab5;
   background: linear-gradient(135deg,
     rgba(255, 255, 255, 0.08) 0%,
     rgba(212, 197, 255, 0.05) 50%,
@@ -2360,13 +2318,13 @@ p {
   display: flex;
   flex-direction: column;
   background: linear-gradient(135deg,
-    rgba(255, 255, 255, 0.04) 0%,
-    rgba(212, 197, 255, 0.02) 50%,
-    rgba(255, 255, 255, 0.04) 100%);
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(248, 245, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.3) 100%);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 0 8px 8px 0;
-  border: 1px solid rgba(255, 255, 255, 0.3);
   border-left: none;
   box-shadow: inset 2px 0 16px rgba(0, 0, 0, 0.08),
               0 4px 16px rgba(0, 0, 0, 0.08);
@@ -2429,13 +2387,13 @@ p {
 }
 
 .article-content thead {
-  background: rgba(54, 5, 175, 0.1);
+  background: rgba(91, 42, 181, 0.1);
 }
 
 .article-content th {
   text-align: left;
   padding: 0.75rem 1rem;
-  color: #3605af;
+  color: #5b2ab5;
   font-weight: 500;
   font-size: 0.95rem;
 }
@@ -2446,14 +2404,14 @@ p {
 
 .article-content td {
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid rgba(54, 5, 175, 0.1);
+  border-bottom: 1px solid rgba(91, 42, 181, 0.1);
   color: #333;
 }
 
 .article-content td:last-child {
   text-align: right;
   font-weight: 500;
-  color: #3605af;
+  color: #5b2ab5;
 }
 
 .article-content tbody tr:last-child td {
@@ -2462,7 +2420,7 @@ p {
 
 .article-content h3 {
   font-size: 1.5rem;
-  color: #3605af;
+  color: #5b2ab5;
   margin-top: 2rem;
   margin-bottom: 1rem;
   font-weight: 400;
@@ -2477,7 +2435,7 @@ p {
 
 .article-content h1 {
   font-size: 2rem;
-  color: #3605af;
+  color: #5b2ab5;
   font-weight: 400;
   line-height: 1.3;
   margin-bottom: 1.5rem;
@@ -2513,7 +2471,7 @@ p {
 
 .article-content h2 {
   font-size: 2rem;
-  color: #3605af;
+  color: #5b2ab5;
   margin-bottom: 1.5rem;
   margin-top: 0;
   font-weight: 400;
@@ -2532,7 +2490,7 @@ p {
 }
 
 .article-content strong {
-  color: #3605af;
+  color: #5b2ab5;
   font-weight: 600;
 }
 

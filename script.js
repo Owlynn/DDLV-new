@@ -14,7 +14,6 @@ let currentDate = new Date(2024, 2, 1); // Mars 2024
 // Basculement entre liste et calendrier
 document.addEventListener('DOMContentLoaded', function() {
   const viewToggleBtn = document.querySelector('.view-toggle-btn');
-  const viewButtons = document.querySelectorAll('.view-btn');
   const listView = document.getElementById('workshops-list-view');
   const calendarView = document.getElementById('calendar-view');
   const toggleLeft = document.querySelector('.view-toggle-left');
@@ -43,27 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Ancien système (pour compatibilité avec ateliers.html)
-  if (viewButtons.length > 0) {
-    viewButtons.forEach(btn => {
-      btn.addEventListener('click', function() {
-        const view = this.getAttribute('data-view');
-        
-        viewButtons.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        
-        if (view === 'list') {
-          listView.style.display = 'flex';
-          calendarView.style.display = 'none';
-        } else {
-          listView.style.display = 'none';
-          calendarView.style.display = 'block';
-          renderCalendar();
-        }
-      });
-    });
-  }
-  
   // Initialiser le calendrier si nécessaire
   if (calendarView && calendarView.style.display === 'block') {
     renderCalendar();
@@ -155,71 +133,6 @@ function renderCalendar() {
     calendarGrid.appendChild(dayElement);
   }
 }
-
-// Slider pour la page About
-document.addEventListener('DOMContentLoaded', function() {
-  const sliderTrack = document.getElementById('slider-track');
-  const prevBtn = document.getElementById('prev-slide');
-  const nextBtn = document.getElementById('next-slide');
-  const sliderDots = document.getElementById('slider-dots');
-  
-  if (!sliderTrack) return; // Si on n'est pas sur la page about
-  
-  const slides = sliderTrack.querySelectorAll('.slider-slide');
-  let currentSlide = 0;
-  
-  // Créer les dots
-  slides.forEach((_, index) => {
-    const dot = document.createElement('div');
-    dot.className = 'slider-dot' + (index === 0 ? ' active' : '');
-    dot.addEventListener('click', () => goToSlide(index));
-    sliderDots.appendChild(dot);
-  });
-  
-  function updateSlider() {
-    slides.forEach((slide, index) => {
-      if (index === currentSlide) {
-        slide.classList.add('active');
-      } else {
-        slide.classList.remove('active');
-      }
-    });
-    
-    const dots = sliderDots.querySelectorAll('.slider-dot');
-    dots.forEach((dot, index) => {
-      dot.classList.toggle('active', index === currentSlide);
-    });
-  }
-  
-  function goToSlide(index) {
-    currentSlide = index;
-    updateSlider();
-  }
-  
-  function nextSlide() {
-    currentSlide = (currentSlide + 1) % slides.length;
-    updateSlider();
-  }
-  
-  function prevSlide() {
-    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-    updateSlider();
-  }
-  
-  if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-  if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-  
-  // Navigation au clavier
-  document.addEventListener('keydown', function(e) {
-    if (sliderTrack && document.body.contains(sliderTrack)) {
-      if (e.key === 'ArrowLeft') prevSlide();
-      if (e.key === 'ArrowRight') nextSlide();
-    }
-  });
-  
-  // Initialiser
-  updateSlider();
-});
 
 // Navigation par sections pour impro-vocale.html
 document.addEventListener('DOMContentLoaded', function() {
