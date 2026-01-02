@@ -314,13 +314,8 @@ li {
 
 .header-menu-item:hover { opacity: 0.8; }
 .header-menu-item.active {
-  color: var(--color-accent);
-  -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.9);
-  text-stroke: 0.5px rgba(255, 255, 255, 0.9);
-  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.6), 0 1px 2px rgba(255, 255, 255, 0.5), 0 0 1px rgba(255, 255, 255, 0.4);
-  font-size: 24px;
-  transform: translateY(-6px);
-  letter-spacing: 0.06em;
+  color: var(--color-primary);
+  font-size: 22px;
 }
 .menu-item-home { display: none; }
 
@@ -1128,19 +1123,16 @@ li {
 
 .article-toc-title {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--color-accent);
+  color: var(--color-primary);
   margin-bottom: var(--spacing-md);
   padding: 0.75rem var(--spacing-sm);
   background: transparent;
   border-radius: 8px;
   border: none;
   box-shadow: none;
-  -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.9);
-  text-stroke: 0.5px rgba(255, 255, 255, 0.9);
-  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.6), 0 1px 2px rgba(255, 255, 255, 0.5), 0 0 1px rgba(255, 255, 255, 0.4);
 }
 
 .article-toc-subtitle {
