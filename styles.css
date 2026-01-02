@@ -316,6 +316,7 @@ li {
 .header-menu-item.active {
   color: var(--color-primary);
   font-size: 22px;
+  font-weight: 700;
 }
 .menu-item-home { display: none; }
 
