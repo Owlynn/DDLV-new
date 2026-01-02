@@ -86,7 +86,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 
 body {
   color: #000;
-  font-family: 'Calibri', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Inter', sans-serif;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -112,11 +112,11 @@ body::after {
 }
 
 body::before {
-  background-image: url('assets/unnamed.jpg');
+  background-image: url('assets/unnamed.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: blur(10px) brightness(1.8);
+  filter: brightness(1.8);
   opacity: 0.6;
   z-index: -2;
 }
@@ -208,7 +208,7 @@ body:not(.no-scroll) .cards-grid .card {
    TYPOGRAPHIE
    ============================================ */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Calibri', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Inter', sans-serif;
   color: var(--color-primary);
   font-weight: 400;
 }
@@ -298,7 +298,7 @@ li {
 .header-menu-item,
 .article-toc-link,
 .menu-label {
-  font-family: 'Calibri', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 18px;
   color: var(--color-primary);
   font-weight: 400;
@@ -586,7 +586,7 @@ li {
   overflow: hidden;
   cursor: pointer;
   transition: all var(--transition-base);
-  font-family: 'Calibri', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .view-toggle-part {
@@ -616,7 +616,7 @@ li {
   line-height: 1;
   color: var(--color-primary-light);
   transition: all var(--transition-base);
-  font-family: 'Calibri', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 400;
 }
 
@@ -669,7 +669,7 @@ li {
   font-size: 1.25rem;
   cursor: pointer;
   transition: all var(--transition-base);
-  font-family: 'Calibri', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .calendar-nav-btn:hover {
@@ -952,7 +952,7 @@ li {
 }
 
 .hero-title {
-  font-family: 'Calibri', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.95rem;
   font-weight: 400;
   color: var(--color-primary);
@@ -1420,7 +1420,7 @@ li {
   font-size: 1rem;
   color: var(--color-primary);
   font-weight: 400;
-  font-family: 'Calibri', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .form-input, .form-textarea {
@@ -1431,7 +1431,7 @@ li {
   backdrop-filter: var(--blur-sm);
   -webkit-backdrop-filter: var(--blur-sm);
   font-size: 0.95rem;
-  font-family: 'Calibri', sans-serif;
+  font-family: 'Inter', sans-serif;
   color: var(--color-primary-dark);
   transition: all var(--transition-base);
   width: 100%;
@@ -1447,7 +1447,7 @@ li {
 .form-textarea {
   resize: vertical;
   min-height: 80px;
-  font-family: 'Calibri', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .form-submit {
@@ -1458,7 +1458,7 @@ li {
   border-radius: 8px;
   font-size: 0.95rem;
   font-weight: 500;
-  font-family: 'Calibri', sans-serif;
+  font-family: 'Inter', sans-serif;
   cursor: pointer;
   transition: all var(--transition-base);
   margin-top: 0.25rem;
