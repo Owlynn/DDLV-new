@@ -22,6 +22,9 @@
   
   <link rel="canonical" href="https://donnerdelavoix.fr/ateliers">
   
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo-ddlv.png">
+  
   <!-- Google Fonts - Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -111,95 +114,7 @@
 
             <!-- Vue liste -->
             <div class="cards-grid workshops-list" id="workshops-list-view">
-              <!-- Carte Atelier 1 -->
-              <div class="card card-workshop">
-                <div class="workshop-image" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=80');"></div>
-                <div class="workshop-content">
-                  <div class="workshop-content-wrapper">
-                    <h2 class="workshop-title">Atelier d'improvisation vocale</h2>
-                    <p class="workshop-date">📅 Samedi 15 mars 2024, 14h-17h</p>
-                    <p class="workshop-location">📍 Toulouse, Studio La Voix</p>
-                  </div>
-                </div>
-                <div class="workshop-overlay">
-                  <span class="workshop-overlay-text">En savoir plus</span>
-                </div>
-              </div>
-
-              <!-- Carte Atelier 2 -->
-              <div class="card card-workshop">
-                <div class="workshop-image" style="background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80');"></div>
-                <div class="workshop-content">
-                  <div class="workshop-content-wrapper">
-                    <h2 class="workshop-title">Circle Songs découverte</h2>
-                    <p class="workshop-date">📅 Dimanche 24 mars 2024, 10h-12h30</p>
-                    <p class="workshop-location">📍 Toulouse, Espace Culturel</p>
-                  </div>
-                </div>
-                <div class="workshop-overlay">
-                  <span class="workshop-overlay-text">En savoir plus</span>
-                </div>
-              </div>
-
-              <!-- Carte Atelier 3 -->
-              <div class="card card-workshop">
-                <div class="workshop-image" style="background-image: url('https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=800&q=80');"></div>
-                <div class="workshop-content">
-                  <div class="workshop-content-wrapper">
-                    <h2 class="workshop-title">Impro vocale avancée</h2>
-                    <p class="workshop-date">📅 Samedi 6 avril 2024, 15h-18h</p>
-                    <p class="workshop-location">📍 Toulouse, Studio La Voix</p>
-                  </div>
-                </div>
-                <div class="workshop-overlay">
-                  <span class="workshop-overlay-text">En savoir plus</span>
-                </div>
-              </div>
-
-              <!-- Carte Atelier 4 -->
-              <div class="card card-workshop">
-                <div class="workshop-image" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=80');"></div>
-                <div class="workshop-content">
-                  <div class="workshop-content-wrapper">
-                    <h2 class="workshop-title">Vocal painting et direction</h2>
-                    <p class="workshop-date">📅 Dimanche 14 avril 2024, 14h-17h</p>
-                    <p class="workshop-location">📍 Toulouse, Espace Culturel</p>
-                  </div>
-                </div>
-                <div class="workshop-overlay">
-                  <span class="workshop-overlay-text">En savoir plus</span>
-                </div>
-              </div>
-
-              <!-- Carte Atelier 5 -->
-              <div class="card card-workshop">
-                <div class="workshop-image" style="background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80');"></div>
-                <div class="workshop-content">
-                  <div class="workshop-content-wrapper">
-                    <h2 class="workshop-title">Atelier découverte</h2>
-                    <p class="workshop-date">📅 Samedi 20 avril 2024, 10h-12h</p>
-                    <p class="workshop-location">📍 Toulouse, Studio La Voix</p>
-                  </div>
-                </div>
-                <div class="workshop-overlay">
-                  <span class="workshop-overlay-text">En savoir plus</span>
-                </div>
-              </div>
-
-              <!-- Carte Atelier 6 -->
-              <div class="card card-workshop">
-                <div class="workshop-image" style="background-image: url('https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=800&q=80');"></div>
-                <div class="workshop-content">
-                  <div class="workshop-content-wrapper">
-                    <h2 class="workshop-title">Impro vocale intensive</h2>
-                    <p class="workshop-date">📅 Dimanche 28 avril 2024, 14h-18h</p>
-                    <p class="workshop-location">📍 Toulouse, Espace Culturel</p>
-                  </div>
-                </div>
-                <div class="workshop-overlay">
-                  <span class="workshop-overlay-text">En savoir plus</span>
-                </div>
-              </div>
+              <!-- Les ateliers seront chargés dynamiquement via l'API BilletWeb -->
             </div>
             
             <!-- Vue calendrier -->
@@ -430,6 +345,21 @@
       </div>
     </article>
   </main>
+  <script>
+    // Test de base pour vérifier que JavaScript fonctionne
+    console.log('🟡 Test JavaScript - Script inline exécuté');
+    console.log('🟡 Page:', window.location.pathname);
+  </script>
+  <script src="billetweb-config.js"></script>
   <script src="script.js"></script>
+  <script>
+    // Vérification après chargement des scripts
+    console.log('🟡 Scripts chargés, vérification...');
+    if (typeof BILLETWEB_CONFIG !== 'undefined') {
+      console.log('✅ BILLETWEB_CONFIG accessible depuis le HTML');
+    } else {
+      console.error('❌ BILLETWEB_CONFIG non accessible depuis le HTML');
+    }
+  </script>
 </body>
 </html>
