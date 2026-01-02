@@ -317,6 +317,9 @@ li {
   color: var(--color-primary);
   font-size: 22px;
   font-weight: 700;
+  text-shadow: none;
+  -webkit-text-stroke: 0;
+  transform: none;
 }
 .menu-item-home { display: none; }
 
@@ -521,7 +524,7 @@ li {
 }
 
 .workshop-title {
-  font-size: 1.875rem;
+  font-size: 1.5rem;
   color: var(--color-primary);
   margin-bottom: 0;
   font-weight: 400;
@@ -558,6 +561,47 @@ li {
   box-shadow: 0 4px 12px rgba(91, 42, 181, 0.2);
 }
 
+.atelier-see-workshops-btn {
+  display: inline-block;
+  padding: 0.75rem var(--spacing-lg);
+  /* Fond glassmorphism avec une teinte violette subtile */
+  background: linear-gradient(135deg, 
+    rgba(91, 42, 181, 0.25) 0%, 
+    rgba(91, 42, 181, 0.35) 50%, 
+    rgba(91, 42, 181, 0.25) 100%);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  color: white;
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: 8px;
+  /* Bordure subtile comme les autres éléments glassmorphism */
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  font-weight: 500;
+  font-size: 18px;
+  font-family: 'Inter', sans-serif;
+  transition: all var(--transition-base);
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  /* Ombres douces cohérentes avec le glassmorphism */
+  box-shadow: 0 2px 8px rgba(91, 42, 181, 0.15), 
+              0 1px 4px rgba(91, 42, 181, 0.1);
+}
+
+.atelier-see-workshops-btn:hover {
+  /* Légèrement plus opaque au survol */
+  background: linear-gradient(135deg, 
+    rgba(91, 42, 181, 0.35) 0%, 
+    rgba(91, 42, 181, 0.45) 50%, 
+    rgba(91, 42, 181, 0.35) 100%);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  /* Ombres plus prononcées au survol */
+  box-shadow: 0 4px 16px rgba(91, 42, 181, 0.2), 
+              0 2px 8px rgba(91, 42, 181, 0.15);
+}
+
 /* ============================================
    BLOC TITRE DE PAGE
    ============================================ */
@@ -569,10 +613,11 @@ li {
 }
 
 .ateliers-copy-page .view-toggle-container {
-  margin-top: var(--spacing-sm);
+  margin-top: 0;
   display: flex;
   justify-content: flex-start;
   padding: 0;
+  flex-shrink: 0;
 }
 
 .view-toggle {
@@ -1134,6 +1179,8 @@ li {
   border-radius: 8px;
   border: none;
   box-shadow: none;
+  text-shadow: none;
+  -webkit-text-stroke: 0;
 }
 
 .article-toc-subtitle {
@@ -1141,6 +1188,14 @@ li {
   color: var(--color-primary-dark);
   font-weight: 300;
   line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+.ateliers-copy-page .article-toc-subtitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-top: var(--spacing-lg);
   margin-bottom: 1.25rem;
 }
 
@@ -1162,6 +1217,71 @@ li {
   display: block;
   width: 100%;
   box-sizing: border-box;
+}
+
+.article-toc-button {
+  line-height: 1.5;
+  text-decoration: none;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: 8px;
+  transition: all var(--transition-smooth);
+  /* Fond glassmorphism avec une teinte violette subtile */
+  background: linear-gradient(135deg, 
+    rgba(91, 42, 181, 0.25) 0%, 
+    rgba(91, 42, 181, 0.35) 50%, 
+    rgba(91, 42, 181, 0.25) 100%);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  position: relative;
+  /* Bordure subtile comme les autres éléments glassmorphism */
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  color: white;
+  font-weight: 400;
+  cursor: pointer;
+  text-align: left;
+  text-transform: uppercase;
+  /* Ombres douces cohérentes avec le glassmorphism */
+  box-shadow: 0 2px 8px rgba(91, 42, 181, 0.15), 
+              0 1px 4px rgba(91, 42, 181, 0.1);
+}
+
+.article-toc-button-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+  color: white;
+}
+
+.article-toc-button:hover {
+  /* Légèrement plus opaque au survol */
+  background: linear-gradient(135deg, 
+    rgba(91, 42, 181, 0.35) 0%, 
+    rgba(91, 42, 181, 0.45) 50%, 
+    rgba(91, 42, 181, 0.35) 100%);
+  border-color: rgba(255, 255, 255, 0.5);
+  /* Ombres plus prononcées au survol */
+  box-shadow: 0 4px 16px rgba(91, 42, 181, 0.2), 
+              0 2px 8px rgba(91, 42, 181, 0.15);
+}
+
+.article-toc-button.active {
+  color: white;
+  letter-spacing: 0.02em;
+  /* Légèrement plus opaque pour l'état actif */
+  background: linear-gradient(135deg, 
+    rgba(91, 42, 181, 0.35) 0%, 
+    rgba(91, 42, 181, 0.45) 50%, 
+    rgba(91, 42, 181, 0.35) 100%);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 16px rgba(91, 42, 181, 0.2), 
+              0 2px 8px rgba(91, 42, 181, 0.15);
 }
 
 .article-toc-link.active {
@@ -1261,6 +1381,37 @@ li {
   background: transparent;
   padding: var(--spacing-xl) 4rem;
   margin-bottom: var(--spacing-md);
+}
+
+.ateliers-copy-page .article-section {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.28) 0%, rgb(255 255 255 / 40%) 50%, rgb(255 255 255 / 41%) 100%);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(91, 42, 181, 0.12), 0 1px 4px rgba(91, 42, 181, 0.08);
+}
+
+#calendrier {
+  padding: 0;
+}
+
+.calendrier-header-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+#calendrier h2 {
+  font-size: 1.875rem;
+  color: var(--color-primary);
+  margin: 0;
+  font-weight: 400;
+  flex: 1;
+}
+
+#formats-d-ateliers {
+  padding: 0;
 }
 
 .article-content {
@@ -2103,6 +2254,7 @@ li {
     max-height: 70vh;
   }
   .menu-items { gap: 1.25rem; }
+  .header-menu { gap: 1.25rem; }
   .hero-left-content { gap: var(--spacing-md); }
 }
 

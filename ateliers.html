@@ -71,131 +71,361 @@
       <div class="article-layout">
         <!-- Sommaire latéral -->
         <aside class="article-toc" aria-label="Navigation des ateliers">
-          <p class="article-toc-title">Les prochains ateliers</p>
-          <p class="article-toc-subtitle">Venez aux ateliers</p>
-          <div class="view-toggle-container">
-            <div class="view-toggle">
-              <button class="view-toggle-btn" aria-label="Basculer entre vue liste et calendrier">
-                <span class="view-toggle-part view-toggle-left active" data-view="list">
-                  <span class="view-text">vue liste</span>
-                </span>
-                <span class="view-toggle-part view-toggle-right" data-view="calendar">
-                  <span class="view-text">vue calendrier</span>
-                </span>
-              </button>
-            </div>
-          </div>
+          <p class="article-toc-title">Les ateliers</p>
+          <nav class="article-toc-nav">
+            <button class="article-toc-button active" data-section="calendrier">
+              Voir les prochains ateliers
+              <svg class="article-toc-button-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m9 18 6-6-6-6"></path>
+              </svg>
+            </button>
+            <p class="article-toc-subtitle">Formats d'atelier</p>
+            <a class="article-toc-link" href="#ateliers-focus" data-section="formats-d-ateliers">Les ateliers focus</a>
+            <a class="article-toc-link" href="#art-circle-songs" data-section="formats-d-ateliers">L'art des circle songs</a>
+            <a class="article-toc-link" href="#chant-pour-tous" data-section="formats-d-ateliers">Chant pour tous</a>
+            <a class="article-toc-link" href="#circlesong-poesie" data-section="formats-d-ateliers">Circlesong poésie voix mots</a>
+            <a class="article-toc-link" href="#flashmob-improvise" data-section="formats-d-ateliers">Flashmob improvisé</a>
+            <a class="article-toc-link" href="#coaching-personnalise" data-section="formats-d-ateliers">Coaching personnalisé</a>
+          </nav>
         </aside>
 
         <!-- Contenu principal -->
         <div class="article-main">
-          <div class="cards-grid workshops-list" id="workshops-list-view">
-        <!-- Carte Atelier 1 -->
-        <div class="card card-workshop">
-          <div class="workshop-image" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=80');"></div>
-          <div class="workshop-content">
-            <div class="workshop-content-wrapper">
-              <h2 class="workshop-title">Atelier d'improvisation vocale</h2>
-              <p class="workshop-date">📅 Samedi 15 mars 2024, 14h-17h</p>
-              <p class="workshop-location">📍 Toulouse, Studio La Voix</p>
-            </div>
-          </div>
-          <div class="workshop-overlay">
-            <span class="workshop-overlay-text">En savoir plus</span>
-          </div>
-        </div>
-
-        <!-- Carte Atelier 2 -->
-        <div class="card card-workshop">
-          <div class="workshop-image" style="background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80');"></div>
-          <div class="workshop-content">
-            <div class="workshop-content-wrapper">
-              <h2 class="workshop-title">Circle Songs découverte</h2>
-              <p class="workshop-date">📅 Dimanche 24 mars 2024, 10h-12h30</p>
-              <p class="workshop-location">📍 Toulouse, Espace Culturel</p>
-            </div>
-          </div>
-          <div class="workshop-overlay">
-            <span class="workshop-overlay-text">En savoir plus</span>
-          </div>
-        </div>
-
-        <!-- Carte Atelier 3 -->
-        <div class="card card-workshop">
-          <div class="workshop-image" style="background-image: url('https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=800&q=80');"></div>
-          <div class="workshop-content">
-            <div class="workshop-content-wrapper">
-              <h2 class="workshop-title">Impro vocale avancée</h2>
-              <p class="workshop-date">📅 Samedi 6 avril 2024, 15h-18h</p>
-              <p class="workshop-location">📍 Toulouse, Studio La Voix</p>
-            </div>
-          </div>
-          <div class="workshop-overlay">
-            <span class="workshop-overlay-text">En savoir plus</span>
-          </div>
-        </div>
-
-        <!-- Carte Atelier 4 -->
-        <div class="card card-workshop">
-          <div class="workshop-image" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=80');"></div>
-          <div class="workshop-content">
-            <div class="workshop-content-wrapper">
-              <h2 class="workshop-title">Vocal painting et direction</h2>
-              <p class="workshop-date">📅 Dimanche 14 avril 2024, 14h-17h</p>
-              <p class="workshop-location">📍 Toulouse, Espace Culturel</p>
-            </div>
-          </div>
-          <div class="workshop-overlay">
-            <span class="workshop-overlay-text">En savoir plus</span>
-          </div>
-        </div>
-
-        <!-- Carte Atelier 5 -->
-        <div class="card card-workshop">
-          <div class="workshop-image" style="background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80');"></div>
-          <div class="workshop-content">
-            <div class="workshop-content-wrapper">
-              <h2 class="workshop-title">Atelier découverte</h2>
-              <p class="workshop-date">📅 Samedi 20 avril 2024, 10h-12h</p>
-              <p class="workshop-location">📍 Toulouse, Studio La Voix</p>
-            </div>
-          </div>
-          <div class="workshop-overlay">
-            <span class="workshop-overlay-text">En savoir plus</span>
-          </div>
-        </div>
-
-        <!-- Carte Atelier 6 -->
-        <div class="card card-workshop">
-          <div class="workshop-image" style="background-image: url('https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=800&q=80');"></div>
-          <div class="workshop-content">
-            <div class="workshop-content-wrapper">
-              <h2 class="workshop-title">Impro vocale intensive</h2>
-              <p class="workshop-date">📅 Dimanche 28 avril 2024, 14h-18h</p>
-              <p class="workshop-location">📍 Toulouse, Espace Culturel</p>
-            </div>
-          </div>
-          <div class="workshop-overlay">
-            <span class="workshop-overlay-text">En savoir plus</span>
-          </div>
-        </div>
-      </div>
-      
-          <!-- Vue calendrier -->
-          <div class="calendar-view" id="calendar-view" style="display: none;">
-            <div class="calendar-container">
-              <div class="calendar-month">
-                <div class="calendar-header">
-                  <button class="calendar-nav-btn" id="prev-month">←</button>
-                  <h2 class="calendar-month-title" id="month-title">Mars 2024</h2>
-                  <button class="calendar-nav-btn" id="next-month">→</button>
+          <!-- Section Calendrier -->
+          <section id="calendrier" style="display: block;">
+            <div class="calendrier-header-row">
+              <div class="view-toggle-container">
+                <div class="view-toggle">
+                  <button class="view-toggle-btn" aria-label="Basculer entre vue liste et calendrier">
+                    <span class="view-toggle-part view-toggle-left active" data-view="list">
+                      <span class="view-text">vue liste</span>
+                    </span>
+                    <span class="view-toggle-part view-toggle-right" data-view="calendar">
+                      <span class="view-text">vue calendrier</span>
+                    </span>
+                  </button>
                 </div>
-                <div class="calendar-grid" id="calendar-grid">
-                  <!-- Le calendrier sera généré par JavaScript -->
+              </div>
+              <h2 style="font-size: 1.875rem; color: var(--color-primary); margin: 0;">Les prochains ateliers</h2>
+            </div>
+
+            <!-- Vue liste -->
+            <div class="cards-grid workshops-list" id="workshops-list-view">
+              <!-- Carte Atelier 1 -->
+              <div class="card card-workshop">
+                <div class="workshop-image" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=80');"></div>
+                <div class="workshop-content">
+                  <div class="workshop-content-wrapper">
+                    <h2 class="workshop-title">Atelier d'improvisation vocale</h2>
+                    <p class="workshop-date">📅 Samedi 15 mars 2024, 14h-17h</p>
+                    <p class="workshop-location">📍 Toulouse, Studio La Voix</p>
+                  </div>
+                </div>
+                <div class="workshop-overlay">
+                  <span class="workshop-overlay-text">En savoir plus</span>
+                </div>
+              </div>
+
+              <!-- Carte Atelier 2 -->
+              <div class="card card-workshop">
+                <div class="workshop-image" style="background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80');"></div>
+                <div class="workshop-content">
+                  <div class="workshop-content-wrapper">
+                    <h2 class="workshop-title">Circle Songs découverte</h2>
+                    <p class="workshop-date">📅 Dimanche 24 mars 2024, 10h-12h30</p>
+                    <p class="workshop-location">📍 Toulouse, Espace Culturel</p>
+                  </div>
+                </div>
+                <div class="workshop-overlay">
+                  <span class="workshop-overlay-text">En savoir plus</span>
+                </div>
+              </div>
+
+              <!-- Carte Atelier 3 -->
+              <div class="card card-workshop">
+                <div class="workshop-image" style="background-image: url('https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=800&q=80');"></div>
+                <div class="workshop-content">
+                  <div class="workshop-content-wrapper">
+                    <h2 class="workshop-title">Impro vocale avancée</h2>
+                    <p class="workshop-date">📅 Samedi 6 avril 2024, 15h-18h</p>
+                    <p class="workshop-location">📍 Toulouse, Studio La Voix</p>
+                  </div>
+                </div>
+                <div class="workshop-overlay">
+                  <span class="workshop-overlay-text">En savoir plus</span>
+                </div>
+              </div>
+
+              <!-- Carte Atelier 4 -->
+              <div class="card card-workshop">
+                <div class="workshop-image" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=80');"></div>
+                <div class="workshop-content">
+                  <div class="workshop-content-wrapper">
+                    <h2 class="workshop-title">Vocal painting et direction</h2>
+                    <p class="workshop-date">📅 Dimanche 14 avril 2024, 14h-17h</p>
+                    <p class="workshop-location">📍 Toulouse, Espace Culturel</p>
+                  </div>
+                </div>
+                <div class="workshop-overlay">
+                  <span class="workshop-overlay-text">En savoir plus</span>
+                </div>
+              </div>
+
+              <!-- Carte Atelier 5 -->
+              <div class="card card-workshop">
+                <div class="workshop-image" style="background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80');"></div>
+                <div class="workshop-content">
+                  <div class="workshop-content-wrapper">
+                    <h2 class="workshop-title">Atelier découverte</h2>
+                    <p class="workshop-date">📅 Samedi 20 avril 2024, 10h-12h</p>
+                    <p class="workshop-location">📍 Toulouse, Studio La Voix</p>
+                  </div>
+                </div>
+                <div class="workshop-overlay">
+                  <span class="workshop-overlay-text">En savoir plus</span>
+                </div>
+              </div>
+
+              <!-- Carte Atelier 6 -->
+              <div class="card card-workshop">
+                <div class="workshop-image" style="background-image: url('https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=800&q=80');"></div>
+                <div class="workshop-content">
+                  <div class="workshop-content-wrapper">
+                    <h2 class="workshop-title">Impro vocale intensive</h2>
+                    <p class="workshop-date">📅 Dimanche 28 avril 2024, 14h-18h</p>
+                    <p class="workshop-location">📍 Toulouse, Espace Culturel</p>
+                  </div>
+                </div>
+                <div class="workshop-overlay">
+                  <span class="workshop-overlay-text">En savoir plus</span>
                 </div>
               </div>
             </div>
-          </div>
+            
+            <!-- Vue calendrier -->
+            <div class="calendar-view" id="calendar-view" style="display: none;">
+              <div class="calendar-container">
+                <div class="calendar-month">
+                  <div class="calendar-header">
+                    <button class="calendar-nav-btn" id="prev-month">←</button>
+                    <h2 class="calendar-month-title" id="month-title">Mars 2024</h2>
+                    <button class="calendar-nav-btn" id="next-month">→</button>
+                  </div>
+                  <div class="calendar-grid" id="calendar-grid">
+                    <!-- Le calendrier sera généré par JavaScript -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section Formats d'ateliers -->
+          <section id="formats-d-ateliers" style="display: none;">
+            <!-- Atelier 1 : Les ateliers focus -->
+            <section class="article-section" id="ateliers-focus">
+              <div class="article-content">
+                <h2>Les ateliers focus</h2>
+                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&q=80" alt="Ateliers focus" class="article-image">
+                <p>Un atelier mensuel de chant improvisé, chaque deuxième mardi du mois, autour de la pratique de la co-improvisation et du circlesong.</p>
+                <p>À chaque séance, on se concentre sur un ou deux aspects précis du chant improvisé. Par exemple : cohésion, harmonie, rythmique, présence, créativité, écoute active, jeu vocal, textures sonores, interaction avec le groupe, mais aussi plaisir, précision, connexion, complémentarité, timbre, volume, énergie et solo…</p>
+                <p>Ce ne sont que quelques exemples : il existe des dizaines d'aspects à explorer pour enrichir sa pratique et s'amuser à varier les approches.</p>
+                
+                <h3 style="font-size: 1.5rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 400;">L'esprit des ateliers</h3>
+                <ul>
+                  <li>Cadre chaleureux et ludique</li>
+                  <li>Exploration, découverte, approfondissement</li>
+                  <li>Un espace pour tester, se tromper, progresser</li>
+                  <li>Petit groupe (max. 8 personnes) pour favoriser l'écoute et la connexion</li>
+                  <li>Ouvert aux débutants, mais avoir déjà pratiqué au moins une fois l'improvisation est conseillé</li>
+                </ul>
+                
+                <h3 style="font-size: 1.5rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 400;">Quand ?</h3>
+                <p>Tous les deuxièmes mardis du mois – 2h d'atelier</p>
+                
+                <h3 style="font-size: 1.5rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 400;">Où ?</h3>
+                <p>Quartier Minimes, Toulouse (adresse exacte donnée à l'inscription)</p>
+                
+                <h3 style="font-size: 1.5rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 400;">Tarif libre et conscient</h3>
+                <p>Tu choisis le montant selon tes moyens et la valeur que tu donnes à l'atelier.</p>
+                <p>Pour te repérer :</p>
+                <ul>
+                  <li><strong>10 €</strong> → couvre tout juste la préparation, l'admin et la communication</li>
+                  <li><strong>15 €</strong> → correspond au tarif de base qui rend l'atelier viable</li>
+                  <li><strong>20 €</strong> → permet de mieux rémunérer mon temps et de couvrir les frais annexes</li>
+                  <li><strong>25 € et +</strong> → donne un vrai coup de pouce pour développer de nouvelles propositions</li>
+                </ul>
+                
+                <h3 style="font-size: 1.5rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 400;">Inscriptions</h3>
+                <p>L'inscription se fera via la billetterie en ligne : <a href="https://www.billetweb.fr/pro/donnerdelavoix" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary); text-decoration: underline;">https://www.billetweb.fr/pro/donnerdelavoix</a>, mais le paiement aura lieu sur place.</p>
+                <p>Si tu dois annuler, merci de prévenir le plus tôt possible afin de permettre à d'autres de participer. Pour assurer le meilleur déroulement des sessions, je pourrai être amenée à refuser les inscriptions en cas d'annulations trop fréquentes.</p>
+                <p style="margin-top: var(--spacing-md); font-style: italic;">Il me tarde de chanter avec vous !</p>
+                
+                <div style="margin-top: var(--spacing-lg); text-align: center;">
+                  <button class="atelier-see-workshops-btn" data-section="calendrier">Voir les prochains ateliers</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Atelier 2 : L'art des circle songs -->
+            <section class="article-section" id="art-circle-songs">
+              <div class="article-content">
+                <h2>L'art des circle songs</h2>
+                <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80" alt="Circle songs" class="article-image">
+                <p>Le Circlesong est un chant a cappella entièrement improvisé : une personne guide le groupe en attribuant spontanément des éléments mélodiques, harmoniques et rythmiques pour créer un arrangement musical harmonieux et expressif. Cette pratique permet de s'initier au chant polyphonique, à l'improvisation et de développer l'écoute, le sens du rythme et l'oreille musicale.</p>
+                
+                <h3 style="font-size: 1.5rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 400;">Objectifs :</h3>
+                <ul>
+                  <li>Créer une Circlesong de A à Z</li>
+                  <li>Gagner en assurance dans sa créativité et sa direction</li>
+                  <li>Se faire plaisir !</li>
+                </ul>
+                
+                <h3 style="font-size: 1.5rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 400;">Pour qui ?</h3>
+                <p>Ouvert à tou·te·s (6 à 9 participant·es).</p>
+                <p>Pour ton confort et celui du groupe, il est conseillé de :</p>
+                <ul>
+                  <li>Avoir une aisance rythmique (pouvoir garder une pulse régulière)</li>
+                  <li>Être à l'aise pour reproduire une mélodie avec justesse</li>
+                  <li>Être disposé·e à chanter devant les autres et explorer un peu les limites de sa zone de confort</li>
+                </ul>
+                
+                <h3 style="font-size: 1.5rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 400;">Quand ?</h3>
+                <p>Samedi 22 janvier 2026, de 10h à 18h</p>
+                
+                <h3 style="font-size: 1.5rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 400;">Où ?</h3>
+                <p>Quartier Minimes, Toulouse (adresse exacte communiquée à l'inscription)</p>
+                
+                <h3 style="font-size: 1.5rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 400;">Tarif libre et conscient :</h3>
+                <ul>
+                  <li><strong>50 €</strong> → couvre préparation, administration et communication</li>
+                  <li><strong>70 €</strong> → tarif de base pour rendre l'atelier viable</li>
+                  <li><strong>80 € et +</strong> → meilleure rémunération et couverture des frais annexes</li>
+                </ul>
+                <p><strong>Réservation</strong> : <a href="https://www.billetweb.fr/impro-vocale-lart-des-circle-songs" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary); text-decoration: underline;">https://www.billetweb.fr/impro-vocale-lart-des-circle-songs</a></p>
+                
+                <div style="margin-top: var(--spacing-lg); text-align: center;">
+                  <button class="atelier-see-workshops-btn" data-section="calendrier">Voir les prochains ateliers</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Atelier 3 : Chant pour tous -->
+            <section class="article-section" id="chant-pour-tous">
+              <div class="article-content">
+                <h2>Chant pour tous - Atelier gratuit</h2>
+                <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=800&q=80" alt="Chant pour tous" class="article-image">
+                <p>Chant pour tous est un atelier gratuit et ouvert à toutes et tous, qui propose une découverte de l'improvisation vocale dans un cadre accessible et bienveillant.</p>
+                <p>Cet atelier vous permet de :</p>
+                <ul>
+                  <li><strong>Découvrir l'improvisation vocale</strong> : Explorer cette pratique sans engagement financier, dans un cadre convivial et bienveillant, sans prérequis musicaux.</li>
+                  <li><strong>Expérimenter votre voix</strong> : Explorer votre voix dans un cadre collectif, participer à des jeux d'improvisation vocale et découvrir votre potentiel créatif.</li>
+                  <li><strong>Créer des circle songs</strong> : Participer à la création de circle songs envoûtants, apprendre à créer ensemble des œuvres vocales spontanées et harmonieuses.</li>
+                  <li><strong>Rencontrer une communauté</strong> : Faire connaissance avec d'autres personnes intéressées par la voix et le chant, partager un moment musical collectif sous le signe de la bonne humeur.</li>
+                </ul>
+                <p>Cet atelier est animé par Jessalynn. Parfait pour une première approche, cet atelier gratuit est l'occasion idéale de découvrir l'improvisation vocale et de voir si cette pratique vous correspond.</p>
+                
+                <h3 style="font-size: 1.5rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 400;">Tarifs et informations pratiques</h3>
+                <p><strong>Durée</strong> : Variable selon les sessions (généralement 2 heures)</p>
+                <p><strong>Lieu</strong> : Atelier des Chalets, 23 Rue Edouard Dulaurier, Toulouse</p>
+                <p><strong>Tarif</strong> : <strong style="color: var(--color-accent);">Gratuit</strong></p>
+                <p><strong>Nombre de participants</strong> : Groupe ouvert</p>
+                <p><strong>Niveau</strong> : Ouvert à tous, sans prérequis musicaux</p>
+                <p><strong>Animation</strong> : Animé par Jessalynn</p>
+                
+                <div style="margin-top: var(--spacing-lg); text-align: center;">
+                  <button class="atelier-see-workshops-btn" data-section="calendrier">Voir les prochains ateliers</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Atelier 4 : Circlesong poésie voix mots -->
+            <section class="article-section" id="circlesong-poesie">
+              <div class="article-content">
+                <h2>Circlesong, poésie, voix, mots et improvisation</h2>
+                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&q=80" alt="Circlesong poésie" class="article-image">
+                <p>Une journée immersive pour explorer l'improvisation vocale collective et la poésie.</p>
+                <p>Cet atelier propose d'explorer les mots et la poésie en tant que matière et source d'inspiration pour la création d'œuvres improvisées : circlesong, co-impro et autres formes d'impro vocale a cappella.</p>
+                <p>Jeux d'écriture, poésie spontanée et créations vocales collectives se répondent pour relier voix, mots et imagination, et faire émerger des formes musicales improvisées.</p>
+                
+                <h3 style="font-size: 1.5rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 400;">Pré-requis</h3>
+                <ul>
+                  <li>Avoir déjà un peu pratiqué l'impro vocale (co-impro et/ou circlesong),</li>
+                  <li>tenir une pulse stable,</li>
+                  <li>pouvoir reproduire un motif mélodique en étant à peu près juste.</li>
+                </ul>
+                <p>En cas de doute sur les pré-requis, merci de me contacter en amont.</p>
+                
+                <h3 style="font-size: 1.5rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 400;">Infos pratiques</h3>
+                <p><strong>📅 Date</strong> : 21 février 2026</p>
+                <p><strong>⏰ Horaires</strong> : 9h30–19h (pause déjeuner 1h30)</p>
+                <p><strong>📍 Lieu</strong> : Quartier Les Minimes (adresse communiquée à l'inscription)</p>
+                <p><strong>💸 Tarif libre et conscient</strong> : 50 € / 70 € / 80 € et +</p>
+                <p><strong>👥 Groupe limité à 8 personnes</strong></p>
+                
+                <div style="margin-top: var(--spacing-lg); text-align: center;">
+                  <button class="atelier-see-workshops-btn" data-section="calendrier">Voir les prochains ateliers</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Atelier 5 : Flashmob improvisé -->
+            <section class="article-section" id="flashmob-improvise">
+              <div class="article-content">
+                <h2>Flashmob improvisé - Chant pour tous</h2>
+                <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80" alt="Flashmob improvisé" class="article-image">
+                <p>Le flashmob improvisé est une expérience collective unique qui combine l'improvisation vocale, la performance publique et la création spontanée dans l'espace urbain.</p>
+                <p>Vivez un moment poétique et spontané dans les rues de Toulouse, guidé·e par des facilitateur·ices. Des petits groupes créeront des moments musicaux éphémères dans différents lieux de la ville, où chaque leader propose une séquence vocale que le chœur reprend, créant ainsi une expérience musicale unique et partagée.</p>
+                <p>Cet événement vous propose de :</p>
+                <ul>
+                  <li><strong>Participer à une création vocale collective en public</strong> : Sortir l'improvisation vocale des espaces habituels et la partager avec un public plus large, dans un esprit de jeu et de créativité collective.</li>
+                  <li><strong>Explorer l'improvisation vocale dans l'espace urbain</strong> : Découvrir comment la voix résonne et se transforme dans différents contextes urbains, créer des dialogues entre la voix et l'espace public.</li>
+                  <li><strong>Développer votre confiance et votre présence scénique</strong> : Oser prendre l'espace vocal en public, développer votre aisance à improviser devant un public et à partager votre voix dans l'espace urbain.</li>
+                  <li><strong>Vivre une expérience artistique partagée</strong> : Participer à une aventure collective où la musique naît de l'instant, où chaque participant·e contribue à créer une œuvre vocale éphémère et unique.</li>
+                </ul>
+                <p>Le programme comprend une répétition le matin pour préparer les séquences vocales et la logistique, suivie de performances l'après-midi dans différents lieux de Toulouse. Aucune expérience préalable n'est requise ; il suffit d'aimer chanter et de se laisser porter par l'expérience collective.</p>
+                
+                <h3 style="font-size: 1.5rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 400;">Tarifs et informations pratiques</h3>
+                <p><strong>Durée</strong> : Journée complète (répétition le matin, performances l'après-midi)</p>
+                <p><strong>Lieu</strong> : Divers lieux dans Toulouse, France</p>
+                <p><strong>Tarif</strong> : <strong style="color: var(--color-accent);">Gratuit</strong></p>
+                <p><strong>Nombre de participants</strong> : Groupe ouvert</p>
+                <p><strong>Niveau</strong> : Ouvert à tous, aucune expérience préalable requise</p>
+                <p><strong>Programme</strong> : Matinée de répétition et calage logistique, après-midi de performances dans plusieurs lieux de la ville</p>
+                
+                <div style="margin-top: var(--spacing-lg); text-align: center;">
+                  <button class="atelier-see-workshops-btn" data-section="calendrier">Voir les prochains ateliers</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Atelier 6 : Coaching personnalisé -->
+            <section class="article-section" id="coaching-personnalise">
+              <div class="article-content">
+                <h2>Coaching personnalisé</h2>
+                <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=800&q=80" alt="Coaching personnalisé" class="article-image">
+                <p>Le coaching personnalisé vous offre un accompagnement sur mesure adapté à vos besoins spécifiques en improvisation vocale et en chant.</p>
+                <p>Que vous souhaitiez :</p>
+                <ul>
+                  <li><strong>Approfondir un aspect précis</strong> : Travailler sur un point spécifique de votre pratique vocale ou de votre improvisation</li>
+                  <li><strong>Préparer un projet</strong> : Vous accompagner dans la préparation d'une performance, d'un enregistrement ou d'un événement</li>
+                  <li><strong>Développer votre confiance</strong> : Gagner en assurance dans votre expression vocale et votre présence scénique</li>
+                  <li><strong>Explorer de nouvelles techniques</strong> : Découvrir des approches spécifiques de l'improvisation vocale adaptées à votre profil</li>
+                </ul>
+                <p>Le coaching personnalisé s'adapte à vos objectifs et à votre rythme, dans un cadre bienveillant et professionnel.</p>
+                
+                <h3 style="font-size: 1.5rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 400;">Tarifs et informations pratiques</h3>
+                <p><strong>Durée</strong> : Variable selon vos besoins (sessions de 1h à 2h)</p>
+                <p><strong>Lieu</strong> : Toulouse et région, ou en ligne selon vos préférences</p>
+                <p><strong>Tarif</strong> : Sur devis selon la durée et le type d'accompagnement</p>
+                <p><strong>Format</strong> : Séances individuelles ou en petit groupe</p>
+                <p><strong>Niveau</strong> : Tous niveaux</p>
+                
+                <div style="margin-top: var(--spacing-lg); text-align: center;">
+                  <button class="atelier-see-workshops-btn" data-section="calendrier">Voir les prochains ateliers</button>
+                </div>
+              </div>
+            </section>
+          </section>
         </div>
       </div>
     </article>
@@ -203,4 +433,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
