@@ -215,6 +215,12 @@
                 <li>En espèces</li>
               </ul>
               <p><strong>Tout cours non annulé au moins 24h à l'avance est dû.</strong></p>
+              
+              <div style="margin-top: var(--spacing-lg); text-align: center;">
+                <button class="rdv-btn" id="calendly-trigger-section" aria-label="Prendre rendez-vous">
+                  PRENDRE RDV
+                </button>
+              </div>
             </div>
           </section>
         </div>
@@ -229,31 +235,42 @@
     // Gestion de la popup Calendly
     document.addEventListener('DOMContentLoaded', function() {
       const trigger = document.getElementById('calendly-trigger');
+      const triggerSection = document.getElementById('calendly-trigger-section');
       const popup = document.getElementById('calendly-popup');
       const closeBtn = document.getElementById('calendly-popup-close');
       const overlay = document.getElementById('calendly-popup-overlay');
       
-      if (trigger && popup) {
-        trigger.addEventListener('click', function() {
+      function openPopup() {
+        if (popup) {
           popup.style.display = 'block';
           document.body.style.overflow = 'hidden';
-        });
-        
-        function closePopup() {
+        }
+      }
+      
+      function closePopup() {
+        if (popup) {
           popup.style.display = 'none';
           document.body.style.overflow = '';
         }
-        
-        if (closeBtn) closeBtn.addEventListener('click', closePopup);
-        if (overlay) overlay.addEventListener('click', closePopup);
-        
-        // Fermer avec la touche Escape
-        document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape' && popup.style.display === 'block') {
-            closePopup();
-          }
-        });
       }
+      
+      if (trigger) {
+        trigger.addEventListener('click', openPopup);
+      }
+      
+      if (triggerSection) {
+        triggerSection.addEventListener('click', openPopup);
+      }
+      
+      if (closeBtn) closeBtn.addEventListener('click', closePopup);
+      if (overlay) overlay.addEventListener('click', closePopup);
+      
+      // Fermer avec la touche Escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && popup && popup.style.display === 'block') {
+          closePopup();
+        }
+      });
     });
   </script>
 </body>
