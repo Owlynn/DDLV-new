@@ -2806,3 +2806,11 @@ iframe[src*="calendly.com"]::-webkit-scrollbar {
   height: 0 !important;
 }
 
+/* ============================================
+   PAGE NEWSLETTER - Styles spécifiques
+   ============================================ */
+.newsletter-page .article-content {
+  max-width: 80%;
+  margin: 0 auto;
+}
+
