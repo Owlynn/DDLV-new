@@ -34,6 +34,9 @@
   
   <!-- Calendly CSS -->
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="ateliers-copy-page">
   <!-- Nav -->
@@ -50,22 +53,40 @@
       <nav class="header-nav" aria-label="Navigation principale">
         <ul class="header-menu" role="list">
           <li class="menu-item-home">
-            <a href="../index.html" class="header-menu-item">Accueil</a>
+            <a href="../index.html" class="header-menu-item">
+              <i data-lucide="home" class="header-menu-icon"></i>
+              Accueil
+            </a>
           </li>
           <li>
-            <a href="impro-vocale.html" class="header-menu-item">L'impro vocale</a>
+            <a href="impro-vocale.html" class="header-menu-item">
+              <i data-lucide="sparkles" class="header-menu-icon"></i>
+              L'impro vocale
+            </a>
           </li>
           <li>
-            <a href="ateliers.html" class="header-menu-item active">Les ateliers</a>
+            <a href="ateliers.html" class="header-menu-item active">
+              <i data-lucide="calendar-days" class="header-menu-icon"></i>
+              Les ateliers
+            </a>
           </li>
           <li>
-            <a href="cours-chant.html" class="header-menu-item">Les cours de chant</a>
+            <a href="cours-chant.html" class="header-menu-item">
+              <i data-lucide="music" class="header-menu-icon"></i>
+              Les cours de chant
+            </a>
           </li>
           <li>
-            <a href="about.html" class="header-menu-item">La prof</a>
+            <a href="about.html" class="header-menu-item">
+              <i data-lucide="user-circle" class="header-menu-icon"></i>
+              La prof
+            </a>
           </li>
           <li>
-            <a href="contact.html" class="header-menu-item">Contact</a>
+            <a href="contact.html" class="header-menu-item">
+              <i data-lucide="mail" class="header-menu-icon"></i>
+              Contact
+            </a>
           </li>
         </ul>
       </nav>
@@ -74,6 +95,7 @@
   
   <!-- Bouton flottant PRENDRE RDV -->
   <button class="floating-rdv-btn" id="calendly-trigger" aria-label="Prendre rendez-vous">
+    <i data-lucide="calendar-check" class="floating-rdv-icon"></i>
     PRENDRE RDV
   </button>
   
@@ -403,6 +425,15 @@
             closePopup();
           }
         });
+      }
+    });
+  </script>
+  
+  <!-- Initialiser Lucide Icons -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
       }
     });
   </script>
