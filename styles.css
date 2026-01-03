@@ -2642,9 +2642,11 @@ body.contact-page {
     right: auto;
     transform: none;
     align-items: center;
-    width: 100%;
+    width: 80%;
+    max-width: 80%;
     margin-top: var(--spacing-md);
-    margin-left: 0;
+    margin-left: auto;
+    margin-right: auto;
     padding: var(--spacing-sm);
     opacity: 0;
     animation: menuFadeIn 0.8s ease-out 1.2s forwards;
@@ -2657,7 +2659,7 @@ body.contact-page {
   }
 
   .hero-title {
-    font-size: 1.25rem;
+    font-size: 2.5rem;
     text-align: center;
   }
 
@@ -2665,6 +2667,9 @@ body.contact-page {
   .logo-image { 
     max-width: 640px; 
     max-height: 70vh;
+  }
+  .menu-items {
+    gap: 0.5rem;
   }
   .menu-item { transform: scale(1.2); }
   .menu-item:hover { transform: scale(1.2) translateY(-2px) rotate(1deg); }
