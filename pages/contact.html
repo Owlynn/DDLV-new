@@ -90,7 +90,7 @@
               <h1>Contact</h1>
               <p>Vous avez des questions sur les cours de chant, les ateliers d'improvisation vocale ou les circle songs ? N'hésitez pas à me contacter, je serai ravie de vous répondre.</p>
               
-              <form class="contact-form" action="#" method="POST" aria-label="Formulaire de contact">
+              <form class="contact-form" action="javascript:void(0)" method="POST" aria-label="Formulaire de contact" novalidate>
                 <!-- Honeypot - champ caché pour piéger les bots -->
                 <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
                 
@@ -134,30 +134,56 @@
   
   <!-- Script pour gérer l'envoi du formulaire via EmailJS avec protection anti-spam -->
   <script>
+    // Initialiser dès que le DOM est prêt
     document.addEventListener('DOMContentLoaded', function() {
-      // Vérifier que la configuration EmailJS est disponible
-      if (typeof EMAILJS_CONFIG === 'undefined') {
-        console.error('❌ EMAILJS_CONFIG n\'est pas défini. Assurez-vous que emailjs-config.js est chargé.');
-        return;
-      }
-      
-      // Vérifier que les valeurs sont configurées
-      if (EMAILJS_CONFIG.PUBLIC_KEY === 'votre_public_key_emailjs' || 
-          EMAILJS_CONFIG.SERVICE_ID === 'votre_service_id_emailjs' || 
-          EMAILJS_CONFIG.TEMPLATE_ID === 'votre_template_id_emailjs') {
-        console.warn('⚠️ Veuillez configurer vos identifiants EmailJS dans secrets.local.js');
-        console.warn('⚠️ Copiez secrets.example.js vers secrets.local.js et remplissez vos clés');
-        return;
-      }
-      
-      // Initialiser EmailJS avec la Public Key
-      emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
-      
-      // Récupérer le formulaire
+      // Récupérer le formulaire en premier
       const contactForm = document.querySelector('.contact-form');
       if (!contactForm) {
         console.error('❌ Formulaire de contact non trouvé');
         return;
+      }
+      
+      // Vérifier que la configuration EmailJS est disponible
+      let emailjsConfigured = false;
+      
+      // Vérifier que EMAILJS_CONFIG est défini
+      if (typeof window.EMAILJS_CONFIG === 'undefined') {
+        console.error('❌ EMAILJS_CONFIG n\'est pas défini. Vérifiez que emailjs-config.js est chargé.');
+      } else {
+        // Vérifier que les valeurs sont configurées et valides
+        const hasPublicKey = window.EMAILJS_CONFIG.PUBLIC_KEY && 
+                            window.EMAILJS_CONFIG.PUBLIC_KEY !== 'votre_public_key_emailjs' &&
+                            typeof window.EMAILJS_CONFIG.PUBLIC_KEY === 'string' &&
+                            window.EMAILJS_CONFIG.PUBLIC_KEY.trim() !== '';
+        const hasServiceId = window.EMAILJS_CONFIG.SERVICE_ID && 
+                            window.EMAILJS_CONFIG.SERVICE_ID !== 'votre_service_id_emailjs' &&
+                            typeof window.EMAILJS_CONFIG.SERVICE_ID === 'string' &&
+                            window.EMAILJS_CONFIG.SERVICE_ID.trim() !== '';
+        const hasTemplateId = window.EMAILJS_CONFIG.TEMPLATE_ID && 
+                             window.EMAILJS_CONFIG.TEMPLATE_ID !== 'votre_template_id_emailjs' &&
+                             typeof window.EMAILJS_CONFIG.TEMPLATE_ID === 'string' &&
+                             window.EMAILJS_CONFIG.TEMPLATE_ID.trim() !== '';
+        
+        if (hasPublicKey && hasServiceId && hasTemplateId) {
+          emailjsConfigured = true;
+          // Initialiser EmailJS avec la Public Key
+          try {
+            if (typeof emailjs !== 'undefined') {
+              emailjs.init(window.EMAILJS_CONFIG.PUBLIC_KEY);
+            } else {
+              console.error('❌ emailjs n\'est pas défini. Vérifiez que le SDK EmailJS est chargé.');
+              emailjsConfigured = false;
+            }
+          } catch (error) {
+            console.error('❌ Erreur lors de l\'initialisation d\'EmailJS:', error);
+            emailjsConfigured = false;
+          }
+        } else {
+          console.warn('⚠️ EmailJS non configuré correctement.');
+          console.warn('PUBLIC_KEY:', hasPublicKey ? '✅' : '❌', window.EMAILJS_CONFIG.PUBLIC_KEY);
+          console.warn('SERVICE_ID:', hasServiceId ? '✅' : '❌', window.EMAILJS_CONFIG.SERVICE_ID);
+          console.warn('TEMPLATE_ID:', hasTemplateId ? '✅' : '❌', window.EMAILJS_CONFIG.TEMPLATE_ID);
+        }
       }
       
       // ============================================
@@ -214,9 +240,18 @@
         return true;
       }
       
-      // Gérer la soumission du formulaire
+      // GESTIONNAIRE UNIQUE pour la soumission du formulaire
+      // Empêche TOUJOURS la soumission par défaut pour éviter l'erreur HTTP 405
       contactForm.addEventListener('submit', function(e) {
+        // EMPÊCHER TOUJOURS la soumission par défaut
         e.preventDefault();
+        e.stopPropagation();
+        
+        // Vérifier si EmailJS est configuré
+        if (!emailjsConfigured) {
+          alert('Erreur de configuration. Le formulaire n\'est pas configuré pour envoyer des emails. Veuillez contacter l\'administrateur du site.');
+          return;
+        }
         
         // Vérification 1: Honeypot (champ caché)
         const honeypot = this.querySelector('.honeypot');
@@ -256,8 +291,8 @@
         
         // Envoyer l'email via EmailJS
         emailjs.sendForm(
-          EMAILJS_CONFIG.SERVICE_ID,
-          EMAILJS_CONFIG.TEMPLATE_ID,
+          window.EMAILJS_CONFIG.SERVICE_ID,
+          window.EMAILJS_CONFIG.TEMPLATE_ID,
           this
         )
         .then(function() {
@@ -269,7 +304,7 @@
           submitBtn.style.background = 'var(--color-accent)';
           
           // Réinitialiser le formulaire et le temps
-          e.target.reset();
+          contactForm.reset();
           formStartTime = Date.now();
           
           // Réactiver le bouton après 3 secondes
@@ -285,7 +320,7 @@
           submitBtn.disabled = false;
           submitBtn.textContent = originalText;
         });
-      });
+      }, { passive: false });
     });
   </script>
 </body>

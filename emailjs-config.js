@@ -13,8 +13,8 @@
 // 2. Remplissez vos vraies clés dans secrets.local.js
 
 // Charger depuis secrets.local.js si disponible, sinon utiliser des valeurs par défaut
-const SECRETS = (typeof window !== 'undefined' && window.SECRETS) || {};
-const EMAILJS_SECRETS = SECRETS.EMAILJS || {};
+// Ne pas redéclarer SECRETS car il est déjà défini dans secrets.local.js
+const EMAILJS_SECRETS = (typeof window !== 'undefined' && window.SECRETS && window.SECRETS.EMAILJS) || {};
 
 const EMAILJS_CONFIG = {
   PUBLIC_KEY: EMAILJS_SECRETS.PUBLIC_KEY || 'votre_public_key_emailjs',
