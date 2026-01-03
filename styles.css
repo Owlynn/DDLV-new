@@ -1205,6 +1205,11 @@ li {
   .ateliers-copy-page .article-main {
     margin-left: calc(302.5px + var(--spacing-md));
   }
+  
+  .contact-page .article-main {
+    margin-left: 0;
+    max-width: 100%;
+  }
 }
 
 @media (min-width: 1144px) {
@@ -1620,6 +1625,41 @@ li {
   flex-direction: column;
   gap: var(--spacing-sm);
   margin-top: var(--spacing-md);
+}
+
+.contact-page .article-section {
+  padding: calc(var(--spacing-xl) * 0.9) 4rem;
+}
+
+body.contact-page {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.contact-page main {
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-page .article-container {
+  max-height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-row {
+  display: flex;
+  gap: var(--spacing-sm);
+  width: 100%;
+}
+
+.form-row .form-group {
+  flex: 1;
 }
 
 .form-group {
@@ -2105,6 +2145,7 @@ li {
   }
 
   .contact-form { gap: 0.75rem; }
+  .form-row { flex-direction: column; }
   .form-group { gap: 0.4rem; }
   .form-label { font-size: 0.9rem; }
 
