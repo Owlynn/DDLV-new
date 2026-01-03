@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "Site statique Donner de la Voix",
   "scripts": {
-    "dev": "npx http-server . -p 3000 -o",
-    "serve": "npx http-server . -p 3000"
+    "dev": "live-server --port=3000 --open=/index.html",
+    "serve": "npx http-server . -p 3000",
+    "start": "live-server --port=3000 --open=/index.html"
   },
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
   }
 }
-
