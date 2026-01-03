@@ -444,6 +444,13 @@ li {
   position: relative;
   transition: transform var(--transition-smooth);
   box-sizing: border-box;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.28) 0%, rgb(255 255 255 / 40%) 50%, rgb(255 255 255 / 41%) 100%);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  border: 1px solid var(--border-white-soft);
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  min-height: 12.5rem;
 }
 
 .card-workshop:hover {
@@ -519,7 +526,7 @@ li {
   flex: 1;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: var(--spacing-md);
   transition: filter var(--transition-base);
@@ -547,7 +554,7 @@ li {
 }
 
 .workshop-title {
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: var(--color-primary);
   margin-bottom: 0;
   font-weight: 400;
@@ -555,13 +562,7 @@ li {
 }
 
 .workshop-subtitle {
-  font-size: 0.95rem;
-  color: var(--color-primary-dark);
-  margin-top: 0.25rem;
-  margin-bottom: 0;
-  font-weight: 300;
-  line-height: 1.4;
-  opacity: 0.85;
+  display: none;
 }
 
 .workshop-date,
@@ -737,10 +738,12 @@ li {
 }
 
 .calendar-month-title {
-  font-size: 1.75rem;
-  color: var(--color-primary);
+  font-size: 1.5rem;
+  color: var(--color-accent);
   font-weight: 400;
   margin: 0;
+  text-align: center;
+  flex: 1;
 }
 
 .calendar-nav-btn {
@@ -795,9 +798,9 @@ li {
 
 .calendar-day .day-number {
   font-weight: 500;
-  color: var(--color-primary-dark);
+  color: var(--color-accent);
   font-size: 0.75rem;
-  margin-bottom: 0.1rem;
+  margin-bottom: 0.05rem;
 }
 
 .calendar-day.has-workshop {
@@ -807,7 +810,7 @@ li {
 }
 
 .calendar-day.has-workshop .day-number {
-  color: var(--color-primary);
+  color: var(--color-accent);
   font-weight: 600;
 }
 
@@ -817,7 +820,7 @@ li {
   text-align: center;
   line-height: 1.2;
   font-weight: 500;
-  margin-top: 0.25rem;
+  margin-top: 0.125rem;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -1456,7 +1459,7 @@ li {
   display: flex;
   align-items: center;
   gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-md);
+  margin-bottom: 0%;
 }
 
 #calendrier h2 {
@@ -1997,7 +2000,6 @@ li {
 
   .article-toc-title {
     padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-xs) var(--spacing-sm);
-    margin-bottom: var(--spacing-xs);
   }
 
   .article-toc-nav { padding: 0 var(--spacing-sm) var(--spacing-sm) var(--spacing-sm); }
@@ -2074,7 +2076,7 @@ li {
   }
 
   .calendar-month-title {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     flex: 1;
     text-align: center;
   }
@@ -2209,7 +2211,7 @@ li {
   .card { padding: 1.25rem; }
 
   .workshop-title { font-size: 1rem; }
-  .workshop-subtitle { font-size: 0.875rem; }
+  .workshop-subtitle { display: none; }
   .workshop-date, .workshop-location { font-size: 16px; }
 
   .article-container {
@@ -2246,7 +2248,7 @@ li {
   .article-image-full { height: 200px; }
 
   .calendar-view { padding: 0.75rem; }
-  .calendar-month-title { font-size: 1.125rem; }
+  .calendar-month-title { font-size: 1rem; }
   .calendar-day { height: 2.5rem; }
   .calendar-day .day-number { font-size: 0.6rem; }
   .workshop-indicator { font-size: 0.55rem; }

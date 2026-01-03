@@ -1007,21 +1007,10 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleRight.classList.remove('active');
       }
       
-      // Scroller vers le haut de la section calendrier
+      // Scroller jusqu'en haut de la page
       setTimeout(() => {
-        const headerHeight = document.querySelector('.site-nav')?.offsetHeight || 0;
-        const offset = headerHeight + 20;
-        
-        // Calculer la position du haut de la section calendrier
-        // Utiliser offsetTop pour avoir la position absolue depuis le haut du document
-        const calendrierTop = calendrierSection.offsetTop;
-        const scrollPosition = calendrierTop - offset;
-        
-        // S'assurer qu'on scrolle bien en haut (au minimum à 0)
-        const finalScrollPosition = Math.max(0, scrollPosition);
-        
         window.scrollTo({
-          top: finalScrollPosition,
+          top: 0,
           behavior: 'smooth'
         });
       }, 200);
@@ -1128,22 +1117,10 @@ document.addEventListener('DOMContentLoaded', function() {
         calendrierButton.classList.add('active');
       }
       
-      // Scroller vers le haut de la section calendrier
+      // Scroller jusqu'en haut de la page
       setTimeout(() => {
-        // Attendre que la section soit affichée avant de calculer la position
-        const headerHeight = document.querySelector('.site-nav')?.offsetHeight || 0;
-        const offset = headerHeight + 20;
-        
-        // Calculer la position du haut de la section calendrier
-        // Utiliser offsetTop pour avoir la position absolue depuis le haut du document
-        const calendrierTop = calendrierSection.offsetTop;
-        const scrollPosition = calendrierTop - offset;
-        
-        // S'assurer qu'on scrolle bien en haut (au minimum à 0)
-        const finalScrollPosition = Math.max(0, scrollPosition);
-        
         window.scrollTo({
-          top: finalScrollPosition,
+          top: 0,
           behavior: 'smooth'
         });
       }, 200);
