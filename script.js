@@ -761,12 +761,23 @@ function renderCalendar() {
       dayElement.classList.add('has-workshop');
       const workshop = dayWorkshops[0];
       dayElement.setAttribute('data-workshop-title', workshop.title);
+      
+      // Ajouter le contenu de l'atelier
       dayElement.innerHTML += `
         <div class="workshop-indicator" title="${workshop.title}">${workshop.title}</div>
         <div class="workshop-overlay">
-          <span class="workshop-overlay-text">En savoir plus</span>
+          <span class="workshop-overlay-text">${workshop.link ? 'Réserver' : 'En savoir plus'}</span>
         </div>
       `;
+      
+      // Ajouter le gestionnaire de clic pour rediriger vers billet web
+      if (workshop.link) {
+        dayElement.setAttribute('data-workshop-link', workshop.link);
+        dayElement.style.cursor = 'pointer';
+        dayElement.addEventListener('click', function() {
+          window.open(workshop.link, '_blank');
+        });
+      }
     }
     
     calendarGrid.appendChild(dayElement);
