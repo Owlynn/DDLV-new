@@ -2807,8 +2807,9 @@ iframe[src*="calendly.com"]::-webkit-scrollbar {
 }
 
 /* ============================================
-   PAGE NEWSLETTER - Styles spécifiques
+   PAGES CONTACT ET NEWSLETTER - Styles spécifiques
    ============================================ */
+.contact-page .article-content,
 .newsletter-page .article-content {
   max-width: 80%;
   margin: 0 auto;
