@@ -142,18 +142,12 @@ function generateWorkshopCard(workshop) {
   // Nettoyer le paramètre ?v= s'il existe dans l'URL
   if (imageUrl.includes('?v=')) {
     imageUrl = imageUrl.split('?v=')[0];
-    console.log('🧹 Paramètre ?v= supprimé de l\'URL pour:', workshop.title);
   }
   
   // Créer l'URL de fallback .png si l'URL actuelle est en .jpg
   let fallbackPngUrl = null;
   if (imageUrl && imageUrl.includes('/thumb/') && imageUrl.endsWith('.jpg')) {
     fallbackPngUrl = imageUrl.replace('.jpg', '.png');
-  }
-  
-  console.log('Génération carte pour:', workshop.title, '- Image URL:', imageUrl);
-  if (fallbackPngUrl) {
-    console.log('  Fallback PNG:', fallbackPngUrl);
   }
   
   // Échapper les URLs d'images pour le CSS (échapper les apostrophes)
@@ -234,13 +228,11 @@ export function renderWorkshopsList(workshopsData) {
  * @param {boolean} forceRefresh - Si true, ignore le cache et force le rafraîchissement
  */
 export async function loadWorkshops(forceRefresh = false, fetchWorkshops, clearCache) {
-  console.log('🔵 loadWorkshops() appelée, forceRefresh:', forceRefresh);
   const listView = document.getElementById('workshops-list-view');
   if (!listView) {
     console.warn('⚠️ workshops-list-view non trouvé, on n\'est probablement pas sur la page ateliers');
     return; // Si on n'est pas sur la page ateliers
   }
-  console.log('✅ workshops-list-view trouvé');
 
   // Vider le cache si on force le rafraîchissement
   if (forceRefresh) {
@@ -248,7 +240,6 @@ export async function loadWorkshops(forceRefresh = false, fetchWorkshops, clearC
   }
 
   showLoadingState();
-  console.log('🔵 État de chargement affiché');
 
   try {
     const workshopsData = await fetchWorkshops();

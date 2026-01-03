@@ -152,7 +152,6 @@
       
       // Initialiser EmailJS avec la Public Key
       emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
-      console.log('✅ EmailJS initialisé');
       
       // Récupérer le formulaire
       const contactForm = document.querySelector('.contact-form');
@@ -263,8 +262,6 @@
         )
         .then(function() {
           // Succès
-          console.log('✅ Email envoyé avec succès');
-          
           // Enregistrer la soumission pour le rate limiting
           recordSubmission();
           

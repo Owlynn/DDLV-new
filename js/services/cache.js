@@ -51,6 +51,5 @@ export function setCachedWorkshops(data) {
  */
 export function clearCache() {
   localStorage.removeItem(CACHE_KEY);
-  console.log('🗑️ Cache vidé');
 }
 

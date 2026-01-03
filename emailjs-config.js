@@ -12,8 +12,6 @@
 // 1. Copiez secrets.example.js vers secrets.local.js
 // 2. Remplissez vos vraies clés dans secrets.local.js
 
-console.log('🟢 emailjs-config.js chargé');
-
 // Charger depuis secrets.local.js si disponible, sinon utiliser des valeurs par défaut
 const SECRETS = (typeof window !== 'undefined' && window.SECRETS) || {};
 const EMAILJS_SECRETS = SECRETS.EMAILJS || {};
@@ -35,8 +33,6 @@ if (isDev) {
       EMAILJS_CONFIG.TEMPLATE_ID === 'votre_template_id_emailjs') {
     console.warn('⚠️ EmailJS: Veuillez configurer vos clés dans secrets.local.js');
     console.warn('⚠️ Copiez secrets.example.js vers secrets.local.js et remplissez vos clés');
-  } else {
-    console.log('✅ EmailJS configuré depuis secrets.local.js');
   }
 }
 
@@ -44,10 +40,4 @@ if (isDev) {
 if (typeof window !== 'undefined') {
   window.EMAILJS_CONFIG = EMAILJS_CONFIG;
 }
-
-console.log('🟢 EMAILJS_CONFIG initialisé:', {
-  PUBLIC_KEY: EMAILJS_CONFIG.PUBLIC_KEY ? '***' + EMAILJS_CONFIG.PUBLIC_KEY.slice(-4) : 'non défini',
-  SERVICE_ID: EMAILJS_CONFIG.SERVICE_ID ? 'défini' : 'non défini',
-  TEMPLATE_ID: EMAILJS_CONFIG.TEMPLATE_ID ? 'défini' : 'non défini'
-});
 

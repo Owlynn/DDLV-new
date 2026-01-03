@@ -7,9 +7,6 @@ import { convertImageUrls } from '../utils/image-urls.js';
  * @returns {Array} Tableau d'ateliers au format interne
  */
 function transformBilletWebData(apiData) {
-  console.log('Transformation des données - Type:', typeof apiData, 'Est un tableau?', Array.isArray(apiData));
-  console.log('Données brutes:', apiData);
-  
   // Si apiData est déjà un tableau, l'utiliser directement
   // Sinon, extraire les événements depuis la structure de réponse
   let events = Array.isArray(apiData) ? apiData : (apiData.events || apiData.data || []);
@@ -18,19 +15,6 @@ function transformBilletWebData(apiData) {
     console.warn('Format de données API inattendu:', apiData);
     console.warn('Type reçu:', typeof apiData, 'Est un tableau?', Array.isArray(apiData));
     return [];
-  }
-  
-  console.log('Nombre d\'événements à transformer:', events.length);
-  if (events.length > 0) {
-    console.log('Premier événement (exemple):', events[0]);
-    console.log('ext_id du premier événement:', events[0].ext_id);
-    console.log('id du premier événement:', events[0].id);
-    console.log('Champs image disponibles dans le premier événement:', {
-      image: events[0].image,
-      cover: events[0].cover,
-      picture: events[0].picture,
-      photo: events[0].photo
-    });
   }
 
   return events
@@ -86,17 +70,12 @@ function transformBilletWebData(apiData) {
         // Exemple: "https://www.billetweb.fr/files/page/1306200.jpg" 
         // -> "https://www.billetweb.fr/files/page/thumb/improvisation-vocale-chant-improvise-les-ateliers-focus3.jpg"
         image = `https://www.billetweb.fr/files/page/thumb/${event.ext_id}.jpg`;
-        console.log('✅ URL image convertie depuis ext_id pour:', event.name || event.title);
-        console.log('   URL originale:', apiImageUrl);
-        console.log('   URL convertie:', image);
       } else if (event.ext_id) {
         // Si pas d'URL dans l'API mais qu'on a l'ext_id, construire directement
         image = `https://www.billetweb.fr/files/page/thumb/${event.ext_id}.jpg`;
-        console.log('✅ Image construite depuis ext_id pour:', event.name || event.title, '- URL:', image);
       } else {
         // Fallback: utiliser une image par défaut si pas d'ext_id
         image = 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=80';
-        console.log('⚠️ Pas d\'ext_id pour l\'événement:', event.name || event.title, '- Utilisation de l\'image par défaut');
       }
 
       // Extraire le lien de réservation (shop dans la doc BilletWeb)
@@ -139,23 +118,18 @@ function transformBilletWebData(apiData) {
  * @returns {Promise<Array>} Liste des événements/ateliers
  */
 export async function fetchBilletWebWorkshops() {
-  console.log('🔵 fetchBilletWebWorkshops() appelée');
   try {
     // Vérifier que la configuration est disponible
     if (typeof BILLETWEB_CONFIG === 'undefined') {
       throw new Error('BILLETWEB_CONFIG n\'est pas défini');
     }
-    console.log('✅ Configuration disponible');
     
     // Vérifier le cache d'abord
     const cachedData = getCachedWorkshops();
     if (cachedData) {
-      console.log('✅ Données trouvées dans le cache');
-      console.log('ℹ️ Pour voir les données fraîches de l\'API, videz le cache avec: clearCache() dans la console');
       // Convertir les URLs même si elles sont en cache
       return convertImageUrls(cachedData);
     }
-    console.log('ℹ️ Pas de données en cache, appel API...');
 
     // Construire l'URL de l'API selon la documentation BilletWeb
     // https://www.billetweb.fr/bo/api.php
@@ -174,13 +148,11 @@ export async function fetchBilletWebWorkshops() {
       headers['Authorization'] = BILLETWEB_CONFIG.authorization;
       // Ajouter seulement la version dans les paramètres
       params.append('version', BILLETWEB_CONFIG.version || '1');
-      console.log('Utilisation de l\'authentification via header Authorization');
     } else {
       // Utiliser l'authentification via paramètres URL (méthode par défaut)
       params.append('user', BILLETWEB_CONFIG.userId);
       params.append('key', BILLETWEB_CONFIG.apiKey);
       params.append('version', BILLETWEB_CONFIG.version || '1');
-      console.log('Utilisation de l\'authentification via paramètres URL');
     }
 
     // Paramètres optionnels selon la documentation BilletWeb :
@@ -200,18 +172,12 @@ export async function fetchBilletWebWorkshops() {
 
     apiUrl += `?${params.toString()}`;
 
-    // Log pour débogage
-    console.log('URL de l\'API:', apiUrl);
-    console.log('Headers:', headers);
-
     // Effectuer la requête avec les headers
     // cache: 'no-store' empêche le navigateur de mettre en cache la réponse HTTP
     const response = await fetch(apiUrl, {
       headers: headers,
       cache: 'no-store'
     });
-    
-    console.log('Statut de la réponse:', response.status, response.statusText);
     
     if (!response.ok) {
       const errorText = await response.text();
@@ -220,13 +186,9 @@ export async function fetchBilletWebWorkshops() {
     }
 
     const data = await response.json();
-    console.log('Données reçues de l\'API:', data);
-    console.log('Type de données:', Array.isArray(data) ? 'Array' : typeof data);
     
     // Transformer les données
     let transformedData = transformBilletWebData(data);
-    console.log('Données transformées:', transformedData);
-    console.log('Nombre d\'ateliers transformés:', transformedData.length);
     
     // Convertir les URLs d'images au format correct (même si elles viennent de l'API)
     transformedData = convertImageUrls(transformedData);

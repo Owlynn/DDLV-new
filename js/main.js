@@ -1,11 +1,6 @@
-// Log de démarrage
-console.log('🔵 main.js chargé');
-
 // Vérifier que la configuration BilletWeb est disponible
 if (typeof BILLETWEB_CONFIG === 'undefined') {
   console.error('❌ ERREUR: BILLETWEB_CONFIG n\'est pas défini. Assurez-vous que billetweb-config.js est chargé AVANT main.js');
-} else {
-  console.log('✅ BILLETWEB_CONFIG chargé:', BILLETWEB_CONFIG);
 }
 
 // Imports
@@ -23,8 +18,6 @@ window.getWorkshops = getWorkshops;
 
 // Initialisation au chargement du DOM
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('🔵 DOMContentLoaded déclenché');
-  
   // Initialiser le menu hamburger
   initMenu();
   
@@ -36,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
   initCalendarNavigation();
   
   // Charger les ateliers
-  console.log('🔵 Appel de loadWorkshops()...');
   loadWorkshops(false, fetchBilletWebWorkshops, clearCache);
   
   // Basculement entre liste et calendrier
