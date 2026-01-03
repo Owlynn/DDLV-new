@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Cache pour les données des ateliers
 const CACHE_KEY = 'billetweb_workshops';
-const CACHE_DURATION = 60 * 60 * 1000; // 1 heure en millisecondes
+const CACHE_DURATION = 15 * 60 * 1000; // 15 minutes en millisecondes
 
 // Données des ateliers (sera rempli dynamiquement)
 let workshops = [];
@@ -161,8 +161,10 @@ async function fetchBilletWebWorkshops() {
     console.log('Headers:', headers);
 
     // Effectuer la requête avec les headers
+    // cache: 'no-store' empêche le navigateur de mettre en cache la réponse HTTP
     const response = await fetch(apiUrl, {
-      headers: headers
+      headers: headers,
+      cache: 'no-store'
     });
     
     console.log('Statut de la réponse:', response.status, response.statusText);
