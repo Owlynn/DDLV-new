@@ -293,6 +293,9 @@ li {
   margin: 0;
   padding: 0;
   flex-wrap: wrap;
+  height: fit-content;
+  line-height: 1.2;
+  min-height: auto;
 }
 
 .header-menu-item,
@@ -310,6 +313,9 @@ li {
   white-space: nowrap;
   display: flex;
   align-items: center;
+  line-height: 1.2;
+  padding: 0;
+  margin: 0;
 }
 
 .header-menu-item:hover { opacity: 0.8; }
@@ -322,6 +328,56 @@ li {
   transform: none;
 }
 .menu-item-home { display: none; }
+
+/* Bouton flottant PRENDRE RDV en bas à droite avec glassmorphism */
+.floating-rdv-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #ffffff;
+  /* Glassmorphism avec teinte violette */
+  background: linear-gradient(135deg, 
+    rgba(91, 42, 181, 0.75) 0%, 
+    rgba(91, 42, 181, 0.85) 50%, 
+    rgba(91, 42, 181, 0.75) 100%);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  box-shadow: 0 2px 8px rgba(91, 42, 181, 0.12), 0 1px 4px rgba(91, 42, 181, 0.08);
+  white-space: nowrap;
+  z-index: 9999;
+  /* Effet glassmorphism supplémentaire */
+  box-shadow: 0 2px 8px rgba(91, 42, 181, 0.12), 
+              0 1px 4px rgba(91, 42, 181, 0.08),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.floating-rdv-btn:hover {
+  background: linear-gradient(135deg, 
+    rgba(91, 42, 181, 0.85) 0%, 
+    rgba(91, 42, 181, 0.95) 50%, 
+    rgba(91, 42, 181, 0.85) 100%);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 16px rgba(91, 42, 181, 0.2), 
+              0 2px 8px rgba(91, 42, 181, 0.15),
+              inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.floating-rdv-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(91, 42, 181, 0.12), 
+              0 1px 4px rgba(91, 42, 181, 0.08),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
 
 .menu-toggle {
   display: none;
@@ -1979,6 +2035,12 @@ body.contact-page {
     font-weight: 400;
   }
 
+  .floating-rdv-btn {
+    bottom: 15px;
+    right: 15px;
+    padding: 0.65rem 1rem;
+    font-size: 13px;
+  }
 
   .cards-grid {
     grid-template-columns: 1fr;
@@ -2379,5 +2441,278 @@ body.contact-page {
     max-height: 70vh;
   }
   .menu-items { gap: 1.25rem; }
+}
+
+/* ============================================
+   CALENDLY POPUP PERSONNALISÉE - Glassmorphism et masquage scrollbar
+   ============================================ */
+/* Conteneur de la popup */
+.calendly-popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* Overlay avec glassmorphism */
+.calendly-popup-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: var(--blur-lg);
+  -webkit-backdrop-filter: var(--blur-lg);
+}
+
+/* Contenu de la popup */
+.calendly-popup-content-wrapper {
+  position: relative;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  border-radius: 16px;
+  overflow: hidden;
+  /* Glassmorphism pour la popup */
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.25) 0%, 
+    rgba(255, 255, 255, 0.35) 50%, 
+    rgba(255, 255, 255, 0.25) 100%);
+  backdrop-filter: var(--blur-xl);
+  -webkit-backdrop-filter: var(--blur-xl);
+  /* Bordure subtile */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  /* Ombres élégantes */
+  box-shadow: 0 20px 60px rgba(91, 42, 181, 0.2), 
+              0 8px 20px rgba(91, 42, 181, 0.15),
+              0 2px 8px rgba(91, 42, 181, 0.1);
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  left: auto;
+  right: auto;
+}
+
+/* Bouton de fermeture */
+.calendly-popup-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  color: var(--color-primary);
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(91, 42, 181, 0.15);
+  transition: all var(--transition-smooth);
+  z-index: 10002;
+}
+
+.calendly-popup-close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(91, 42, 181, 0.2);
+}
+
+/* Widget Calendly inline */
+.calendly-inline-widget {
+  width: 100%;
+  height: 100%;
+  min-height: 700px;
+  border-radius: 16px;
+  overflow: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.calendly-inline-widget::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.calendly-inline-widget iframe {
+  border-radius: 16px;
+  border: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+  .calendly-inline-widget iframe::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Responsive pour la popup Calendly */
+@media (max-width: 768px) {
+  .calendly-popup-content-wrapper {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  .calendly-inline-widget {
+    min-height: 600px;
+  }
+}
+
+@media (max-width: 480px) {
+  .calendly-popup-content-wrapper {
+    width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .calendly-popup-close-btn {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+
+  .calendly-inline-widget {
+    min-height: 500px;
+  }
+}
+
+/* ============================================
+   CALENDLY POPUP NATIVE - Glassmorphism et masquage scrollbar (si utilisée)
+   ============================================ */
+/* Overlay de la popup avec glassmorphism */
+[class*="calendly-overlay"],
+[class*="calendly-popup-overlay"] {
+  background: rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: var(--blur-lg) !important;
+  -webkit-backdrop-filter: var(--blur-lg) !important;
+}
+
+/* Conteneur principal de la popup - sélecteurs multiples pour couvrir toutes les variantes */
+[class*="calendly-popup"],
+[class*="calendly-popup-content"],
+div[data-calendly-popup] {
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  /* Glassmorphism pour la popup */
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.25) 0%, 
+    rgba(255, 255, 255, 0.35) 50%, 
+    rgba(255, 255, 255, 0.25) 100%) !important;
+  backdrop-filter: var(--blur-xl) !important;
+  -webkit-backdrop-filter: var(--blur-xl) !important;
+  /* Bordure subtile */
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  /* Ombres élégantes */
+  box-shadow: 0 20px 60px rgba(91, 42, 181, 0.2), 
+              0 8px 20px rgba(91, 42, 181, 0.15),
+              0 2px 8px rgba(91, 42, 181, 0.1) !important;
+}
+
+/* Frame Calendly à l'intérieur */
+[class*="calendly-popup-content-frame"],
+[class*="calendly-popup-content-frame"] iframe,
+[class*="calendly-inline-widget"] {
+  border-radius: 16px !important;
+  border: none !important;
+  /* Masquer la scrollbar */
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+[class*="calendly-popup-content-frame"]::-webkit-scrollbar,
+[class*="calendly-popup-content-frame"] iframe::-webkit-scrollbar,
+[class*="calendly-inline-widget"]::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Masquer toutes les scrollbars dans la popup Calendly */
+[class*="calendly-popup"] *,
+[class*="calendly-popup"] iframe {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+[class*="calendly-popup"] *::-webkit-scrollbar,
+[class*="calendly-popup"] iframe::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Bouton de fermeture avec style glassmorphism */
+[class*="calendly-popup-close"],
+[class*="calendly-close"],
+button[aria-label*="close" i][class*="calendly"] {
+  background: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: var(--blur-md) !important;
+  -webkit-backdrop-filter: var(--blur-md) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 50% !important;
+  width: 40px !important;
+  height: 40px !important;
+  box-shadow: 0 2px 8px rgba(91, 42, 181, 0.15) !important;
+  transition: all var(--transition-smooth) !important;
+}
+
+[class*="calendly-popup-close"]:hover,
+[class*="calendly-close"]:hover,
+button[aria-label*="close" i][class*="calendly"]:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+  transform: scale(1.1) !important;
+  box-shadow: 0 4px 12px rgba(91, 42, 181, 0.2) !important;
+}
+
+/* Header de la popup */
+[class*="calendly-popup-content-header"],
+[class*="calendly-popup-header"] {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Styles pour le contenu scrollable sans scrollbar visible */
+[class*="calendly-popup-content-body"],
+[class*="calendly-badge-content"] {
+  overflow-y: auto !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+[class*="calendly-popup-content-body"]::-webkit-scrollbar,
+[class*="calendly-badge-content"]::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Cibler spécifiquement les iframes Calendly */
+iframe[src*="calendly.com"] {
+  border-radius: 16px !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+iframe[src*="calendly.com"]::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 

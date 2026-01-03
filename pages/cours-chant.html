@@ -40,6 +40,9 @@
   
   <!-- Lien vers le fichier CSS -->
   <link rel="stylesheet" href="../styles.css">
+  
+  <!-- Calendly CSS -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 </head>
 <body>
   <!-- Skip link pour la navigation au clavier -->
@@ -80,6 +83,20 @@
       </nav>
     </div>
   </nav>
+  
+  <!-- Bouton flottant PRENDRE RDV -->
+  <button class="floating-rdv-btn" id="calendly-trigger" aria-label="Prendre rendez-vous">
+    PRENDRE RDV
+  </button>
+  
+  <!-- Popup Calendly -->
+  <div id="calendly-popup" class="calendly-popup-container" style="display: none;">
+    <div class="calendly-popup-overlay" id="calendly-popup-overlay"></div>
+    <div class="calendly-popup-content-wrapper">
+      <button class="calendly-popup-close-btn" id="calendly-popup-close" aria-label="Fermer">×</button>
+      <div class="calendly-inline-widget" data-url="https://calendly.com/contactdonnerdelavoix/30min" style="min-width:320px;height:700px;"></div>
+    </div>
+  </div>
   
   <main id="main-content" role="main">
     <article class="article-container">
@@ -205,6 +222,40 @@
     </article>
   </main>
   <script type="module" src="../js/main.js"></script>
+  
+  <!-- Calendly Script -->
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+  <script>
+    // Gestion de la popup Calendly
+    document.addEventListener('DOMContentLoaded', function() {
+      const trigger = document.getElementById('calendly-trigger');
+      const popup = document.getElementById('calendly-popup');
+      const closeBtn = document.getElementById('calendly-popup-close');
+      const overlay = document.getElementById('calendly-popup-overlay');
+      
+      if (trigger && popup) {
+        trigger.addEventListener('click', function() {
+          popup.style.display = 'block';
+          document.body.style.overflow = 'hidden';
+        });
+        
+        function closePopup() {
+          popup.style.display = 'none';
+          document.body.style.overflow = '';
+        }
+        
+        if (closeBtn) closeBtn.addEventListener('click', closePopup);
+        if (overlay) overlay.addEventListener('click', closePopup);
+        
+        // Fermer avec la touche Escape
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && popup.style.display === 'block') {
+            closePopup();
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>
 
