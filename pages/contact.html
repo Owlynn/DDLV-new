@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Encodage des caractères et viewport -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- 
+    BALISES SEO - Optimisées pour les mots-clés suivants :
+    - contact, Donner de la Voix, cours de chant, improvisation vocale Toulouse
+  -->
+  <title>Contact - Donner de la Voix | Cours de chant et improvisation vocale à Toulouse</title>
+  <meta name="description" content="Contactez Donner de la Voix pour vos questions sur les cours de chant, les ateliers d'improvisation vocale et les circle songs à Toulouse.">
+  <meta name="keywords" content="contact, Donner de la Voix, cours de chant Toulouse, improvisation vocale Toulouse, contact Jessalynn">
+  
+  <!-- Open Graph : Métadonnées pour le partage sur les réseaux sociaux -->
+  <meta property="og:title" content="Contact - Donner de la Voix | Cours de chant et improvisation vocale">
+  <meta property="og:description" content="Contactez Donner de la Voix pour vos questions sur les cours de chant et les ateliers d'improvisation vocale à Toulouse.">
+  <meta property="og:url" content="https://www.donnerdelavoix.fr/contact">
+  <meta property="og:site_name" content="Donner de la Voix - Impro vocale & Circlesongs - Cours de chant">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:type" content="website">
+  
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contact - Donner de la Voix | Cours de chant et improvisation vocale">
+  <meta name="twitter:description" content="Contactez Donner de la Voix pour vos questions sur les cours de chant et les ateliers d'improvisation vocale à Toulouse.">
+  
+  <!-- URL canonique -->
+  <link rel="canonical" href="https://www.donnerdelavoix.fr/contact">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="../assets/logo-ddlv.png">
+  
+  <!-- Google Fonts - Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lien vers le fichier CSS -->
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="contact-page">
+  <!-- Skip link pour la navigation au clavier -->
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+  
+  <!-- Nav réutilisable -->
+  <nav class="site-nav" role="navigation">
+    <div class="header-container">
+      <a href="../index.html" class="header-logo" aria-label="Retour à l'accueil - Donner de la Voix">
+        <img src="../assets/logo-ddlv.png" alt="Donner de la Voix" class="header-logo-image">
+      </a>
+      <button class="menu-toggle" aria-label="Menu de navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="header-nav" aria-label="Navigation principale">
+        <ul class="header-menu" role="list">
+          <li class="menu-item-home">
+            <a href="../index.html" class="header-menu-item">Accueil</a>
+          </li>
+          <li>
+            <a href="impro-vocale.html" class="header-menu-item">L'impro vocale</a>
+          </li>
+          <li>
+            <a href="ateliers.html" class="header-menu-item">Les ateliers</a>
+          </li>
+          <li>
+            <a href="cours-chant.html" class="header-menu-item">Les cours de chant</a>
+          </li>
+          <li>
+            <a href="about.html" class="header-menu-item">La prof</a>
+          </li>
+          <li>
+            <a href="contact.html" class="header-menu-item active">Contact</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </nav>
+  
+  <main id="main-content" role="main">
+    <article class="article-container">
+      <div class="article-layout">
+        <!-- Contenu principal -->
+        <div class="article-main">
+          <section class="article-section glass-section active-section">
+            <div class="article-content">
+              <h1>Contact</h1>
+              <p>Vous avez des questions sur les cours de chant, les ateliers d'improvisation vocale ou les circle songs ? N'hésitez pas à me contacter, je serai ravie de vous répondre.</p>
+              
+              <form class="contact-form" action="#" method="POST" aria-label="Formulaire de contact">
+                <!-- Honeypot - champ caché pour piéger les bots -->
+                <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <input type="text" id="name" name="name" class="form-input" required aria-required="true" placeholder="Nom *" aria-label="Nom" minlength="2">
+                  </div>
+                  
+                  <div class="form-group">
+                    <input type="email" id="email" name="email" class="form-input" required aria-required="true" placeholder="Email *" aria-label="Email">
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <input type="text" id="subject" name="subject" class="form-input" placeholder="Sujet" aria-label="Sujet">
+                </div>
+                
+                <div class="form-group">
+                  <textarea id="message" name="message" class="form-textarea" rows="5" required aria-required="true" placeholder="Message *" aria-label="Message" minlength="10"></textarea>
+                </div>
+                
+                <button type="submit" class="form-submit">Envoyer le message</button>
+              </form>
+            </div>
+          </section>
+        </div>
+      </div>
+    </article>
+  </main>
+  
+  <!-- Configuration EmailJS -->
+  <script src="../emailjs-config.js"></script>
+  
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  
+  <!-- Script principal -->
+  <script src="../script.js"></script>
+  
+  <!-- Script pour gérer l'envoi du formulaire via EmailJS avec protection anti-spam -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Vérifier que la configuration EmailJS est disponible
+      if (typeof EMAILJS_CONFIG === 'undefined') {
+        console.error('❌ EMAILJS_CONFIG n\'est pas défini. Assurez-vous que emailjs-config.js est chargé.');
+        return;
+      }
+      
+      // Vérifier que les valeurs sont configurées
+      if (EMAILJS_CONFIG.PUBLIC_KEY === 'votre-public-key-ici' || 
+          EMAILJS_CONFIG.SERVICE_ID === 'votre-service-id-ici' || 
+          EMAILJS_CONFIG.TEMPLATE_ID === 'votre-template-id-ici') {
+        console.warn('⚠️ Veuillez configurer vos identifiants EmailJS dans emailjs-config.js');
+        return;
+      }
+      
+      // Initialiser EmailJS avec la Public Key
+      emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+      console.log('✅ EmailJS initialisé');
+      
+      // Récupérer le formulaire
+      const contactForm = document.querySelector('.contact-form');
+      if (!contactForm) {
+        console.error('❌ Formulaire de contact non trouvé');
+        return;
+      }
+      
+      // ============================================
+      // PROTECTION ANTI-SPAM
+      // ============================================
+      
+      // 1. Rate limiting - Limiter le nombre d'envois
+      const RATE_LIMIT_KEY = 'contact_form_submissions';
+      const MAX_SUBMISSIONS = 3; // Maximum d'envois
+      const TIME_WINDOW = 60 * 60 * 1000; // 1 heure en millisecondes
+      
+      function checkRateLimit() {
+        const now = Date.now();
+        const submissions = JSON.parse(localStorage.getItem(RATE_LIMIT_KEY) || '[]');
+        
+        // Nettoyer les soumissions anciennes
+        const recentSubmissions = submissions.filter(time => now - time < TIME_WINDOW);
+        
+        if (recentSubmissions.length >= MAX_SUBMISSIONS) {
+          const timeLeft = Math.ceil((TIME_WINDOW - (now - recentSubmissions[0])) / 1000 / 60);
+          return {
+            allowed: false,
+            message: `Trop de tentatives. Veuillez réessayer dans ${timeLeft} minute${timeLeft > 1 ? 's' : ''}.`
+          };
+        }
+        
+        return { allowed: true };
+      }
+      
+      function recordSubmission() {
+        const now = Date.now();
+        const submissions = JSON.parse(localStorage.getItem(RATE_LIMIT_KEY) || '[]');
+        submissions.push(now);
+        localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(submissions));
+      }
+      
+      // 2. Enregistrer le temps de début de remplissage
+      let formStartTime = Date.now();
+      const MIN_FILL_TIME = 3000; // 3 secondes minimum pour remplir le formulaire
+      
+      contactForm.addEventListener('focusin', function() {
+        if (!formStartTime) {
+          formStartTime = Date.now();
+        }
+      }, true);
+      
+      // 3. Validation du temps de remplissage
+      function checkFillTime() {
+        const fillTime = Date.now() - formStartTime;
+        if (fillTime < MIN_FILL_TIME) {
+          console.warn('⚠️ Formulaire rempli trop rapidement (possible bot)');
+          return false;
+        }
+        return true;
+      }
+      
+      // Gérer la soumission du formulaire
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Vérification 1: Honeypot (champ caché)
+        const honeypot = this.querySelector('.honeypot');
+        if (honeypot && honeypot.value !== '') {
+          console.warn('🚫 Spam détecté: honeypot rempli');
+          alert('Erreur de validation. Veuillez réessayer.');
+          return;
+        }
+        
+        // Vérification 2: Rate limiting
+        const rateLimitCheck = checkRateLimit();
+        if (!rateLimitCheck.allowed) {
+          alert(rateLimitCheck.message);
+          return;
+        }
+        
+        // Vérification 3: Temps de remplissage
+        if (!checkFillTime()) {
+          alert('Veuillez prendre le temps de remplir le formulaire correctement.');
+          return;
+        }
+        
+        // Vérification 4: Longueur minimale du message
+        const messageField = this.querySelector('[name="message"]');
+        if (messageField && messageField.value.trim().length < 10) {
+          alert('Le message doit contenir au moins 10 caractères.');
+          return;
+        }
+        
+        // Récupérer le bouton de soumission
+        const submitBtn = this.querySelector('.form-submit');
+        const originalText = submitBtn.textContent;
+        
+        // Désactiver le bouton pendant l'envoi
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Envoi en cours...';
+        
+        // Envoyer l'email via EmailJS
+        emailjs.sendForm(
+          EMAILJS_CONFIG.SERVICE_ID,
+          EMAILJS_CONFIG.TEMPLATE_ID,
+          this
+        )
+        .then(function() {
+          // Succès
+          console.log('✅ Email envoyé avec succès');
+          
+          // Enregistrer la soumission pour le rate limiting
+          recordSubmission();
+          
+          submitBtn.textContent = 'Message envoyé !';
+          submitBtn.style.background = 'var(--color-accent)';
+          
+          // Réinitialiser le formulaire et le temps
+          e.target.reset();
+          formStartTime = Date.now();
+          
+          // Réactiver le bouton après 3 secondes
+          setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+            submitBtn.style.background = '';
+          }, 3000);
+        }, function(error) {
+          // Erreur
+          console.error('❌ Erreur EmailJS:', error);
+          alert('Erreur lors de l\'envoi du message. Veuillez réessayer.');
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+

@@ -1668,6 +1668,17 @@ body.contact-page {
   gap: var(--spacing-xs);
 }
 
+/* Honeypot - champ caché pour la protection anti-spam */
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
 .form-label {
   font-size: 1rem;
   color: var(--color-primary);
