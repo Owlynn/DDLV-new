@@ -2011,6 +2011,30 @@ body.contact-page {
     opacity: 0;
     animation: menuFadeIn 0.8s ease-out 1.2s forwards;
     order: 3;
+    width: 98%;
+    max-width: 98%;
+    padding: 0 0.25rem;
+  }
+
+  .menu-items {
+    width: 100%;
+  }
+
+  .menu-item {
+    padding: 1rem 1.25rem;
+    min-height: 56px;
+    font-size: 1.125rem;
+    width: 100%;
+  }
+
+  .menu-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .menu-label {
+    font-size: 1.125rem;
+    font-weight: 500;
   }
 
   .hero-columns {
@@ -2223,6 +2247,28 @@ body.contact-page {
     opacity: 0;
     animation: menuFadeIn 0.8s ease-out 1.2s forwards;
     order: 3;
+    width: 90%;
+    max-width: 90%;
+  }
+
+  .menu-items {
+    width: 100%;
+  }
+
+  .menu-item {
+    padding: 1rem 1.25rem;
+    min-height: 56px;
+    font-size: 1.125rem;
+  }
+
+  .menu-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .menu-label {
+    font-size: 1.125rem;
+    font-weight: 500;
   }
 
   .hero-columns { order: 0; }
@@ -2371,8 +2417,8 @@ body.contact-page {
   .pricing-table th, .pricing-table td { padding: var(--spacing-xs); }
 
   .hero-content {
-    width: calc(100% - 2rem);
-    padding: var(--spacing-sm);
+    width: calc(100% - 1rem);
+    padding: var(--spacing-xs);
     gap: var(--spacing-sm);
     border-radius: 12px;
   }
@@ -2398,6 +2444,30 @@ body.contact-page {
     opacity: 0;
     animation: menuFadeIn 0.8s ease-out 1.2s forwards;
     order: 3;
+    width: 98%;
+    max-width: 98%;
+    padding: 0 0.25rem;
+  }
+
+  .menu-items {
+    width: 100%;
+  }
+
+  .menu-item {
+    padding: 1rem 1.25rem;
+    min-height: 56px;
+    font-size: 1.125rem;
+    width: 100%;
+  }
+
+  .menu-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .menu-label {
+    font-size: 1.125rem;
+    font-weight: 500;
   }
 
   .hero-columns {
@@ -2433,12 +2503,6 @@ body.contact-page {
     width: 100% !important;
     max-width: 100% !important;
     justify-content: center;
-  }
-
-  .menu-item { padding: 0.2rem 0.75rem; }
-  .menu-label {
-    font-size: 1rem;
-    font-weight: 400;
   }
 }
 
@@ -2519,6 +2583,33 @@ body.contact-page {
   .logo-image { 
     max-width: 90%; 
     max-height: 70vh;
+  }
+
+  .hero-right {
+    width: 98%;
+    max-width: 98%;
+    padding: 0 0.25rem;
+  }
+
+  .menu-items {
+    width: 100%;
+  }
+
+  .menu-item {
+    padding: 1rem 1.25rem;
+    min-height: 56px;
+    font-size: 1.125rem;
+    width: 100%;
+  }
+
+  .menu-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .menu-label {
+    font-size: 1.125rem;
+    font-weight: 500;
   }
 }
 
