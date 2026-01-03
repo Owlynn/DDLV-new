@@ -24,6 +24,14 @@ const SECRETS = {
 // Exposer globalement
 if (typeof window !== 'undefined') {
   window.SECRETS = SECRETS;
+  // Log de confirmation en développement
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    console.log('✅ secrets.local.js chargé - BILLETWEB configuré:', {
+      hasUserId: !!SECRETS.BILLETWEB?.USER_ID,
+      hasApiKey: !!SECRETS.BILLETWEB?.API_KEY,
+      userId: SECRETS.BILLETWEB?.USER_ID || 'non défini'
+    });
+  }
 }
 
 // Pour Node.js (si vous utilisez un serveur)

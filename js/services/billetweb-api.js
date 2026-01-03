@@ -124,6 +124,14 @@ export async function fetchBilletWebWorkshops() {
       throw new Error('BILLETWEB_CONFIG n\'est pas défini');
     }
     
+    // Vérifier que les identifiants sont configurés
+    const hasAuthorization = BILLETWEB_CONFIG.authorization && BILLETWEB_CONFIG.authorization !== null;
+    const hasUserIdAndKey = BILLETWEB_CONFIG.userId && BILLETWEB_CONFIG.apiKey;
+    
+    if (!hasAuthorization && !hasUserIdAndKey) {
+      throw new Error('Les identifiants BilletWeb ne sont pas configurés. Vérifiez que secrets.local.js contient BILLETWEB.USER_ID et BILLETWEB.API_KEY');
+    }
+    
     // Vérifier le cache d'abord
     const cachedData = getCachedWorkshops();
     if (cachedData) {
@@ -132,35 +140,37 @@ export async function fetchBilletWebWorkshops() {
     }
 
     // Construire l'URL de l'API selon la documentation BilletWeb
-    // https://www.billetweb.fr/bo/api.php
+    // Documentation: https://www.billetweb.fr/bo/api.php?key=2
+    // Endpoint: GET /api/events
+    // Exemple: https://www.billetweb.fr/api/events?user=1&key=xxx&version=1&past=1
     let apiUrl = `${BILLETWEB_CONFIG.baseUrl}/events`;
     const params = new URLSearchParams();
     
     // Préparer les headers pour la requête
-    // Note: Pour une requête GET, on n'a pas besoin de Content-Type
     const headers = {};
 
-    // Authentification : utiliser Authorization header si fourni, sinon paramètres URL
-    // Selon la doc BilletWeb, les deux méthodes sont supportées
-    if (BILLETWEB_CONFIG.authorization) {
-      // Utiliser l'authentification via header Authorization
-      // Format: "Basic [base64_token]" où token = "User : [user] Key :[key]"
-      headers['Authorization'] = BILLETWEB_CONFIG.authorization;
-      // Ajouter seulement la version dans les paramètres
-      params.append('version', BILLETWEB_CONFIG.version || '1');
-    } else {
-      // Utiliser l'authentification via paramètres URL (méthode par défaut)
+    // Authentification : utiliser paramètres URL (évite les problèmes CORS)
+    // IMPORTANT: L'authentification via header Authorization déclenche une requête preflight CORS
+    // que l'API BilletWeb ne supporte pas depuis le navigateur. On utilise donc les paramètres URL.
+    // Selon la doc BilletWeb: user=[user]&key=[key]&version=1
+    if (hasUserIdAndKey) {
+      // Utiliser l'authentification via paramètres URL (méthode recommandée pour éviter CORS)
       params.append('user', BILLETWEB_CONFIG.userId);
       params.append('key', BILLETWEB_CONFIG.apiKey);
       params.append('version', BILLETWEB_CONFIG.version || '1');
+      console.log('🔐 Authentification via paramètres URL (évite CORS)');
+    } else if (hasAuthorization) {
+      // Fallback: utiliser Authorization header si pas de userId/apiKey
+      // Note: Cela peut causer des erreurs CORS depuis le navigateur
+      headers['Authorization'] = BILLETWEB_CONFIG.authorization;
+      params.append('version', BILLETWEB_CONFIG.version || '1');
+      console.log('🔐 Authentification via header Authorization (peut causer CORS)');
     }
 
     // Paramètres optionnels selon la documentation BilletWeb :
     // - past: inclure les événements passés (1 ou 0, 0 par défaut)
     // - online: inclure uniquement les événements publiés (1 ou 0, 0 par défaut)
     // - description: inclure la description (1 ou 0, 0 par défaut)
-    // 
-    // Pour tester, on peut mettre past=1 pour voir tous les événements
     params.append('past', '1'); // Inclure les événements passés pour tester
     params.append('online', '1'); // Seulement les événements publiés
     params.append('description', '1'); // Inclure la description
@@ -171,6 +181,10 @@ export async function fetchBilletWebWorkshops() {
     }
 
     apiUrl += `?${params.toString()}`;
+    
+    // Logs de débogage
+    console.log('🌐 Appel API BilletWeb:', apiUrl.replace(/key=[^&]+/, 'key=***'));
+    console.log('📋 Headers:', Object.keys(headers).length > 0 ? 'Authorization header présent' : 'Aucun header');
 
     // Effectuer la requête avec les headers
     // cache: 'no-store' empêche le navigateur de mettre en cache la réponse HTTP
@@ -179,16 +193,21 @@ export async function fetchBilletWebWorkshops() {
       cache: 'no-store'
     });
     
+    console.log('📡 Réponse API - Status:', response.status, response.statusText);
+    
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Erreur API - Réponse:', errorText);
+      console.error('❌ Erreur API - Status:', response.status);
+      console.error('❌ Erreur API - Réponse:', errorText);
       throw new Error(`Erreur API: ${response.status} ${response.statusText} - ${errorText}`);
     }
 
     const data = await response.json();
+    console.log('✅ Données reçues de l\'API:', Array.isArray(data) ? `${data.length} événement(s)` : 'Format inattendu', data);
     
     // Transformer les données
     let transformedData = transformBilletWebData(data);
+    console.log('🔄 Données transformées:', transformedData.length, 'atelier(s)');
     
     // Convertir les URLs d'images au format correct (même si elles viennent de l'API)
     transformedData = convertImageUrls(transformedData);
