@@ -122,13 +122,15 @@
   </main>
   
   <!-- Configuration EmailJS -->
+  <!-- Charger secrets.local.js en premier (si disponible, ignoré par git) -->
+  <script src="../secrets.local.js"></script>
   <script src="../emailjs-config.js"></script>
   
   <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   
   <!-- Script principal -->
-  <script src="../script.js"></script>
+  <script type="module" src="../js/main.js"></script>
   
   <!-- Script pour gérer l'envoi du formulaire via EmailJS avec protection anti-spam -->
   <script>
@@ -140,10 +142,11 @@
       }
       
       // Vérifier que les valeurs sont configurées
-      if (EMAILJS_CONFIG.PUBLIC_KEY === 'votre-public-key-ici' || 
-          EMAILJS_CONFIG.SERVICE_ID === 'votre-service-id-ici' || 
-          EMAILJS_CONFIG.TEMPLATE_ID === 'votre-template-id-ici') {
-        console.warn('⚠️ Veuillez configurer vos identifiants EmailJS dans emailjs-config.js');
+      if (EMAILJS_CONFIG.PUBLIC_KEY === 'votre_public_key_emailjs' || 
+          EMAILJS_CONFIG.SERVICE_ID === 'votre_service_id_emailjs' || 
+          EMAILJS_CONFIG.TEMPLATE_ID === 'votre_template_id_emailjs') {
+        console.warn('⚠️ Veuillez configurer vos identifiants EmailJS dans secrets.local.js');
+        console.warn('⚠️ Copiez secrets.example.js vers secrets.local.js et remplissez vos clés');
         return;
       }
       

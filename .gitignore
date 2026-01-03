@@ -34,5 +34,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Fichiers de configuration avec clés API (NE JAMAIS COMMITER)
 billetweb-config.js
 emailjs-config.js
+secrets.local.js
+*.local.js
+*.local.config.js
+
+# Fichiers de secrets
+**/secrets.local.js
