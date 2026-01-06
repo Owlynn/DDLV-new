@@ -66,43 +66,36 @@
         <ul class="header-menu" role="list">
           <li class="menu-item-home">
             <a href="../index.html" class="header-menu-item">
-              <i data-lucide="home" class="header-menu-icon"></i>
               Accueil
             </a>
           </li>
           <li>
             <a href="impro-vocale.html" class="header-menu-item">
-              <i data-lucide="sparkles" class="header-menu-icon"></i>
               L'impro vocale
             </a>
           </li>
           <li>
             <a href="ateliers.html" class="header-menu-item">
-              <i data-lucide="calendar-days" class="header-menu-icon"></i>
               Les ateliers
             </a>
           </li>
           <li>
             <a href="cours-chant.html" class="header-menu-item active">
-              <i data-lucide="music" class="header-menu-icon"></i>
               Les cours de chant
             </a>
           </li>
           <li>
             <a href="about.html" class="header-menu-item">
-              <i data-lucide="user-circle" class="header-menu-icon"></i>
               La prof
             </a>
           </li>
           <li>
             <a href="contact.html" class="header-menu-item">
-              <i data-lucide="mail" class="header-menu-icon"></i>
               Contact
             </a>
           </li>
           <li>
             <a href="newsletter.html" class="header-menu-item">
-              <i data-lucide="bell" class="header-menu-icon"></i>
               Newsletter
             </a>
           </li>
@@ -141,6 +134,7 @@
             <a class="article-toc-link" href="#offres" data-section="offres">Mes offres</a>
             <a class="article-toc-link" href="#tarifs" data-section="tarifs">Tarifs</a>
             <a class="article-toc-link" href="#faq" data-section="faq">FAQ</a>
+            <a class="article-toc-link" href="#avis" data-section="avis">Avis élèves</a>
           </nav>
         </aside>
 
@@ -754,6 +748,25 @@
               </div>
             </div>
           </section>
+
+          <!-- Section Avis Google -->
+          <section class="article-section glass-section" id="avis">
+            <div class="article-content">
+              <h2>Ce que disent mes élèves</h2>
+              
+              <p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem; color: #666;">La meilleure façon de savoir si mon approche vous convient ? Écouter ceux et celles qui l'ont déjà expérimentée ! 💜</p>
+              
+              <div class="sk-ww-google-reviews" data-embed-id="25582122"></div>
+              <script src="https://widgets.sociablekit.com/google-reviews/widget.js" defer></script>
+              
+              <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); border-radius: 16px; border: 2px dashed var(--color-primary);">
+                <p style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--color-primary-dark);">Prêt·e à rejoindre mes élèves ?</p>
+                <button id="calendly-trigger-avis" class="rdv-btn" aria-label="Prendre rendez-vous" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
+                  📅 Réserver mon cours découverte
+                </button>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </article>
@@ -769,6 +782,7 @@
       const triggerSection = document.getElementById('calendly-trigger-section');
       const triggerHero = document.getElementById('calendly-trigger-hero');
       const triggerBenefices = document.getElementById('calendly-trigger-benefices');
+      const triggerAvis = document.getElementById('calendly-trigger-avis');
       const popup = document.getElementById('calendly-popup');
       const closeBtn = document.getElementById('calendly-popup-close');
       const overlay = document.getElementById('calendly-popup-overlay');
@@ -791,6 +805,7 @@
       if (triggerSection) triggerSection.addEventListener('click', openPopup);
       if (triggerHero) triggerHero.addEventListener('click', openPopup);
       if (triggerBenefices) triggerBenefices.addEventListener('click', openPopup);
+      if (triggerAvis) triggerAvis.addEventListener('click', openPopup);
       
       if (closeBtn) closeBtn.addEventListener('click', closePopup);
       if (overlay) overlay.addEventListener('click', closePopup);
