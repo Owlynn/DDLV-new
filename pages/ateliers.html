@@ -35,6 +35,138 @@
   <!-- Calendly CSS -->
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   
+  <!-- Styles responsive spécifiques pour la page ateliers -->
+  <style>
+    /* Responsive pour les grilles d'informations pratiques */
+    @media (max-width: 768px) {
+      /* Grilles d'informations pratiques - une colonne sur mobile */
+      .article-content div[style*="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))"] {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+      }
+      
+      /* Grilles de tarifs - une colonne sur mobile */
+      .article-content div[style*="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr))"] {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+        max-width: 100% !important;
+      }
+      
+      /* Sections avec flex - colonne sur mobile */
+      .article-content div[style*="display: flex"]:not([style*="flex-wrap"]) {
+        flex-direction: column !important;
+      }
+      
+      /* Boutons flex - colonne sur mobile */
+      .article-content div[style*="display: flex"][style*="justify-content: center"] {
+        flex-direction: column !important;
+        align-items: stretch !important;
+      }
+      
+      .article-content div[style*="display: flex"][style*="justify-content: center"] button,
+      .article-content div[style*="display: flex"][style*="justify-content: center"] a {
+        width: 100% !important;
+        text-align: center !important;
+      }
+      
+      /* Images responsive */
+      .article-image {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+      }
+      
+      /* Padding réduit sur mobile */
+      .article-content {
+        padding: 0 0.5rem !important;
+      }
+      
+      /* Titres et textes */
+      .article-content h2 {
+        font-size: 1.5rem !important;
+      }
+      
+      .article-content h3 {
+        font-size: 1.25rem !important;
+      }
+      
+      /* Badges - meilleur espacement */
+      .article-content div[style*="display: flex"][style*="flex-wrap: wrap"] {
+        gap: 0.5rem !important;
+      }
+      
+      /* Sections avec programme - meilleur affichage */
+      .article-content div[style*="display: flex"][style*="align-items: flex-start"] {
+        flex-direction: column !important;
+        gap: 1rem !important;
+      }
+      
+      /* Calendrier header */
+      .calendrier-header-row {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        align-items: flex-start !important;
+      }
+      
+      .calendrier-header-row h2 {
+        font-size: 1.5rem !important;
+        margin: 0 !important;
+      }
+      
+      /* View toggle responsive */
+      .view-toggle-container {
+        width: 100% !important;
+      }
+      
+      /* Sections avec programme - meilleur affichage sur mobile */
+      .article-content div[style*="min-width: 90px"] {
+        min-width: 100% !important;
+        width: 100% !important;
+      }
+      
+      .article-content div[style*="min-width: 90px"] + div {
+        width: 100% !important;
+        padding-top: 0.5rem !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      /* Encore plus compact sur très petits écrans */
+      .article-content {
+        padding: 0 0.25rem !important;
+      }
+      
+      .article-content h2 {
+        font-size: 1.25rem !important;
+      }
+      
+      .article-content h3 {
+        font-size: 1.1rem !important;
+      }
+      
+      .article-content p {
+        font-size: 0.95rem !important;
+      }
+      
+      /* Grilles encore plus compactes */
+      .article-content div[style*="grid-template-columns"] {
+        gap: 0.75rem !important;
+      }
+      
+      /* Padding réduit dans les boxes */
+      .article-content div[style*="padding: 2rem"],
+      .article-content div[style*="padding: 1.5rem"] {
+        padding: 1rem !important;
+      }
+      
+      /* Badges plus petits */
+      .article-content span[style*="padding: 0.25rem 0.75rem"] {
+        font-size: 0.75rem !important;
+        padding: 0.2rem 0.5rem !important;
+      }
+    }
+  </style>
+  
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
@@ -79,7 +211,7 @@
           </li>
           <li>
             <a href="about.html" class="header-menu-item">
-              La prof
+              La pédagogue
             </a>
           </li>
           <li>
@@ -132,6 +264,7 @@
             <a class="article-toc-link" href="#circlesong-poesie" data-section="formats-d-ateliers">Circlesong poésie voix mots</a>
             <a class="article-toc-link" href="#flashmob-improvise" data-section="formats-d-ateliers">Flashmob improvisé</a>
             <a class="article-toc-link" href="#coaching-personnalise" data-section="formats-d-ateliers">Coaching personnalisé</a>
+            <a class="article-toc-link" href="#faq-ateliers" data-section="formats-d-ateliers">FAQ</a>
           </nav>
         </aside>
 
@@ -300,7 +433,7 @@
                 </div>
 
                 <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15) 0%, rgba(254, 102, 195, 0.15) 100%); padding: 2rem; border-radius: 16px; margin: 2rem 0; text-align: center; border: 2px dashed var(--color-primary);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">🎵 Prêt·e à rejoindre l'aventure ?</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">🎵 Prêt.e à rejoindre l'aventure ?</h3>
                   <p style="margin-bottom: 1.5rem; font-size: 1.05rem; font-style: italic;">Il me tarde de chanter avec vous !</p>
                   <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                     <button class="atelier-see-workshops-btn" data-section="calendrier" style="background: var(--color-primary); color: white; border: none; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: transform 0.2s;">
@@ -325,10 +458,10 @@
                 </div>
 
                 <h2 style="margin-bottom: 0.25rem;">L'art des circle songs</h2>
-                <p class="article-subtitle" style="font-size: 1.125rem; color: var(--color-text-secondary); margin-top: 0; margin-bottom: 1.5rem; font-weight: 400; display: block; line-height: 1.4;">Formation intensive en circlesongs</p>
+                <p class="article-subtitle" style="font-size: 1.125rem; color: var(--color-text-secondary); margin-top: 0; margin-bottom: 1.5rem; font-weight: 400; display: block; line-height: 1.4;">Une journée pour découvrir et prendre confiance. Circlesongs</p>
                 <img src="../assets/artdescirclesongs.png" alt="Formation art des circlesongs à Toulouse" class="article-image">
                 
-                <p>Une <strong>journée immersive d'improvisation vocale à Toulouse</strong> pour maîtriser l'art des <strong>circlesongs</strong>. Les <strong>circlesongs</strong> sont une pratique de <strong>chant en groupe a capella</strong> où nous créons ensemble des <strong>polyphonies improvisées</strong> guidées par un conducteur ou une conductrice. Le <strong>circlesong</strong> est un chant a cappella entièrement improvisé : un·e conducteur·rice guide le groupe en attribuant spontanément des éléments mélodiques, harmoniques et rythmiques pour créer un arrangement musical spontané.</p>
+                <p>Une <strong>journée immersive d'improvisation vocale à Toulouse</strong> pour maîtriser l'art des <strong>circlesongs</strong>. Les <strong>circlesongs</strong> sont une pratique de <strong>chant en groupe a capella</strong> où nous créons ensemble des <strong>polyphonies improvisées</strong> guidées par un.e conducteur.rice. Le <strong>circlesong</strong> est un chant a cappella entièrement improvisé : un.e conducteur.rice guide le groupe en attribuant spontanément des éléments mélodiques, harmoniques et rythmiques pour créer un arrangement musical spontané.</p>
                 <p>Cette pratique d'<strong>improvisation vocale</strong> permet de s'initier au <strong>chant polyphonique</strong>, de développer l'écoute, le sens du rythme et l'oreille musicale dans un cadre collectif et bienveillant.</p>
                 
                 <h3 style="font-size: 1.375rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 600;">🎯 Objectifs de la journée</h3>
@@ -344,22 +477,7 @@
                   <h3 style="color: var(--color-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; font-size: 1.375rem; font-weight: 600;">
                     👥 Pour qui ?
                   </h3>
-                  <p style="margin-bottom: 1rem;"><strong>Ouvert à tou·te·s</strong> – 10 participant·es maximum</p>
-                  <p style="margin-bottom: 0.75rem;">Pour votre confort et celui du groupe, il est conseillé de :</p>
-                  <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                    <div style="display: flex; align-items: start; gap: 0.75rem;">
-                      <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
-                      <span><strong>Aisance rythmique</strong> – Pouvoir garder une pulsation régulière</span>
-                    </div>
-                    <div style="display: flex; align-items: start; gap: 0.75rem;">
-                      <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
-                      <span><strong>Justesse mélodique</strong> – Être à l'aise pour reproduire une mélodie</span>
-                    </div>
-                    <div style="display: flex; align-items: start; gap: 0.75rem;">
-                      <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
-                      <span><strong>Envie d'explorer</strong> – Être disposé·e à chanter devant les autres</span>
-                    </div>
-                  </div>
+                  <p style="margin-bottom: 0;"><strong>Ouvert à tous.tes</strong> – 10 participant.es maximum</p>
                 </div>
 
                 <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1) 0%, rgba(254, 102, 195, 0.1) 100%); padding: 1.5rem; border-radius: 16px; margin: 2rem 0; border: 2px solid rgba(91, 42, 181, 0.2);">
@@ -461,7 +579,7 @@
                 <div style="display: flex; flex-direction: column; gap: 1rem;">
                   <div style="background: rgba(255, 255, 255, 0.3); padding: 1.25rem; border-radius: 12px; border-left: 4px solid var(--color-primary);">
                     <h4 style="color: var(--color-primary); margin-bottom: 0.5rem; font-weight: 600; font-size: 1.1rem;">🎵 Découvrir l'improvisation vocale</h4>
-                    <p style="margin: 0;">Explorer cette pratique sans engagement financier, dans un cadre convivial et bienveillant, sans prérequis musicaux.</p>
+                    <p style="margin: 0;">Explorer cette pratique dans un cadre convivial et bienveillant, sans prérequis musicaux.</p>
                   </div>
                   
                   <div style="background: rgba(255, 255, 255, 0.3); padding: 1.25rem; border-radius: 12px; border-left: 4px solid var(--color-accent);">
@@ -707,7 +825,7 @@
                 <img src="../assets/improvocale.png" alt="Flashmob improvisation vocale dans les rues de Toulouse" class="article-image">
                 
                 <p>Le <strong>flashmob improvisé</strong> est une expérience collective unique qui combine l'<strong>improvisation vocale</strong>, la performance publique et la création spontanée dans l'espace urbain de <strong>Toulouse</strong>.</p>
-                <p>Vivez un moment poétique et spontané dans les rues toulousaines, guidé·e par des facilitateur·ices. Des petits groupes créeront des <strong>circlesongs</strong> éphémères dans différents lieux de la ville, où chaque conducteur·rice propose une séquence vocale que le chœur reprend, créant ainsi une expérience musicale unique et partagée avec les passants.</p>
+                <p>Vivez un moment poétique et spontané dans les rues toulousaines, guidé.e par des facilitateur.ices. Des petits groupes créeront des <strong>circlesongs</strong> éphémères dans différents lieux de la ville, où chaque conducteur.rice propose une séquence vocale que le chœur reprend, créant ainsi une expérience musicale unique et partagée avec les passants.</p>
                 
                 <h3 style="font-size: 1.375rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 600;">🎯 Ce que vous allez vivre</h3>
                 <div style="display: flex; flex-direction: column; gap: 1rem;">
@@ -723,7 +841,7 @@
                   
                   <div style="background: rgba(255, 255, 255, 0.3); padding: 1.25rem; border-radius: 12px; border-left: 4px solid var(--color-accent);">
                     <h4 style="color: var(--color-accent); margin-bottom: 0.5rem; font-weight: 600; font-size: 1.1rem;">✨ Vivre une expérience artistique partagée</h4>
-                    <p style="margin: 0;">Participer à une aventure collective où la musique naît de l'instant, où chaque participant·e contribue à créer une œuvre vocale éphémère et unique avec des <strong>circlesongs</strong> spontanés.</p>
+                    <p style="margin: 0;">Participer à une aventure collective où la musique naît de l'instant, où chaque participant.e contribue à créer une œuvre vocale éphémère et unique avec des <strong>circlesongs</strong> spontanés.</p>
                   </div>
                 </div>
 
@@ -736,13 +854,13 @@
                       <div style="background: var(--color-primary); color: white; padding: 0.5rem; border-radius: 8px; min-width: 90px; text-align: center; font-weight: 600; flex-shrink: 0;">Matin</div>
                       <div style="flex: 1; padding-top: 0.25rem;">
                         <strong style="display: block; margin-bottom: 0.25rem;">Répétition et préparation</strong>
-                        <span style="color: #666;">Échauffement vocal, apprentissage des séquences de <strong>circlesongs</strong>, organisation logistique</span>
+                        <span style="color: #666;">Échauffement vocal, découverte du fonctionnement des <strong>circlesongs</strong>, organisation logistique</span>
                       </div>
                     </div>
                     <div style="display: flex; align-items: flex-start; gap: 1rem;">
                       <div style="background: var(--color-accent); color: white; padding: 0.5rem; border-radius: 8px; min-width: 90px; text-align: center; font-weight: 600; flex-shrink: 0;">Après-midi</div>
                       <div style="flex: 1; padding-top: 0.25rem;">
-                        <strong style="display: block; margin-bottom: 0.25rem;">Performances dans Toulouse</strong>
+                        <strong style="display: block; margin-bottom: 0.25rem;">Flashmob dans les rues de Toulouse</strong>
                         <span style="color: #666;">Créations vocales improvisées dans plusieurs lieux de la ville, partage avec les passants</span>
                       </div>
                     </div>
@@ -815,14 +933,14 @@
                       <span style="font-size: 1.5rem;">🎤</span>
                       <div>
                         <strong style="color: var(--color-accent); display: block; margin-bottom: 0.25rem;">Animation</strong>
-                        <span>Facilitateur·ices impro vocale</span>
+                        <span>Facilitateur.ices impro vocale</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15) 0%, rgba(254, 102, 195, 0.15) 100%); padding: 2rem; border-radius: 16px; margin: 2rem 0; text-align: center; border: 2px dashed var(--color-accent);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">🎵 Prêt·e pour un flashmob vocal dans les rues de Toulouse ?</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">🎵 Prêt.e pour un flashmob vocal dans les rues de Toulouse ?</h3>
                   <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Rejoignez-nous et partagez l'improvisation vocale dans l'espace public !</p>
                   <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                     <button class="atelier-see-workshops-btn" data-section="calendrier" style="background: var(--color-accent); color: white; border: none; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: transform 0.2s;">
@@ -852,7 +970,7 @@
                 <img src="../assets/circlesongcoachingpersonnalise.png" alt="Coaching personnalisé improvisation et circlesongs à Toulouse" class="article-image">
                 
                 <p>Le <strong>coaching personnalisé</strong> vous offre un accompagnement sur mesure adapté à vos besoins spécifiques en <strong>improvisation vocale</strong> et <strong>circlesongs</strong>.</p>
-                <p>Une <strong>journée intensive à Toulouse</strong> pour approfondir un ou deux aspects précis de votre pratique du <strong>circlesong</strong>, autant en tant que conducteur/conductrice qu'en tant que choriste.</p>
+                <p>Une <strong>journée intensive à Toulouse</strong> pour approfondir un ou deux aspects précis de votre pratique du <strong>circlesong</strong>, autant en tant que conducteur.rice qu'en tant que choriste.</p>
                 
                 <h3 style="font-size: 1.375rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 600;">🎯 Comment ça marche ?</h3>
                 <div style="background: rgba(212, 197, 255, 0.15); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border-left: 4px solid var(--color-primary);">
@@ -869,7 +987,7 @@
 
                 <div style="background: rgba(255, 255, 255, 0.25); padding: 1.5rem; border-radius: 12px; margin: 2rem 0;">
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">⚡ Une journée intensive</h3>
-                  <p style="margin-bottom: 0;">Cette journée est <strong>intensive</strong>, aussi bien en tant que conducteur/conductrice qu'en tant que choriste. Soyez prêt·e à vous investir pleinement dans la pratique, à donner et recevoir du feedback, et à explorer en profondeur !</p>
+                  <p style="margin-bottom: 0;">Cette journée est <strong>intensive</strong>, aussi bien en tant que conducteur.rice qu'en tant que choriste. Soyez prêt.e à vous investir pleinement dans la pratique, à donner et recevoir du feedback, et à explorer en profondeur !</p>
                 </div>
 
                 <div style="background: rgba(255, 255, 255, 0.25); padding: 1.5rem; border-radius: 12px; margin: 2rem 0;">
@@ -956,7 +1074,7 @@
                 </div>
 
                 <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%); padding: 2rem; border-radius: 16px; margin: 2rem 0; text-align: center; border: 2px dashed var(--color-primary);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">🎵 Prêt·e pour une journée intensive de circlesongs ?</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">🎵 Prêt.e pour une journée intensive de circlesongs ?</h3>
                   <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Approfondissez votre pratique avec un accompagnement personnalisé</p>
                   <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                     <button class="atelier-see-workshops-btn" data-section="calendrier" style="background: var(--color-primary); color: white; border: none; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: transform 0.2s;">
@@ -966,6 +1084,146 @@
                       💬 Une question ?
                     </a>
                   </div>
+                </div>
+              </div>
+            </section>
+            
+            <!-- Section FAQ -->
+            <section class="article-section" id="faq-ateliers">
+              <div class="article-content">
+                <h2>Questions fréquentes sur les ateliers</h2>
+                
+                <p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem; color: #666;">Vous avez des questions ? Voici les réponses aux interrogations les plus courantes !</p>
+                
+                <div class="faq-accordion" style="display: flex; flex-direction: column; gap: 1rem; margin: 2rem 0;">
+                  
+                  <div class="faq-item" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); border-radius: 12px; border-left: 4px solid var(--color-primary); overflow: hidden;">
+                    <button class="faq-question" style="width: 100%; padding: 1.5rem; text-align: left; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; color: var(--color-primary); font-size: 1.15rem; font-weight: 600;">
+                      <span style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 1.5rem;">❓</span> Faut-il avoir déjà pratiqué l'improvisation vocale pour participer ?
+                      </span>
+                      <span class="faq-icon" style="font-size: 1.5rem; transition: transform 0.3s ease;">+</span>
+                    </button>
+                    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;">
+                      <div style="padding: 0 1.5rem 1.5rem 1.5rem; line-height: 1.6; color: #555;">
+                        <strong>Non !</strong> La plupart de mes ateliers sont ouverts à tous les niveaux, y compris aux débutants complets. Certains ateliers comme "Chant pour tous" sont spécialement conçus pour les personnes qui découvrent l'improvisation vocale.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="faq-item" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); border-radius: 12px; border-left: 4px solid var(--color-primary); overflow: hidden;">
+                    <button class="faq-question" style="width: 100%; padding: 1.5rem; text-align: left; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; color: var(--color-primary); font-size: 1.15rem; font-weight: 600;">
+                      <span style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 1.5rem;">❓</span> Comment fonctionne le tarif libre et conscient ?
+                      </span>
+                      <span class="faq-icon" style="font-size: 1.5rem; transition: transform 0.3s ease;">+</span>
+                    </button>
+                    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;">
+                      <div style="padding: 0 1.5rem 1.5rem 1.5rem; line-height: 1.6; color: #555;">
+                        Le <strong>tarif libre et conscient</strong> vous permet de choisir le montant selon vos moyens et la valeur que vous donnez à l'atelier. Il y a un tarif minimum pour rendre l'atelier viable, un tarif recommandé qui couvre mieux les frais, et la possibilité de donner plus si vous le souhaitez. Le paiement se fait sur place, après l'atelier.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="faq-item" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); border-radius: 12px; border-left: 4px solid var(--color-primary); overflow: hidden;">
+                    <button class="faq-question" style="width: 100%; padding: 1.5rem; text-align: left; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; color: var(--color-primary); font-size: 1.15rem; font-weight: 600;">
+                      <span style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 1.5rem;">❓</span> Que faire si je dois annuler mon inscription ?
+                      </span>
+                      <span class="faq-icon" style="font-size: 1.5rem; transition: transform 0.3s ease;">+</span>
+                    </button>
+                    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;">
+                      <div style="padding: 0 1.5rem 1.5rem 1.5rem; line-height: 1.6; color: #555;">
+                        En cas d'annulation, merci de <strong>prévenir le plus tôt possible</strong> pour permettre à d'autres personnes de participer. Pour assurer le bon déroulement des sessions, les inscriptions répétées suivies d'annulations pourront être refusées.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="faq-item" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); border-radius: 12px; border-left: 4px solid var(--color-primary); overflow: hidden;">
+                    <button class="faq-question" style="width: 100%; padding: 1.5rem; text-align: left; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; color: var(--color-primary); font-size: 1.15rem; font-weight: 600;">
+                      <span style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 1.5rem;">❓</span> Quelle est la différence entre un circlesong et la co-improvisation ?
+                      </span>
+                      <span class="faq-icon" style="font-size: 1.5rem; transition: transform 0.3s ease;">+</span>
+                    </button>
+                    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;">
+                      <div style="padding: 0 1.5rem 1.5rem 1.5rem; line-height: 1.6; color: #555;">
+                        Dans un <strong>circlesong</strong>, un leader distribue des motifs vocaux aux participants pour créer une polyphonie guidée. La <strong>co-improvisation</strong> est plus horizontale : il n'y a pas de leader, les voix dialoguent et s'entremêlent de manière spontanée. Les deux approches se complètent et sont souvent explorées dans les mêmes ateliers.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="faq-item" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); border-radius: 12px; border-left: 4px solid var(--color-primary); overflow: hidden;">
+                    <button class="faq-question" style="width: 100%; padding: 1.5rem; text-align: left; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; color: var(--color-primary); font-size: 1.15rem; font-weight: 600;">
+                      <span style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 1.5rem;">❓</span> Puis-je venir seul.e ou faut-il venir en groupe ?
+                      </span>
+                      <span class="faq-icon" style="font-size: 1.5rem; transition: transform 0.3s ease;">+</span>
+                    </button>
+                    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;">
+                      <div style="padding: 0 1.5rem 1.5rem 1.5rem; line-height: 1.6; color: #555;">
+                        Vous pouvez tout à fait venir <strong>seul.e</strong> ! Les ateliers sont conçus pour accueillir des personnes individuelles. C'est même l'occasion de rencontrer d'autres personnes intéressées par l'improvisation vocale. Bien sûr, vous pouvez aussi venir avec des ami.e.s si vous le souhaitez.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="faq-item" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); border-radius: 12px; border-left: 4px solid var(--color-primary); overflow: hidden;">
+                    <button class="faq-question" style="width: 100%; padding: 1.5rem; text-align: left; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; color: var(--color-primary); font-size: 1.15rem; font-weight: 600;">
+                      <span style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 1.5rem;">❓</span> Où se déroulent les ateliers à Toulouse ?
+                      </span>
+                      <span class="faq-icon" style="font-size: 1.5rem; transition: transform 0.3s ease;">+</span>
+                    </button>
+                    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;">
+                      <div style="padding: 0 1.5rem 1.5rem 1.5rem; line-height: 1.6; color: #555;">
+                        La plupart des ateliers se déroulent dans le <strong>quartier Minimes à Toulouse</strong>, ou à l'<strong>Atelier des Chalets</strong> (23 Rue Edouard Dulaurier, Toulouse). Le lieu exact est communiqué lors de l'inscription pour chaque atelier.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <script>
+                  document.addEventListener('DOMContentLoaded', function() {
+                    const faqQuestions = document.querySelectorAll('#faq-ateliers .faq-question');
+                    faqQuestions.forEach(question => {
+                      question.addEventListener('click', function() {
+                        const item = this.closest('.faq-item');
+                        const answer = item.querySelector('.faq-answer');
+                        const icon = this.querySelector('.faq-icon');
+                        const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+                        
+                        // Fermer toutes les autres questions
+                        document.querySelectorAll('#faq-ateliers .faq-item').forEach(otherItem => {
+                          if (otherItem !== item) {
+                            const otherAnswer = otherItem.querySelector('.faq-answer');
+                            const otherIcon = otherItem.querySelector('.faq-icon');
+                            otherAnswer.style.maxHeight = '0px';
+                            otherIcon.textContent = '+';
+                            otherIcon.style.transform = 'rotate(0deg)';
+                          }
+                        });
+                        
+                        // Toggle la question actuelle
+                        if (isOpen) {
+                          answer.style.maxHeight = '0px';
+                          icon.textContent = '+';
+                          icon.style.transform = 'rotate(0deg)';
+                        } else {
+                          answer.style.maxHeight = answer.scrollHeight + 'px';
+                          icon.textContent = '−';
+                          icon.style.transform = 'rotate(0deg)';
+                        }
+                      });
+                    });
+                  });
+                </script>
+                
+                <div style="background: rgba(254, 102, 195, 0.1); padding: 2rem; border-radius: 16px; margin: 3rem 0; text-align: center; border: 2px dashed var(--color-accent);">
+                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">💬 Une autre question ?</h3>
+                  <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Je me tiens à votre disposition pour toute information supplémentaire 🙂</p>
+                  <a href="contact.html" style="display: inline-block; background: var(--color-primary); color: white; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 1rem;">
+                    Contactez-moi
+                  </a>
                 </div>
               </div>
             </section>

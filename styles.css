@@ -1189,7 +1189,7 @@ li {
 
 .hero-right {
   position: absolute;
-  top: 80%;
+  top: 70%;
   right: 2rem;
   transform: translateY(-50%);
   display: flex;
@@ -2020,6 +2020,7 @@ body.contact-page {
     width: 100%;
   }
 
+
   .menu-item {
     padding: 1rem 1.25rem;
     min-height: 56px;
@@ -2165,6 +2166,31 @@ body.contact-page {
     gap: 0.75rem;
     width: 100%;
   }
+  
+  .menu-item-dropdown {
+    width: 100%;
+  }
+  
+  .menu-submenu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    margin-top: 0;
+    padding-left: 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: rgba(91, 42, 181, 0.05);
+    border-radius: 8px;
+  }
+  
+  .menu-item-dropdown[aria-expanded="true"] .menu-submenu {
+    max-height: 500px;
+    margin-top: 0.5rem;
+  }
 
   .menu-item-home { display: list-item; }
 
@@ -2254,6 +2280,7 @@ body.contact-page {
   .menu-items {
     width: 100%;
   }
+
 
   .menu-item {
     padding: 1rem 1.25rem;
@@ -2453,6 +2480,7 @@ body.contact-page {
     width: 100%;
   }
 
+
   .menu-item {
     padding: 1rem 1.25rem;
     min-height: 56px;
@@ -2595,6 +2623,7 @@ body.contact-page {
     width: 100%;
   }
 
+
   .menu-item {
     padding: 1rem 1.25rem;
     min-height: 56px;
@@ -2697,7 +2726,7 @@ body.contact-page {
 
   .hero-right {
     position: absolute;
-    top: 80%;
+    top: 70%;
     right: 2rem;
     transform: translateY(-50%);
     align-items: flex-end;
@@ -2776,6 +2805,33 @@ body.contact-page {
   padding: var(--spacing-lg);
   box-sizing: border-box;
 }
+
+
+  .hero-right .menu-item-dropdown {
+    width: 100%;
+  }
+  
+  .hero-right .menu-submenu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    margin-top: 0;
+    padding-left: 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: rgba(91, 42, 181, 0.05);
+    border-radius: 8px;
+  }
+  
+  .hero-right .menu-item-dropdown[aria-expanded="true"] .menu-submenu {
+    max-height: 500px;
+    margin-top: 0.5rem;
+  }
+
 
 /* Overlay avec glassmorphism */
 .calendly-popup-overlay {
@@ -3039,3 +3095,4 @@ iframe[src*="calendly.com"]::-webkit-scrollbar {
   max-width: 80%;
   margin: 0 auto;
 }
+
