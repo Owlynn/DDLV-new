@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Encodage des caractères et viewport -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- 
+    BALISES SEO - Optimisées pour les mots-clés suivants :
+    - cours de chant comité d'entreprise, cours de chant entreprise, formation vocale entreprise
+    - cours d'impro entreprise, improvisation vocale entreprise
+    - team building vocal, ice breaker séminaire, animation séminaire
+    - activité team building, séminaire entreprise, animation entreprise
+  -->
+  <title>Offres Entreprise | Cours de Chant & Impro pour Comités d'Entreprise | Team Building Vocal | Donner de la Voix</title>
+  <meta name="description" content="Cours de chant et d'improvisation vocale pour entreprises et comités d'entreprise. Team building vocal, ice breaker pour séminaires. Animation séminaire entreprise à Toulouse et ailleurs. Formation vocale sur mesure.">
+  <meta name="keywords" content="cours de chant comité d'entreprise, cours de chant entreprise, formation vocale entreprise, cours d'impro entreprise, improvisation vocale entreprise, team building vocal, ice breaker séminaire, animation séminaire, activité team building, séminaire entreprise, animation entreprise, team building Toulouse, séminaire Toulouse, cours chant CE, activité CE">
+  
+  <!-- Open Graph : Métadonnées pour le partage sur les réseaux sociaux -->
+  <meta property="og:title" content="Offres Entreprise | Cours de Chant & Impro pour Comités d'Entreprise | Donner de la Voix">
+  <meta property="og:description" content="Cours de chant et d'improvisation vocale pour entreprises. Team building vocal, ice breaker pour séminaires. Animation séminaire entreprise.">
+  <meta property="og:url" content="https://www.donnerdelavoix.fr/offre-entreprise">
+  <meta property="og:site_name" content="Donner de la Voix - Impro vocale & Circlesongs - Cours de chant">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:type" content="website">
+  
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Offres Entreprise | Cours de Chant & Impro pour Comités d'Entreprise">
+  <meta name="twitter:description" content="Cours de chant et d'improvisation vocale pour entreprises. Team building vocal, ice breaker pour séminaires.">
+  
+  <!-- URL canonique -->
+  <link rel="canonical" href="https://www.donnerdelavoix.fr/offre-entreprise">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="../assets/logo-ddlv.png">
+  
+  <!-- Google Fonts - Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lien vers le fichier CSS -->
+  <link rel="stylesheet" href="../styles.css">
+  
+  <!-- Calendly CSS -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <!-- Skip link pour la navigation au clavier -->
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+  
+  <!-- Nav réutilisable -->
+  <nav class="site-nav" role="navigation">
+    <div class="header-container">
+      <a href="../index.html" class="header-logo" aria-label="Retour à l'accueil - Donner de la Voix">
+        <img src="../assets/logo-ddlv.png" alt="Donner de la Voix" class="header-logo-image">
+      </a>
+      <button class="menu-toggle" aria-label="Menu de navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="header-nav" aria-label="Navigation principale">
+        <ul class="header-menu" role="list">
+          <li class="menu-item-home">
+            <a href="../index.html" class="header-menu-item">
+              Accueil
+            </a>
+          </li>
+          <li>
+            <a href="impro-vocale.html" class="header-menu-item">
+              L'impro vocale
+            </a>
+          </li>
+          <li>
+            <a href="ateliers.html" class="header-menu-item">
+              Les ateliers
+            </a>
+          </li>
+          <li>
+            <a href="cours-chant.html" class="header-menu-item">
+              Les cours de chant
+            </a>
+          </li>
+          <li>
+            <a href="offre-entreprise.html" class="header-menu-item active">
+              Offres entreprise
+            </a>
+          </li>
+          <li>
+            <a href="about.html" class="header-menu-item">
+              La prof
+            </a>
+          </li>
+          <li>
+            <a href="contact.html" class="header-menu-item">
+              Contact
+            </a>
+          </li>
+          <li>
+            <a href="newsletter.html" class="header-menu-item">
+              Newsletter
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </nav>
+  
+  <!-- Bouton flottant PRENDRE RDV -->
+  <button class="floating-rdv-btn" id="calendly-trigger" aria-label="Prendre rendez-vous">
+    <i data-lucide="calendar-check" class="floating-rdv-icon"></i>
+    PRENDRE RDV
+  </button>
+  
+  <!-- Popup Calendly -->
+  <div id="calendly-popup" class="calendly-popup-container" style="display: none;">
+    <div class="calendly-popup-overlay" id="calendly-popup-overlay"></div>
+    <div class="calendly-popup-content-wrapper">
+      <button class="calendly-popup-close-btn" id="calendly-popup-close" aria-label="Fermer">×</button>
+      <div class="calendly-inline-widget" data-url="https://calendly.com/contactdonnerdelavoix/30min" style="min-width:320px;height:700px;"></div>
+    </div>
+  </div>
+  
+  <main id="main-content" role="main">
+    <article class="article-container">
+      <div class="article-layout">
+        <!-- Sommaire latéral -->
+        <aside class="article-toc" aria-label="Sommaire de la page">
+          <p class="article-toc-title">Offres entreprise</p>
+          <nav class="article-toc-nav">
+            <a class="article-toc-link active" href="#pour-qui" data-section="pour-qui">Pour qui ?</a>
+            <a class="article-toc-link" href="#cours-chant-ce" data-section="cours-chant-ce">Cours de chant CE</a>
+            <a class="article-toc-link" href="#cours-impro" data-section="cours-impro">Cours d'impro</a>
+            <a class="article-toc-link" href="#team-building" data-section="team-building">Team building</a>
+            <a class="article-toc-link" href="#seminaires" data-section="seminaires">Séminaires</a>
+            <a class="article-toc-link" href="#benefices" data-section="benefices">Les bénéfices</a>
+            <a class="article-toc-link" href="#tarifs" data-section="tarifs">Tarifs</a>
+            <a class="article-toc-link" href="#contact" data-section="contact">Contact</a>
+          </nav>
+        </aside>
+
+        <!-- Contenu principal -->
+        <div class="article-main">
+          
+          <!-- Section Héro -->
+          <section class="article-section glass-section" style="text-align: center; padding: 3rem 1.5rem;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--color-primary);">Offres Entreprise</h1>
+            <p style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--color-primary-dark); font-weight: 500;">Cours de chant et d'impro pour comités d'entreprise</p>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem; color: #666;">Team building vocal • Ice breaker séminaires • Animation entreprise</p>
+            <button class="rdv-btn" id="calendly-trigger-hero" aria-label="Demander un devis" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
+              📅 Demander un devis
+            </button>
+          </section>
+
+          <!-- Section Pour qui -->
+          <section class="article-section glass-section" id="pour-qui">
+            <div class="article-content">
+              <h2>Pour qui sont ces offres entreprise ?</h2>
+              
+              <p style="font-size: 1.1rem; margin-bottom: 2rem;">Mes <strong>offres entreprise</strong> s'adressent à toutes les structures qui souhaitent proposer à leurs collaborateurs des activités originales, bienveillantes et fédératrices autour de la voix et de l'<strong>improvisation vocale</strong>.</p>
+              
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+                
+                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--color-primary-light);">
+                  <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🏢</div>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem;">Comités d'entreprise</h3>
+                  <p style="margin: 0; line-height: 1.6;">Proposer des <strong>cours de chant</strong> ou d'<strong>improvisation vocale</strong> réguliers à vos salariés</p>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--color-primary-light);">
+                  <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">👥</div>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem;">Services RH</h3>
+                  <p style="margin: 0; line-height: 1.6;">Organiser des <strong>activités team building</strong> originales pour renforcer la cohésion d'équipe</p>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--color-primary-light);">
+                  <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎯</div>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem;">Organisateurs de séminaires</h3>
+                  <p style="margin: 0; line-height: 1.6;">Animer des <strong>ice breakers</strong> et <strong>activités de team building</strong> lors de vos événements</p>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--color-primary-light);">
+                  <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎓</div>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem;">Centres de formation</h3>
+                  <p style="margin: 0; line-height: 1.6;">Intégrer des <strong>formations vocales</strong> dans vos parcours de développement personnel</p>
+                </div>
+              </div>
+              
+              <div style="background: rgba(212, 197, 255, 0.2); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-accent);">
+                <p style="margin: 0; font-size: 1.05rem;"><strong>✨ Sur mesure :</strong> Toutes mes <strong>offres entreprise</strong> sont adaptables à vos besoins, contraintes et objectifs. Je me déplace dans vos locaux ou peux accueillir vos équipes dans mon local à Toulouse.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section Cours de chant CE -->
+          <section class="article-section glass-section" id="cours-chant-ce">
+            <div class="article-content">
+              <h2>Cours de chant pour comités d'entreprise</h2>
+              
+              <p style="font-size: 1.1rem; margin-bottom: 2rem;">Proposez à vos salariés des <strong>cours de chant</strong> réguliers dans le cadre de votre <strong>comité d'entreprise</strong>. Une activité bienveillante qui permet de se détendre, développer sa créativité et renforcer les liens entre collaborateurs.</p>
+              
+              <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15), rgba(254, 102, 195, 0.15)); padding: 2rem; border-radius: 16px; margin: 2rem 0; border: 2px solid var(--color-primary);">
+                <h3 style="color: var(--color-primary); margin-bottom: 1.5rem; font-size: 1.5rem; text-align: center;">🎤 Formules disponibles</h3>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                  <div style="display: flex; align-items: start; gap: 0.75rem;">
+                    <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
+                    <div>
+                      <strong style="color: var(--color-primary-dark);">Cours collectifs réguliers</strong> – Sessions hebdomadaires ou bi-mensuelles pour un groupe de 6 à 12 participants
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: start; gap: 0.75rem;">
+                    <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
+                    <div>
+                      <strong style="color: var(--color-primary-dark);">Stages ponctuels</strong> – Ateliers d'une demi-journée ou journée complète pour découvrir le chant en groupe
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: start; gap: 0.75rem;">
+                    <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
+                    <div>
+                      <strong style="color: var(--color-primary-dark);">Cours individuels</strong> – Coaching vocal personnalisé pour vos collaborateurs (sur devis)
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: start; gap: 0.75rem;">
+                    <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
+                    <div>
+                      <strong style="color: var(--color-primary-dark);">Prévention vocale</strong> – Formation spécifique pour les professions utilisant beaucoup la voix (enseignants, commerciaux, animateurs...)
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <h3 style="color: var(--color-primary); margin-top: 2rem; margin-bottom: 1rem;">Contenu des cours</h3>
+              <ul style="line-height: 1.8; font-size: 1.05rem;">
+                <li><strong>Technique vocale adaptée</strong> – Respiration, justesse, puissance, agilité vocale</li>
+                <li><strong>Chant en groupe</strong> – Harmonies, polyphonies, chant a capella</li>
+                <li><strong>Répertoire varié</strong> – Morceaux choisis ensemble selon les goûts du groupe</li>
+                <li><strong>Bienveillance et écoute</strong> – Progression à son rythme, sans jugement</li>
+                <li><strong>Détente et lâcher-prise</strong> – La voix comme outil de bien-être</li>
+              </ul>
+              
+              <div style="background: rgba(254, 102, 195, 0.1); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-accent);">
+                <p style="margin: 0; font-size: 1.05rem;">💡 <strong>Le saviez-vous ?</strong> Le <strong>chant en groupe</strong> est un excellent moyen de renforcer la cohésion d'équipe, développer l'écoute mutuelle et créer des moments de partage uniques entre collaborateurs.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section Cours d'impro -->
+          <section class="article-section glass-section" id="cours-impro">
+            <div class="article-content">
+              <h2>Cours d'improvisation vocale pour entreprises</h2>
+              
+              <p style="font-size: 1.1rem; margin-bottom: 2rem;">L'<strong>improvisation vocale</strong> est une activité créative et libératrice, parfaite pour les entreprises qui souhaitent sortir de leurs habitudes et développer la créativité de leurs équipes.</p>
+              
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+                
+                <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎭</div>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Circlesongs</h3>
+                  <p style="margin: 0; color: #666; line-height: 1.6;">Création collective de polyphonies vocales improvisées, où chacun trouve sa place dans l'ensemble</p>
+                </div>
+                
+                <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎨</div>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Vocal painting</h3>
+                  <p style="margin: 0; color: #666; line-height: 1.6;">Diriger un groupe vocal en temps réel avec des gestes, développer leadership et écoute</p>
+                </div>
+                
+                <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎵</div>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Impro libre</h3>
+                  <p style="margin: 0; color: #666; line-height: 1.6;">Explorer sa voix de manière spontanée, sans partition ni contrainte, libérer sa créativité</p>
+                </div>
+              </div>
+              
+              <h3 style="color: var(--color-primary); margin-top: 2rem; margin-bottom: 1rem;">Bénéfices pour vos équipes</h3>
+              <ul style="line-height: 1.8; font-size: 1.05rem;">
+                <li><strong>Développer la créativité</strong> – Sortir des schémas habituels, oser l'innovation</li>
+                <li><strong>Renforcer l'écoute</strong> – Être à l'écoute de soi et des autres, s'adapter en temps réel</li>
+                <li><strong>Améliorer la communication</strong> – S'exprimer sans mots, développer l'intelligence émotionnelle</li>
+                <li><strong>Booster la confiance</strong> – Oser prendre sa place, s'affirmer dans un cadre bienveillant</li>
+                <li><strong>Favoriser la cohésion</strong> – Créer ensemble, partager des moments uniques</li>
+              </ul>
+              
+              <div style="text-align: center; margin: 2rem 0;">
+                <button class="rdv-btn" id="calendly-trigger-impro" aria-label="Demander un devis">
+                  📅 Demander un devis
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section Team building -->
+          <section class="article-section glass-section" id="team-building">
+            <div class="article-content">
+              <h2>Team building vocal et improvisation</h2>
+              
+              <p style="font-size: 1.1rem; margin-bottom: 2rem;">Organisez un <strong>team building vocal</strong> original et fédérateur pour vos équipes. Une activité qui sort des sentiers battus et crée des souvenirs mémorables !</p>
+              
+              <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15), rgba(254, 102, 195, 0.15)); padding: 2rem; border-radius: 16px; margin: 2rem 0; border: 2px solid var(--color-primary);">
+                <h3 style="color: var(--color-primary); margin-bottom: 1.5rem; font-size: 1.5rem; text-align: center;">🎯 Formules team building</h3>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                  <div style="display: flex; align-items: start; gap: 0.75rem;">
+                    <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
+                    <div>
+                      <strong style="color: var(--color-primary-dark);">Team building circlesongs</strong> – Création collective d'une œuvre vocale improvisée (2-3h)
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: start; gap: 0.75rem;">
+                    <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
+                    <div>
+                      <strong style="color: var(--color-primary-dark);">Team building chant en groupe</strong> – Apprendre un morceau ensemble et le chanter en fin de session (2-3h)
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: start; gap: 0.75rem;">
+                    <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
+                    <div>
+                      <strong style="color: var(--color-primary-dark);">Team building vocal painting</strong> – Découvrir le leadership vocal et diriger un groupe (2-3h)
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: start; gap: 0.75rem;">
+                    <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
+                    <div>
+                      <strong style="color: var(--color-primary-dark);">Team building sur mesure</strong> – Formule adaptée à vos objectifs et contraintes
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <h3 style="color: var(--color-primary); margin-top: 2rem; margin-bottom: 1rem;">Pourquoi choisir un team building vocal ?</h3>
+              <ul style="line-height: 1.8; font-size: 1.05rem;">
+                <li><strong>Activité accessible à tous</strong> – Pas besoin de savoir chanter, juste l'envie de participer</li>
+                <li><strong>Fédérateur et bienveillant</strong> – Crée des liens authentiques entre collaborateurs</li>
+                <li><strong>Original et mémorable</strong> – Sort des activités classiques, marque les esprits</li>
+                <li><strong>Développe des compétences</strong> – Écoute, créativité, confiance, communication</li>
+                <li><strong>Adaptable</strong> – Peut s'intégrer dans une journée complète ou être une activité à part</li>
+              </ul>
+              
+              <div style="background: rgba(212, 197, 255, 0.2); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-primary);">
+                <p style="margin: 0; font-size: 1.05rem;"><strong>💡 Idéal pour :</strong> Renforcer la cohésion d'équipe, célébrer un succès, intégrer de nouveaux collaborateurs, ou simplement offrir un moment de détente et de partage à vos équipes.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section Séminaires -->
+          <section class="article-section glass-section" id="seminaires">
+            <div class="article-content">
+              <h2>Animation séminaire : Ice breaker et team building</h2>
+              
+              <p style="font-size: 1.1rem; margin-bottom: 2rem;">Animez vos <strong>séminaires d'entreprise</strong> avec des <strong>ice breakers</strong> et <strong>activités de team building</strong> autour de la voix et de l'<strong>improvisation vocale</strong>. Parfait pour dynamiser vos événements et créer une atmosphère positive dès le début !</p>
+              
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+                
+                <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">❄️</div>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Ice breaker vocal</h3>
+                  <p style="margin: 0; color: #666; line-height: 1.6;">Animation courte (30-45 min) pour briser la glace et créer une dynamique positive dès le début du séminaire</p>
+                </div>
+                
+                <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎪</div>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Animation séminaire</h3>
+                  <p style="margin: 0; color: #666; line-height: 1.6;">Activité de 1h30 à 2h intégrée dans votre programme de séminaire pour dynamiser la journée</p>
+                </div>
+                
+                <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎬</div>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Clôture événement</h3>
+                  <p style="margin: 0; color: #666; line-height: 1.6;">Animation de fin de séminaire pour terminer sur une note positive et fédératrice</p>
+                </div>
+              </div>
+              
+              <h3 style="color: var(--color-primary); margin-top: 2rem; margin-bottom: 1rem;">Contenu des animations</h3>
+              <ul style="line-height: 1.8; font-size: 1.05rem;">
+                <li><strong>Jeux vocaux interactifs</strong> – Activités ludiques pour se détendre et créer du lien</li>
+                <li><strong>Circlesongs découverte</strong> – Initiation à l'improvisation vocale collective</li>
+                <li><strong>Chant en groupe</strong> – Apprendre un morceau simple ensemble</li>
+                <li><strong>Exercices de cohésion</strong> – Activités qui renforcent l'esprit d'équipe</li>
+                <li><strong>Adaptation au contexte</strong> – Contenu personnalisé selon vos objectifs et le thème de votre séminaire</li>
+              </ul>
+              
+              <div style="background: rgba(254, 102, 195, 0.1); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-accent);">
+                <p style="margin: 0; font-size: 1.05rem;">💡 <strong>Conseil :</strong> Les <strong>ice breakers vocaux</strong> sont particulièrement efficaces pour créer une atmosphère détendue et bienveillante dès le début d'un séminaire. Ils permettent à chacun de se présenter de manière originale et de créer des connexions authentiques.</p>
+              </div>
+              
+              <div style="text-align: center; margin: 2rem 0;">
+                <button class="rdv-btn" id="calendly-trigger-seminaire" aria-label="Demander un devis">
+                  📅 Demander un devis
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section Les bénéfices -->
+          <section class="article-section glass-section" id="benefices">
+            <div class="article-content">
+              <h2>Les bénéfices pour votre entreprise</h2>
+              
+              <p style="font-size: 1.1rem; margin-bottom: 2rem;">Proposer des <strong>activités vocales</strong> à vos collaborateurs apporte de nombreux bénéfices, tant sur le plan individuel que collectif.</p>
+              
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+                
+                <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">🤝</div>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Cohésion d'équipe</h3>
+                  <p style="margin: 0; color: #666; line-height: 1.6;">Renforcer les liens entre collaborateurs, créer des moments de partage authentiques</p>
+                </div>
+                
+                <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">💡</div>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Créativité</h3>
+                  <p style="margin: 0; color: #666; line-height: 1.6;">Développer l'innovation et la pensée créative, sortir des schémas habituels</p>
+                </div>
+                
+                <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎯</div>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Communication</h3>
+                  <p style="margin: 0; color: #666; line-height: 1.6;">Améliorer l'écoute mutuelle, développer l'intelligence émotionnelle</p>
+                </div>
+                
+                <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">😊</div>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Bien-être</h3>
+                  <p style="margin: 0; color: #666; line-height: 1.6;">Réduire le stress, favoriser la détente et le lâcher-prise</p>
+                </div>
+                
+                <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">🚀</div>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Confiance</h3>
+                  <p style="margin: 0; color: #666; line-height: 1.6;">Booster l'estime de soi, oser s'exprimer et prendre sa place</p>
+                </div>
+                
+                <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">⭐</div>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Image de marque</h3>
+                  <p style="margin: 0; color: #666; line-height: 1.6;">Proposer des activités originales et bienveillantes renforce l'attractivité de votre entreprise</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section Tarifs -->
+          <section class="article-section glass-section" id="tarifs">
+            <div class="article-content">
+              <h2>Tarifs et modalités</h2>
+              
+              <p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">📍 <strong>Intervention à Toulouse et dans toute la France</strong></p>
+              
+              <div style="background: rgba(212, 197, 255, 0.2); padding: 2rem; border-radius: 16px; margin: 2rem 0; border: 2px solid var(--color-primary-light);">
+                <h3 style="color: var(--color-primary); margin-bottom: 1.5rem; font-size: 1.3rem; text-align: center;">💼 Devis sur mesure</h3>
+                <p style="text-align: center; margin-bottom: 1rem;">Tous mes <strong>tarifs entreprise</strong> sont établis sur devis personnalisé selon :</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+                  <div style="display: flex; align-items: start; gap: 0.5rem;">
+                    <span style="color: var(--color-accent); flex-shrink: 0;">•</span>
+                    <span>Nombre de participants</span>
+                  </div>
+                  <div style="display: flex; align-items: start; gap: 0.5rem;">
+                    <span style="color: var(--color-accent); flex-shrink: 0;">•</span>
+                    <span>Durée de l'intervention</span>
+                  </div>
+                  <div style="display: flex; align-items: start; gap: 0.5rem;">
+                    <span style="color: var(--color-accent); flex-shrink: 0;">•</span>
+                    <span>Lieu (sur site ou dans mon local)</span>
+                  </div>
+                  <div style="display: flex; align-items: start; gap: 0.5rem;">
+                    <span style="color: var(--color-accent); flex-shrink: 0;">•</span>
+                    <span>Fréquence (ponctuel ou régulier)</span>
+                  </div>
+                  <div style="display: flex; align-items: start; gap: 0.5rem;">
+                    <span style="color: var(--color-accent); flex-shrink: 0;">•</span>
+                    <span>Type d'activité</span>
+                  </div>
+                  <div style="display: flex; align-items: start; gap: 0.5rem;">
+                    <span style="color: var(--color-accent); flex-shrink: 0;">•</span>
+                    <span>Déplacements éventuels</span>
+                  </div>
+                </div>
+              </div>
+              
+              <h3 style="color: var(--color-primary); margin-top: 2rem; margin-bottom: 1.5rem; font-size: 1.5rem; text-align: center;">Exemples de formules</h3>
+              
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin: 2rem 0;">
+                
+                <!-- Ice breaker -->
+                <div style="background: white; padding: 2rem; border-radius: 16px; border: 2px solid var(--color-primary-light); box-shadow: 0 6px 12px rgba(0,0,0,0.08);">
+                  <div style="text-align: center;">
+                    <h4 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.25rem;">Ice breaker</h4>
+                    <p style="color: #666; margin-bottom: 1.5rem; font-size: 0.95rem;">30-45 min • Séminaire</p>
+                  </div>
+                  <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
+                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
+                      <span>Animation dynamique</span>
+                    </li>
+                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
+                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
+                      <span>Jusqu'à 30 participants</span>
+                    </li>
+                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
+                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
+                      <span>Sur devis</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <!-- Team building -->
+                <div style="background: white; padding: 2rem; border-radius: 16px; border: 2px solid var(--color-primary-light); box-shadow: 0 6px 12px rgba(0,0,0,0.08);">
+                  <div style="text-align: center;">
+                    <h4 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.25rem;">Team building</h4>
+                    <p style="color: #666; margin-bottom: 1.5rem; font-size: 0.95rem;">2-3h • Groupe</p>
+                  </div>
+                  <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
+                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
+                      <span>Activité complète</span>
+                    </li>
+                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
+                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
+                      <span>6-15 participants</span>
+                    </li>
+                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
+                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
+                      <span>Sur devis</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <!-- Cours réguliers -->
+                <div style="background: white; padding: 2rem; border-radius: 16px; border: 2px solid var(--color-primary-light); box-shadow: 0 6px 12px rgba(0,0,0,0.08);">
+                  <div style="text-align: center;">
+                    <h4 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.25rem;">Cours réguliers CE</h4>
+                    <p style="color: #666; margin-bottom: 1.5rem; font-size: 0.95rem;">Hebdo/Bi-mensuel</p>
+                  </div>
+                  <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
+                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
+                      <span>Forfait trimestriel</span>
+                    </li>
+                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
+                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
+                      <span>6-12 participants</span>
+                    </li>
+                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
+                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
+                      <span>Sur devis</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div style="background: rgba(254, 102, 195, 0.1); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-accent); text-align: center;">
+                <p style="margin: 0; font-size: 1.1rem;">💜 <strong>Facturation :</strong> Tous les devis peuvent être établis pour <strong>comité d'entreprise</strong> avec facturation directe. Possibilité de paiement par virement, chèque ou virement bancaire.</p>
+              </div>
+              
+              <div style="margin-top: 3rem; text-align: center;">
+                <button class="rdv-btn" id="calendly-trigger-tarifs" aria-label="Demander un devis" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
+                  📅 DEMANDER UN DEVIS
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section Contact -->
+          <section class="article-section glass-section" id="contact">
+            <div class="article-content">
+              <h2>Contactez-moi pour votre projet</h2>
+              
+              <p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem; color: #666;">Vous avez un projet d'<strong>activité entreprise</strong> ? Je serais ravie d'échanger avec vous pour créer une offre sur mesure !</p>
+              
+              <div style="background: rgba(254, 102, 195, 0.1); padding: 2rem; border-radius: 16px; margin: 3rem 0; text-align: center; border: 2px dashed var(--color-accent);">
+                <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">💬 Parlons de votre projet</h3>
+                <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Je réponds à toutes vos questions et vous propose un devis personnalisé adapté à vos besoins.</p>
+                <a href="contact.html" style="display: inline-block; background: var(--color-primary); color: white; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 1rem; margin-right: 1rem;">
+                  Me contacter
+                </a>
+                <button class="rdv-btn" id="calendly-trigger-contact" aria-label="Prendre rendez-vous" style="font-size: 1rem; padding: 0.75rem 2rem;">
+                  📅 Prendre RDV
+                </button>
+              </div>
+              
+              <div style="text-align: center; margin: 3rem 0;">
+                <p style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--color-primary-dark); font-weight: 500;">Au plaisir de créer ensemble une activité mémorable pour vos équipes ! 💜</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </article>
+  </main>
+  <script type="module" src="../js/main.js"></script>
+  
+  <!-- Calendly Script -->
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+  <script>
+    // Gestion de la popup Calendly
+    document.addEventListener('DOMContentLoaded', function() {
+      const trigger = document.getElementById('calendly-trigger');
+      const triggerSection = document.getElementById('calendly-trigger-tarifs');
+      const triggerHero = document.getElementById('calendly-trigger-hero');
+      const triggerImpro = document.getElementById('calendly-trigger-impro');
+      const triggerSeminaire = document.getElementById('calendly-trigger-seminaire');
+      const triggerContact = document.getElementById('calendly-trigger-contact');
+      const popup = document.getElementById('calendly-popup');
+      const closeBtn = document.getElementById('calendly-popup-close');
+      const overlay = document.getElementById('calendly-popup-overlay');
+      
+      function openPopup() {
+        if (popup) {
+          popup.style.display = 'block';
+          document.body.style.overflow = 'hidden';
+        }
+      }
+      
+      function closePopup() {
+        if (popup) {
+          popup.style.display = 'none';
+          document.body.style.overflow = '';
+        }
+      }
+      
+      if (trigger) trigger.addEventListener('click', openPopup);
+      if (triggerSection) triggerSection.addEventListener('click', openPopup);
+      if (triggerHero) triggerHero.addEventListener('click', openPopup);
+      if (triggerImpro) triggerImpro.addEventListener('click', openPopup);
+      if (triggerSeminaire) triggerSeminaire.addEventListener('click', openPopup);
+      if (triggerContact) triggerContact.addEventListener('click', openPopup);
+      
+      if (closeBtn) closeBtn.addEventListener('click', closePopup);
+      if (overlay) overlay.addEventListener('click', closePopup);
+      
+      // Fermer avec la touche Escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && popup && popup.style.display === 'block') {
+          closePopup();
+        }
+      });
+    });
+  </script>
+  
+  <!-- Initialiser Lucide Icons -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    });
+  </script>
+</body>
+</html>
+
