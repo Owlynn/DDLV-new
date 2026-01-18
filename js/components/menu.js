@@ -51,6 +51,26 @@ export function initMenu() {
   // Fermer le menu quand on clique sur un lien
   const menuLinks = headerNav.querySelectorAll('.header-menu-item');
   menuLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      // Si c'est le lien parent du menu déroulant, ne pas fermer le menu mais toggle le sous-menu
+      const dropdown = link.closest('.header-menu-dropdown');
+      if (dropdown && link.href === '#' || link.getAttribute('href') === '#') {
+        e.preventDefault();
+        dropdown.classList.toggle('active');
+        return;
+      }
+      
+      menuToggle.classList.remove('active');
+      headerNav.classList.remove('active');
+      menuOverlay.classList.remove('active');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+  
+  // Fermer le menu quand on clique sur un lien du sous-menu
+  const submenuLinks = headerNav.querySelectorAll('.header-submenu-item');
+  submenuLinks.forEach(link => {
     link.addEventListener('click', function() {
       menuToggle.classList.remove('active');
       headerNav.classList.remove('active');

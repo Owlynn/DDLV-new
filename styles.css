@@ -342,6 +342,55 @@ li {
 }
 .menu-item-home { display: none; }
 
+/* Menu déroulant header */
+.header-menu-dropdown {
+  position: relative;
+}
+
+.header-submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.5rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.8) 100%);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(91, 42, 181, 0.12), 0 1px 4px rgba(91, 42, 181, 0.08);
+  list-style: none;
+  padding: 0.5rem 0;
+  width: max-content;
+  min-width: 200px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  border: none;
+}
+
+.header-menu-dropdown:hover .header-submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.header-submenu-item {
+  display: block;
+  padding: 0.75rem 1.25rem;
+  text-decoration: none;
+  color: var(--color-primary);
+  font-size: 18px;
+  transition: all 0.2s ease;
+  font-weight: 400;
+}
+
+.header-submenu-item:hover {
+  background: rgba(91, 42, 181, 0.05);
+  opacity: 0.8;
+}
+
 /* Bouton flottant PRENDRE RDV en bas à droite avec glassmorphism */
 .floating-rdv-btn {
   position: fixed;
@@ -2166,19 +2215,20 @@ body.contact-page {
     gap: 0.75rem;
     width: 100%;
   }
-  
-  .menu-item-dropdown {
-    width: 100%;
+
+  /* Menu déroulant sur mobile */
+  .header-menu-dropdown {
+    position: relative;
   }
-  
-  .menu-submenu {
+
+  .header-submenu {
     position: static;
     opacity: 1;
     visibility: visible;
     transform: none;
     box-shadow: none;
     border: none;
-    margin-top: 0;
+    margin-top: 0.5rem;
     padding-left: 1rem;
     max-height: 0;
     overflow: hidden;
@@ -2186,10 +2236,16 @@ body.contact-page {
     background: rgba(91, 42, 181, 0.05);
     border-radius: 8px;
   }
-  
-  .menu-item-dropdown[aria-expanded="true"] .menu-submenu {
+
+  .header-menu-dropdown:hover .header-submenu,
+  .header-menu-dropdown.active .header-submenu {
     max-height: 500px;
     margin-top: 0.5rem;
+  }
+
+  .header-submenu-item {
+    font-size: 18px;
+    padding: 0.75rem 1.25rem;
   }
 
   .menu-item-home { display: list-item; }
