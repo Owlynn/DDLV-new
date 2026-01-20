@@ -2758,8 +2758,21 @@ body.contact-page {
     max-width: 640px; 
     max-height: 70vh;
   }
-  .menu-items {
-    gap: 0.5rem;
+  .hero-section .menu-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    width: 100%;
+  }
+  .hero-section .menu-items li {
+    width: 100%;
+    max-width: 100%;
+  }
+  .hero-section .menu-items .menu-item {
+    width: 80%;
+    max-width: 100%;
+    padding: 0.25rem var(--spacing-sm);
+    box-sizing: border-box;
   }
   .menu-item { transform: scale(1.2); }
   .menu-item:hover { transform: scale(1.2) translateY(-2px) rotate(1deg); }
