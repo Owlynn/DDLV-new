@@ -1297,6 +1297,11 @@ li {
 
 .menu-item:focus { outline: none; }
 
+/* Augmentation légère de l'opacité du fond des menu items sur la page d'accueil */
+.hero-section .menu-item {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.30) 0%, rgb(255 255 255 / 42%) 50%, rgb(255 255 255 / 43%) 100%);
+}
+
 .menu-icon {
   width: 1.125rem;
   height: 1.125rem;
@@ -2841,6 +2846,13 @@ body.contact-page {
     max-height: 70vh;
   }
   .menu-items { gap: 1.25rem; }
+}
+
+/* Pour les très grands écrans */
+@media (min-width: 1440px) {
+  .hero-right {
+    margin-right: -80px;
+  }
 }
 
 /* ============================================
