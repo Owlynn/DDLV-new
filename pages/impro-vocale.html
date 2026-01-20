@@ -65,46 +65,94 @@
         <span></span>
         <span></span>
       </button>
-      <nav class="header-nav" aria-label="Navigation principale">
-        <ul class="header-menu" role="list">
-          <li class="menu-item-home">
-            <a href="../index.html" class="header-menu-item">
+      
+      <!-- Menu Desktop -->
+      <nav class="header-nav-desktop" aria-label="Navigation principale desktop">
+        <ul class="header-menu-desktop" role="list">
+          <li>
+            <a href="../index.html" class="header-menu-item-desktop">
               Accueil
             </a>
           </li>
-          <li class="header-menu-dropdown">
-            <a href="#" class="header-menu-item active">
+          <li class="header-menu-dropdown-desktop">
+            <a href="#" class="header-menu-item-desktop active">
               Cours & ateliers
             </a>
-            <ul class="header-submenu">
+            <ul class="header-submenu-desktop">
               <li>
-                <a href="impro-vocale.html" class="header-submenu-item">Qu'est-ce que l'impro vocale</a>
+                <a href="impro-vocale.html" class="header-submenu-item-desktop">Qu'est-ce que l'impro vocale</a>
               </li>
               <li>
-                <a href="ateliers.html" class="header-submenu-item">Stages & ateliers</a>
+                <a href="ateliers.html" class="header-submenu-item-desktop">Stages & ateliers</a>
               </li>
               <li>
-                <a href="cours-chant.html" class="header-submenu-item">Les cours de chant</a>
+                <a href="cours-chant.html" class="header-submenu-item-desktop">Les cours de chant</a>
               </li>
             </ul>
           </li>
           <li>
-            <a href="offre-entreprise.html" class="header-menu-item">
+            <a href="offre-entreprise.html" class="header-menu-item-desktop">
               Offres entreprise
             </a>
           </li>
           <li>
-            <a href="about.html" class="header-menu-item">
+            <a href="about.html" class="header-menu-item-desktop">
               La pédagogue
             </a>
           </li>
           <li>
-            <a href="contact.html" class="header-menu-item">
+            <a href="contact.html" class="header-menu-item-desktop">
               Contact
             </a>
           </li>
           <li>
-            <a href="newsletter.html" class="header-menu-item">
+            <a href="newsletter.html" class="header-menu-item-desktop">
+              Newsletter
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+      <!-- Menu Mobile -->
+      <nav class="header-nav-mobile" aria-label="Navigation principale mobile">
+        <ul class="header-menu-mobile" role="list">
+          <li>
+            <a href="../index.html" class="header-menu-item-mobile">
+              Accueil
+            </a>
+          </li>
+          <li>
+            <a href="impro-vocale.html" class="header-menu-item-mobile active">
+              Qu'est-ce que l'impro vocale
+            </a>
+          </li>
+          <li>
+            <a href="ateliers.html" class="header-menu-item-mobile">
+              Stages & ateliers
+            </a>
+          </li>
+          <li>
+            <a href="cours-chant.html" class="header-menu-item-mobile">
+              Les cours de chant
+            </a>
+          </li>
+          <li>
+            <a href="offre-entreprise.html" class="header-menu-item-mobile">
+              Offres entreprise
+            </a>
+          </li>
+          <li>
+            <a href="about.html" class="header-menu-item-mobile">
+              La pédagogue
+            </a>
+          </li>
+          <li>
+            <a href="contact.html" class="header-menu-item-mobile">
+              Contact
+            </a>
+          </li>
+          <li>
+            <a href="newsletter.html" class="header-menu-item-mobile">
               Newsletter
             </a>
           </li>
@@ -153,7 +201,7 @@
             <div class="article-content">
               <h1>L'improvisation vocale : créer sans prévoir</h1>
               
-              <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 2rem; border-radius: 16px; margin: 2rem 0; border: 2px solid var(--color-primary); text-align: center;">
+              <div class="highlight-box-center">
                 <p style="font-size: 1.2rem; margin: 0; line-height: 1.8; font-weight: 500; color: var(--color-primary-dark);">
                   <strong>L'improvisation vocale</strong> est une pratique musicale où la voix devient un instrument de création spontanée. Ici, pas de partition à suivre, pas de texte à mémoriser, pas d'objectif de performance.
                 </p>
@@ -164,7 +212,7 @@
               <p style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem;">Souvent appelée <strong>impro vocale</strong>, cette pratique transforme la voix en terrain de jeu et d'exploration. Elle met la <strong>technique vocale</strong> au service de l'<strong>expression personnelle</strong>, sans contrainte ni jugement.</p>
               
               <div style="background: rgba(254, 102, 195, 0.1); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-accent);">
-                <p style="margin: 0; font-size: 1.05rem;"><strong>✨ Accessible à tous les niveaux !</strong> L'improvisation vocale s'adresse autant aux débutants qu'aux chanteurs expérimentés, aux musiciens, aux artistes ou simplement aux curieux de leur propre voix.</p>
+                <p style="margin: 0; font-size: 1.05rem;"><strong>Accessible à tous les niveaux</strong> – L'improvisation vocale s'adresse autant aux débutants qu'aux chanteurs expérimentés, aux musiciens, aux artistes ou simplement aux curieux de leur propre voix.</p>
               </div>
             </div>
           </section>
@@ -178,16 +226,14 @@
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0;">
                 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 2rem; border-radius: 16px; border: 2px solid var(--color-primary);">
-                  <div style="font-size: 3rem; margin-bottom: 1rem; text-align: center;">🎭</div>
+                <div class="highlight-box" style="margin: 0;">
                   <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.3rem; text-align: center;">La co-improvisation</h3>
                   <p style="margin-bottom: 1rem; line-height: 1.6; font-weight: 600; color: var(--color-primary-dark); text-align: center;">Construction collective horizontale</p>
                   <p style="margin: 0; line-height: 1.6;">Dans la co-improvisation, chacun apporte sa pierre créative à l'édifice. Il n'y a pas de hiérarchie, pas de leader : les voix dialoguent, se répondent, s'entremêlent de manière horizontale.</p>
                   <p style="margin-top: 1rem; margin-bottom: 0; line-height: 1.6; font-style: italic; color: #666;">C'est une conversation musicale spontanée où l'écoute mutuelle guide les propositions.</p>
                 </div>
                 
-                <div style="background: linear-gradient(135deg, rgba(254, 102, 195, 0.1), rgba(91, 42, 181, 0.1)); padding: 2rem; border-radius: 16px; border: 2px solid var(--color-accent);">
-                  <div style="font-size: 3rem; margin-bottom: 1rem; text-align: center;">🎵</div>
+                <div class="highlight-box-accent" style="margin: 0;">
                   <h3 style="color: var(--color-accent); margin-bottom: 1rem; font-size: 1.3rem; text-align: center;">Le circlesong</h3>
                   <p style="margin-bottom: 1rem; line-height: 1.6; font-weight: 600; color: var(--color-primary-dark); text-align: center;">Structure guidée par un leader</p>
                   <p style="margin: 0; line-height: 1.6;">Le <strong>circle song</strong> (ou <strong>circlesong</strong>) fonctionne différemment. Un ou plusieurs leaders distribuent des voix aux participants, chacun recevant un motif vocal spécifique : une mélodie, un rythme, une texture, un bourdon.</p>
@@ -196,7 +242,7 @@
               </div>
               
               <div style="background: rgba(212, 197, 255, 0.2); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-primary);">
-                <p style="margin: 0; font-size: 1.05rem;">💡 Ces deux approches enrichissent mutuellement la pratique de l'<strong>impro vocale</strong> et offrent des portes d'entrée variées vers l'improvisation collective.</p>
+                <p style="margin: 0; font-size: 1.05rem;">Ces deux approches enrichissent mutuellement la pratique de l'<strong>impro vocale</strong> et offrent des portes d'entrée variées vers l'improvisation collective.</p>
               </div>
             </div>
           </section>
@@ -208,18 +254,18 @@
               
               <p style="font-size: 1.1rem; margin-bottom: 2rem;">Au cœur de l'<strong>improvisation vocale</strong> se trouve une compétence essentielle : <strong>l'écoute</strong>.</p>
               
-              <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 2rem; border-radius: 16px; margin: 2rem 0; border: 2px solid var(--color-primary);">
+              <div class="highlight-box">
                 <div style="display: flex; flex-direction: column; gap: 1rem;">
                   <div style="display: flex; align-items: start; gap: 0.75rem;">
-                    <span style="color: var(--color-accent); font-size: 1.5rem; flex-shrink: 0;">👂</span>
+                    <span style="color: var(--color-accent); font-size: 1.2rem; flex-shrink: 0; font-weight: 600;">•</span>
                     <p style="margin: 0; line-height: 1.6;"><strong>Écouter les autres</strong> – Percevoir ce que chacun apporte, sentir les espaces, les rythmes, les couleurs</p>
                   </div>
                   <div style="display: flex; align-items: start; gap: 0.75rem;">
-                    <span style="color: var(--color-accent); font-size: 1.5rem; flex-shrink: 0;">🎯</span>
+                    <span style="color: var(--color-accent); font-size: 1.2rem; flex-shrink: 0; font-weight: 600;">•</span>
                     <p style="margin: 0; line-height: 1.6;"><strong>S'écouter soi-même</strong> – Sentir le moment où intervenir ou se taire, trouver sa place dans l'ensemble</p>
                   </div>
                   <div style="display: flex; align-items: start; gap: 0.75rem;">
-                    <span style="color: var(--color-accent); font-size: 1.5rem; flex-shrink: 0;">🌐</span>
+                    <span style="color: var(--color-accent); font-size: 1.2rem; flex-shrink: 0; font-weight: 600;">•</span>
                     <p style="margin: 0; line-height: 1.6;"><strong>Percevoir l'espace sonore global</strong> – Comprendre la musique qui se crée collectivement</p>
                   </div>
                 </div>
@@ -239,7 +285,7 @@
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0;">
                 
                 <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 2rem; border-radius: 16px; border: 2px solid var(--color-primary);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 1.5rem; font-size: 1.3rem; text-align: center;">🎤 Comment l'impro développe la technique</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 1.5rem; font-size: 1.3rem; text-align: center;">Comment l'impro développe la technique</h3>
                   <div style="display: flex; flex-direction: column; gap: 0.75rem;">
                     <div style="display: flex; align-items: start; gap: 0.5rem;">
                       <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
@@ -261,7 +307,7 @@
                 </div>
                 
                 <div style="background: linear-gradient(135deg, rgba(254, 102, 195, 0.1), rgba(91, 42, 181, 0.1)); padding: 2rem; border-radius: 16px; border: 2px solid var(--color-accent);">
-                  <h3 style="color: var(--color-accent); margin-bottom: 1.5rem; font-size: 1.3rem; text-align: center;">✨ Comment la technique libère l'impro</h3>
+                  <h3 style="color: var(--color-accent); margin-bottom: 1.5rem; font-size: 1.3rem; text-align: center;">Comment la technique libère l'impro</h3>
                   <div style="display: flex; flex-direction: column; gap: 0.75rem;">
                     <div style="display: flex; align-items: start; gap: 0.5rem;">
                       <span style="color: var(--color-primary); flex-shrink: 0;">✓</span>
@@ -285,10 +331,11 @@
               
               <p style="font-size: 1.05rem; line-height: 1.8; margin: 2rem 0;">Ainsi, l'<strong>impro vocale</strong> n'est pas opposée aux <strong>cours de chant</strong> plus traditionnels. Au contraire, ces approches se complètent idéalement : l'une nourrit la créativité et la spontanéité, l'autre affine la maîtrise et les outils techniques.</p>
               
-              <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15), rgba(254, 102, 195, 0.15)); padding: 2rem; border-radius: 16px; margin: 2rem 0; border: 2px solid var(--color-primary); text-align: center;">
-                <p style="margin: 0 0 1rem 0; font-size: 1.1rem; font-weight: 600; color: var(--color-primary-dark);">💡 Vous souhaitez approfondir votre technique vocale tout en gardant cet esprit de liberté et d'exploration ?</p>
-                <a href="cours-chant.html" style="display: inline-block; background: var(--color-primary); color: white; padding: 0.75rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600;">
-                  Découvrir mes cours de chant →
+              <div class="highlight-box-strong-center">
+                <p style="margin: 0 0 1rem 0; font-size: 1.1rem; font-weight: 600; color: var(--color-primary-dark);">Vous souhaitez approfondir votre technique vocale tout en gardant cet esprit de liberté et d'exploration ?</p>
+                <a href="cours-chant.html" class="rdv-btn" style="padding: 0.75rem 2rem; font-size: 1rem;">
+                  <i data-lucide="music" class="btn-icon"></i>
+                  Découvrir mes cours de chant
                 </a>
               </div>
             </div>
@@ -299,7 +346,7 @@
             <div class="article-content">
               <h2>Une pratique accessible à toutes et tous</h2>
               
-              <div style="background: rgba(254, 102, 195, 0.1); padding: 2rem; border-radius: 16px; margin: 2rem 0; border: 2px solid var(--color-accent); text-align: center;">
+              <div class="highlight-box-simple">
                 <p style="font-size: 1.3rem; margin: 0; font-weight: 600; color: var(--color-primary-dark);">
                   <strong>Aucun prérequis n'est nécessaire</strong> pour <strong>COMMENCER</strong> l'<strong>impro vocale</strong>. Vraiment aucun.
                 </p>
@@ -310,7 +357,7 @@
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin: 2rem 0;">
                 
                 <div style="background: rgba(255, 255, 255, 0.3); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--color-primary);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.2rem;">❌ Vous n'avez pas besoin de :</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.2rem;">Vous n'avez pas besoin de :</h3>
                   <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8;">
                     <li>Savoir chanter "juste"</li>
                     <li>Avoir déjà pris des <strong>cours de chant</strong></li>
@@ -321,7 +368,7 @@
                 </div>
                 
                 <div style="background: rgba(255, 255, 255, 0.3); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--color-accent);">
-                  <h3 style="color: var(--color-accent); margin-bottom: 1rem; font-size: 1.2rem;">✅ L'impro vocale s'adresse à :</h3>
+                  <h3 style="color: var(--color-accent); margin-bottom: 1rem; font-size: 1.2rem;">L'impro vocale s'adresse à :</h3>
                   <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8;">
                     <li><strong>Débutants absolus</strong> – Excellente porte d'entrée vers le monde vocal</li>
                     <li><strong>Chanteurs expérimentés</strong> – Sortir des cadres et explorer autrement</li>
@@ -343,38 +390,50 @@
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
                 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--color-primary-light);">
-                  <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎨</div>
+                <div class="highlight-box-small" style="margin: 0;">
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="palette" style="width: 2.5rem; height: 2.5rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Créativité et spontanéité</h3>
                   <p style="margin: 0; line-height: 1.6;">L'<strong>impro vocale</strong> réveille votre créativité naturelle. En acceptant de ne pas contrôler, vous découvrez des ressources insoupçonnées.</p>
                 </div>
                 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--color-primary-light);">
-                  <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">💪</div>
+                <div class="highlight-box-small" style="margin: 0;">
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="trending-up" style="width: 2.5rem; height: 2.5rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Confiance en soi</h3>
                   <p style="margin: 0; line-height: 1.6;">Dans un cadre bienveillant, vous apprenez à faire confiance à votre instinct vocal et vous osez davantage.</p>
                 </div>
                 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--color-primary-light);">
-                  <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🧘</div>
+                <div class="highlight-box-small" style="margin: 0;">
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="wind" style="width: 2.5rem; height: 2.5rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Lâcher-prise</h3>
                   <p style="margin: 0; line-height: 1.6;">Accepter l'imperfection, accueillir l'erreur comme une opportunité : autant d'apprentissages précieux.</p>
                 </div>
                 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--color-primary-light);">
-                  <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">👥</div>
+                <div class="highlight-box-small" style="margin: 0;">
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="users" style="width: 2.5rem; height: 2.5rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Écoute et connexion</h3>
                   <p style="margin: 0; line-height: 1.6;">Pratiquer les <strong>circlesongs</strong> développe une écoute fine et une capacité à collaborer et créer ensemble.</p>
                 </div>
                 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--color-primary-light);">
-                  <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">⏰</div>
+                <div class="highlight-box-small" style="margin: 0;">
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="eye" style="width: 2.5rem; height: 2.5rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Présence</h3>
                   <p style="margin: 0; line-height: 1.6;">L'<strong>improvisation vocale</strong> vous ramène au moment présent. C'est une forme de méditation active.</p>
                 </div>
                 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--color-primary-light);">
-                  <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">😊</div>
+                <div class="highlight-box-small" style="margin: 0;">
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="smile" style="width: 2.5rem; height: 2.5rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Plaisir et jeu</h3>
                   <p style="margin: 0; line-height: 1.6;">Avant tout, l'<strong>impro vocale</strong> c'est du plaisir ! Un plaisir simple, essentiel, libérateur.</p>
                 </div>
@@ -391,8 +450,8 @@
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0;">
                 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 2rem; border-radius: 16px; border: 2px solid var(--color-primary);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.3rem; text-align: center;">💜 Ma philosophie</h3>
+                <div class="highlight-box" style="margin: 0;">
+                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.3rem; text-align: center;">Ma philosophie</h3>
                   <p style="margin-bottom: 1rem; font-weight: 600; color: var(--color-primary-dark); text-align: center;">En tant que <strong>coach vocal</strong> spécialisée en improvisation, je crée des espaces où :</p>
                   <div style="display: flex; flex-direction: column; gap: 0.75rem;">
                     <div style="display: flex; align-items: start; gap: 0.5rem;">
@@ -414,8 +473,8 @@
                   </div>
                 </div>
                 
-                <div style="background: linear-gradient(135deg, rgba(254, 102, 195, 0.1), rgba(91, 42, 181, 0.1)); padding: 2rem; border-radius: 16px; border: 2px solid var(--color-accent);">
-                  <h3 style="color: var(--color-accent); margin-bottom: 1rem; font-size: 1.3rem; text-align: center;">🎵 Stages & ateliers</h3>
+                <div class="highlight-box-accent" style="margin: 0;">
+                  <h3 style="color: var(--color-accent); margin-bottom: 1rem; font-size: 1.3rem; text-align: center;">Stages & ateliers</h3>
                   <p style="margin-bottom: 1rem; font-weight: 600; color: var(--color-primary-dark); text-align: center;">Lors de mes <strong>stages et ateliers d'improvisation vocale à Toulouse</strong>, nous explorons :</p>
                   <div style="display: flex; flex-direction: column; gap: 0.75rem;">
                     <div style="display: flex; align-items: start; gap: 0.5rem;">
@@ -439,18 +498,20 @@
               </div>
               
               <div style="background: rgba(212, 197, 255, 0.2); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-accent);">
-                <p style="margin: 0; font-size: 1.05rem;">✨ Que vous soyez débutant.e complet.e, que vous suiviez déjà des <strong>cours de chant à Toulouse</strong> ou ailleurs, ou que vous soyez musicien.ne expérimenté.e, vous trouverez votre place dans ces stages et ateliers.</p>
+                <p style="margin: 0; font-size: 1.05rem;">Que vous soyez débutant.e complet.e, que vous suiviez déjà des <strong>cours de chant à Toulouse</strong> ou ailleurs, ou que vous soyez musicien.ne expérimenté.e, vous trouverez votre place dans ces stages et ateliers.</p>
               </div>
               
-              <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15), rgba(254, 102, 195, 0.15)); padding: 2.5rem; border-radius: 16px; margin-top: 2rem; text-align: center; border: 2px solid var(--color-primary);">
+              <div class="highlight-box-strong-center highlight-box-large highlight-box-mt">
                 <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">Rejoignez les stages & ateliers d'impro vocale à Toulouse</h3>
                 <p style="margin-bottom: 2rem; font-size: 1.1rem;">Découvrez le calendrier des prochains stages et ateliers de <strong>circlesongs</strong> et d'<strong>improvisation vocale</strong>.</p>
                 <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
-                  <a href="ateliers.html" style="display: inline-block; background: var(--color-primary); color: white; padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1.05rem;">
-                    📅 Voir les stages & ateliers
+                  <a href="ateliers.html" class="rdv-btn" style="padding: 1rem 2rem; font-size: 1.05rem;">
+                    <i data-lucide="calendar" class="btn-icon"></i>
+                    Voir les stages & ateliers
                   </a>
-                  <a href="contact.html" style="display: inline-block; background: var(--color-accent); color: white; padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1.05rem;">
-                    ✉️ Me contacter
+                  <a href="contact.html" class="rdv-btn" style="padding: 1rem 2rem; font-size: 1.05rem;">
+                    <i data-lucide="mail" class="btn-icon"></i>
+                    Me contacter
                   </a>
                 </div>
               </div>
@@ -465,53 +526,51 @@
               <p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem; color: #666;">Vous avez des questions ? Voici les réponses aux interrogations les plus courantes !</p>
               
               <div style="display: flex; flex-direction: column; gap: 1.5rem; margin: 2rem 0;">
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--color-primary);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
-                    <span style="font-size: 1.5rem;">❓</span> Faut-il savoir chanter pour faire de l'improvisation vocale ?
+                <div class="highlight-box-left">
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.15rem;">
+                    Faut-il savoir chanter pour faire de l'improvisation vocale ?
                   </h3>
                   <p style="margin: 0; line-height: 1.6; color: #555;"><strong>Non, aucun prérequis n'est nécessaire.</strong> L'<strong>impro vocale</strong> est accessible à tous, que vous ayez déjà pris des <strong>cours de chant</strong> ou non. C'est même une excellente porte d'entrée pour découvrir sa voix sans pression ni jugement.</p>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--color-accent);">
-                  <h3 style="color: var(--color-accent); margin-bottom: 0.75rem; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
-                    <span style="font-size: 1.5rem;">❓</span> Quelle est la différence entre circle song et circlesong ?
+                <div class="highlight-box-left-accent">
+                  <h3 style="color: var(--color-accent); margin-bottom: 0.75rem; font-size: 1.15rem;"> Quelle est la différence entre circle song et circlesong ?
                   </h3>
                   <p style="margin: 0; line-height: 1.6; color: #555;">C'est la même chose ! Les deux orthographes sont utilisées. Un <strong>circle song</strong> (ou <strong>circlesong</strong>) est une forme d'<strong>improvisation vocale</strong> collective où un leader distribue des motifs vocaux aux participants pour créer une <strong>polyphonie improvisée</strong>, une pratique de <strong>chant en groupe a capella</strong>.</p>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--color-primary);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
-                    <span style="font-size: 1.5rem;">❓</span> C'est quoi le vocal painting ?
+                <div class="highlight-box-left">
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.15rem;">
+                    C'est quoi le vocal painting ?
                   </h3>
                   <p style="margin: 0; line-height: 1.6; color: #555;">Le <strong>vocal painting</strong> est un langage gestuel qui permet à un chef ou <strong>coach vocal</strong> de guider un groupe en improvisation. C'est un outil de communication qui facilite la création collective en temps réel sans figer la spontanéité.</p>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--color-accent);">
-                  <h3 style="color: var(--color-accent); margin-bottom: 0.75rem; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
-                    <span style="font-size: 1.5rem;">❓</span> Peut-on pratiquer l'improvisation vocale seul.e ?
+                <div class="highlight-box-left-accent">
+                  <h3 style="color: var(--color-accent); margin-bottom: 0.75rem; font-size: 1.15rem;"> Peut-on pratiquer l'improvisation vocale seul.e ?
                   </h3>
                   <p style="margin: 0; line-height: 1.6; color: #555;">Oui, mais la magie de l'<strong>impro vocale</strong> se révèle surtout en groupe ! Les <strong>circlesongs</strong> et la co-improvisation créent une dynamique collective unique où les voix se nourrissent mutuellement. Cela dit, s'entraîner seul.e est aussi très enrichissant pour explorer sa voix.</p>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--color-primary);">
+                <div class="highlight-box-left">
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
-                    <span style="font-size: 1.5rem;">❓</span> L'improvisation vocale remplace-t-elle les cours de chant traditionnels ?
+                    L'improvisation vocale remplace-t-elle les cours de chant traditionnels ?
                   </h3>
                   <p style="margin: 0; line-height: 1.6; color: #555;">Pas nécessairement. L'<strong>impro vocale</strong> et la <strong>technique vocale</strong> s'enrichissent mutuellement. Beaucoup de pratiquants combinent les deux approches : les <strong>cours de chant</strong> pour développer la technique, et l'<strong>improvisation vocale</strong> pour nourrir la créativité et la spontanéité.</p>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--color-accent);">
-                  <h3 style="color: var(--color-accent); margin-bottom: 0.75rem; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
-                    <span style="font-size: 1.5rem;">❓</span> Où pratiquer l'improvisation vocale à Toulouse ?
+                <div class="highlight-box-left-accent">
+                  <h3 style="color: var(--color-accent); margin-bottom: 0.75rem; font-size: 1.15rem;"> Où pratiquer l'improvisation vocale à Toulouse ?
                   </h3>
                   <p style="margin: 0; line-height: 1.6; color: #555;">Je propose des <strong>stages et ateliers réguliers d'improvisation vocale et de circlesongs à Toulouse</strong>, accessibles à tous les niveaux. Vous pouvez <a href="ateliers.html" style="color: var(--color-primary); font-weight: 600; text-decoration: underline;">consulter le calendrier des stages et ateliers</a> ou <a href="contact.html" style="color: var(--color-primary); font-weight: 600; text-decoration: underline;">me contacter</a> pour plus d'informations. Je propose également des <strong>cours de chant à Toulouse</strong> intégrant l'improvisation.</p>
                 </div>
               </div>
               
-              <div style="background: rgba(254, 102, 195, 0.1); padding: 2rem; border-radius: 16px; margin: 3rem 0; text-align: center; border: 2px dashed var(--color-accent);">
+              <div class="highlight-box-simple-dashed">
                 <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">💬 Une autre question ?</h3>
                 <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Je me tiens à votre disposition pour toute information supplémentaire 🙂</p>
-                <a href="contact.html" style="display: inline-block; background: var(--color-primary); color: white; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 1rem;">
+                <a href="contact.html" class="rdv-btn" style="padding: 0.75rem 2rem; font-size: 1rem;">
+                  <i data-lucide="mail" class="btn-icon"></i>
                   Contactez-moi
                 </a>
               </div>

@@ -96,46 +96,94 @@
         <span></span>
         <span></span>
       </button>
-      <nav class="header-nav" aria-label="Navigation principale">
-        <ul class="header-menu" role="list">
-          <li class="menu-item-home">
-            <a href="../index.html" class="header-menu-item">
+      
+      <!-- Menu Desktop -->
+      <nav class="header-nav-desktop" aria-label="Navigation principale desktop">
+        <ul class="header-menu-desktop" role="list">
+          <li>
+            <a href="../index.html" class="header-menu-item-desktop">
               Accueil
             </a>
           </li>
-          <li class="header-menu-dropdown">
-            <a href="#" class="header-menu-item">
+          <li class="header-menu-dropdown-desktop">
+            <a href="#" class="header-menu-item-desktop">
               Cours & ateliers
             </a>
-            <ul class="header-submenu">
+            <ul class="header-submenu-desktop">
               <li>
-                <a href="impro-vocale.html" class="header-submenu-item">Qu'est-ce que l'impro vocale</a>
-          </li>
-          <li>
-                <a href="ateliers.html" class="header-submenu-item">Stages & ateliers</a>
-          </li>
-          <li>
-                <a href="cours-chant.html" class="header-submenu-item">Les cours de chant</a>
+                <a href="impro-vocale.html" class="header-submenu-item-desktop">Qu'est-ce que l'impro vocale</a>
+              </li>
+              <li>
+                <a href="ateliers.html" class="header-submenu-item-desktop">Stages & ateliers</a>
+              </li>
+              <li>
+                <a href="cours-chant.html" class="header-submenu-item-desktop">Les cours de chant</a>
               </li>
             </ul>
           </li>
           <li>
-            <a href="offre-entreprise.html" class="header-menu-item">
+            <a href="offre-entreprise.html" class="header-menu-item-desktop">
               Offres entreprise
             </a>
           </li>
           <li>
-            <a href="about.html" class="header-menu-item active">
+            <a href="about.html" class="header-menu-item-desktop active">
               La pédagogue
             </a>
           </li>
           <li>
-            <a href="contact.html" class="header-menu-item">
+            <a href="contact.html" class="header-menu-item-desktop">
               Contact
             </a>
           </li>
           <li>
-            <a href="newsletter.html" class="header-menu-item">
+            <a href="newsletter.html" class="header-menu-item-desktop">
+              Newsletter
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+      <!-- Menu Mobile -->
+      <nav class="header-nav-mobile" aria-label="Navigation principale mobile">
+        <ul class="header-menu-mobile" role="list">
+          <li>
+            <a href="../index.html" class="header-menu-item-mobile">
+              Accueil
+            </a>
+          </li>
+          <li>
+            <a href="impro-vocale.html" class="header-menu-item-mobile">
+              Qu'est-ce que l'impro vocale
+            </a>
+          </li>
+          <li>
+            <a href="ateliers.html" class="header-menu-item-mobile">
+              Stages & ateliers
+            </a>
+          </li>
+          <li>
+            <a href="cours-chant.html" class="header-menu-item-mobile">
+              Les cours de chant
+            </a>
+          </li>
+          <li>
+            <a href="offre-entreprise.html" class="header-menu-item-mobile">
+              Offres entreprise
+            </a>
+          </li>
+          <li>
+            <a href="about.html" class="header-menu-item-mobile active">
+              La pédagogue
+            </a>
+          </li>
+          <li>
+            <a href="contact.html" class="header-menu-item-mobile">
+              Contact
+            </a>
+          </li>
+          <li>
+            <a href="newsletter.html" class="header-menu-item-mobile">
               Newsletter
             </a>
           </li>
@@ -284,8 +332,9 @@
                   <div style="font-size: 3.5rem; margin-bottom: 1rem; position: relative; z-index: 1;">💬</div>
                   <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.4rem; font-weight: 600; position: relative; z-index: 1; transition: transform 0.3s ease;">Prendre rendez-vous</h3>
                   <p style="margin: 0; line-height: 1.7; color: #555; margin-bottom: 1.5rem; position: relative; z-index: 1;">On peut aussi juste échanger.</p>
-                  <button id="calendly-trigger-about" class="rdv-btn" aria-label="Prendre rendez-vous" style="font-size: 1rem; padding: 0.875rem 2rem; background: var(--color-primary); color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; position: relative; z-index: 1;">
-                    📅 Prendre RDV
+                  <button id="calendly-trigger-about" class="rdv-btn" aria-label="Prendre rendez-vous" style="font-size: 1rem; padding: 0.875rem 2rem; position: relative; z-index: 1;">
+                    <i data-lucide="calendar-check" class="btn-icon"></i>
+                    Prendre RDV
                   </button>
                 </div>
               </div>

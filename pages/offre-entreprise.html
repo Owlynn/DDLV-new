@@ -64,46 +64,94 @@
         <span></span>
         <span></span>
       </button>
-      <nav class="header-nav" aria-label="Navigation principale">
-        <ul class="header-menu" role="list">
-          <li class="menu-item-home">
-            <a href="../index.html" class="header-menu-item">
+      
+      <!-- Menu Desktop -->
+      <nav class="header-nav-desktop" aria-label="Navigation principale desktop">
+        <ul class="header-menu-desktop" role="list">
+          <li>
+            <a href="../index.html" class="header-menu-item-desktop">
               Accueil
             </a>
           </li>
-          <li class="header-menu-dropdown">
-            <a href="#" class="header-menu-item">
+          <li class="header-menu-dropdown-desktop">
+            <a href="#" class="header-menu-item-desktop">
               Cours & ateliers
             </a>
-            <ul class="header-submenu">
+            <ul class="header-submenu-desktop">
               <li>
-                <a href="impro-vocale.html" class="header-submenu-item">Qu'est-ce que l'impro vocale</a>
+                <a href="impro-vocale.html" class="header-submenu-item-desktop">Qu'est-ce que l'impro vocale</a>
               </li>
               <li>
-                <a href="ateliers.html" class="header-submenu-item">Stages & ateliers</a>
+                <a href="ateliers.html" class="header-submenu-item-desktop">Stages & ateliers</a>
               </li>
               <li>
-                <a href="cours-chant.html" class="header-submenu-item">Les cours de chant</a>
+                <a href="cours-chant.html" class="header-submenu-item-desktop">Les cours de chant</a>
               </li>
             </ul>
           </li>
           <li>
-            <a href="offre-entreprise.html" class="header-menu-item active">
+            <a href="offre-entreprise.html" class="header-menu-item-desktop active">
               Offres entreprise
             </a>
           </li>
           <li>
-            <a href="about.html" class="header-menu-item">
+            <a href="about.html" class="header-menu-item-desktop">
               La pédagogue
             </a>
           </li>
           <li>
-            <a href="contact.html" class="header-menu-item">
+            <a href="contact.html" class="header-menu-item-desktop">
               Contact
             </a>
           </li>
           <li>
-            <a href="newsletter.html" class="header-menu-item">
+            <a href="newsletter.html" class="header-menu-item-desktop">
+              Newsletter
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+      <!-- Menu Mobile -->
+      <nav class="header-nav-mobile" aria-label="Navigation principale mobile">
+        <ul class="header-menu-mobile" role="list">
+          <li>
+            <a href="../index.html" class="header-menu-item-mobile">
+              Accueil
+            </a>
+          </li>
+          <li>
+            <a href="impro-vocale.html" class="header-menu-item-mobile">
+              Qu'est-ce que l'impro vocale
+            </a>
+          </li>
+          <li>
+            <a href="ateliers.html" class="header-menu-item-mobile">
+              Stages & ateliers
+            </a>
+          </li>
+          <li>
+            <a href="cours-chant.html" class="header-menu-item-mobile">
+              Les cours de chant
+            </a>
+          </li>
+          <li>
+            <a href="offre-entreprise.html" class="header-menu-item-mobile active">
+              Offres entreprise
+            </a>
+          </li>
+          <li>
+            <a href="about.html" class="header-menu-item-mobile">
+              La pédagogue
+            </a>
+          </li>
+          <li>
+            <a href="contact.html" class="header-menu-item-mobile">
+              Contact
+            </a>
+          </li>
+          <li>
+            <a href="newsletter.html" class="header-menu-item-mobile">
               Newsletter
             </a>
           </li>
@@ -152,8 +200,9 @@
             <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--color-primary);">Offres Entreprise</h1>
             <p style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--color-primary-dark); font-weight: 500;">Cours de chant et d'impro pour comités d'entreprise</p>
             <p style="font-size: 1.1rem; margin-bottom: 2rem; color: #666;">Team building vocal • Ice breaker séminaires • Animation entreprise</p>
-            <a href="contact.html" class="rdv-btn" style="font-size: 1.1rem; padding: 1rem 2.5rem; text-decoration: none; display: inline-block;">
-              📅 Demander un devis
+            <a href="contact.html" class="rdv-btn" style="font-size: 1.1rem; padding: 1rem 2.5rem; text-decoration: none; display: inline-flex;">
+              <i data-lucide="file-text" class="btn-icon"></i>
+              Demander un devis
             </a>
           </section>
 
@@ -166,33 +215,41 @@
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
                 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--color-primary-light);">
-                  <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🏢</div>
+                <div class="highlight-box-small" style="margin: 0;">
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="building-2" style="width: 2.5rem; height: 2.5rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem;">Comités d'entreprise</h3>
                   <p style="margin: 0; line-height: 1.6;">Proposer des <strong>cours de chant</strong> ou d'<strong>improvisation vocale</strong> réguliers à vos salariés</p>
                 </div>
                 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--color-primary-light);">
-                  <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">👥</div>
+                <div class="highlight-box-small" style="margin: 0;">
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="users" style="width: 2.5rem; height: 2.5rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem;">Services RH</h3>
                   <p style="margin: 0; line-height: 1.6;">Organiser des <strong>activités team building</strong> originales pour renforcer la cohésion d'équipe</p>
                 </div>
                 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--color-primary-light);">
-                  <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎯</div>
+                <div class="highlight-box-small" style="margin: 0;">
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="target" style="width: 2.5rem; height: 2.5rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem;">Organisateurs de séminaires</h3>
                   <p style="margin: 0; line-height: 1.6;">Animer des <strong>ice breakers</strong> et <strong>activités de team building</strong> lors de vos événements</p>
                 </div>
                 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--color-primary-light);">
-                  <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎓</div>
+                <div class="highlight-box-small" style="margin: 0;">
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="graduation-cap" style="width: 2.5rem; height: 2.5rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem;">Centres de formation</h3>
                   <p style="margin: 0; line-height: 1.6;">Intégrer des <strong>formations vocales</strong> dans vos parcours de développement personnel</p>
                 </div>
               </div>
               
               <div style="background: rgba(212, 197, 255, 0.2); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-accent);">
-                <p style="margin: 0; font-size: 1.05rem;"><strong>✨ Sur mesure :</strong> Toutes mes <strong>offres entreprise</strong> sont adaptables à vos besoins, contraintes et objectifs. Je me déplace dans vos locaux ou peux accueillir vos équipes dans mon local à Toulouse.</p>
+                <p style="margin: 0; font-size: 1.05rem;"><strong>Sur mesure :</strong> Toutes mes <strong>offres entreprise</strong> sont adaptables à vos besoins, contraintes et objectifs. Je me déplace dans vos locaux ou peux accueillir vos équipes dans mon local à Toulouse.</p>
               </div>
             </div>
           </section>
@@ -204,8 +261,8 @@
               
               <p style="font-size: 1.1rem; margin-bottom: 2rem;">Proposez à vos salariés des <strong>cours de chant</strong> réguliers dans le cadre de votre <strong>comité d'entreprise</strong>. Une activité bienveillante qui permet de se détendre, développer sa créativité et renforcer les liens entre collaborateurs.</p>
               
-              <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15), rgba(254, 102, 195, 0.15)); padding: 2rem; border-radius: 16px; margin: 2rem 0; border: 2px solid var(--color-primary);">
-                <h3 style="color: var(--color-primary); margin-bottom: 1.5rem; font-size: 1.5rem; text-align: center;">🎤 Formules disponibles</h3>
+              <div class="highlight-box-strong">
+                <h3 style="color: var(--color-primary); margin-bottom: 1.5rem; font-size: 1.5rem; text-align: center;">Formules disponibles</h3>
                 <div style="display: flex; flex-direction: column; gap: 1rem;">
                   <div style="display: flex; align-items: start; gap: 0.75rem;">
                     <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
@@ -242,7 +299,7 @@
               </ul>
               
               <div style="background: rgba(254, 102, 195, 0.1); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-accent);">
-                <p style="margin: 0; font-size: 1.05rem;">💡 <strong>Le saviez-vous ?</strong> Le <strong>chant en groupe</strong> est un excellent moyen de renforcer la cohésion d'équipe, développer l'écoute mutuelle et créer des moments de partage uniques entre collaborateurs.</p>
+                <p style="margin: 0; font-size: 1.05rem;"><strong>Le saviez-vous ?</strong> Le <strong>chant en groupe</strong> est un excellent moyen de renforcer la cohésion d'équipe, développer l'écoute mutuelle et créer des moments de partage uniques entre collaborateurs.</p>
               </div>
             </div>
           </section>
@@ -257,19 +314,25 @@
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
                 
                 <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎭</div>
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="music" style="width: 2rem; height: 2rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Circlesongs</h3>
                   <p style="margin: 0; color: #666; line-height: 1.6;">Création collective de polyphonies vocales improvisées, où chacun trouve sa place dans l'ensemble</p>
                 </div>
                 
                 <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎨</div>
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="hand" style="width: 2rem; height: 2rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Vocal painting</h3>
                   <p style="margin: 0; color: #666; line-height: 1.6;">Diriger un groupe vocal en temps réel avec des gestes, développer leadership et écoute</p>
                 </div>
                 
                 <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎵</div>
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="sparkles" style="width: 2rem; height: 2rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Impro libre</h3>
                   <p style="margin: 0; color: #666; line-height: 1.6;">Explorer sa voix de manière spontanée, sans partition ni contrainte, libérer sa créativité</p>
                 </div>
@@ -285,8 +348,9 @@
               </ul>
               
               <div style="text-align: center; margin: 2rem 0;">
-                <a href="contact.html" class="rdv-btn" style="text-decoration: none; display: inline-block;">
-                  📅 Demander un devis
+                <a href="contact.html" class="rdv-btn" style="text-decoration: none; display: inline-flex;">
+                  <i data-lucide="file-text" class="btn-icon"></i>
+                  Demander un devis
                 </a>
               </div>
             </div>
@@ -299,8 +363,8 @@
               
               <p style="font-size: 1.1rem; margin-bottom: 2rem;">Organisez un <strong>team building vocal</strong> original et fédérateur pour vos équipes. Une activité qui sort des sentiers battus et crée des souvenirs mémorables !</p>
               
-              <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15), rgba(254, 102, 195, 0.15)); padding: 2rem; border-radius: 16px; margin: 2rem 0; border: 2px solid var(--color-primary);">
-                <h3 style="color: var(--color-primary); margin-bottom: 1.5rem; font-size: 1.5rem; text-align: center;">🎯 Formules team building</h3>
+              <div class="highlight-box-strong">
+                <h3 style="color: var(--color-primary); margin-bottom: 1.5rem; font-size: 1.5rem; text-align: center;">Formules team building</h3>
                 <div style="display: flex; flex-direction: column; gap: 1rem;">
                   <div style="display: flex; align-items: start; gap: 0.75rem;">
                     <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
@@ -333,7 +397,7 @@
               </ul>
               
               <div style="background: rgba(212, 197, 255, 0.2); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-primary);">
-                <p style="margin: 0; font-size: 1.05rem;"><strong>💡 Idéal pour :</strong> Renforcer la cohésion d'équipe, célébrer un succès, intégrer de nouveaux collaborateurs, ou simplement offrir un moment de détente et de partage à vos équipes.</p>
+                <p style="margin: 0; font-size: 1.05rem;"><strong>Idéal pour :</strong> Renforcer la cohésion d'équipe, célébrer un succès, intégrer de nouveaux collaborateurs, ou simplement offrir un moment de détente et de partage à vos équipes.</p>
               </div>
             </div>
           </section>
@@ -348,19 +412,25 @@
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
                 
                 <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">❄️</div>
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="sparkles" style="width: 2rem; height: 2rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Ice breaker vocal</h3>
                   <p style="margin: 0; color: #666; line-height: 1.6;">Animation courte (30-45 min) pour briser la glace et créer une dynamique positive dès le début du séminaire</p>
                 </div>
                 
                 <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎪</div>
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="calendar" style="width: 2rem; height: 2rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Animation séminaire</h3>
                   <p style="margin: 0; color: #666; line-height: 1.6;">Activité de 1h30 à 2h intégrée dans votre programme de séminaire pour dynamiser la journée</p>
                 </div>
                 
                 <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎬</div>
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="party-popper" style="width: 2rem; height: 2rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Clôture événement</h3>
                   <p style="margin: 0; color: #666; line-height: 1.6;">Animation de fin de séminaire pour terminer sur une note positive et fédératrice</p>
                 </div>
@@ -376,12 +446,13 @@
               </ul>
               
               <div style="background: rgba(254, 102, 195, 0.1); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-accent);">
-                <p style="margin: 0; font-size: 1.05rem;">💡 <strong>Conseil :</strong> Les <strong>ice breakers vocaux</strong> sont particulièrement efficaces pour créer une atmosphère détendue et bienveillante dès le début d'un séminaire. Ils permettent à chacun de se présenter de manière originale et de créer des connexions authentiques.</p>
+                <p style="margin: 0; font-size: 1.05rem;"><strong>Conseil :</strong> Les <strong>ice breakers vocaux</strong> sont particulièrement efficaces pour créer une atmosphère détendue et bienveillante dès le début d'un séminaire. Ils permettent à chacun de se présenter de manière originale et de créer des connexions authentiques.</p>
               </div>
               
               <div style="text-align: center; margin: 2rem 0;">
-                <a href="contact.html" class="rdv-btn" style="text-decoration: none; display: inline-block;">
-                  📅 Demander un devis
+                <a href="contact.html" class="rdv-btn" style="text-decoration: none; display: inline-flex;">
+                  <i data-lucide="file-text" class="btn-icon"></i>
+                  Demander un devis
                 </a>
               </div>
             </div>
@@ -397,37 +468,49 @@
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
                 
                 <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">🤝</div>
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="users" style="width: 2rem; height: 2rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Cohésion d'équipe</h3>
                   <p style="margin: 0; color: #666; line-height: 1.6;">Renforcer les liens entre collaborateurs, créer des moments de partage authentiques</p>
                 </div>
                 
                 <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">💡</div>
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="palette" style="width: 2rem; height: 2rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Créativité</h3>
                   <p style="margin: 0; color: #666; line-height: 1.6;">Développer l'innovation et la pensée créative, sortir des schémas habituels</p>
                 </div>
                 
                 <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎯</div>
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="message-circle" style="width: 2rem; height: 2rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Communication</h3>
                   <p style="margin: 0; color: #666; line-height: 1.6;">Améliorer l'écoute mutuelle, développer l'intelligence émotionnelle</p>
                 </div>
                 
                 <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">😊</div>
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="heart" style="width: 2rem; height: 2rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Bien-être</h3>
                   <p style="margin: 0; color: #666; line-height: 1.6;">Réduire le stress, favoriser la détente et le lâcher-prise</p>
                 </div>
                 
                 <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">🚀</div>
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="trending-up" style="width: 2rem; height: 2rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Confiance</h3>
                   <p style="margin: 0; color: #666; line-height: 1.6;">Booster l'estime de soi, oser s'exprimer et prendre sa place</p>
                 </div>
                 
                 <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">⭐</div>
+                  <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+                    <i data-lucide="award" style="width: 2rem; height: 2rem; color: var(--color-primary);"></i>
+                  </div>
                   <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Image de marque</h3>
                   <p style="margin: 0; color: #666; line-height: 1.6;">Proposer des activités originales et bienveillantes renforce l'attractivité de votre entreprise</p>
                 </div>
@@ -443,19 +526,25 @@
               
               <p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem; color: #666;">Vous avez un projet d'<strong>activité entreprise</strong> ? Je serais ravie d'échanger avec vous pour créer une offre sur mesure !</p>
               
-              <div style="background: rgba(254, 102, 195, 0.1); padding: 2rem; border-radius: 16px; margin: 3rem 0; text-align: center; border: 2px dashed var(--color-accent);">
-                <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">💬 Parlons de votre projet</h3>
+              <div class="highlight-box-simple-dashed">
+                <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">Parlons de votre projet</h3>
                 <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Je réponds à toutes vos questions et vous propose un devis personnalisé adapté à vos besoins.</p>
-                <a href="contact.html" style="display: inline-block; background: var(--color-primary); color: white; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 1rem; margin-right: 1rem;">
-                  Me contacter
-                </a>
-                <button class="rdv-btn" id="calendly-trigger-contact" aria-label="Prendre rendez-vous" style="font-size: 1rem; padding: 0.75rem 2rem;">
-                  📅 Prendre RDV
-                </button>
+                <div style="text-align: center; margin-bottom: 1rem;">
+                  <a href="contact.html" class="rdv-btn" style="padding: 0.75rem 2rem; font-size: 1rem;">
+                    <i data-lucide="mail" class="btn-icon"></i>
+                    Me contacter
+                  </a>
+                </div>
+                <div style="text-align: left;">
+                  <button class="rdv-btn" id="calendly-trigger-contact" aria-label="Prendre rendez-vous" style="font-size: 1rem; padding: 0.75rem 2rem;">
+                    <i data-lucide="calendar-check" class="btn-icon"></i>
+                    Prendre RDV
+                  </button>
+                </div>
               </div>
               
               <div style="text-align: center; margin: 3rem 0;">
-                <p style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--color-primary-dark); font-weight: 500;">Au plaisir de créer ensemble une activité mémorable pour vos équipes ! 💜</p>
+                <p style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--color-primary-dark); font-weight: 500;">Au plaisir de créer ensemble une activité mémorable pour vos équipes !</p>
               </div>
             </div>
           </section>

@@ -64,46 +64,94 @@
         <span></span>
         <span></span>
       </button>
-      <nav class="header-nav" aria-label="Navigation principale">
-        <ul class="header-menu" role="list">
-          <li class="menu-item-home">
-            <a href="../index.html" class="header-menu-item">
+      
+      <!-- Menu Desktop -->
+      <nav class="header-nav-desktop" aria-label="Navigation principale desktop">
+        <ul class="header-menu-desktop" role="list">
+          <li>
+            <a href="../index.html" class="header-menu-item-desktop">
               Accueil
             </a>
           </li>
-          <li class="header-menu-dropdown">
-            <a href="#" class="header-menu-item">
+          <li class="header-menu-dropdown-desktop">
+            <a href="#" class="header-menu-item-desktop">
               Cours & ateliers
             </a>
-            <ul class="header-submenu">
+            <ul class="header-submenu-desktop">
               <li>
-                <a href="impro-vocale.html" class="header-submenu-item">Qu'est-ce que l'impro vocale</a>
+                <a href="impro-vocale.html" class="header-submenu-item-desktop">Qu'est-ce que l'impro vocale</a>
               </li>
               <li>
-                <a href="ateliers.html" class="header-submenu-item">Stages & ateliers</a>
+                <a href="ateliers.html" class="header-submenu-item-desktop">Stages & ateliers</a>
               </li>
               <li>
-                <a href="cours-chant.html" class="header-submenu-item">Les cours de chant</a>
+                <a href="cours-chant.html" class="header-submenu-item-desktop">Les cours de chant</a>
               </li>
             </ul>
           </li>
           <li>
-            <a href="offre-entreprise.html" class="header-menu-item">
+            <a href="offre-entreprise.html" class="header-menu-item-desktop">
               Offres entreprise
             </a>
           </li>
           <li>
-            <a href="about.html" class="header-menu-item">
+            <a href="about.html" class="header-menu-item-desktop">
               La pédagogue
             </a>
           </li>
           <li>
-            <a href="contact.html" class="header-menu-item">
+            <a href="contact.html" class="header-menu-item-desktop">
               Contact
             </a>
           </li>
           <li>
-            <a href="newsletter.html" class="header-menu-item active">
+            <a href="newsletter.html" class="header-menu-item-desktop active">
+              Newsletter
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+      <!-- Menu Mobile -->
+      <nav class="header-nav-mobile" aria-label="Navigation principale mobile">
+        <ul class="header-menu-mobile" role="list">
+          <li>
+            <a href="../index.html" class="header-menu-item-mobile">
+              Accueil
+            </a>
+          </li>
+          <li>
+            <a href="impro-vocale.html" class="header-menu-item-mobile">
+              Qu'est-ce que l'impro vocale
+            </a>
+          </li>
+          <li>
+            <a href="ateliers.html" class="header-menu-item-mobile">
+              Stages & ateliers
+            </a>
+          </li>
+          <li>
+            <a href="cours-chant.html" class="header-menu-item-mobile">
+              Les cours de chant
+            </a>
+          </li>
+          <li>
+            <a href="offre-entreprise.html" class="header-menu-item-mobile">
+              Offres entreprise
+            </a>
+          </li>
+          <li>
+            <a href="about.html" class="header-menu-item-mobile">
+              La pédagogue
+            </a>
+          </li>
+          <li>
+            <a href="contact.html" class="header-menu-item-mobile">
+              Contact
+            </a>
+          </li>
+          <li>
+            <a href="newsletter.html" class="header-menu-item-mobile active">
               Newsletter
             </a>
           </li>
@@ -147,17 +195,8 @@
                   #mc_embed_signup .mc-field-group input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(91, 42, 181, 0.1); }
                   #mc_embed_signup .button { 
                     padding: 0.7rem 2rem;
-                    background: linear-gradient(135deg, rgba(91, 42, 181, 0.8), rgba(122, 106, 199, 0.8));
-                    color: white;
-                    border: none;
-                    border-radius: 8px;
                     font-size: 0.95rem;
-                    font-weight: 500;
-                    font-family: 'Inter', sans-serif;
-                    cursor: pointer;
-                    transition: all var(--transition-base);
                     margin-top: 0.25rem;
-                    box-shadow: 0 4px 12px rgba(91, 42, 181, 0.2);
                     width: fit-content;
                     height: fit-content;
                     white-space: nowrap;
@@ -169,12 +208,6 @@
                     justify-content: flex-end;
                     margin-top: 1rem;
                   }
-                  #mc_embed_signup .button:hover { 
-                    background: linear-gradient(135deg, rgba(91, 42, 181, 0.9), rgba(122, 106, 199, 0.9));
-                    box-shadow: 0 6px 16px rgba(91, 42, 181, 0.3);
-                    transform: translateY(-2px);
-                  }
-                  #mc_embed_signup .button:active { transform: translateY(0); }
                   #mc_embed_signup .indicates-required { font-size: 0.875rem; margin-bottom: 0.5rem; color: var(--color-primary-dark); }
                   #mc_embed_signup .asterisk { color: var(--color-accent); }
                   #mc_embed_signup #mce-responses { margin-top: 1rem; }
@@ -198,8 +231,11 @@
                         <input type="text" name="b_98a48e5d0af7d8386462b6124_f6cad0bc4a" tabindex="-1" value="">
                       </div>
                       <div class="optionalParent">
-                        <div class="clear foot">
-                          <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="S'abonner">
+                        <div class="clear foot" style="text-align: center;">
+                          <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="button">
+                            <i data-lucide="bell" class="btn-icon"></i>
+                            S'abonner
+                          </button>
                         </div>
                       </div>
                     </div>

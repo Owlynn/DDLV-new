@@ -182,46 +182,94 @@
         <span></span>
         <span></span>
       </button>
-      <nav class="header-nav" aria-label="Navigation principale">
-        <ul class="header-menu" role="list">
-          <li class="menu-item-home">
-            <a href="../index.html" class="header-menu-item">
+      
+      <!-- Menu Desktop -->
+      <nav class="header-nav-desktop" aria-label="Navigation principale desktop">
+        <ul class="header-menu-desktop" role="list">
+          <li>
+            <a href="../index.html" class="header-menu-item-desktop">
               Accueil
             </a>
           </li>
-          <li class="header-menu-dropdown">
-            <a href="#" class="header-menu-item active">
+          <li class="header-menu-dropdown-desktop">
+            <a href="#" class="header-menu-item-desktop active">
               Cours & ateliers
             </a>
-            <ul class="header-submenu">
+            <ul class="header-submenu-desktop">
               <li>
-                <a href="impro-vocale.html" class="header-submenu-item">Qu'est-ce que l'impro vocale</a>
+                <a href="impro-vocale.html" class="header-submenu-item-desktop">Qu'est-ce que l'impro vocale</a>
               </li>
               <li>
-                <a href="ateliers.html" class="header-submenu-item">Stages & ateliers</a>
+                <a href="ateliers.html" class="header-submenu-item-desktop">Stages & ateliers</a>
               </li>
               <li>
-                <a href="cours-chant.html" class="header-submenu-item">Les cours de chant</a>
+                <a href="cours-chant.html" class="header-submenu-item-desktop">Les cours de chant</a>
               </li>
             </ul>
           </li>
           <li>
-            <a href="offre-entreprise.html" class="header-menu-item">
+            <a href="offre-entreprise.html" class="header-menu-item-desktop">
               Offres entreprise
             </a>
           </li>
           <li>
-            <a href="about.html" class="header-menu-item">
+            <a href="about.html" class="header-menu-item-desktop">
               La pédagogue
             </a>
           </li>
           <li>
-            <a href="contact.html" class="header-menu-item">
+            <a href="contact.html" class="header-menu-item-desktop">
               Contact
             </a>
           </li>
           <li>
-            <a href="newsletter.html" class="header-menu-item">
+            <a href="newsletter.html" class="header-menu-item-desktop">
+              Newsletter
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+      <!-- Menu Mobile -->
+      <nav class="header-nav-mobile" aria-label="Navigation principale mobile">
+        <ul class="header-menu-mobile" role="list">
+          <li>
+            <a href="../index.html" class="header-menu-item-mobile">
+              Accueil
+            </a>
+          </li>
+          <li>
+            <a href="impro-vocale.html" class="header-menu-item-mobile">
+              Qu'est-ce que l'impro vocale
+            </a>
+          </li>
+          <li>
+            <a href="ateliers.html" class="header-menu-item-mobile active">
+              Stages & ateliers
+            </a>
+          </li>
+          <li>
+            <a href="cours-chant.html" class="header-menu-item-mobile">
+              Les cours de chant
+            </a>
+          </li>
+          <li>
+            <a href="offre-entreprise.html" class="header-menu-item-mobile">
+              Offres entreprise
+            </a>
+          </li>
+          <li>
+            <a href="about.html" class="header-menu-item-mobile">
+              La pédagogue
+            </a>
+          </li>
+          <li>
+            <a href="contact.html" class="header-menu-item-mobile">
+              Contact
+            </a>
+          </li>
+          <li>
+            <a href="newsletter.html" class="header-menu-item-mobile">
               Newsletter
             </a>
           </li>
@@ -300,9 +348,13 @@
               <div class="calendar-container">
                 <div class="calendar-month">
                   <div class="calendar-header">
-                    <button class="calendar-nav-btn" id="prev-month">←</button>
+                    <button class="calendar-nav-btn" id="prev-month" aria-label="Mois précédent">
+                      <i data-lucide="chevron-left" class="btn-icon"></i>
+                    </button>
                     <h2 class="calendar-month-title" id="month-title">Mars 2024</h2>
-                    <button class="calendar-nav-btn" id="next-month">→</button>
+                    <button class="calendar-nav-btn" id="next-month" aria-label="Mois suivant">
+                      <i data-lucide="chevron-right" class="btn-icon"></i>
+                    </button>
                   </div>
                   <div class="calendar-grid" id="calendar-grid">
                     <!-- Le calendrier sera généré par JavaScript -->
@@ -331,7 +383,7 @@
                 <p>Un <strong>atelier mensuel d'improvisation vocale à Toulouse</strong>, tous les deuxièmes mardis du mois. Plongez dans l'univers des <strong>circlesongs</strong> et de la <strong>co-improvisation</strong> dans une ambiance chaleureuse et ludique.</p>
                 <p><strong>L'impro vocale</strong> mois après mois : chaque séance explore un ou deux aspects spécifiques du <strong>chant improvisé</strong> pour enrichir votre pratique et développer votre créativité vocale.</p>
                 
-                <h3 style="font-size: 1.375rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 600;">🎯 Au programme</h3>
+                <h3 style="font-size: 1.375rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 600;">Au programme</h3>
                 <p>À chaque atelier d'<strong>improvisation vocale</strong>, nous explorons 1 à 2 thématiques parmi :</p>
                 <ul>
                   <li><strong>Musicalité</strong> : cohésion, harmonie, rythmique, polyphonie dans les <strong>circlesongs</strong></li>
@@ -344,7 +396,7 @@
                 
                 <div style="background: rgba(255, 255, 255, 0.25); padding: 1.5rem; border-radius: 12px; margin: 2rem 0;">
                   <h3 style="color: var(--color-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; font-size: 1.375rem; font-weight: 600;">
-                    ✨ L'esprit des ateliers d'impro vocale
+                    L'esprit des ateliers d'impro vocale
                   </h3>
                   <div style="display: flex; flex-direction: column; gap: 0.75rem;">
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
@@ -367,36 +419,52 @@
                 </div>
 
                 <div style="background: rgba(212, 197, 255, 0.15); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-primary);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">✅ Prérequis</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">Prérequis</h3>
                   <p style="margin-bottom: 0;">Pour profiter pleinement de cet atelier d'<strong>improvisation vocale</strong>, il est nécessaire de <strong>savoir tenir une pulsation stable</strong> et de <strong>pouvoir reproduire une mélodie donnée à l'identique</strong>.</p>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1) 0%, rgba(254, 102, 195, 0.1) 100%); padding: 1.5rem; border-radius: 16px; margin: 2rem 0; border: 2px solid rgba(91, 42, 181, 0.2);">
-                  <h3 style="font-size: 1.25rem; color: var(--color-primary); margin-bottom: 1.25rem; text-align: center; font-weight: 600;">📋 Informations pratiques</h3>
+                <div class="highlight-box-small" style="border: 2px solid rgba(91, 42, 181, 0.2);">
+                  <h3 style="font-size: 1.25rem; color: var(--color-primary); margin-bottom: 1.25rem; text-align: center; font-weight: 600;">Informations pratiques</h3>
                   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
-                      <span style="font-size: 1.5rem;">📅</span>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                      </svg>
                       <div>
                         <strong style="color: var(--color-primary); display: block; margin-bottom: 0.25rem;">Quand ?</strong>
                         <span>Tous les 2èmes mardis du mois</span>
                       </div>
                     </div>
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
-                      <span style="font-size: 1.5rem;">⏰</span>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
                       <div>
                         <strong style="color: var(--color-primary); display: block; margin-bottom: 0.25rem;">Durée</strong>
                         <span>3 heures<br><small>(19h – 22h)</small></span>
                       </div>
                     </div>
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
-                      <span style="font-size: 1.5rem;">📍</span>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
                       <div>
                         <strong style="color: var(--color-primary); display: block; margin-bottom: 0.25rem;">Où ?</strong>
                         <span>Quartier Minimes, Toulouse</span>
                       </div>
                     </div>
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
-                      <span style="font-size: 1.5rem;">👥</span>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                      </svg>
                       <div>
                         <strong style="color: var(--color-primary); display: block; margin-bottom: 0.25rem;">Groupe</strong>
                         <span>Max. 10 personnes</span>
@@ -405,8 +473,8 @@
                   </div>
                 </div>
 
-                <div style="background: rgba(255, 255, 255, 0.4); padding: 2rem; border-radius: 16px; margin: 2rem 0;">
-                  <h3 style="text-align: center; color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600;">💸 Tarif libre et conscient</h3>
+                <div class="highlight-box-white-transparent">
+                  <h3 style="text-align: center; color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600;">Tarif libre et conscient</h3>
                   <p style="text-align: center; margin-bottom: 1.5rem; font-size: 1.05rem;">Choisissez le montant selon vos moyens et la valeur que vous donnez à l'atelier</p>
                   
                   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; max-width: 600px; margin: 0 auto;">
@@ -415,7 +483,7 @@
                       <div style="font-size: 0.875rem; color: #666; line-height: 1.4;">Tarif minimum pour rendre l'atelier viable</div>
                     </div>
                     
-                    <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15), rgba(254, 102, 195, 0.15)); padding: 1.5rem; border-radius: 12px; text-align: center; border: 3px solid var(--color-primary); position: relative;">
+                    <div class="highlight-box-small highlight-box-strong-center" style="border: 3px solid var(--color-primary); position: relative;">
                       <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--color-primary); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; white-space: nowrap;">RECOMMANDÉ</div>
                       <div style="font-size: 2rem; font-weight: 700; color: var(--color-primary); margin-bottom: 0.5rem;">20 €</div>
                       <div style="font-size: 0.875rem; color: #666; line-height: 1.4;">Couvre mieux les frais et le temps de préparation</div>
@@ -429,20 +497,22 @@
                 </div>
 
                 <div style="background: rgba(212, 197, 255, 0.15); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-primary);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">📝 Inscriptions</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">Inscriptions</h3>
                   <p>L'inscription se fait via la billetterie en ligne : <a href="https://www.billetweb.fr/pro/donnerdelavoix" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary); text-decoration: underline; font-weight: 600;">billetterie BilletWeb</a>, mais le paiement a lieu sur place.</p>
                   <p style="margin-bottom: 0;"><strong>Important :</strong> En cas d'annulation, merci de prévenir le plus tôt possible pour permettre à d'autres de participer. Pour assurer le bon déroulement des sessions, les inscriptions répétées suivies d'annulations pourront être refusées.</p>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15) 0%, rgba(254, 102, 195, 0.15) 100%); padding: 2rem; border-radius: 16px; margin: 2rem 0; text-align: center; border: 2px dashed var(--color-primary);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">🎵 Prêt.e à rejoindre l'aventure ?</h3>
+                <div class="highlight-box-dashed">
+                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">Prêt.e à rejoindre l'aventure ?</h3>
                   <p style="margin-bottom: 1.5rem; font-size: 1.05rem; font-style: italic;">Il me tarde de chanter avec vous !</p>
                   <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <button class="atelier-see-workshops-btn" data-section="calendrier" style="background: var(--color-primary); color: white; border: none; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: transform 0.2s;">
-                      📅 Voir les prochaines dates
+                    <button class="atelier-see-workshops-btn" data-section="calendrier" style="padding: 0.75rem 2rem; font-size: 1rem;">
+                      <i data-lucide="calendar" class="btn-icon"></i>
+                      Voir les prochaines dates
                     </button>
-                    <a href="contact.html" style="display: inline-block; background: white; color: var(--color-primary); border: 2px solid var(--color-primary); padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 1rem; transition: transform 0.2s;">
-                      💬 Une question ?
+                    <a href="contact.html" class="rdv-btn" style="padding: 0.75rem 2rem; font-size: 1rem;">
+                      <i data-lucide="help-circle" class="btn-icon"></i>
+                      Une question ?
                     </a>
                   </div>
                 </div>
@@ -466,7 +536,7 @@
                 <p>Une <strong>journée immersive d'improvisation vocale à Toulouse</strong> pour maîtriser l'art des <strong>circlesongs</strong>. Les <strong>circlesongs</strong> sont une pratique de <strong>chant en groupe a capella</strong> où nous créons ensemble des <strong>polyphonies improvisées</strong> guidées par un.e conducteur.rice. Le <strong>circlesong</strong> est un chant a cappella entièrement improvisé : un.e conducteur.rice guide le groupe en attribuant spontanément des éléments mélodiques, harmoniques et rythmiques pour créer un arrangement musical spontané.</p>
                 <p>Cette pratique d'<strong>improvisation vocale</strong> permet de s'initier au <strong>chant polyphonique</strong>, de développer l'écoute, le sens du rythme et l'oreille musicale dans un cadre collectif et bienveillant.</p>
                 
-                <h3 style="font-size: 1.375rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 600;">🎯 Objectifs de la journée</h3>
+                <h3 style="font-size: 1.375rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 600;">Objectifs de la journée</h3>
                 <ul>
                   <li><strong>Créer des circlesongs de A à Z</strong> – Apprendre à construire et guider une improvisation vocale collective</li>
                   <li><strong>Développer votre assurance</strong> – Gagner en confiance dans votre créativité et votre direction</li>
@@ -482,8 +552,8 @@
                   <p style="margin-bottom: 0;"><strong>Ouvert à tous.tes</strong> – 10 participant.es maximum</p>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1) 0%, rgba(254, 102, 195, 0.1) 100%); padding: 1.5rem; border-radius: 16px; margin: 2rem 0; border: 2px solid rgba(91, 42, 181, 0.2);">
-                  <h3 style="font-size: 1.25rem; color: var(--color-primary); margin-bottom: 1.25rem; text-align: center; font-weight: 600;">📋 Informations pratiques</h3>
+                <div class="highlight-box-small" style="border: 2px solid rgba(91, 42, 181, 0.2);">
+                  <h3 style="font-size: 1.25rem; color: var(--color-primary); margin-bottom: 1.25rem; text-align: center; font-weight: 600;">Informations pratiques</h3>
                   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
                       <span style="font-size: 1.5rem;">📅</span>
@@ -500,14 +570,22 @@
                       </div>
                     </div>
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
-                      <span style="font-size: 1.5rem;">📍</span>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
                       <div>
                         <strong style="color: var(--color-primary); display: block; margin-bottom: 0.25rem;">Où ?</strong>
                         <span>Lieu communiqué à l'inscription<br><small>(généralement Atelier des Chalets, Toulouse)</small></span>
                       </div>
                     </div>
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
-                      <span style="font-size: 1.5rem;">👥</span>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                      </svg>
                       <div>
                         <strong style="color: var(--color-primary); display: block; margin-bottom: 0.25rem;">Groupe</strong>
                         <span>Max. 10 personnes</span>
@@ -516,8 +594,8 @@
                   </div>
                 </div>
 
-                <div style="background: rgba(255, 255, 255, 0.4); padding: 2rem; border-radius: 16px; margin: 2rem 0;">
-                  <h3 style="text-align: center; color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600;">💸 Tarif libre et conscient</h3>
+                <div class="highlight-box-white-transparent">
+                  <h3 style="text-align: center; color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600;">Tarif libre et conscient</h3>
                   <p style="text-align: center; margin-bottom: 1.5rem; font-size: 1.05rem;">Choisissez le montant selon vos moyens et la valeur que vous donnez à cet atelier de circlesongs</p>
                   
                   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
@@ -526,7 +604,7 @@
                       <div style="font-size: 0.875rem; color: #666; line-height: 1.4;">Couvre préparation, administration et communication</div>
                     </div>
                     
-                    <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15), rgba(254, 102, 195, 0.15)); padding: 1.5rem; border-radius: 12px; text-align: center; border: 3px solid var(--color-primary); position: relative;">
+                    <div class="highlight-box-small highlight-box-strong-center" style="border: 3px solid var(--color-primary); position: relative;">
                       <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--color-primary); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; white-space: nowrap;">RECOMMANDÉ</div>
                       <div style="font-size: 2rem; font-weight: 700; color: var(--color-primary); margin-bottom: 0.5rem;">70 €</div>
                       <div style="font-size: 0.875rem; color: #666; line-height: 1.4;">Tarif de base pour rendre l'atelier viable</div>
@@ -540,20 +618,22 @@
                 </div>
 
                 <div style="background: rgba(212, 197, 255, 0.15); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-primary);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">📝 Inscriptions</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">Inscriptions</h3>
                   <p>L'inscription se fait via la billetterie en ligne : <a href="https://www.billetweb.fr/pro/donnerdelavoix" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary); text-decoration: underline; font-weight: 600;">billetterie BilletWeb</a>, mais le paiement a lieu sur place.</p>
                   <p style="margin-bottom: 0;"><strong>Important :</strong> En cas d'annulation, merci de prévenir le plus tôt possible pour permettre à d'autres de participer. Pour assurer le bon déroulement des sessions, les inscriptions répétées suivies d'annulations pourront être refusées.</p>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15) 0%, rgba(254, 102, 195, 0.15) 100%); padding: 2rem; border-radius: 16px; margin: 2rem 0; text-align: center; border: 2px dashed var(--color-primary);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">🎵 Plongez dans l'univers des circlesongs</h3>
+                <div class="highlight-box-dashed">
+                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">Plongez dans l'univers des circlesongs</h3>
                   <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Une journée pour explorer, créer et partager l'improvisation vocale collective</p>
                   <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <button class="atelier-see-workshops-btn" data-section="calendrier" style="background: var(--color-primary); color: white; border: none; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: transform 0.2s;">
-                      📅 Voir les prochaines dates
+                    <button class="atelier-see-workshops-btn" data-section="calendrier" style="padding: 0.75rem 2rem; font-size: 1rem;">
+                      <i data-lucide="calendar" class="btn-icon"></i>
+                      Voir les prochaines dates
                     </button>
-                    <a href="contact.html" style="display: inline-block; background: white; color: var(--color-primary); border: 2px solid var(--color-primary); padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 1rem; transition: transform 0.2s;">
-                      💬 Une question ?
+                    <a href="contact.html" class="rdv-btn" style="padding: 0.75rem 2rem; font-size: 1rem;">
+                      <i data-lucide="help-circle" class="btn-icon"></i>
+                      Une question ?
                     </a>
                   </div>
                 </div>
@@ -624,7 +704,7 @@
                   </div>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1) 0%, rgba(254, 102, 195, 0.1) 100%); padding: 1.5rem; border-radius: 16px; margin: 2rem 0; border: 2px solid rgba(254, 102, 195, 0.3);">
+                <div class="highlight-box-small" style="border: 2px solid rgba(254, 102, 195, 0.3);">
                   <h3 style="font-size: 1.25rem; color: var(--color-accent); margin-bottom: 1.25rem; text-align: center; font-weight: 600;">📋 Informations pratiques</h3>
                   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
@@ -672,15 +752,16 @@
                   </div>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15) 0%, rgba(254, 102, 195, 0.15) 100%); padding: 2rem; border-radius: 16px; margin: 2rem 0; text-align: center; border: 2px dashed var(--color-accent);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">🎵 Envie de tester l'improvisation vocale gratuitement ?</h3>
+                <div class="highlight-box-dashed-accent">
+                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">Envie de tester l'improvisation vocale gratuitement ?</h3>
                   <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Rejoignez-nous pour découvrir les circlesongs et l'impro vocale à Toulouse !</p>
                   <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <button class="atelier-see-workshops-btn" data-section="calendrier" style="background: var(--color-accent); color: white; border: none; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: transform 0.2s;">
-                      📅 Voir les prochaines dates
+                    <button class="atelier-see-workshops-btn" data-section="calendrier" style="padding: 0.75rem 2rem; font-size: 1rem;">
+                      <i data-lucide="calendar" class="btn-icon"></i>
+                      Voir les prochaines dates
                     </button>
                     <a href="contact.html" style="display: inline-block; background: white; color: var(--color-primary); border: 2px solid var(--color-accent); padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 1rem; transition: transform 0.2s;">
-                      💬 Une question ?
+                      Une question ?
                     </a>
                   </div>
                 </div>
@@ -706,7 +787,7 @@
                 <p>Cet atelier d'<strong>impro vocale</strong> propose d'explorer les mots et la poésie en tant que matière et source d'inspiration pour la création d'œuvres improvisées : <strong>circlesong</strong>, co-impro et autres formes d'<strong>improvisation vocale</strong> a cappella.</p>
                 <p>Jeux d'écriture, poésie spontanée et créations vocales collectives se répondent pour relier voix, mots et imagination, et faire émerger des formes musicales improvisées uniques.</p>
                 
-                <h3 style="font-size: 1.375rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 600;">🎯 Au programme</h3>
+                <h3 style="font-size: 1.375rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 600;">Au programme</h3>
                 <ul>
                   <li><strong>Jeux d'écriture créative</strong> – Explorer le langage comme source d'inspiration musicale</li>
                   <li><strong>Poésie spontanée</strong> – Laisser émerger les mots dans l'instant présent</li>
@@ -733,8 +814,8 @@
                   <p style="margin-top: 1rem; font-style: italic; color: #666;">En cas de doute sur les prérequis, n'hésitez pas à me contacter en amont.</p>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%); padding: 1.5rem; border-radius: 16px; margin: 2rem 0; border: 2px solid rgba(91, 42, 181, 0.2);">
-                  <h3 style="font-size: 1.25rem; color: var(--color-primary); margin-bottom: 1.25rem; text-align: center; font-weight: 600;">📋 Informations pratiques</h3>
+                <div class="highlight-box-small" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%); border: 2px solid rgba(91, 42, 181, 0.2);">
+                  <h3 style="font-size: 1.25rem; color: var(--color-primary); margin-bottom: 1.25rem; text-align: center; font-weight: 600;">Informations pratiques</h3>
                   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
                       <span style="font-size: 1.5rem;">📅</span>
@@ -751,14 +832,22 @@
                       </div>
                     </div>
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
-                      <span style="font-size: 1.5rem;">📍</span>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
                       <div>
                         <strong style="color: var(--color-primary); display: block; margin-bottom: 0.25rem;">Où ?</strong>
                         <span>Lieu communiqué à l'inscription<br><small>(généralement Atelier des Chalets, Toulouse)</small></span>
                       </div>
                     </div>
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
-                      <span style="font-size: 1.5rem;">👥</span>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                      </svg>
                       <div>
                         <strong style="color: var(--color-primary); display: block; margin-bottom: 0.25rem;">Groupe</strong>
                         <span>Max. 8 personnes</span>
@@ -768,13 +857,13 @@
                 </div>
 
                 <div style="background: rgba(212, 197, 255, 0.15); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-primary);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">📝 Inscriptions</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">Inscriptions</h3>
                   <p>L'inscription se fait via la billetterie en ligne : <a href="https://www.billetweb.fr/pro/donnerdelavoix" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary); text-decoration: underline; font-weight: 600;">billetterie BilletWeb</a>, mais le paiement a lieu sur place.</p>
                   <p style="margin-bottom: 0;"><strong>Important :</strong> En cas d'annulation, merci de prévenir le plus tôt possible pour permettre à d'autres de participer. Pour assurer le bon déroulement des sessions, les inscriptions répétées suivies d'annulations pourront être refusées.</p>
                 </div>
 
-                <div style="background: rgba(255, 255, 255, 0.4); padding: 2rem; border-radius: 16px; margin: 2rem 0;">
-                  <h3 style="text-align: center; color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600;">💸 Tarif libre et conscient</h3>
+                <div class="highlight-box-white-transparent">
+                  <h3 style="text-align: center; color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600;">Tarif libre et conscient</h3>
                   <p style="text-align: center; margin-bottom: 1.5rem; font-size: 1.05rem;">Choisissez le montant selon vos moyens et la valeur que vous donnez à cette journée</p>
                   
                   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
@@ -796,15 +885,17 @@
                   </div>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%); padding: 2rem; border-radius: 16px; margin: 2rem 0; text-align: center; border: 2px dashed var(--color-primary);">
+                <div class="highlight-box-dashed" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);">
                   <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">🎵 Envie de tisser voix, mots et improvisation ?</h3>
                   <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Rejoignez cette journée unique d'exploration vocale et poétique</p>
                   <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <button class="atelier-see-workshops-btn" data-section="calendrier" style="background: var(--color-primary); color: white; border: none; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: transform 0.2s;">
-                      📅 Voir les prochaines dates
+                    <button class="atelier-see-workshops-btn" data-section="calendrier" style="padding: 0.75rem 2rem; font-size: 1rem;">
+                      <i data-lucide="calendar" class="btn-icon"></i>
+                      Voir les prochaines dates
                     </button>
-                    <a href="contact.html" style="display: inline-block; background: white; color: var(--color-primary); border: 2px solid var(--color-primary); padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 1rem; transition: transform 0.2s;">
-                      💬 Une question ?
+                    <a href="contact.html" class="rdv-btn" style="padding: 0.75rem 2rem; font-size: 1rem;">
+                      <i data-lucide="help-circle" class="btn-icon"></i>
+                      Une question ?
                     </a>
                   </div>
                 </div>
@@ -866,12 +957,12 @@
                 </div>
 
                 <div style="background: rgba(212, 197, 255, 0.15); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-primary);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">✅ Prérequis</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">Prérequis</h3>
                   <p style="margin-bottom: 0;">Cet atelier est destiné aux personnes qui <strong>pratiquent déjà l'impro vocale</strong> et qui souhaitent aller plus loin dans le jeu collectif.</p>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1) 0%, rgba(254, 102, 195, 0.1) 100%); padding: 1.5rem; border-radius: 16px; margin: 2rem 0; border: 2px solid rgba(91, 42, 181, 0.2);">
-                  <h3 style="font-size: 1.25rem; color: var(--color-primary); margin-bottom: 1.25rem; text-align: center; font-weight: 600;">📋 Informations pratiques</h3>
+                <div class="highlight-box-small" style="border: 2px solid rgba(91, 42, 181, 0.2);">
+                  <h3 style="font-size: 1.25rem; color: var(--color-primary); margin-bottom: 1.25rem; text-align: center; font-weight: 600;">Informations pratiques</h3>
                   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
                       <span style="font-size: 1.5rem;">📅</span>
@@ -888,7 +979,10 @@
                       </div>
                     </div>
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
-                      <span style="font-size: 1.5rem;">📍</span>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
                       <div>
                         <strong style="color: var(--color-primary); display: block; margin-bottom: 0.25rem;">Où ?</strong>
                         <span>Toulouse Minimes<br><small>(l'adresse exacte sera communiquée après l'inscription)</small></span>
@@ -897,7 +991,7 @@
                   </div>
                 </div>
 
-                <div style="background: rgba(255, 255, 255, 0.4); padding: 2rem; border-radius: 16px; margin: 2rem 0;">
+                <div class="highlight-box-white-transparent">
                   <h3 style="text-align: center; color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600;">💸 Tarif</h3>
                   <div style="text-align: center; margin-bottom: 1.5rem;">
                     <div style="font-size: 2.5rem; font-weight: 700; color: var(--color-primary); margin-bottom: 0.5rem;">40 €</div>
@@ -906,20 +1000,22 @@
                 </div>
 
                 <div style="background: rgba(212, 197, 255, 0.15); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-primary);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">📝 Inscriptions</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">Inscriptions</h3>
                   <p>L'inscription se fait via la billetterie en ligne : <a href="https://www.billetweb.fr/circlesong-la-gestuelle" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary); text-decoration: underline; font-weight: 600;">https://www.billetweb.fr/circlesong-la-gestuelle</a></p>
                   <p style="margin-bottom: 0;"><strong>Important :</strong> En cas d'annulation, merci de prévenir le plus tôt possible pour permettre à d'autres de participer. Pour assurer le bon déroulement des sessions, les inscriptions répétées suivies d'annulations pourront être refusées.</p>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15) 0%, rgba(254, 102, 195, 0.15) 100%); padding: 2rem; border-radius: 16px; margin: 2rem 0; text-align: center; border: 2px dashed var(--color-primary);">
+                <div class="highlight-box-dashed">
                   <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">🎵 Prêt.e à explorer la gestuelle dans les circlesongs ?</h3>
                   <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Une journée pour parler avec les mains, chanter ensemble… et prendre encore plus de plaisir à improviser</p>
                   <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <button class="atelier-see-workshops-btn" data-section="calendrier" style="background: var(--color-primary); color: white; border: none; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: transform 0.2s;">
-                      📅 Voir les prochaines dates
+                    <button class="atelier-see-workshops-btn" data-section="calendrier" style="padding: 0.75rem 2rem; font-size: 1rem;">
+                      <i data-lucide="calendar" class="btn-icon"></i>
+                      Voir les prochaines dates
                     </button>
-                    <a href="contact.html" style="display: inline-block; background: white; color: var(--color-primary); border: 2px solid var(--color-primary); padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 1rem; transition: transform 0.2s;">
-                      💬 Une question ?
+                    <a href="contact.html" class="rdv-btn" style="padding: 0.75rem 2rem; font-size: 1rem;">
+                      <i data-lucide="help-circle" class="btn-icon"></i>
+                      Une question ?
                     </a>
                   </div>
                 </div>
@@ -1008,7 +1104,7 @@
                   </div>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(239, 68, 68, 0.15) 100%); padding: 1.5rem; border-radius: 16px; margin: 2rem 0; border: 2px solid rgba(16, 185, 129, 0.3);">
+                <div class="highlight-box-small" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(239, 68, 68, 0.15) 100%); border: 2px solid rgba(16, 185, 129, 0.3);">
                   <h3 style="font-size: 1.25rem; color: var(--color-accent); margin-bottom: 1.25rem; text-align: center; font-weight: 600;">📋 Informations pratiques</h3>
                   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
@@ -1056,15 +1152,16 @@
                   </div>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15) 0%, rgba(254, 102, 195, 0.15) 100%); padding: 2rem; border-radius: 16px; margin: 2rem 0; text-align: center; border: 2px dashed var(--color-accent);">
+                <div class="highlight-box-dashed-accent">
                   <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">🎵 Prêt.e pour un flashmob vocal dans les rues de Toulouse ?</h3>
                   <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Rejoignez-nous et partagez l'improvisation vocale dans l'espace public !</p>
                   <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <button class="atelier-see-workshops-btn" data-section="calendrier" style="background: var(--color-accent); color: white; border: none; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: transform 0.2s;">
-                      📅 Voir les prochaines dates
+                    <button class="atelier-see-workshops-btn" data-section="calendrier" style="padding: 0.75rem 2rem; font-size: 1rem;">
+                      <i data-lucide="calendar" class="btn-icon"></i>
+                      Voir les prochaines dates
                     </button>
                     <a href="contact.html" style="display: inline-block; background: white; color: var(--color-primary); border: 2px solid var(--color-accent); padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 1rem; transition: transform 0.2s;">
-                      💬 Une question ?
+                      Une question ?
                     </a>
                   </div>
                 </div>
@@ -1127,8 +1224,8 @@
                   </div>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%); padding: 1.5rem; border-radius: 16px; margin: 2rem 0; border: 2px solid rgba(91, 42, 181, 0.2);">
-                  <h3 style="font-size: 1.25rem; color: var(--color-primary); margin-bottom: 1.25rem; text-align: center; font-weight: 600;">📋 Informations pratiques</h3>
+                <div class="highlight-box-small" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%); border: 2px solid rgba(91, 42, 181, 0.2);">
+                  <h3 style="font-size: 1.25rem; color: var(--color-primary); margin-bottom: 1.25rem; text-align: center; font-weight: 600;">Informations pratiques</h3>
                   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
                       <span style="font-size: 1.5rem;">📅</span>
@@ -1145,7 +1242,10 @@
                       </div>
                     </div>
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
-                      <span style="font-size: 1.5rem;">📍</span>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
                       <div>
                         <strong style="color: var(--color-primary); display: block; margin-bottom: 0.25rem;">Où ?</strong>
                         <span>Lieu communiqué à l'inscription<br><small>(généralement Atelier des Chalets, Toulouse)</small></span>
@@ -1161,8 +1261,8 @@
                   </div>
                 </div>
 
-                <div style="background: rgba(255, 255, 255, 0.4); padding: 2rem; border-radius: 16px; margin: 2rem 0;">
-                  <h3 style="text-align: center; color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600;">💸 Tarif libre et conscient</h3>
+                <div class="highlight-box-white-transparent">
+                  <h3 style="text-align: center; color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600;">Tarif libre et conscient</h3>
                   <p style="text-align: center; margin-bottom: 1.5rem; font-size: 1.05rem;">Choisissez le montant selon vos moyens et la valeur que vous donnez à cette journée</p>
                   
                   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
@@ -1171,7 +1271,7 @@
                       <div style="font-size: 0.875rem; color: #666; line-height: 1.4;">Couvre préparation, administration et communication</div>
                     </div>
                     
-                    <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15), rgba(254, 102, 195, 0.15)); padding: 1.5rem; border-radius: 12px; text-align: center; border: 3px solid var(--color-primary); position: relative;">
+                    <div class="highlight-box-small highlight-box-strong-center" style="border: 3px solid var(--color-primary); position: relative;">
                       <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--color-primary); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; white-space: nowrap;">RECOMMANDÉ</div>
                       <div style="font-size: 2rem; font-weight: 700; color: var(--color-primary); margin-bottom: 0.5rem;">70 €</div>
                       <div style="font-size: 0.875rem; color: #666; line-height: 1.4;">Tarif de base pour rendre l'atelier viable</div>
@@ -1185,20 +1285,22 @@
                 </div>
 
                 <div style="background: rgba(212, 197, 255, 0.15); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-primary);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">📝 Inscriptions</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">Inscriptions</h3>
                   <p>L'inscription se fait via la billetterie en ligne : <a href="https://www.billetweb.fr/pro/donnerdelavoix" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary); text-decoration: underline; font-weight: 600;">billetterie BilletWeb</a>, mais le paiement a lieu sur place.</p>
                   <p style="margin-bottom: 0;"><strong>Important :</strong> En cas d'annulation, merci de prévenir le plus tôt possible pour permettre à d'autres de participer. Pour assurer le bon déroulement des sessions, les inscriptions répétées suivies d'annulations pourront être refusées.</p>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%); padding: 2rem; border-radius: 16px; margin: 2rem 0; text-align: center; border: 2px dashed var(--color-primary);">
+                <div class="highlight-box-dashed" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);">
                   <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">🎵 Prêt.e pour une journée intensive de circlesongs ?</h3>
                   <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Approfondissez votre pratique avec un accompagnement personnalisé</p>
                   <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <button class="atelier-see-workshops-btn" data-section="calendrier" style="background: var(--color-primary); color: white; border: none; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: transform 0.2s;">
-                      📅 Voir les prochaines dates
+                    <button class="atelier-see-workshops-btn" data-section="calendrier" style="padding: 0.75rem 2rem; font-size: 1rem;">
+                      <i data-lucide="calendar" class="btn-icon"></i>
+                      Voir les prochaines dates
                     </button>
-                    <a href="contact.html" style="display: inline-block; background: white; color: var(--color-primary); border: 2px solid var(--color-primary); padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 1rem; transition: transform 0.2s;">
-                      💬 Une question ?
+                    <a href="contact.html" class="rdv-btn" style="padding: 0.75rem 2rem; font-size: 1rem;">
+                      <i data-lucide="help-circle" class="btn-icon"></i>
+                      Une question ?
                     </a>
                   </div>
                 </div>
@@ -1215,11 +1317,9 @@
                 <div class="faq-accordion" style="display: flex; flex-direction: column; gap: 1rem; margin: 2rem 0;">
                   
                   <div class="faq-item" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); border-radius: 12px; border-left: 4px solid var(--color-primary); overflow: hidden;">
-                    <button class="faq-question" style="width: 100%; padding: 1.5rem; text-align: left; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; color: var(--color-primary); font-size: 1.15rem; font-weight: 600;">
-                      <span style="display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="font-size: 1.5rem;">❓</span> Faut-il avoir déjà pratiqué l'improvisation vocale pour participer ?
-                      </span>
-                      <span class="faq-icon" style="font-size: 1.5rem; transition: transform 0.3s ease;">+</span>
+                    <button class="faq-question">
+                      Faut-il avoir déjà pratiqué l'improvisation vocale pour participer ?
+                      <i data-lucide="chevron-down" class="faq-icon"></i>
                     </button>
                     <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;">
                       <div style="padding: 0 1.5rem 1.5rem 1.5rem; line-height: 1.6; color: #555;">
@@ -1229,11 +1329,9 @@
                   </div>
                   
                   <div class="faq-item" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); border-radius: 12px; border-left: 4px solid var(--color-primary); overflow: hidden;">
-                    <button class="faq-question" style="width: 100%; padding: 1.5rem; text-align: left; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; color: var(--color-primary); font-size: 1.15rem; font-weight: 600;">
-                      <span style="display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="font-size: 1.5rem;">❓</span> Comment fonctionne le tarif libre et conscient ?
-                      </span>
-                      <span class="faq-icon" style="font-size: 1.5rem; transition: transform 0.3s ease;">+</span>
+                    <button class="faq-question">
+                      Comment fonctionne le tarif libre et conscient ?
+                      <i data-lucide="chevron-down" class="faq-icon"></i>
                     </button>
                     <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;">
                       <div style="padding: 0 1.5rem 1.5rem 1.5rem; line-height: 1.6; color: #555;">
@@ -1243,11 +1341,9 @@
                   </div>
                   
                   <div class="faq-item" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); border-radius: 12px; border-left: 4px solid var(--color-primary); overflow: hidden;">
-                    <button class="faq-question" style="width: 100%; padding: 1.5rem; text-align: left; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; color: var(--color-primary); font-size: 1.15rem; font-weight: 600;">
-                      <span style="display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="font-size: 1.5rem;">❓</span> Que faire si je dois annuler mon inscription ?
-                      </span>
-                      <span class="faq-icon" style="font-size: 1.5rem; transition: transform 0.3s ease;">+</span>
+                    <button class="faq-question">
+                      Que faire si je dois annuler mon inscription ?
+                      <i data-lucide="chevron-down" class="faq-icon"></i>
                     </button>
                     <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;">
                       <div style="padding: 0 1.5rem 1.5rem 1.5rem; line-height: 1.6; color: #555;">
@@ -1257,11 +1353,9 @@
                   </div>
                   
                   <div class="faq-item" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); border-radius: 12px; border-left: 4px solid var(--color-primary); overflow: hidden;">
-                    <button class="faq-question" style="width: 100%; padding: 1.5rem; text-align: left; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; color: var(--color-primary); font-size: 1.15rem; font-weight: 600;">
-                      <span style="display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="font-size: 1.5rem;">❓</span> Quelle est la différence entre un circlesong et la co-improvisation ?
-                      </span>
-                      <span class="faq-icon" style="font-size: 1.5rem; transition: transform 0.3s ease;">+</span>
+                    <button class="faq-question">
+                      Quelle est la différence entre un circlesong et la co-improvisation ?
+                      <i data-lucide="chevron-down" class="faq-icon"></i>
                     </button>
                     <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;">
                       <div style="padding: 0 1.5rem 1.5rem 1.5rem; line-height: 1.6; color: #555;">
@@ -1271,11 +1365,9 @@
                   </div>
                   
                   <div class="faq-item" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); border-radius: 12px; border-left: 4px solid var(--color-primary); overflow: hidden;">
-                    <button class="faq-question" style="width: 100%; padding: 1.5rem; text-align: left; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; color: var(--color-primary); font-size: 1.15rem; font-weight: 600;">
-                      <span style="display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="font-size: 1.5rem;">❓</span> Puis-je venir seul.e ou faut-il venir en groupe ?
-                      </span>
-                      <span class="faq-icon" style="font-size: 1.5rem; transition: transform 0.3s ease;">+</span>
+                    <button class="faq-question">
+                      Puis-je venir seul.e ou faut-il venir en groupe ?
+                      <i data-lucide="chevron-down" class="faq-icon"></i>
                     </button>
                     <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;">
                       <div style="padding: 0 1.5rem 1.5rem 1.5rem; line-height: 1.6; color: #555;">
@@ -1285,11 +1377,9 @@
                   </div>
                   
                   <div class="faq-item" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); border-radius: 12px; border-left: 4px solid var(--color-primary); overflow: hidden;">
-                    <button class="faq-question" style="width: 100%; padding: 1.5rem; text-align: left; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; color: var(--color-primary); font-size: 1.15rem; font-weight: 600;">
-                      <span style="display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="font-size: 1.5rem;">❓</span> Où se déroulent les stages & ateliers à Toulouse ?
-                      </span>
-                      <span class="faq-icon" style="font-size: 1.5rem; transition: transform 0.3s ease;">+</span>
+                    <button class="faq-question">
+                      Où se déroulent les stages & ateliers à Toulouse ?
+                      <i data-lucide="chevron-down" class="faq-icon"></i>
                     </button>
                     <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;">
                       <div style="padding: 0 1.5rem 1.5rem 1.5rem; line-height: 1.6; color: #555;">
@@ -1315,32 +1405,41 @@
                             const otherAnswer = otherItem.querySelector('.faq-answer');
                             const otherIcon = otherItem.querySelector('.faq-icon');
                             otherAnswer.style.maxHeight = '0px';
-                            otherIcon.textContent = '+';
-                            otherIcon.style.transform = 'rotate(0deg)';
+                            if (otherIcon) {
+                              otherIcon.style.transform = 'rotate(0deg)';
+                            }
+                            otherItem.classList.remove('active');
                           }
                         });
                         
                         // Toggle la question actuelle
                         if (isOpen) {
                           answer.style.maxHeight = '0px';
-                          icon.textContent = '+';
-                          icon.style.transform = 'rotate(0deg)';
+                          if (icon) {
+                            icon.style.transform = 'rotate(0deg)';
+                          }
+                          item.classList.remove('active');
                         } else {
                           answer.style.maxHeight = answer.scrollHeight + 'px';
-                          icon.textContent = '−';
-                          icon.style.transform = 'rotate(0deg)';
+                          if (icon) {
+                            icon.style.transform = 'rotate(180deg)';
+                          }
+                          item.classList.add('active');
                         }
                       });
                     });
                   });
                 </script>
                 
-                <div style="background: rgba(254, 102, 195, 0.1); padding: 2rem; border-radius: 16px; margin: 3rem 0; text-align: center; border: 2px dashed var(--color-accent);">
+                <div class="highlight-box-simple-dashed">
                   <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">💬 Une autre question ?</h3>
                   <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Je me tiens à votre disposition pour toute information supplémentaire 🙂</p>
-                  <a href="contact.html" style="display: inline-block; background: var(--color-primary); color: white; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 1rem;">
-                    Contactez-moi
-                  </a>
+                  <div style="text-align: center;">
+                    <a href="contact.html" class="rdv-btn" style="padding: 0.75rem 2rem; font-size: 1rem;">
+                      <i data-lucide="mail" class="btn-icon"></i>
+                      Contactez-moi
+                    </a>
+                  </div>
                 </div>
               </div>
             </section>

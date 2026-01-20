@@ -3,9 +3,9 @@
  */
 export function initMenu() {
   const menuToggle = document.querySelector('.menu-toggle');
-  const headerNav = document.querySelector('.header-nav');
+  const headerNavMobile = document.querySelector('.header-nav-mobile');
   
-  if (!menuToggle || !headerNav) return;
+  if (!menuToggle || !headerNavMobile) return;
   
   // Créer le bouton hamburger s'il n'existe pas
   if (!menuToggle.innerHTML) {
@@ -22,7 +22,7 @@ export function initMenu() {
   
   function toggleMenu() {
     const isActive = menuToggle.classList.toggle('active');
-    headerNav.classList.toggle('active');
+    headerNavMobile.classList.toggle('active');
     menuOverlay.classList.toggle('active');
     menuToggle.setAttribute('aria-expanded', isActive);
     
@@ -42,38 +42,18 @@ export function initMenu() {
   // Fermer le menu quand on clique sur l'overlay
   menuOverlay.addEventListener('click', function() {
     menuToggle.classList.remove('active');
-    headerNav.classList.remove('active');
+    headerNavMobile.classList.remove('active');
     menuOverlay.classList.remove('active');
     menuToggle.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   });
   
-  // Fermer le menu quand on clique sur un lien
-  const menuLinks = headerNav.querySelectorAll('.header-menu-item');
+  // Fermer le menu quand on clique sur un lien du menu mobile
+  const menuLinks = headerNavMobile.querySelectorAll('.header-menu-item-mobile');
   menuLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      // Si c'est le lien parent du menu déroulant, ne pas fermer le menu mais toggle le sous-menu
-      const dropdown = link.closest('.header-menu-dropdown');
-      if (dropdown && link.href === '#' || link.getAttribute('href') === '#') {
-        e.preventDefault();
-        dropdown.classList.toggle('active');
-        return;
-      }
-      
-      menuToggle.classList.remove('active');
-      headerNav.classList.remove('active');
-      menuOverlay.classList.remove('active');
-      menuToggle.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    });
-  });
-  
-  // Fermer le menu quand on clique sur un lien du sous-menu
-  const submenuLinks = headerNav.querySelectorAll('.header-submenu-item');
-  submenuLinks.forEach(link => {
     link.addEventListener('click', function() {
       menuToggle.classList.remove('active');
-      headerNav.classList.remove('active');
+      headerNavMobile.classList.remove('active');
       menuOverlay.classList.remove('active');
       menuToggle.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
