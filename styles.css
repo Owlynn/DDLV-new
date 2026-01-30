@@ -1001,26 +1001,93 @@ button[id*="calendly"]:not(.floating-rdv-btn),
   min-width: 40%;
   min-height: 12.5rem;
   height: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   flex-shrink: 0;
   transition: filter var(--transition-base);
   display: block;
-  /* Fallback si l'image ne charge pas (404) */
+  overflow: hidden;
   background-color: rgba(212, 197, 255, 0.2);
 }
 
-/* Fallback pour les images cassées - utiliser une image par défaut via CSS */
-.workshop-image:empty::before,
-.card-workshop:has(.workshop-image[style*="404"]) .workshop-image {
-  content: '';
+/* Logo style DDLV : fond blanc, titre atelier en fuchsia, décor ondulé + arcs */
+.workshop-logo {
+  position: relative;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm);
+}
+
+.workshop-logo-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.workshop-logo-waves {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 55%;
+  height: 80%;
+  opacity: 0.85;
+  filter: blur(2px);
+}
+
+.workshop-logo-arcs {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 35%;
+  height: 70%;
+  opacity: 0.9;
+  filter: blur(2px);
+}
+
+.workshop-logo-text {
+  position: relative;
+  z-index: 1;
+  text-align: left;
+  max-width: 92%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.workshop-logo-title {
   display: block;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: clamp(0.75rem, 2.2vw, 1rem);
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-primary);
+  word-wrap: break-word;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(255, 255, 255, 0.9);
+}
+
+.workshop-logo-subtitle {
+  display: block;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: clamp(0.6rem, 1.6vw, 0.8rem);
+  line-height: 1.25;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-primary-light);
+}
+
+.workshop-image-img {
   width: 100%;
   height: 100%;
-  background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=80');
-  background-size: cover;
-  background-position: center;
+  min-height: 12.5rem;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 .workshop-content {
@@ -1804,16 +1871,16 @@ button[id*="calendly"]:not(.floating-rdv-btn),
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: 8px;
   transition: all var(--transition-smooth);
-  /* Dégradé violet-rose avec glassmorphism uniformisé */
+  /* Dégradé violet-rose semi-transparent avec glassmorphism */
   background: linear-gradient(135deg, 
-    rgba(91, 42, 181, 0.7) 0%, 
-    rgba(254, 102, 195, 0.65) 50%, 
-    rgba(91, 42, 181, 0.7) 100%);
+    rgba(91, 42, 181, 0.45) 0%, 
+    rgba(254, 102, 195, 0.4) 50%, 
+    rgba(91, 42, 181, 0.45) 100%);
   backdrop-filter: var(--blur-md);
   -webkit-backdrop-filter: var(--blur-md);
   position: relative;
   /* Bordure subtile comme les autres éléments glassmorphism */
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -1842,10 +1909,10 @@ button[id*="calendly"]:not(.floating-rdv-btn),
 .article-toc-button:hover {
   /* Dégradé légèrement plus opaque au survol */
   background: linear-gradient(135deg, 
-    rgba(91, 42, 181, 0.8) 0%, 
-    rgba(254, 102, 195, 0.75) 50%, 
-    rgba(91, 42, 181, 0.8) 100%);
-  border-color: rgba(255, 255, 255, 0.4);
+    rgba(91, 42, 181, 0.55) 0%, 
+    rgba(254, 102, 195, 0.5) 50%, 
+    rgba(91, 42, 181, 0.55) 100%);
+  border-color: rgba(255, 255, 255, 0.45);
   /* Ombre plus prononcée pour effet flottant */
   box-shadow: 0 6px 20px rgba(91, 42, 181, 0.25), 
               0 3px 10px rgba(91, 42, 181, 0.2),
@@ -1858,9 +1925,9 @@ button[id*="calendly"]:not(.floating-rdv-btn),
   letter-spacing: 0.02em;
   /* Légèrement plus opaque pour l'état actif */
   background: linear-gradient(135deg, 
-    rgba(91, 42, 181, 0.8) 0%, 
-    rgba(254, 102, 195, 0.75) 50%, 
-    rgba(91, 42, 181, 0.8) 100%);
+    rgba(91, 42, 181, 0.55) 0%, 
+    rgba(254, 102, 195, 0.5) 50%, 
+    rgba(91, 42, 181, 0.55) 100%);
   border-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0 4px 16px rgba(91, 42, 181, 0.2), 
               0 2px 8px rgba(91, 42, 181, 0.15);
@@ -1869,6 +1936,50 @@ button[id*="calendly"]:not(.floating-rdv-btn),
 .article-toc-link.active {
   color: var(--color-primary);
   letter-spacing: 0.02em;
+}
+
+/* Dropdown TOC : masqué sur desktop, affiché uniquement sur mobile/tablette */
+.article-toc-dropdown {
+  display: none;
+}
+
+.article-toc-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid rgba(91, 42, 181, 0.2);
+  border-radius: 12px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%235b2ab5' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.25rem;
+  padding-right: 2.5rem;
+}
+
+.article-toc-select:hover,
+.article-toc-select:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.article-toc-dropdown-btn {
+  margin-top: 0.75rem;
+  justify-content: center;
+}
+
+@media (max-width: 1023px) {
+  .article-toc .article-toc-dropdown {
+    display: block;
+  }
+  .article-toc:has(.article-toc-dropdown) .article-toc-nav {
+    display: none !important;
+  }
 }
 
 .article-main {
@@ -3622,6 +3733,39 @@ iframe[src*="calendly.com"]::-webkit-scrollbar {
 .newsletter-page .article-content {
   max-width: 80%;
   margin: 0 auto;
+}
+
+/* Contact : formulaire quasi pleine largeur sur tablette et mobile, petits espaces sur les côtés */
+@media (max-width: 1023px) {
+  .contact-page .article-content {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .contact-page .article-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: calc(100% - 2rem);
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .contact-page .article-section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-page .article-container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    width: calc(100% - 1.5rem);
+  }
+  .contact-page .article-section {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
 }
 
 /* ============================================

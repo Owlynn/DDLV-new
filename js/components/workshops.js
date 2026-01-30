@@ -55,57 +55,72 @@ export function showEmptyState() {
 }
 
 /**
- * Divise un titre long en titre et sous-titre
- * @param {string} title - Titre complet
- * @returns {Object} {title: string, subtitle: string|null}
+ * Mots-clés par type d'atelier (titre API contient la clé, valeur = { title, subtitle }).
+ * Ordre important : les correspondances plus spécifiques en premier.
  */
-function splitLongTitle(title) {
-  if (!title) return { title: '', subtitle: null };
-  
-  const maxTitleLength = 50; // Longueur maximale pour le titre principal
-  
-  // Si le titre est court, pas besoin de le diviser
-  if (title.length <= maxTitleLength) {
-    return { title: title, subtitle: null };
+const WORKSHOP_TITLE_MAP = [
+  { match: /ateliers?\s+focus|focus\s+impro/i, title: 'Atelier focus', subtitle: 'impro • circlesongs • mensuel' },
+  { match: /art\s+des\s+circle\s*songs?|circle\s*songs?\s+formation/i, title: "L'art des circle songs", subtitle: 'circlesongs • journée' },
+  { match: /chant\s+pour\s+tous/i, title: 'Chant pour tous', subtitle: 'découverte • gratuit' },
+  { match: /circlesong.*po[eé]sie|po[eé]sie.*voix.*mots/i, title: 'Circlesong poésie', subtitle: 'voix • mots • impro' },
+  { match: /circlesong.*gestuelle|la\s+gestuelle|gestuelle\s+impro/i, title: 'Circlesong - La Gestuelle', subtitle: 'gestuelle • impro • journée' },
+  { match: /flashmob/i, title: 'Flashmob improvisé', subtitle: 'performance • rue • Toulouse' },
+  { match: /coaching\s+personnalis[eé]/i, title: 'Coaching personnalisé', subtitle: 'sur mesure' }
+];
+
+/**
+ * Retourne toujours un titre court + sous-titre en mots-clés pour le logo.
+ * @param {string} fullTitle - Titre complet de l'atelier (API)
+ * @returns {Object} { title: string, subtitle: string }
+ */
+function getTitleAndSubtitle(fullTitle) {
+  if (!fullTitle || !fullTitle.trim()) return { title: 'Atelier', subtitle: 'impro • chant' };
+
+  const t = fullTitle.trim();
+
+  for (const { match, title, subtitle } of WORKSHOP_TITLE_MAP) {
+    if (match.test(t)) return { title, subtitle };
   }
-  
-  // Chercher un point de division naturel (virgule, tiret, deux-points, etc.)
-  const separators = [', ', ' - ', ' : ', ' :', ' – ', ' — '];
-  let bestSplitIndex = -1;
-  let bestSeparator = '';
-  
-  for (const separator of separators) {
-    const index = title.indexOf(separator);
-    if (index > 0 && index < maxTitleLength + 20) {
-      // Trouver le séparateur le plus proche de la moitié du titre
-      if (bestSplitIndex === -1 || Math.abs(index - title.length / 2) < Math.abs(bestSplitIndex - title.length / 2)) {
-        bestSplitIndex = index;
-        bestSeparator = separator;
-      }
+
+  const separators = [', ', ' – ', ' - ', ' : '];
+  for (const sep of separators) {
+    const idx = t.indexOf(sep);
+    if (idx > 0) {
+      const main = t.substring(0, idx).trim();
+      const rest = t.substring(idx + sep.length).trim();
+      if (main.length >= 2 && rest.length >= 2) return { title: main, subtitle: rest };
     }
   }
-  
-  // Si on a trouvé un bon séparateur, diviser là
-  if (bestSplitIndex > 0) {
-    const mainTitle = title.substring(0, bestSplitIndex).trim();
-    const subtitle = title.substring(bestSplitIndex + bestSeparator.length).trim();
-    return { title: mainTitle, subtitle: subtitle };
+
+  const deMatch = t.match(/^(.+?)\s+(?:d'|de\s+la\s+|de\s+l'|des\s+)(.+)$/i);
+  if (deMatch) {
+    const main = deMatch[1].trim();
+    const keywords = deMatch[2].trim();
+    if (main.length >= 2 && keywords.length >= 2) return { title: main, subtitle: keywords };
   }
-  
-  // Sinon, diviser au premier espace après maxTitleLength
-  const spaceIndex = title.indexOf(' ', maxTitleLength);
-  if (spaceIndex > 0) {
-    return {
-      title: title.substring(0, spaceIndex).trim(),
-      subtitle: title.substring(spaceIndex + 1).trim()
-    };
+
+  if (t.length > 50) {
+    let bestIdx = -1;
+    for (const sep of separators) {
+      const i = t.indexOf(sep, 20);
+      if (i > 0 && i < 55) {
+        if (bestIdx === -1 || Math.abs(i - 35) < Math.abs(bestIdx - 35)) bestIdx = i;
+      }
+    }
+    if (bestIdx > 0) {
+      return { title: t.substring(0, bestIdx).trim(), subtitle: t.substring(bestIdx).replace(/^[\s,–\-:]+/, '').trim() };
+    }
+    const spaceIdx = t.indexOf(' ', 45);
+    if (spaceIdx > 0) {
+      return { title: t.substring(0, spaceIdx).trim(), subtitle: t.substring(spaceIdx + 1).trim() };
+    }
+    return { title: t.substring(0, 47).trim() + '…', subtitle: t.substring(47).trim() };
   }
-  
-  // Dernier recours : diviser à maxTitleLength
-  return {
-    title: title.substring(0, maxTitleLength).trim() + '...',
-    subtitle: title.substring(maxTitleLength).trim()
-  };
+
+  const stopWords = /\b(atelier|ateliers|le|la|les|l'|un|une|et|en|à|pour|des|du|de)\b/gi;
+  const words = t.replace(stopWords, ' ').replace(/\s+/g, ' ').trim().split(' ').filter(Boolean);
+  const subtitle = words.length > 1 ? words.slice(0, 4).join(' • ') : (words[0] || 'impro • chant');
+  return { title: t, subtitle };
 }
 
 /**
@@ -114,8 +129,8 @@ function splitLongTitle(title) {
  * @returns {string} HTML de la carte
  */
 function generateWorkshopCard(workshop) {
-  // Diviser le titre si nécessaire
-  const { title: mainTitle, subtitle } = splitLongTitle(workshop.title);
+  // Titre court + sous-titre en mots-clés (toujours les deux pour le logo)
+  const { title: mainTitle, subtitle } = getTitleAndSubtitle(workshop.title);
   
   // Formater la date en français
   let formattedDate = '';
@@ -135,35 +150,9 @@ function generateWorkshopCard(workshop) {
   const validatedLink = validateUrl(workshop.link);
   const hasLink = validatedLink !== null;
 
-  // Vérifier que l'image existe
-  const defaultImage = 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=80';
-  let imageUrl = workshop.image || defaultImage;
-  
-  // Nettoyer le paramètre ?v= s'il existe dans l'URL
-  if (imageUrl.includes('?v=')) {
-    imageUrl = imageUrl.split('?v=')[0];
-  }
-  
-  // Créer l'URL de fallback .png si l'URL actuelle est en .jpg
-  let fallbackPngUrl = null;
-  if (imageUrl && imageUrl.includes('/thumb/') && imageUrl.endsWith('.jpg')) {
-    fallbackPngUrl = imageUrl.replace('.jpg', '.png');
-  }
-  
-  // Échapper les URLs d'images pour le CSS (échapper les apostrophes)
-  const escapedImageUrl = imageUrl.replace(/'/g, "\\'");
-  const escapedFallbackPngUrl = fallbackPngUrl ? fallbackPngUrl.replace(/'/g, "\\'") : null;
-  const escapedDefaultImage = defaultImage.replace(/'/g, "\\'");
-  
-  // Utiliser un fallback CSS pour les images 404
-  // Ordre: .jpg en premier, puis .png, puis image par défaut
-  const backgroundImageUrls = escapedFallbackPngUrl 
-    ? `url('${escapedImageUrl}'), url('${escapedFallbackPngUrl}'), url('${escapedDefaultImage}')`
-    : `url('${escapedImageUrl}'), url('${escapedDefaultImage}')`;
-  
   // Échapper toutes les données utilisateur pour prévenir XSS
   const escapedMainTitle = escapeHtml(mainTitle);
-  const escapedSubtitle = subtitle ? escapeHtml(subtitle) : null;
+  const escapedSubtitle = escapeHtml(subtitle);
   const escapedFormattedDate = formattedDate ? escapeHtml(formattedDate) : '';
   const escapedTime = workshop.time ? escapeHtml(workshop.time) : '';
   const escapedLocation = workshop.location ? escapeHtml(workshop.location) : '';
@@ -173,13 +162,32 @@ function generateWorkshopCard(workshop) {
   const linkDataAttr = hasLink ? `data-workshop-link="${escapeHtml(validatedLink)}"` : '';
   const cardClass = hasLink ? 'card card-workshop workshop-clickable' : 'card card-workshop';
   
+  // Logo style DDLV : fond blanc, titre atelier en fuchsia, décor ondulé + arcs (remplace l'image)
+  const logoHtml = `
+    <div class="workshop-image workshop-logo">
+      <div class="workshop-logo-bg">
+        <svg class="workshop-logo-waves" viewBox="0 0 120 100" preserveAspectRatio="xMaxYMid meet" aria-hidden="true">
+          <path fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-opacity="0.9" d="M0 50 Q30 20 60 50 T120 50"/>
+          <path fill="none" stroke="var(--color-accent)" stroke-width="1.2" stroke-opacity="0.7" d="M0 55 Q35 25 65 55 T120 55"/>
+          <path fill="none" stroke="var(--color-accent)" stroke-width="1" stroke-opacity="0.5" d="M0 60 Q40 30 70 60 T120 60"/>
+        </svg>
+        <svg class="workshop-logo-arcs" viewBox="0 0 80 100" preserveAspectRatio="xMinYMid meet" aria-hidden="true">
+          <path fill="none" stroke="var(--color-primary-light)" stroke-width="2" d="M 10 20 Q 50 0 80 30"/>
+          <path fill="none" stroke="var(--color-primary-light)" stroke-width="2" d="M 10 80 Q 50 100 80 70"/>
+        </svg>
+      </div>
+      <div class="workshop-logo-text">
+        <span class="workshop-logo-title">${escapedMainTitle}</span>
+        <span class="workshop-logo-subtitle">${escapedSubtitle}</span>
+      </div>
+    </div>`;
   return `
     <div class="${cardClass}" ${linkDataAttr}>
-      <div class="workshop-image" style="background-image: ${backgroundImageUrls};"></div>
+      ${logoHtml}
       <div class="workshop-content">
         <div class="workshop-content-wrapper">
           <h3 class="workshop-title">${escapedMainTitle}</h3>
-          ${escapedSubtitle ? `<p class="workshop-subtitle">${escapedSubtitle}</p>` : ''}
+          <p class="workshop-subtitle">${escapedSubtitle}</p>
           ${escapedFormattedDate ? `<p class="workshop-date">📅 ${escapedFormattedDate}${escapedTime ? `, ${escapedTime}` : ''}</p>` : ''}
           <p class="workshop-location">📍 ${displayLocation}</p>
           ${availabilityInfo}

@@ -35,8 +35,35 @@ export function initSectionNavigation() {
         button.classList.add('active');
       }
     });
+
+    // Mettre à jour le dropdown select (mobile/tablette)
+    const tocSelect = document.querySelector('.article-toc-select');
+    if (tocSelect && tocSelect.querySelector(`option[value="${sectionId}"]`)) {
+      tocSelect.value = sectionId;
+    }
   }
-  
+
+  // Gérer le dropdown select TOC (mobile/tablette) - scroll vers la section
+  const tocSelect = document.querySelector('.article-toc-select');
+  if (tocSelect) {
+    tocSelect.addEventListener('change', function() {
+      const sectionId = this.value;
+      if (!sectionId) return;
+      const targetSection = document.getElementById(sectionId);
+      if (targetSection) {
+        const headerHeight = document.querySelector('.site-nav')?.offsetHeight || 0;
+        const offset = headerHeight + 20;
+        const sectionPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
+        const sectionTop = sectionPosition - offset;
+        window.scrollTo({
+          top: sectionTop,
+          behavior: 'smooth'
+        });
+        updateActiveLink(sectionId);
+      }
+    });
+  }
+
   // Gérer les clics sur les liens du sommaire - scroll vers la section
   tocLinks.forEach(link => {
     link.addEventListener('click', function(e) {
@@ -153,7 +180,7 @@ export function initSectionToggle() {
   const calendrierSection = document.getElementById('calendrier');
   const formatsSection = document.getElementById('formats-d-ateliers');
   const tocLinks = document.querySelectorAll('.article-toc-link[data-section]');
-  const tocButton = document.querySelector('.article-toc-button[data-section]');
+  const tocButtons = document.querySelectorAll('.article-toc-button[data-section]');
   
   // Si on n'est pas sur la page ateliers, ne rien faire
   if (!calendrierSection || !formatsSection) return;
@@ -208,16 +235,16 @@ export function initSectionToggle() {
     }
   }
   
-  // Gérer le clic sur le bouton "Voir les prochains ateliers"
-  if (tocButton) {
+  // Gérer le clic sur les boutons "Voir les prochains ateliers" (nav + dropdown mobile)
+  tocButtons.forEach(tocButton => {
     tocButton.addEventListener('click', function(e) {
       e.preventDefault();
       const sectionName = this.getAttribute('data-section');
       
       // Mettre à jour les classes actives
       tocLinks.forEach(l => l.classList.remove('active'));
-      const allTocButtons = document.querySelectorAll('.article-toc-button');
-      allTocButtons.forEach(b => b.classList.remove('active'));
+      const allTocButtonsList = document.querySelectorAll('.article-toc-button');
+      allTocButtonsList.forEach(b => b.classList.remove('active'));
       this.classList.add('active');
       
       // Afficher la section correspondante
@@ -244,7 +271,7 @@ export function initSectionToggle() {
         });
       }, 200);
     });
-  }
+  });
   
   // Gérer les clics sur les liens du TOC
   tocLinks.forEach(link => {
