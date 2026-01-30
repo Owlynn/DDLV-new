@@ -217,7 +217,8 @@
   </main>
   
   <!-- Configuration EmailJS -->
-  <!-- Charger secrets.local.js en premier (si disponible, ignoré par git) -->
+  <!-- Config depuis variables d'env (Vercel build) puis secrets.local.js (local) -->
+  <script src="../env-config.js"></script>
   <script src="../secrets.local.js"></script>
   <script src="../emailjs-config.js"></script>
   

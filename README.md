@@ -69,29 +69,26 @@ Ouvrez simplement le fichier `index.html` dans votre navigateur (certaines fonct
 ```
 ├── index.html                  # Page d'accueil
 ├── styles.css                  # Styles CSS globaux
-├── script.js                   # Scripts JavaScript principaux
-├── emailjs-config.js          # Configuration EmailJS
-├── billetweb-config.js        # Configuration BilletWeb
+├── js/                         # JavaScript modulaire
+│   ├── main.js                 # Point d'entrée (chargé en type="module")
+│   ├── components/             # Menu, ateliers, calendrier, navigation
+│   ├── services/               # API BilletWeb, cache
+│   └── utils/                   # Sécurité, URLs images
+├── emailjs-config.js           # Configuration EmailJS
+├── billetweb-config.js         # Configuration BilletWeb
 ├── package.json                # Dépendances et scripts npm
 ├── pages/                      # Pages du site
-│   ├── about.html             # Page "La prof"
-│   ├── ateliers.html          # Page des ateliers
-│   ├── contact.html           # Page de contact
-│   ├── cours-chant.html       # Page des cours de chant
-│   └── impro-vocale.html      # Page sur l'improvisation vocale
+│   ├── about.html              # Page "La prof"
+│   ├── ateliers.html           # Page des ateliers
+│   ├── contact.html            # Page de contact
+│   ├── cours-chant.html        # Page des cours de chant
+│   └── impro-vocale.html       # Page sur l'improvisation vocale
 ├── assets/                     # Assets statiques
-│   ├── logo-ddlv.png          # Logo principal
-│   ├── hexagon-pattern.svg    # Pattern hexagonal
-│   ├── hexagon-pattern-new.svg
-│   ├── hexagons.svg
-│   ├── organic-pattern.svg
-│   ├── improvocale.png
-│   ├── jessalynn 1.jpg
-│   ├── jessalynn 2.jpg
-│   ├── jessalynn 3.jpg
-│   └── unnamed.png
+│   ├── logo-ddlv.png           # Logo principal
+│   ├── hexagon-pattern.svg     # Pattern hexagonal
+│   └── ...
 └── documentation/              # Documentation du projet
-    └── couleurs-utilisees.md   # Documentation des couleurs
+    └── configuration-cles-api.md
 ```
 
 ## ⚙️ Configuration

@@ -16,8 +16,9 @@ const SECRETS = {
 
   // BilletWeb Configuration (si vous utilisez un proxy backend)
   BILLETWEB: {
-    BILLETWEB_API_KEY: 'd702349fae520ec1df4481902866a833', // À utiliser uniquement côté serveur via proxy
+    API_KEY: 'd702349fae520ec1df4481902866a833', // À utiliser uniquement côté serveur via proxy
     USER_ID: '73590',
+    // EVENT_ID: '...'  // optionnel : filtrer un seul événement
   }
 };
 

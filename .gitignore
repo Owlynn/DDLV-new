@@ -38,6 +38,7 @@ next-env.d.ts
 billetweb-config.js
 emailjs-config.js
 secrets.local.js
+env-config.js
 *.local.js
 *.local.config.js
 # Fichiers de secrets

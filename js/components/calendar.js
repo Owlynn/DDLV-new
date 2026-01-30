@@ -139,8 +139,3 @@ export function initCalendarNavigation() {
   });
 }
 
-
-
-
-
-
