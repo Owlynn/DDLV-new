@@ -2152,6 +2152,30 @@ button[id*="calendly"]:not(.floating-rdv-btn),
 
 #formats-d-ateliers {
   padding: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Formats d'ateliers : sections et contenu responsive */
+#formats-d-ateliers .article-section {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+#formats-d-ateliers .article-content {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+}
+
+#formats-d-ateliers .article-content > * {
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .article-content {
@@ -2752,6 +2776,8 @@ body.contact-page {
   }
 
   .article-section { padding: var(--spacing-md) 2.5rem; }
+  #formats-d-ateliers .article-section { padding: var(--spacing-md) var(--spacing-md); width: 100%; max-width: 100%; }
+  #formats-d-ateliers .article-content { padding: 0 var(--spacing-sm); }
   .article-image-full { height: 300px; }
 
   .calendar-view { padding: var(--spacing-md); }
@@ -2981,11 +3007,116 @@ body.contact-page {
     display: block !important;
   }
 
+  #formats-d-ateliers {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+  #formats-d-ateliers .article-section {
+    width: 100%;
+    max-width: 100%;
+    padding: var(--spacing-md) var(--spacing-sm);
+    margin-left: 0;
+    margin-right: 0;
+  }
+  #formats-d-ateliers .article-content {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 var(--spacing-xs);
+    min-width: 0;
+  }
+  #formats-d-ateliers .article-content div[style*="grid-template-columns"],
+  #formats-d-ateliers .highlight-box-small,
+  #formats-d-ateliers .highlight-box-white-transparent,
+  #formats-d-ateliers .highlight-box-dashed {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
   .article-content h1,
   .article-content h2 { font-size: 1.5rem; }
   .article-content h3 { font-size: 1.25rem; }
   .article-content p { font-size: 16px; }
   .article-content ul { padding-left: var(--spacing-md); }
+
+  /* Boutons RDV sur mobile : texte sur 2 lignes max, conteneur strict = aucun débordement */
+  .article-main {
+    min-width: 0;
+    overflow-x: hidden;
+  }
+  .article-content .rdv-btn,
+  .article-content button.rdv-btn,
+  .article-content a.rdv-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 0.65rem 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1.3;
+    white-space: normal;
+    text-align: center;
+    overflow: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    background: linear-gradient(135deg, rgba(91, 42, 181, 0.85) 0%, rgba(254, 102, 195, 0.8) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+  }
+  .article-content .rdv-btn .btn-icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+  }
+  .article-content .rdv-btn .rdv-btn-text {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+  .article-content div:has(> .rdv-btn),
+  .article-section div:has(> .rdv-btn) {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  /* Boutons RDV hors .article-content (ex: section héro) */
+  .article-section .rdv-btn,
+  .article-section button.rdv-btn,
+  .article-section a.rdv-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 0.65rem 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1.3;
+    white-space: normal;
+    text-align: center;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    background: linear-gradient(135deg, rgba(91, 42, 181, 0.85) 0%, rgba(254, 102, 195, 0.8) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+  }
+  .article-section .rdv-btn .rdv-btn-text {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
 
   .article-image {
     width: 100%;
@@ -3208,6 +3339,8 @@ body.contact-page {
   }
 
   .article-section { padding: var(--spacing-sm) 0.75rem; }
+  #formats-d-ateliers .article-section { padding: var(--spacing-sm) 0.5rem; }
+  #formats-d-ateliers .article-content { padding: 0 0.25rem; }
   .article-content h1, .article-content h2 { font-size: 1.25rem; }
   .article-content p { font-size: 16px; }
   .article-image-full { height: 200px; }
@@ -3502,9 +3635,10 @@ body.contact-page {
   flex-direction: column;
   margin: 0 auto;
   align-self: center;
+  isolation: isolate;
 }
 
-/* Bouton de fermeture */
+/* Bouton de fermeture - z-index très élevé pour rester au-dessus de l'iframe Calendly sur mobile */
 .calendly-popup-close-btn {
   position: absolute;
   top: 1rem;
@@ -3533,7 +3667,8 @@ body.contact-page {
               0 2px 8px rgba(91, 42, 181, 0.15),
               inset 0 1px 0 rgba(255, 255, 255, 0.1);
   transition: all var(--transition-smooth);
-  z-index: 10002;
+  z-index: 100000;
+  pointer-events: auto;
 }
 
 .calendly-popup-close-btn:hover {
@@ -3589,6 +3724,18 @@ body.contact-page {
 
   .calendly-inline-widget {
     min-height: 600px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .calendly-popup-close-btn {
+    z-index: 100000;
+    pointer-events: auto;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 21px;
   }
 }
 
@@ -3602,13 +3749,19 @@ body.contact-page {
   .calendly-popup-close-btn {
     top: 0.5rem;
     right: 0.5rem;
-    width: 35px;
-    height: 35px;
-    font-size: 20px;
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+    z-index: 100000;
+    pointer-events: auto;
+    min-width: 48px;
+    min-height: 48px;
   }
 
   .calendly-inline-widget {
     min-height: 500px;
+    position: relative;
+    z-index: 1;
   }
 }
 
