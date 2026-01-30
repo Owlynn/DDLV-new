@@ -3617,3 +3617,311 @@ iframe[src*="calendly.com"]::-webkit-scrollbar {
   margin: 0 auto;
 }
 
+/* ============================================
+   CLASSES UTILITAIRES POUR REMPLACER LES STYLES INLINE
+   ============================================ */
+
+/* Tailles de texte */
+.text-lg { font-size: 1.05rem; }
+.text-xl { font-size: 1.1rem; }
+.text-2xl { font-size: 1.2rem; }
+.text-3xl { font-size: 1.3rem; }
+.text-4xl { font-size: 1.5rem; }
+
+/* Marges */
+.m-0 { margin: 0; }
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 2rem; }
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: 1rem; }
+.my-0 { margin-top: 0; margin-bottom: 0; }
+.my-1 { margin: 1rem 0; }
+.my-2 { margin: 2rem 0; }
+
+/* Padding */
+.p-0 { padding: 0; }
+
+/* Line-height */
+.leading-relaxed { line-height: 1.8; }
+.leading-normal { line-height: 1.6; }
+
+/* Display */
+.flex-col { display: flex; flex-direction: column; }
+.flex-row { display: flex; flex-direction: row; }
+.grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0; }
+.grid-auto-sm { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin: 2rem 0; }
+.grid-auto-xs { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+.grid-auto-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.grid-auto-pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+
+/* Alignement */
+.text-center { text-align: center; }
+.items-start { align-items: start; }
+.justify-center { justify-content: center; }
+.flex-wrap { flex-wrap: wrap; }
+.gap-sm { gap: 0.75rem; }
+.gap-md { gap: 1rem; }
+.gap-lg { gap: 1.5rem; }
+
+/* Flexbox utilities */
+.flex-shrink-0 { flex-shrink: 0; }
+
+/* Couleurs */
+.text-primary-dark { color: var(--color-primary-dark); }
+.text-primary { color: var(--color-primary); }
+.text-accent { color: var(--color-accent); }
+.text-gray { color: #666; }
+.text-gray-dark { color: #555; }
+
+/* Font-weight */
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+
+/* Font-style */
+.italic { font-style: italic; }
+
+/* Boxes avec styles inline récurrents */
+.info-box-accent {
+  background: rgba(254, 102, 195, 0.1);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin: 2rem 0;
+  border-left: 4px solid var(--color-accent);
+}
+
+.info-box-purple {
+  background: rgba(212, 197, 255, 0.2);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin: 2rem 0;
+  border-left: 4px solid var(--color-primary);
+}
+
+.info-box-white {
+  background: rgba(255, 255, 255, 0.3);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid var(--color-primary);
+}
+
+.info-box-white-accent {
+  background: rgba(255, 255, 255, 0.3);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid var(--color-accent);
+}
+
+/* Boxes de technique */
+.technique-box-primary {
+  background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1));
+  padding: 2rem;
+  border-radius: 16px;
+  border: 2px solid var(--color-primary);
+}
+
+.technique-box-accent {
+  background: linear-gradient(135deg, rgba(254, 102, 195, 0.1), rgba(91, 42, 181, 0.1));
+  padding: 2rem;
+  border-radius: 16px;
+  border: 2px solid var(--color-accent);
+}
+
+.technique-box-primary h3,
+.technique-box-accent h3 {
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.technique-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.technique-item {
+  display: flex;
+  align-items: start;
+  gap: 0.5rem;
+}
+
+.technique-check {
+  flex-shrink: 0;
+}
+
+.technique-check-accent {
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.technique-check-primary {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.technique-text {
+  line-height: 1.6;
+}
+
+/* Liste avec puces */
+.list-item-flex {
+  display: flex;
+  align-items: start;
+  gap: 0.75rem;
+}
+
+.bullet-accent {
+  color: var(--color-accent);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  font-weight: 600;
+}
+
+.list-text {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.list-text-italic {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  line-height: 1.6;
+  font-style: italic;
+  color: #666;
+}
+
+/* Highlight boxes sans margin */
+.highlight-box.no-margin,
+.highlight-box-accent.no-margin,
+.highlight-box-small.no-margin {
+  margin: 0;
+}
+
+/* Box title centré */
+.box-title-center {
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.box-title-center-sm {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.box-subtitle-center {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  text-align: center;
+}
+
+/* Icon container */
+.icon-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.icon-large {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--color-primary);
+}
+
+/* FAQ styles */
+.faq-text-intro {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #666;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.faq-title {
+  margin-bottom: 0.75rem;
+  font-size: 1.15rem;
+}
+
+.faq-title-flex {
+  margin-bottom: 0.75rem;
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.faq-text {
+  margin: 0;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Section intro text */
+.section-intro {
+  margin-bottom: 2rem;
+}
+
+/* Links dans le texte */
+.text-link {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* Liste simple */
+.list-simple {
+  margin: 0;
+  padding-left: 1.5rem;
+  line-height: 1.8;
+}
+
+/* Button flex container */
+.btn-flex-container {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Calendly popup (style inline à garder pour le display:none) */
+.calendly-popup-container.hidden {
+  display: none;
+}
+
+/* Responsive pour les grilles */
+@media (max-width: 768px) {
+  .grid-auto,
+  .grid-auto-sm,
+  .grid-auto-xs {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .grid-auto-info,
+  .grid-auto-pricing {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .btn-flex-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .btn-flex-container button,
+  .btn-flex-container a {
+    width: 100%;
+    text-align: center;
+  }
+}
+
