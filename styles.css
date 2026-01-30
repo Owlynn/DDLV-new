@@ -397,9 +397,9 @@ li {
   left: 0;
   width: 70%;
   height: 100vh;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: var(--blur-md);
-  -webkit-backdrop-filter: var(--blur-md);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: var(--blur-2xl);
+  -webkit-backdrop-filter: var(--blur-2xl);
   border: none;
   border-right: 1px solid var(--border-white-medium);
   border-radius: 0;
@@ -410,7 +410,7 @@ li {
   visibility: hidden;
   transform: translateX(-100%);
   transition: all var(--transition-smooth);
-  z-index: 99;
+  z-index: 110;
   overflow-y: auto;
   display: none; /* Masqué par défaut */
   box-sizing: border-box;
@@ -1600,6 +1600,13 @@ button[id*="calendly"]:not(.floating-rdv-btn),
   line-height: 1.2;
   display: flex;
   align-items: center;
+}
+
+/* Sur tablette et mobile : masquer la nav hero (la barre site-nav en haut sert de menu, comme sur les autres pages) */
+@media (max-width: 1023px) {
+  .hero-section .hero-right {
+    display: none !important;
+  }
 }
 
 @keyframes logoAppear {

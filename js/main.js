@@ -17,8 +17,17 @@ window.refreshWorkshops = () => loadWorkshops(true, fetchBilletWebWorkshops, cle
 window.getWorkshops = getWorkshops;
 
 // Initialisation au chargement du DOM
-document.addEventListener('DOMContentLoaded', function() {
-  // Initialiser le menu hamburger
+// Les modules sont différés : DOMContentLoaded peut déjà être passé quand ce script s'exécute
+function runWhenDOMReady(fn) {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fn);
+  } else {
+    fn();
+  }
+}
+
+runWhenDOMReady(function() {
+  // Initialiser le menu hamburger (page d'accueil + autres pages)
   initMenu();
   
   // Initialiser la navigation par sections

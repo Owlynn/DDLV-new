@@ -48,6 +48,113 @@
   <!-- Skip link pour la navigation au clavier -->
   <a href="#main-content" class="skip-link">Aller au contenu principal</a>
   
+  <!-- Nav : même barre que sur les autres pages (visible sur tous les écrans, menu hamburger sur mobile/tablette) -->
+  <nav class="site-nav" role="navigation">
+    <div class="header-container">
+      <a href="index.html" class="header-logo" aria-label="Retour à l'accueil - Donner de la Voix">
+        <img src="assets/logo-ddlv.png" alt="Donner de la Voix" class="header-logo-image">
+      </a>
+      <button class="menu-toggle" aria-label="Menu de navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <!-- Menu Desktop -->
+      <nav class="header-nav-desktop" aria-label="Navigation principale desktop">
+        <ul class="header-menu-desktop" role="list">
+          <li>
+            <a href="index.html" class="header-menu-item-desktop active">
+              Accueil
+            </a>
+          </li>
+          <li class="header-menu-dropdown-desktop">
+            <a href="#" class="header-menu-item-desktop">
+              Cours & ateliers
+            </a>
+            <ul class="header-submenu-desktop">
+              <li>
+                <a href="pages/impro-vocale.html" class="header-submenu-item-desktop">Qu'est-ce que l'impro vocale</a>
+              </li>
+              <li>
+                <a href="pages/ateliers.html" class="header-submenu-item-desktop">Stages & ateliers</a>
+              </li>
+              <li>
+                <a href="pages/cours-chant.html" class="header-submenu-item-desktop">Les cours de chant</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="pages/offre-entreprise.html" class="header-menu-item-desktop">
+              Offres entreprise
+            </a>
+          </li>
+          <li>
+            <a href="pages/about.html" class="header-menu-item-desktop">
+              La pédagogue
+            </a>
+          </li>
+          <li>
+            <a href="pages/contact.html" class="header-menu-item-desktop">
+              Contact
+            </a>
+          </li>
+          <li>
+            <a href="pages/newsletter.html" class="header-menu-item-desktop">
+              Newsletter
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </nav>
+  
+  <!-- Menu Mobile (hors site-nav pour position fixed viewport, sans marge) -->
+  <nav class="header-nav-mobile" aria-label="Navigation principale mobile">
+    <ul class="header-menu-mobile" role="list">
+      <li>
+        <a href="index.html" class="header-menu-item-mobile active">
+          Accueil
+        </a>
+      </li>
+      <li>
+        <a href="pages/impro-vocale.html" class="header-menu-item-mobile">
+          Qu'est-ce que l'impro vocale
+        </a>
+      </li>
+      <li>
+        <a href="pages/ateliers.html" class="header-menu-item-mobile">
+          Stages & ateliers
+        </a>
+      </li>
+      <li>
+        <a href="pages/cours-chant.html" class="header-menu-item-mobile">
+          Les cours de chant
+        </a>
+      </li>
+      <li>
+        <a href="pages/offre-entreprise.html" class="header-menu-item-mobile">
+          Offres entreprise
+        </a>
+      </li>
+      <li>
+        <a href="pages/about.html" class="header-menu-item-mobile">
+          La pédagogue
+        </a>
+      </li>
+      <li>
+        <a href="pages/contact.html" class="header-menu-item-mobile">
+          Contact
+        </a>
+      </li>
+      <li>
+        <a href="pages/newsletter.html" class="header-menu-item-mobile">
+          Newsletter
+        </a>
+      </li>
+    </ul>
+  </nav>
+  
   <main id="main-content" class="hero-section" role="main">
     <div class="hero-container">
       <div class="hero-content">
@@ -61,7 +168,7 @@
           </a>
         </div>
         
-        <!-- Navigation flottante à droite -->
+        <!-- Navigation flottante à droite (desktop uniquement ; sur mobile/tablette la barre site-nav ci-dessus sert de menu) -->
         <nav class="hero-right" aria-label="Navigation principale">
           <ul class="menu-items" role="list">
             <li>
