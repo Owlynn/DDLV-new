@@ -39,5 +39,6 @@ billetweb-config.js
 emailjs-config.js
 secrets.local.js
 *.local.js
-*.local.config.js# Fichiers de secrets
+*.local.config.js
+# Fichiers de secrets
 **/secrets.local.js

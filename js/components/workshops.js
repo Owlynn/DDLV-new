@@ -1,4 +1,4 @@
-import { escapeHtml, validateUrl } from '../utils/security.js';
+import { escapeHtml, validateExternalUrl } from '../utils/security.js';
 
 // Données des ateliers (sera rempli dynamiquement)
 let workshops = [];
@@ -146,8 +146,9 @@ function generateWorkshopCard(workshop) {
     ? `<p class="workshop-availability">🎫 ${workshop.availability} place${workshop.availability > 1 ? 's' : ''} disponible${workshop.availability > 1 ? 's' : ''}</p>`
     : '';
 
-  // Valider et échapper l'URL du lien
-  const validatedLink = validateUrl(workshop.link);
+  // Validation stricte : uniquement URLs absolues https (et http en dev) pour éviter XSS / open redirect
+  const allowHttp = typeof location !== 'undefined' && location.protocol === 'http:';
+  const validatedLink = validateExternalUrl(workshop.link, allowHttp);
   const hasLink = validatedLink !== null;
 
   // Échapper toutes les données utilisateur pour prévenir XSS
@@ -217,11 +218,12 @@ export function renderWorkshopsList(workshopsData) {
   
   // Ajouter les gestionnaires d'événements pour les cartes cliquables (plus sécurisé que onclick)
   const clickableCards = listView.querySelectorAll('.workshop-clickable[data-workshop-link]');
+  const allowHttp = typeof location !== 'undefined' && location.protocol === 'http:';
   clickableCards.forEach(card => {
     const link = card.getAttribute('data-workshop-link');
     if (link) {
       card.addEventListener('click', function() {
-        const validatedLink = validateUrl(link);
+        const validatedLink = validateExternalUrl(link, allowHttp);
         if (validatedLink) {
           window.open(validatedLink, '_blank');
         }

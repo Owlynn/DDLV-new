@@ -188,20 +188,20 @@
                 
                 <div class="form-row">
                   <div class="form-group">
-                    <input type="text" id="name" name="name" class="form-input" required aria-required="true" placeholder="Nom *" aria-label="Nom" minlength="2">
+                    <input type="text" id="name" name="name" class="form-input" required aria-required="true" placeholder="Nom *" aria-label="Nom" minlength="2" maxlength="100">
                   </div>
                   
                   <div class="form-group">
-                    <input type="email" id="email" name="email" class="form-input" required aria-required="true" placeholder="Email *" aria-label="Email">
+                    <input type="email" id="email" name="email" class="form-input" required aria-required="true" placeholder="Email *" aria-label="Email" maxlength="254">
                   </div>
                 </div>
                 
                 <div class="form-group">
-                  <input type="text" id="subject" name="subject" class="form-input" placeholder="Sujet" aria-label="Sujet">
+                  <input type="text" id="subject" name="subject" class="form-input" placeholder="Sujet" aria-label="Sujet" maxlength="200">
                 </div>
                 
                 <div class="form-group">
-                  <textarea id="message" name="message" class="form-textarea" rows="5" required aria-required="true" placeholder="Message *" aria-label="Message" minlength="10"></textarea>
+                  <textarea id="message" name="message" class="form-textarea" rows="5" required aria-required="true" placeholder="Message *" aria-label="Message" minlength="10" maxlength="3000"></textarea>
                 </div>
                 
                 <button type="submit" class="form-submit">
@@ -375,6 +375,17 @@
           alert('Le message doit contenir au moins 10 caractères.');
           return;
         }
+        
+        // Sanitisation : retirer les balises HTML des champs pour éviter l'injection dans le template email
+        function stripTags(str) {
+          if (typeof str !== 'string') return '';
+          return str.replace(/<[^>]*>/g, '');
+        }
+        const nameField = this.querySelector('[name="name"]');
+        const subjectField = this.querySelector('[name="subject"]');
+        if (nameField) nameField.value = stripTags(nameField.value);
+        if (subjectField) subjectField.value = stripTags(subjectField.value);
+        if (messageField) messageField.value = stripTags(messageField.value);
         
         // Récupérer le bouton de soumission
         const submitBtn = this.querySelector('.form-submit');

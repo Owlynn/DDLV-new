@@ -1,4 +1,4 @@
-import { escapeHtml, validateUrl } from '../utils/security.js';
+import { escapeHtml, validateExternalUrl } from '../utils/security.js';
 
 let currentDate = new Date();
 
@@ -84,8 +84,9 @@ export function renderCalendar(workshops = []) {
       workshopOverlay.appendChild(overlayText);
       dayElement.appendChild(workshopOverlay);
       
-      // Ajouter le gestionnaire de clic pour rediriger vers billet web
-      const validatedLink = validateUrl(workshop.link);
+      // Validation stricte : uniquement URLs absolues https (et http en dev)
+      const allowHttp = typeof location !== 'undefined' && location.protocol === 'http:';
+      const validatedLink = validateExternalUrl(workshop.link, allowHttp);
       if (validatedLink) {
         dayElement.setAttribute('data-workshop-link', escapeHtml(validatedLink));
         dayElement.style.cursor = 'pointer';

@@ -1,5 +1,6 @@
 import { getCachedWorkshops, setCachedWorkshops } from './cache.js';
 import { convertImageUrls } from '../utils/image-urls.js';
+import { sanitizeExtId } from '../utils/security.js';
 
 /**
  * Transforme les données BilletWeb au format attendu par l'application
@@ -12,13 +13,16 @@ function transformBilletWebData(apiData) {
   let events = Array.isArray(apiData) ? apiData : (apiData.events || apiData.data || []);
   
   if (!Array.isArray(events)) {
-    console.warn('Format de données API inattendu:', apiData);
-    console.warn('Type reçu:', typeof apiData, 'Est un tableau?', Array.isArray(apiData));
     return [];
   }
 
+  const defaultImage = 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=80';
+
   return events
     .map(event => {
+      // Sanitiser ext_id pour éviter injection XSS / URL malformée (alphanum, tirets, underscores uniquement)
+      const safeExtId = sanitizeExtId(event.ext_id);
+
       // Extraire la date de début selon la documentation BilletWeb
       // Format attendu: "2015-12-31 20:00:00"
       const startDate = event.start || event.start_date || event.date || null;
@@ -57,36 +61,27 @@ function transformBilletWebData(apiData) {
       // Extraire le lieu selon la documentation BilletWeb
       const location = event.place || event.location || event.address || event.venue || 'Lieu à confirmer';
 
-      // Construire l'URL de l'image au format correct
-      // Format attendu: "https://www.billetweb.fr/files/page/thumb/[ext_id].jpg" avec fallback .png
+      // Construire l'URL de l'image avec ext_id sanitisé uniquement
       let image = null;
-      
-      // Si l'API retourne une URL (image ou cover), la convertir au bon format
       const apiImageUrl = event.cover || event.image || null;
-      
-      if (apiImageUrl && event.ext_id) {
-        // Convertir l'URL reçue de l'API au format correct avec ext_id
-        // On utilise .jpg en premier, .png sera en fallback via CSS
-        // Exemple: "https://www.billetweb.fr/files/page/1306200.jpg" 
-        // -> "https://www.billetweb.fr/files/page/thumb/improvisation-vocale-chant-improvise-les-ateliers-focus3.jpg"
-        image = `https://www.billetweb.fr/files/page/thumb/${event.ext_id}.jpg`;
-      } else if (event.ext_id) {
-        // Si pas d'URL dans l'API mais qu'on a l'ext_id, construire directement
-        image = `https://www.billetweb.fr/files/page/thumb/${event.ext_id}.jpg`;
+      if (safeExtId) {
+        image = `https://www.billetweb.fr/files/page/thumb/${safeExtId}.jpg`;
+      } else if (apiImageUrl || event.ext_id) {
+        image = defaultImage;
       } else {
-        // Fallback: utiliser une image par défaut si pas d'ext_id
-        image = 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=80';
+        image = defaultImage;
       }
 
-      // Lien vers la page de l'atelier (pas shop.php = billetterie)
+      // Lien vers la page de l'atelier (ext_id sanitisé pour éviter injection)
       const rawLink = event.shop || event.url || event.booking_url || event.link ||
-        (event.id ? `https://www.billetweb.fr/shop.php?event=${event.ext_id || event.id}` : null);
+        (event.id ? `https://www.billetweb.fr/shop.php?event=${safeExtId || event.id}` : null);
       let link = rawLink;
-      if (event.ext_id) {
-        link = `https://www.billetweb.fr/${event.ext_id}`;
+      if (safeExtId) {
+        link = `https://www.billetweb.fr/${safeExtId}`;
       } else if (rawLink && rawLink.includes('shop.php?event=')) {
         const slug = rawLink.replace(/^.*shop\.php\?event=([^&]*).*$/i, '$1');
-        if (slug && slug !== rawLink) link = `https://www.billetweb.fr/${slug}`;
+        const safeSlug = sanitizeExtId(slug);
+        if (safeSlug && slug !== rawLink) link = `https://www.billetweb.fr/${safeSlug}`;
       }
 
       // Extraire la disponibilité (nécessite un appel séparé à /api/event/:id/avail)
@@ -94,7 +89,7 @@ function transformBilletWebData(apiData) {
 
       return {
         id: event.id || null,
-        extId: event.ext_id || null, // ID externe de l'événement
+        extId: safeExtId || null, // ID externe sanitisé
         title: event.name || event.title || 'Atelier sans titre',
         date: dateStr,
         time: timeStr || 'Horaires à confirmer',
@@ -129,11 +124,13 @@ function convertLinksToEventPage(workshops) {
   if (!Array.isArray(workshops)) return workshops;
   return workshops.map(w => {
     let link = w.link;
-    if (w.extId) {
-      link = `https://www.billetweb.fr/${w.extId}`;
+    const safeExtId = sanitizeExtId(w.extId);
+    if (safeExtId) {
+      link = `https://www.billetweb.fr/${safeExtId}`;
     } else if (link && link.includes('shop.php?event=')) {
       const slug = link.replace(/^.*shop\.php\?event=([^&]*).*$/i, '$1');
-      if (slug && slug.length > 0) link = `https://www.billetweb.fr/${slug}`;
+      const safeSlug = sanitizeExtId(slug);
+      if (safeSlug) link = `https://www.billetweb.fr/${safeSlug}`;
     }
     return { ...w, link };
   });
@@ -180,17 +177,12 @@ export async function fetchBilletWebWorkshops() {
     // que l'API BilletWeb ne supporte pas depuis le navigateur. On utilise donc les paramètres URL.
     // Selon la doc BilletWeb: user=[user]&key=[key]&version=1
     if (hasUserIdAndKey) {
-      // Utiliser l'authentification via paramètres URL (méthode recommandée pour éviter CORS)
       params.append('user', BILLETWEB_CONFIG.userId);
       params.append('key', BILLETWEB_CONFIG.apiKey);
       params.append('version', BILLETWEB_CONFIG.version || '1');
-      console.log('🔐 Authentification via paramètres URL (évite CORS)');
     } else if (hasAuthorization) {
-      // Fallback: utiliser Authorization header si pas de userId/apiKey
-      // Note: Cela peut causer des erreurs CORS depuis le navigateur
       headers['Authorization'] = BILLETWEB_CONFIG.authorization;
       params.append('version', BILLETWEB_CONFIG.version || '1');
-      console.log('🔐 Authentification via header Authorization (peut causer CORS)');
     }
 
     // Paramètres optionnels selon la documentation BilletWeb :
@@ -207,33 +199,21 @@ export async function fetchBilletWebWorkshops() {
     }
 
     apiUrl += `?${params.toString()}`;
-    
-    // Logs de débogage
-    console.log('🌐 Appel API BilletWeb:', apiUrl.replace(/key=[^&]+/, 'key=***'));
-    console.log('📋 Headers:', Object.keys(headers).length > 0 ? 'Authorization header présent' : 'Aucun header');
 
-    // Effectuer la requête avec les headers
-    // cache: 'no-store' empêche le navigateur de mettre en cache la réponse HTTP
     const response = await fetch(apiUrl, {
       headers: headers,
       cache: 'no-store'
     });
     
-    console.log('📡 Réponse API - Status:', response.status, response.statusText);
-    
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('❌ Erreur API - Status:', response.status);
-      console.error('❌ Erreur API - Réponse:', errorText);
-      throw new Error(`Erreur API: ${response.status} ${response.statusText} - ${errorText}`);
+      // Ne pas exposer le détail de la réponse API à l'utilisateur (fuite d'info)
+      throw new Error('Impossible de charger les ateliers. Veuillez réessayer plus tard.');
     }
 
     const data = await response.json();
-    console.log('✅ Données reçues de l\'API:', Array.isArray(data) ? `${data.length} événement(s)` : 'Format inattendu', data);
     
-    // Transformer les données
     let transformedData = transformBilletWebData(data);
-    console.log('🔄 Données transformées:', transformedData.length, 'atelier(s)');
     
     // Convertir les URLs d'images au format correct (même si elles viennent de l'API)
     transformedData = convertImageUrls(transformedData);
@@ -244,8 +224,11 @@ export async function fetchBilletWebWorkshops() {
     
     return transformedData;
   } catch (error) {
-    console.error('Erreur lors de la récupération des ateliers:', error);
-    throw error;
+    // Message générique pour l'utilisateur ; ne pas réexposer les détails techniques
+    if (error.message && error.message.includes('Impossible de charger')) {
+      throw error;
+    }
+    throw new Error('Impossible de charger les ateliers. Veuillez réessayer plus tard.');
   }
 }
 

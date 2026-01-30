@@ -1,11 +1,9 @@
 // Log de démarrage pour vérifier que le script se charge
 console.log('🔵 script.js chargé');
 
-// Vérifier que la configuration BilletWeb est disponible
+// Vérifier que la configuration BilletWeb est disponible (ne pas logger la config pour éviter fuite de secrets)
 if (typeof BILLETWEB_CONFIG === 'undefined') {
   console.error('❌ ERREUR: BILLETWEB_CONFIG n\'est pas défini. Assurez-vous que billetweb-config.js est chargé AVANT script.js');
-} else {
-  console.log('✅ BILLETWEB_CONFIG chargé:', BILLETWEB_CONFIG);
 }
 
 // ============================================
@@ -164,18 +162,12 @@ async function fetchBilletWebWorkshops() {
     // Authentification : utiliser Authorization header si fourni, sinon paramètres URL
     // Selon la doc BilletWeb, les deux méthodes sont supportées
     if (BILLETWEB_CONFIG.authorization) {
-      // Utiliser l'authentification via header Authorization
-      // Format: "Basic [base64_token]" où token = "User : [user] Key :[key]"
       headers['Authorization'] = BILLETWEB_CONFIG.authorization;
-      // Ajouter seulement la version dans les paramètres
       params.append('version', BILLETWEB_CONFIG.version || '1');
-      console.log('Utilisation de l\'authentification via header Authorization');
     } else {
-      // Utiliser l'authentification via paramètres URL (méthode par défaut)
       params.append('user', BILLETWEB_CONFIG.userId);
       params.append('key', BILLETWEB_CONFIG.apiKey);
       params.append('version', BILLETWEB_CONFIG.version || '1');
-      console.log('Utilisation de l\'authentification via paramètres URL');
     }
 
     // Paramètres optionnels selon la documentation BilletWeb :
@@ -195,28 +187,19 @@ async function fetchBilletWebWorkshops() {
 
     apiUrl += `?${params.toString()}`;
 
-    // Log pour débogage
-    console.log('URL de l\'API:', apiUrl);
-    console.log('Headers:', headers);
-
-    // Effectuer la requête avec les headers
+    // Effectuer la requête avec les headers (ne pas logger l'URL ni les headers pour éviter fuite de secrets)
     // cache: 'no-store' empêche le navigateur de mettre en cache la réponse HTTP
     const response = await fetch(apiUrl, {
       headers: headers,
       cache: 'no-store'
     });
     
-    console.log('Statut de la réponse:', response.status, response.statusText);
-    
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Erreur API - Réponse:', errorText);
-      throw new Error(`Erreur API: ${response.status} ${response.statusText} - ${errorText}`);
+      await response.text();
+      throw new Error('Impossible de charger les ateliers. Veuillez réessayer plus tard.');
     }
 
     const data = await response.json();
-    console.log('Données reçues de l\'API:', data);
-    console.log('Type de données:', Array.isArray(data) ? 'Array' : typeof data);
     
     // Transformer les données
     let transformedData = transformBilletWebData(data);
@@ -231,8 +214,7 @@ async function fetchBilletWebWorkshops() {
     
     return transformedData;
   } catch (error) {
-    console.error('Erreur lors de la récupération des ateliers:', error);
-    throw error;
+    throw new Error('Impossible de charger les ateliers. Veuillez réessayer plus tard.');
   }
 }
 

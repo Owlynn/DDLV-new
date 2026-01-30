@@ -4,12 +4,14 @@ Ce guide explique où et comment configurer vos clés API de manière sécurisé
 
 ## 📁 Fichiers de Configuration
 
-### `secrets.local.js` (RECOMMANDÉ)
+### `secrets.local.js` (RECOMMANDÉ – développement local uniquement)
 **⚠️ Ce fichier est ignoré par git et ne sera jamais commité.**
 
-C'est le fichier principal où vous devez mettre toutes vos clés API sensibles.
+C'est le fichier principal où vous mettez vos clés API pour le **développement local**.
 
-**Pour commencer :**
+**En production** : ne pas exposer de secrets côté client. Utilisez un proxy backend pour BilletWeb (voir section Déploiement) et des variables d'environnement côté serveur.
+
+**Pour commencer (dev local) :**
 1. Copiez `secrets.example.js` vers `secrets.local.js`
 2. Remplissez vos vraies clés API dans `secrets.local.js`
 3. Le fichier sera automatiquement ignoré par git
@@ -95,14 +97,24 @@ Pour la production, vous pouvez utiliser des variables d'environnement selon vot
 - **Netlify** : Variables d'environnement dans le dashboard
 - **GitHub Pages** : Utilisez un fichier de configuration local ou un proxy backend
 
-### Proxy Backend
+### Proxy Backend (obligatoire en production pour BilletWeb)
 
-Pour les clés privées (comme BilletWeb), créez un proxy backend qui :
-1. Stocke la clé API côté serveur
-2. Fait les appels API depuis le serveur
-3. Retourne les résultats au client
+En production, la clé API BilletWeb **ne doit pas** être utilisée côté client (elle serait visible dans le code source et les requêtes réseau). Créez un proxy backend qui :
+1. Stocke la clé API en variable d'environnement côté serveur
+2. Expose un endpoint (ex. `GET /api/workshops`) qui appelle l'API BilletWeb
+3. Retourne les résultats au client sans exposer la clé
 
-Cela évite d'exposer vos clés API sensibles.
+Exemples : Netlify Function, Vercel Serverless Function, ou petit serveur dédié. Le front doit alors appeler ce proxy au lieu de `https://www.billetweb.fr/api/events` directement.
+
+### En-têtes HTTP de sécurité
+
+En production, configurez les en-têtes de sécurité pour limiter les risques (clickjacking, XSS, MIME sniffing, etc.) :
+
+- **Netlify** : le fichier `_headers` à la racine du projet est appliqué automatiquement. Il définit notamment `X-Frame-Options`, `X-Content-Type-Options`, `Strict-Transport-Security` et `Content-Security-Policy`. Voir [Netlify – Custom headers](https://docs.netlify.com/routing/headers/).
+- **Vercel** : configurez les headers dans `vercel.json` (section `headers`).
+- **Autres hébergeurs** : reportez-vous à leur documentation pour définir les mêmes en-têtes.
+
+Aucun secret ne doit être exposé côté client en production.
 
 ## 📚 Ressources
 

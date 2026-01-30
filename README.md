@@ -201,6 +201,7 @@ Le site peut être déployé sur n'importe quel hébergeur de sites statiques :
 ## 🔒 Sécurité
 
 - Les clés API EmailJS (PUBLIC_KEY) peuvent être publiques
-- Les clés API BilletWeb doivent être masquées via un proxy backend
+- **En production** : ne pas exposer la clé BilletWeb côté client. Utiliser un proxy backend (Netlify/Vercel Function ou serveur dédié) qui stocke la clé en variable d'environnement et expose un endpoint (ex. `GET /api/workshops`). Voir `documentation/configuration-cles-api.md`
+- Les fichiers `secrets.local.js` et `billetweb-config.js` sont pour le **développement local uniquement** ; en production, pas de secrets dans le code client
+- En-têtes HTTP de sécurité : le fichier `_headers` (Netlify) à la racine définit X-Frame-Options, X-Content-Type-Options, HSTS et CSP. Sur Vercel, configurer les headers dans `vercel.json`
 - Ne jamais commiter de secrets dans le code source
-- Utiliser des variables d'environnement pour la configuration sensible
