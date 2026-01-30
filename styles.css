@@ -1669,6 +1669,13 @@ button[id*="calendly"]:not(.floating-rdv-btn),
   align-items: center;
 }
 
+/* Sur desktop (page d'accueil uniquement) : masquer la barre de nav en haut (visible uniquement sur tablette et mobile) */
+@media (min-width: 1024px) {
+  body.page-home .site-nav {
+    display: none;
+  }
+}
+
 /* Sur tablette et mobile : masquer la nav hero (la barre site-nav en haut sert de menu, comme sur les autres pages) */
 @media (max-width: 1023px) {
   .hero-section .hero-right {
