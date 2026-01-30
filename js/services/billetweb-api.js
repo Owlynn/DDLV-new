@@ -78,9 +78,16 @@ function transformBilletWebData(apiData) {
         image = 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=80';
       }
 
-      // Extraire le lien de réservation (shop dans la doc BilletWeb)
-      const link = event.shop || event.url || event.booking_url || event.link || 
-                  (event.id ? `https://www.billetweb.fr/shop.php?event=${event.ext_id || event.id}` : null);
+      // Lien vers la page de l'atelier (pas shop.php = billetterie)
+      const rawLink = event.shop || event.url || event.booking_url || event.link ||
+        (event.id ? `https://www.billetweb.fr/shop.php?event=${event.ext_id || event.id}` : null);
+      let link = rawLink;
+      if (event.ext_id) {
+        link = `https://www.billetweb.fr/${event.ext_id}`;
+      } else if (rawLink && rawLink.includes('shop.php?event=')) {
+        const slug = rawLink.replace(/^.*shop\.php\?event=([^&]*).*$/i, '$1');
+        if (slug && slug !== rawLink) link = `https://www.billetweb.fr/${slug}`;
+      }
 
       // Extraire la disponibilité (nécessite un appel séparé à /api/event/:id/avail)
       const availability = event.remaining || event.available || event.quota || null;
@@ -114,6 +121,25 @@ function transformBilletWebData(apiData) {
 }
 
 /**
+ * Convertit les liens billetterie (shop.php) en lien page de l'atelier (billetweb.fr/slug)
+ * @param {Array} workshops - Liste des ateliers
+ * @returns {Array} Liste avec liens mis à jour
+ */
+function convertLinksToEventPage(workshops) {
+  if (!Array.isArray(workshops)) return workshops;
+  return workshops.map(w => {
+    let link = w.link;
+    if (w.extId) {
+      link = `https://www.billetweb.fr/${w.extId}`;
+    } else if (link && link.includes('shop.php?event=')) {
+      const slug = link.replace(/^.*shop\.php\?event=([^&]*).*$/i, '$1');
+      if (slug && slug.length > 0) link = `https://www.billetweb.fr/${slug}`;
+    }
+    return { ...w, link };
+  });
+}
+
+/**
  * Récupère les ateliers depuis l'API BilletWeb
  * @returns {Promise<Array>} Liste des événements/ateliers
  */
@@ -135,8 +161,8 @@ export async function fetchBilletWebWorkshops() {
     // Vérifier le cache d'abord
     const cachedData = getCachedWorkshops();
     if (cachedData) {
-      // Convertir les URLs même si elles sont en cache
-      return convertImageUrls(cachedData);
+      const withImages = convertImageUrls(cachedData);
+      return convertLinksToEventPage(withImages);
     }
 
     // Construire l'URL de l'API selon la documentation BilletWeb
@@ -211,6 +237,7 @@ export async function fetchBilletWebWorkshops() {
     
     // Convertir les URLs d'images au format correct (même si elles viennent de l'API)
     transformedData = convertImageUrls(transformedData);
+    // Liens déjà au format page atelier dans transformBilletWebData
     
     // Mettre en cache
     setCachedWorkshops(transformedData);
