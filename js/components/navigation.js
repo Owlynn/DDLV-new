@@ -41,12 +41,19 @@ export function initSectionNavigation() {
   if (tocLinks.length === 0) return;
 
   const tocSelect = document.querySelector('.article-toc-select');
+  const calendrierSection = document.getElementById('calendrier');
+  const formatsSection = document.getElementById('formats-d-ateliers');
   if (tocSelect) {
     tocSelect.addEventListener('change', function() {
       const sectionId = this.value;
       if (!sectionId) return;
       const targetSection = document.getElementById(sectionId);
       if (targetSection) {
+        // Sur la page ateliers : si la cible est dans "formats d'ateliers", afficher ce bloc d'abord (sinon il est masqué et le scroll ne mène nulle part)
+        if (formatsSection && calendrierSection && formatsSection.contains(targetSection)) {
+          calendrierSection.style.display = 'none';
+          formatsSection.style.display = 'block';
+        }
         scrollToSection(targetSection);
         setActiveToc(sectionId);
       }
@@ -93,8 +100,6 @@ export function initSectionNavigation() {
   });
   
   // Observer aussi les sections principales (calendrier, formats-d-ateliers) si elles existent
-  const calendrierSection = document.getElementById('calendrier');
-  const formatsSection = document.getElementById('formats-d-ateliers');
   if (calendrierSection) observer.observe(calendrierSection);
   if (formatsSection) observer.observe(formatsSection);
   
