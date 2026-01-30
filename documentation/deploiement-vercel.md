@@ -96,6 +96,28 @@ BILLETWEB_EVENT_ID
 
 ---
 
+## Utiliser une branche autre que `main` en production
+
+Pour que Vercel déploie le contenu de votre branche actuelle (par ex. `design-marc`) en production :
+
+1. **Poussez votre branche** sur le dépôt distant si ce n’est pas déjà fait :
+   ```bash
+   git push origin design-marc
+   ```
+   (Remplacez `design-marc` par le nom de votre branche.)
+
+2. **Dans Vercel** : ouvrez votre projet → **Settings** → **Git**.
+
+3. Dans **Production Branch**, remplacez `main` par le nom de votre branche (ex. `design-marc`), puis enregistrez.
+
+4. **Déclencher un déploiement** :
+   - Soit en poussant à nouveau un commit sur cette branche,
+   - Soit dans **Deployments** → dernier déploiement → **⋯** → **Redeploy**.
+
+À partir de là, chaque push sur cette branche mettra à jour le site en production. Vous pourrez remettre `main` plus tard dans les réglages si besoin.
+
+---
+
 ## Dépannage
 
 - **Le formulaire de contact ne fonctionne pas**  

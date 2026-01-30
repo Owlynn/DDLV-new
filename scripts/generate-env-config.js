@@ -30,11 +30,22 @@ const ENV = {
   BILLETWEB_VERSION: env.BILLETWEB_VERSION || null
 };
 
+// Structure attendue par billetweb-api.js (évite que billetweb-config.js soit requis sur Vercel)
+const BILLETWEB_CONFIG = {
+  userId: env.BILLETWEB_USER_ID || null,
+  apiKey: env.BILLETWEB_API_KEY || null,
+  eventId: env.BILLETWEB_EVENT_ID || null,
+  baseUrl: env.BILLETWEB_BASE_URL || 'https://www.billetweb.fr/api',
+  version: env.BILLETWEB_VERSION || '1',
+  authorization: null
+};
+
 const content = `// Généré au build - ne pas modifier à la main
 // Source : variables d'environnement (Vercel, etc.)
 (function() {
   window.SECRETS = ${JSON.stringify(SECRETS)};
   window.ENV = ${JSON.stringify(ENV)};
+  window.BILLETWEB_CONFIG = ${JSON.stringify(BILLETWEB_CONFIG)};
 })();
 `;
 
