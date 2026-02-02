@@ -763,6 +763,14 @@ button[id*="calendly"]:not(.floating-rdv-btn),
   height: 26px;
   flex-shrink: 0;
 }
+.social-medallion-mail .social-medallion-icon {
+  color: var(--color-primary);
+  stroke: var(--color-primary);
+}
+.social-medallion-mail:hover .social-medallion-icon {
+  color: var(--color-accent);
+  stroke: var(--color-accent);
+}
 .social-medallion-insta .social-medallion-icon {
   color: var(--color-primary-dark);
   stroke: var(--color-primary-dark);
