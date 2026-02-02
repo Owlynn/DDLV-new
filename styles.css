@@ -121,13 +121,13 @@ body::before {
   background-position: center;
   background-repeat: no-repeat;
   filter: brightness(1.8) contrast(1.03);
-  opacity: 0.5;
+  opacity: 0.6;
   z-index: -2;
 }
 
 body::after {
   background: var(--gradient-bg);
-  opacity: 0.85;
+  opacity: 0.7;
   z-index: -1;
 }
 
@@ -727,7 +727,7 @@ button[id*="calendly"]:not(.floating-rdv-btn),
 .social-medallions {
   position: fixed;
   top: 50%;
-  right: 24px;
+  left: 24px;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
@@ -788,17 +788,38 @@ button[id*="calendly"]:not(.floating-rdv-btn),
   stroke: var(--color-accent);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 1023px) {
   .social-medallions {
-    right: 12px;
+    top: auto;
+    bottom: 20px;
+    right: 16px;
+    transform: none;
+    flex-direction: row;
+    gap: 10px;
   }
   .social-medallion {
-    width: 46px;
-    height: 46px;
+    width: 44px;
+    height: 44px;
   }
   .social-medallion-icon {
     width: 22px;
     height: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .social-medallions {
+    bottom: 16px;
+    right: 12px;
+    gap: 8px;
+  }
+  .social-medallion {
+    width: 40px;
+    height: 40px;
+  }
+  .social-medallion-icon {
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -1520,18 +1541,20 @@ button[id*="calendly"]:not(.floating-rdv-btn),
 
 .hero-content {
   width: 100%;
-  max-width: 1100px;
-  height: calc(100vh - 200px);
+  max-width: 1400px;
+  height: calc(100vh - 40px);
   min-height: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: var(--spacing-md);
+  justify-content: flex-start;
+  gap: 0;
   margin: 0 auto;
+  padding-top: 0.5rem;
   position: relative;
   z-index: 2;
-  padding: 0;
+  padding-left: 2rem;
+  padding-right: 2rem;
   background: transparent;
   overflow: visible;
   box-sizing: border-box;
@@ -1601,7 +1624,7 @@ button[id*="calendly"]:not(.floating-rdv-btn),
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-sm);
+  gap: 0;
 }
 
 .logo-container {
@@ -1624,11 +1647,11 @@ button[id*="calendly"]:not(.floating-rdv-btn),
 .logo-container:focus { outline: none; }
 
 .logo-image {
-  width: 100%;
+  width: 46vw;
   height: auto;
+  max-width: 650px;
+  max-height: 51vh;
   object-fit: contain;
-  max-width: 2328px;
-  max-height: 96vh;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
 }
@@ -1789,15 +1812,16 @@ button[id*="calendly"]:not(.floating-rdv-btn),
 /* Sur très petits écrans (hauteur < 600px) - Mobile uniquement */
 @media (max-width: 1023px) and (max-height: 600px) {
   .hero-content {
-    height: 100%;
+    height: 100vh;
     max-height: 100vh;
-    min-height: 0;
-    gap: 0.25rem;
-    padding: 0.25rem 0;
+    min-height: 100vh;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.5rem 0;
   }
   
   .logo-image {
-    max-height: 89vh;
+    max-height: 40vh;
   }
   
   .hero-title {
@@ -1815,7 +1839,7 @@ button[id*="calendly"]:not(.floating-rdv-btn),
   }
   
   .hero-right {
-    max-height: 35vh;
+    max-height: 30vh;
     overflow-y: auto;
   }
 }
@@ -1823,19 +1847,20 @@ button[id*="calendly"]:not(.floating-rdv-btn),
 /* Sur écrans moyens (hauteur entre 600px et 800px) - Mobile et tablette */
 @media (max-width: 1023px) and (min-height: 600px) and (max-height: 800px) {
   .hero-content {
-    height: 100%;
+    height: 100vh;
     max-height: 100vh;
-    min-height: 0;
+    min-height: 100vh;
+    justify-content: center;
     gap: 0.5rem;
     padding: 0.5rem 0;
   }
   
   .logo-image {
-    max-height: 96vh;
+    max-height: 55vh;
   }
   
   .hero-right {
-    max-height: 38vh;
+    max-height: 35vh;
     overflow-y: auto;
   }
 }
@@ -2750,11 +2775,12 @@ body.contact-page {
   }
 
   .hero-content {
-    height: 100%;
+    height: 100vh;
     max-height: 100vh;
-    min-height: 0;
+    min-height: 100vh;
+    justify-content: center;
     padding: clamp(0.5rem, 2vh, 1rem) 0;
-    gap: clamp(0.5rem, 2vh, 1.5rem);
+    gap: clamp(0.5rem, 2vh, 1rem);
   }
 
   .hero-left, .hero-right {
@@ -2796,7 +2822,7 @@ body.contact-page {
   }
 
   .logo-image {
-    max-height: min(96vh, 961px);
+    max-height: 55vh;
   }
 
   .menu-item {
@@ -2944,9 +2970,10 @@ body.contact-page {
   }
 
   .hero-content {
-    height: 100%;
+    height: 100vh;
     max-height: 100vh;
-    min-height: 0;
+    min-height: 100vh;
+    justify-content: center;
     padding: clamp(0.5rem, 2vh, 1rem) 0;
     gap: clamp(0.25rem, 1.5vh, 0.75rem);
   }
@@ -2996,7 +3023,7 @@ body.contact-page {
   }
 
   .logo-image {
-    max-height: min(86vh, 860px);
+    max-height: 55vh;
   }
 
   .menu-item {
@@ -3267,6 +3294,9 @@ body.contact-page {
 
   .hero-content {
     width: calc(100% - 1rem);
+    height: 100vh;
+    max-height: 100vh;
+    justify-content: center;
     padding: var(--spacing-xs);
     gap: var(--spacing-sm);
     border-radius: 12px;
@@ -3340,9 +3370,9 @@ body.contact-page {
   }
 
   .logo-image {
-    width: 100% !important;
+    width: 85% !important;
     max-width: 100% !important;
-    max-height: 96vh !important;
+    max-height: 55vh !important;
     height: auto;
     object-fit: contain;
     image-rendering: -webkit-optimize-contrast;
@@ -3433,8 +3463,9 @@ body.contact-page {
 
   .hero-title { font-size: 0.85rem; }
   .logo-image { 
+    width: 85%;
     max-width: 100%; 
-    max-height: 96vh;
+    max-height: 55vh;
   }
 
   .hero-right {
@@ -3466,17 +3497,21 @@ body.contact-page {
   }
 }
 
-@media (min-width: 640px) {
+@media (min-width: 640px) and (max-width: 1023px) {
   .hero-title { font-size: 1.125rem; }
   .logo-image { 
-    max-width: 2469px; 
-    max-height: 96vh;
+    width: 75%;
+    max-width: 100%; 
+    max-height: 55vh;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
   .hero-content {
     flex-direction: column;
+    height: 100vh;
+    max-height: 100vh;
+    justify-content: center;
     width: calc(100% - 4rem);
     max-width: 1100px;
   }
@@ -3518,8 +3553,9 @@ body.contact-page {
 
   .hero-left-content { align-items: center; }
   .logo-image { 
-    max-width: 2813px; 
-    max-height: 96vh;
+    width: 70%;
+    max-width: 100%; 
+    max-height: 55vh;
   }
   .hero-section .menu-items {
     display: grid;
@@ -3549,8 +3585,9 @@ body.contact-page {
 @media (min-width: 1024px) {
   .hero-content {
     flex-direction: column;
-    width: calc(100% - 4rem);
-    max-width: 1100px;
+    width: calc(100% - 16rem);
+    max-width: 1400px;
+    padding: 0;
   }
 
   .hero-content > .hero-title {
@@ -3560,8 +3597,12 @@ body.contact-page {
 
   .hero-left-content {
     order: 0;
-    flex-shrink: 1;
-    min-height: 0;
+  }
+  
+  .logo-image {
+    width: 43vw;
+    max-width: 716px;
+    max-height: 51vh;
   }
 
   .hero-right {
