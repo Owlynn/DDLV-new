@@ -244,7 +244,6 @@ li {
   font-size: 16px;
 }
 
-.index-nav .header-logo { display: none; }
 
 /* ============================================
    NAVIGATION
@@ -258,6 +257,7 @@ li {
   max-width: 1100px;
   padding: 0.75rem var(--spacing-lg);
   z-index: 100;
+  overflow: visible;
 }
 
 .index-nav { z-index: 10; }
@@ -270,16 +270,63 @@ li {
   gap: var(--spacing-md);
 }
 
+/* Logo dans la barre de nav (page d'accueil uniquement, visible tablette/mobile) */
+.header-logo-medallion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  height: 5rem;
+  min-width: 5rem;
+  min-height: 5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.28) 0%, rgb(255 255 255 / 40%) 50%, rgb(255 255 255 / 41%) 100%);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  box-shadow: 0 2px 8px rgba(91, 42, 181, 0.12), 0 1px 4px rgba(91, 42, 181, 0.08);
+  overflow: visible;
+  align-self: flex-end;
+  margin-bottom: -0.5rem;
+}
+
 .header-logo {
   display: flex;
   align-items: center;
+  justify-content: center;
   text-decoration: none;
+  width: 100%;
+  height: 100%;
 }
 
 .header-logo-image {
   height: 3.75rem;
   width: auto;
+  max-width: 4rem;
   object-fit: contain;
+}
+
+/* Logo flottant en haut à gauche (pages internes uniquement, pas sur l'accueil) */
+body.page-home .floating-logo {
+  display: none;
+}
+
+.floating-logo {
+  position: fixed;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 101;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.floating-logo-image {
+  height: 5.625rem;
+  width: auto;
+  max-width: 6rem;
+  object-fit: contain;
+  display: block;
 }
 
 /* ============================================
@@ -2734,7 +2781,10 @@ body.contact-page {
   }
 
   .header-container { gap: var(--spacing-md); }
+  .header-logo-medallion { width: 4.25rem; height: 4.25rem; min-width: 4.25rem; min-height: 4.25rem; }
   .header-logo-image { height: 3rem; }
+  .floating-logo { top: 1rem; left: 1rem; }
+  .floating-logo-image { height: 4.5rem; max-width: 5rem; }
   .header-menu { gap: var(--spacing-sm); }
   .header-menu-item { font-size: 18px; }
 
@@ -2915,7 +2965,10 @@ body.contact-page {
     position: relative;
   }
 
+  .header-logo-medallion { width: 3.75rem; height: 3.75rem; min-width: 3.75rem; min-height: 3.75rem; }
   .header-logo-image { height: 2.5rem; }
+  .floating-logo { top: 0.75rem; left: 0.75rem; }
+  .floating-logo-image { height: 3.75rem; max-width: 4rem; }
   .menu-toggle { display: flex; }
 
   .menu-overlay {
@@ -3395,7 +3448,10 @@ body.contact-page {
     padding: 0.5rem 0.75rem;
   }
 
+  .header-logo-medallion { width: 3.25rem; height: 3.25rem; min-width: 3.25rem; min-height: 3.25rem; }
   .header-logo-image { height: 2rem; }
+  .floating-logo { top: 0.5rem; left: 0.5rem; }
+  .floating-logo-image { height: 3rem; max-width: 3.25rem; }
 
   .header-nav-mobile {
     width: 70%;
