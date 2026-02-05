@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Site statique Donner de la Voix",
   "scripts": {
-    "dev": "live-server --port=3000 --open=/index.html",
+    "dev": "node scripts/serve-with-rewrites.js",
     "serve": "npx http-server . -p 3000",
-    "start": "live-server --port=3000 --open=/index.html",
+    "start": "node scripts/serve-with-rewrites.js",
     "build": "node scripts/generate-env-config.js"
   },
   "devDependencies": {
