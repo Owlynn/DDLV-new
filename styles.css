@@ -2781,9 +2781,20 @@ body.contact-page {
   }
 
   .header-container { gap: var(--spacing-md); }
-  .header-logo-medallion { width: 4.25rem; height: 4.25rem; min-width: 4.25rem; min-height: 4.25rem; }
+  .header-logo-medallion {
+    width: 4.25rem;
+    height: 4.25rem;
+    min-width: 4.25rem;
+    min-height: 4.25rem;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-radius: 0;
+  }
   .header-logo-image { height: 3rem; }
   .floating-logo { top: 1rem; left: 1rem; }
+  .menu-toggle { margin-left: auto; }
   .floating-logo-image { height: 4.5rem; max-width: 5rem; }
   .header-menu { gap: var(--spacing-sm); }
   .header-menu-item { font-size: 18px; }
@@ -2965,11 +2976,21 @@ body.contact-page {
     position: relative;
   }
 
-  .header-logo-medallion { width: 3.75rem; height: 3.75rem; min-width: 3.75rem; min-height: 3.75rem; }
+  .header-logo-medallion {
+    width: 3.75rem;
+    height: 3.75rem;
+    min-width: 3.75rem;
+    min-height: 3.75rem;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-radius: 0;
+  }
   .header-logo-image { height: 2.5rem; }
   .floating-logo { top: 0.75rem; left: 0.75rem; }
   .floating-logo-image { height: 3.75rem; max-width: 4rem; }
-  .menu-toggle { display: flex; }
+  .menu-toggle { display: flex; margin-left: auto; }
 
   .menu-overlay {
     position: fixed;
@@ -3448,10 +3469,21 @@ body.contact-page {
     padding: 0.5rem 0.75rem;
   }
 
-  .header-logo-medallion { width: 3.25rem; height: 3.25rem; min-width: 3.25rem; min-height: 3.25rem; }
+  .header-logo-medallion {
+    width: 3.25rem;
+    height: 3.25rem;
+    min-width: 3.25rem;
+    min-height: 3.25rem;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-radius: 0;
+  }
   .header-logo-image { height: 2rem; }
   .floating-logo { top: 0.5rem; left: 0.5rem; }
   .floating-logo-image { height: 3rem; max-width: 3.25rem; }
+  .menu-toggle { margin-left: auto; }
 
   .header-nav-mobile {
     width: 70%;
