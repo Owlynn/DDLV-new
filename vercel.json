@@ -19,12 +19,6 @@
     { "source": "/pages/about.html", "destination": "/about", "permanent": true },
     { "source": "/pages/contact.html", "destination": "/contact", "permanent": true },
     { "source": "/pages/newsletter.html", "destination": "/newsletter", "permanent": true },
-    { "source": "/pages/offre-entreprise.html", "destination": "/offre-entreprise", "permanent": true },
-    {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.donnerdelavoix.fr" }],
-      "destination": "https://donnerdelavoix.fr/:path*",
-      "permanent": true
-    }
+    { "source": "/pages/offre-entreprise.html", "destination": "/offre-entreprise", "permanent": true }
   ]
 }
