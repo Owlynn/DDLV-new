@@ -17,6 +17,7 @@ const REWRITES = {
   '/contact': '/pages/contact.html',
   '/newsletter': '/pages/newsletter.html',
   '/offre-entreprise': '/pages/offre-entreprise.html',
+  '/mentions-legales': '/pages/mentions-legales.html',
 };
 
 const MIME = {

@@ -1,5 +1,13 @@
 const SCROLL_OFFSET_PX = 20;
 
+/** Retourne l'id de section format atelier depuis l'URL (ex. /ateliers/ateliers-focus → ateliers-focus) */
+function getAteliersSectionFromPath() {
+  const path = window.location.pathname.replace(/\/$/, '');
+  const parts = path.split('/').filter(Boolean);
+  if (parts[0] === 'ateliers' && parts[1]) return parts[1];
+  return null;
+}
+
 function scrollToSection(element, offset = SCROLL_OFFSET_PX) {
   if (!element) return;
   const headerHeight = document.querySelector('.site-nav')?.offsetHeight || 0;
