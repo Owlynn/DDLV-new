@@ -34,7 +34,7 @@
   <link rel="canonical" href="https://donnerdelavoix.fr">
   
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="assets/logo-ddlv.png">
+  <link rel="icon" type="image/png" href="/assets/logo-ddlv.png">
   
   <!-- Google Fonts - Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,7 +42,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Lien vers le fichier CSS qui contient tous les styles de la page -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body class="no-scroll page-home">
   <!-- Skip link pour la navigation au clavier -->
@@ -53,7 +53,7 @@
     <div class="header-container">
       <div class="header-logo-medallion">
         <a href="/" class="header-logo" aria-label="Retour à l'accueil - Donner de la Voix">
-          <img src="assets/logo-ddlv.png" alt="Donner de la Voix" class="header-logo-image">
+          <img src="/assets/logo-ddlv.png" alt="Donner de la Voix" class="header-logo-image">
         </a>
       </div>
       <button class="menu-toggle" aria-label="Menu de navigation" aria-expanded="false">
@@ -66,7 +66,7 @@
       <nav class="header-nav-desktop" aria-label="Navigation principale desktop">
         <ul class="header-menu-desktop" role="list">
           <li>
-            <a href="index.html" class="header-menu-item-desktop active">
+            <a href="/" class="header-menu-item-desktop active">
               Accueil
             </a>
           </li>
@@ -92,7 +92,7 @@
             </a>
           </li>
           <li>
-            <a href="pages/about.html" class="header-menu-item-desktop">
+            <a href="/about" class="header-menu-item-desktop">
               La pédagogue
             </a>
           </li>
@@ -135,7 +135,7 @@
         </a>
       </li>
       <li>
-        <a href="pages/about.html" class="header-menu-item-mobile">
+        <a href="/about" class="header-menu-item-mobile">
           La pédagogue
         </a>
       </li>
@@ -156,7 +156,7 @@
         <!-- Logo centré -->
         <div class="hero-left-content">
           <a href="#" class="logo-container" aria-label="Retour à l'accueil - Donner de la Voix">
-            <img src="assets/logo-ddlv.png" alt="Donner de la Voix - Logo" class="logo-image">
+            <img src="/assets/logo-ddlv.png" alt="Donner de la Voix - Logo" class="logo-image">
           </a>
         </div>
         
@@ -205,7 +205,7 @@
               </a>
             </li>
             <li>
-              <a href="pages/about.html" class="menu-item" aria-label="Découvrir la pédagogue">
+              <a href="/about" class="menu-item" aria-label="Découvrir la pédagogue">
                 <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                   <circle cx="12" cy="7" r="4"></circle>
@@ -241,10 +241,10 @@
   </aside>
 
   <!-- Config depuis variables d'env (Vercel build) puis secrets.local.js (local) -->
-  <script src="env-config.js"></script>
-  <script src="secrets.local.js"></script>
-  <script src="billetweb-config.js"></script>
-  <script type="module" src="js/main.js"></script>
+  <script src="/env-config.js"></script>
+  <script src="/secrets.local.js"></script>
+  <script src="/billetweb-config.js"></script>
+  <script type="module" src="/js/main.js"></script>
 </body>
 </html>
 
