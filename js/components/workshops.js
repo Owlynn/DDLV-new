@@ -54,6 +54,144 @@ export function showEmptyState() {
   }
 }
 
+/** Mois courts en français pour le médaillon date */
+const MONTH_SHORT = ['janv', 'févr', 'mars', 'avr', 'mai', 'juin', 'juil', 'août', 'sept', 'oct', 'nov', 'déc'];
+
+/** Index d'image de fond (0=bg.jpg, 1=bg1.jpg, …) selon le type d'atelier (aligné avec les formats) */
+const WORKSHOP_BG_INDEX = [0, 1, 3, 4, 0, 1, 2]; // focus, art, chant, poesie, gestuelle, flashmob, coaching
+
+/**
+ * Retourne l'index d'image bg (0 à 4) pour un titre d'atelier.
+ * @param {string} fullTitle - Titre complet de l'atelier
+ * @returns {number} 0..4
+ */
+function getWorkshopBgIndex(fullTitle) {
+  if (!fullTitle || !fullTitle.trim()) return 0;
+  const t = fullTitle.trim();
+  let idx = 0;
+  for (let i = 0; i < WORKSHOP_TITLE_MAP.length; i++) {
+    if (WORKSHOP_TITLE_MAP[i].match.test(t)) {
+      return WORKSHOP_BG_INDEX[i % WORKSHOP_BG_INDEX.length];
+    }
+  }
+  return 0;
+}
+
+/**
+ * Génère le HTML d'une carte bento "date à venir" : fond bg*, illustration titre/sous-titre, médaillon date, horaires, lieu, overlay "En savoir plus"
+ * @param {Object} workshop - Données de l'atelier
+ * @returns {string} HTML de la carte
+ */
+function generateWorkshopBentoCard(workshop) {
+  const { title: mainTitle, subtitle } = getTitleAndSubtitle(workshop.title);
+  const bgIndex = getWorkshopBgIndex(workshop.title);
+  let day = '';
+  let month = '';
+  if (workshop.date) {
+    const d = new Date(workshop.date);
+    if (!isNaN(d.getTime())) {
+      day = String(d.getDate());
+      month = MONTH_SHORT[d.getMonth()] || '';
+    }
+  }
+  const allowHttp = typeof location !== 'undefined' && location.protocol === 'http:';
+  const validatedLink = validateExternalUrl(workshop.link, allowHttp);
+  const href = validatedLink || '#formats-ateliers';
+  const target = validatedLink ? '_blank' : '_self';
+  const rel = validatedLink ? 'noopener noreferrer' : '';
+  const escapedMainTitle = escapeHtml(mainTitle);
+  const escapedSubtitle = escapeHtml(subtitle);
+  const escapedTime = workshop.time ? escapeHtml(workshop.time) : '';
+  const escapedLocation = workshop.location ? escapeHtml(workshop.location) : 'Lieu à confirmer';
+
+  return `
+    <a class="bento-date-card bento-date-bg-${bgIndex}" href="${escapeHtml(href)}" ${target === '_blank' ? `target="${target}" rel="${rel}"` : ''} aria-label="${escapedMainTitle}, ${day} ${month}">
+      <div class="bento-date-card-visual">
+        <div class="bento-date-card-illustration">
+          <span class="bento-date-card-illustration-title">${escapedMainTitle}</span>
+          <span class="bento-date-card-illustration-subtitle">${escapedSubtitle}</span>
+        </div>
+        <div class="bento-date-medallion" aria-hidden="true">
+          <span class="day">${escapeHtml(day)}</span>
+          <span class="month">${escapeHtml(month)}</span>
+        </div>
+      </div>
+      <div class="bento-date-card-content">
+        <div class="bento-date-card-title">${escapedMainTitle}</div>
+        ${escapedTime ? `<div class="bento-date-card-time"><span class="material-symbols-outlined" style="font-size:1rem;">schedule</span>${escapedTime}</div>` : ''}
+        <div class="bento-date-card-location"><span class="material-symbols-outlined" style="font-size:1rem;">location_on</span>${escapedLocation}</div>
+      </div>
+      <div class="bento-date-card-overlay" aria-hidden="true">
+        <span>En savoir plus</span>
+      </div>
+    </a>
+  `;
+}
+
+/**
+ * Rend la section "dates à venir" en bentos (page ateliers-new)
+ * @param {Array} workshopsData - Données des ateliers
+ */
+export function renderWorkshopsBentos(workshopsData) {
+  const bentosView = document.getElementById('workshops-bentos-view');
+  const emptyEl = document.getElementById('workshops-bentos-empty');
+  const loadingEl = document.getElementById('workshops-bentos-loading');
+  if (!bentosView) return;
+
+  if (loadingEl) loadingEl.classList.add('hidden');
+  if (emptyEl) emptyEl.classList.add('hidden');
+
+  if (!workshopsData || workshopsData.length === 0) {
+    bentosView.innerHTML = '';
+    if (emptyEl) emptyEl.classList.remove('hidden');
+    return;
+  }
+
+  bentosView.innerHTML = workshopsData.map(workshop => generateWorkshopBentoCard(workshop)).join('');
+}
+
+/**
+ * Affiche l'état de chargement pour la vue bentos (ateliers-new)
+ */
+export function showLoadingStateBentos() {
+  const bentosView = document.getElementById('workshops-bentos-view');
+  const emptyEl = document.getElementById('workshops-bentos-empty');
+  const loadingEl = document.getElementById('workshops-bentos-loading');
+  if (bentosView) bentosView.innerHTML = '';
+  if (emptyEl) emptyEl.classList.add('hidden');
+  if (loadingEl) loadingEl.classList.remove('hidden');
+}
+
+/**
+ * Affiche l'état vide pour la vue bentos (ateliers-new)
+ */
+export function showEmptyStateBentos() {
+  const bentosView = document.getElementById('workshops-bentos-view');
+  const emptyEl = document.getElementById('workshops-bentos-empty');
+  const loadingEl = document.getElementById('workshops-bentos-loading');
+  if (bentosView) bentosView.innerHTML = '';
+  if (loadingEl) loadingEl.classList.add('hidden');
+  if (emptyEl) emptyEl.classList.remove('hidden');
+}
+
+/**
+ * Affiche l'état d'erreur pour la vue bentos (ateliers-new)
+ * @param {string} message - Message d'erreur
+ */
+export function showErrorStateBentos(message) {
+  const bentosView = document.getElementById('workshops-bentos-view');
+  const emptyEl = document.getElementById('workshops-bentos-empty');
+  const loadingEl = document.getElementById('workshops-bentos-loading');
+  if (bentosView) bentosView.innerHTML = '';
+  if (loadingEl) loadingEl.classList.add('hidden');
+  if (emptyEl) {
+    emptyEl.classList.remove('hidden');
+    const paragraphs = emptyEl.querySelectorAll('p');
+    if (paragraphs[0]) paragraphs[0].textContent = 'Erreur lors du chargement des ateliers.';
+    if (paragraphs[1]) paragraphs[1].textContent = message || 'Une erreur est survenue.';
+  }
+}
+
 /**
  * Mots-clés par type d'atelier (titre API contient la clé, valeur = { title, subtitle }).
  * Ordre important : les correspondances plus spécifiques en premier.
@@ -239,9 +377,10 @@ export function renderWorkshopsList(workshopsData) {
  */
 export async function loadWorkshops(forceRefresh = false, fetchWorkshops, clearCache) {
   const listView = document.getElementById('workshops-list-view');
-  if (!listView) {
-    console.warn('⚠️ workshops-list-view non trouvé, on n\'est probablement pas sur la page ateliers');
-    return; // Si on n'est pas sur la page ateliers
+  const bentosView = document.getElementById('workshops-bentos-view');
+  if (!listView && !bentosView) {
+    console.warn('⚠️ Ni workshops-list-view ni workshops-bentos-view trouvé');
+    return;
   }
 
   // Vider le cache si on force le rafraîchissement
@@ -249,22 +388,37 @@ export async function loadWorkshops(forceRefresh = false, fetchWorkshops, clearC
     clearCache();
   }
 
-  showLoadingState();
+  if (listView) showLoadingState();
+  if (bentosView) showLoadingStateBentos();
 
   try {
     const workshopsData = await fetchWorkshops();
     workshops = workshopsData;
-    renderWorkshopsList(workshops);
-    
-    // Mettre à jour le calendrier si nécessaire
+
+    if (listView) {
+      if (workshops.length === 0) {
+        showEmptyState();
+      } else {
+        renderWorkshopsList(workshops);
+      }
+    }
+    if (bentosView) {
+      if (workshops.length === 0) {
+        showEmptyStateBentos();
+      } else {
+        renderWorkshopsBentos(workshops);
+      }
+    }
+
     const calendarView = document.getElementById('calendar-view');
     if (calendarView && calendarView.style.display !== 'none') {
-      // Le calendrier sera rendu par le module calendar
       window.dispatchEvent(new CustomEvent('workshopsLoaded', { detail: workshops }));
     }
   } catch (error) {
     console.error('Erreur lors du chargement des ateliers:', error);
-    showErrorState(error.message || 'Une erreur est survenue. Veuillez réessayer plus tard.');
+    const msg = error.message || 'Une erreur est survenue. Veuillez réessayer plus tard.';
+    if (listView) showErrorState(msg);
+    if (bentosView) showErrorStateBentos(msg);
   }
 }
 

@@ -56,17 +56,8 @@
         border-radius: inherit;
         background-size: cover;
         background-position: center;
-        filter: blur(8px);
-        opacity: 0.8;
-      }
-      .bento-bg-blur::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        border-radius: inherit;
-        background: linear-gradient(135deg, rgba(91, 42, 181, 0.5) 0%, rgba(122, 106, 199, 0.35) 40%, rgba(207, 53, 148, 0.4) 100%);
-        pointer-events: none;
+        filter: blur(10px);
+        opacity: 0.9;
       }
       .bento-bg-blur.bento-bg-focus::before { background-image: url('/assets/bg.jpg'); background-position: 10% 15%; transform: scale(1.05); }
       .bento-bg-blur.bento-bg-art::before { background-image: url('/assets/bg1.jpg'); background-position: 88% 22%; transform: scale(1.18); }
@@ -76,12 +67,24 @@
       .bento-bg-blur.bento-bg-gestuelle::before { background-image: url('/assets/bg.jpg'); background-position: 72% 62%; transform: scale(1.22); }
       .bento-bg-blur.bento-bg-flashmob::before { background-image: url('/assets/bg1.jpg'); background-position: 18% 92%; transform: scale(0.92); }
       .bento-bg-blur.bento-bg-coaching::before { background-image: url('/assets/bg2.jpg'); background-position: 55% 45%; transform: scale(1.15); }
+      .bento-bg-blur::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: inherit;
+        background: linear-gradient(135deg, rgba(91, 42, 181, 0.5) 0%, rgba(122, 106, 199, 0.35) 40%, rgba(207, 53, 148, 0.4) 100%);
+        pointer-events: none;
+      }
       .glass-premium { @apply backdrop-blur-[25px] bg-white/5 border border-white/30; box-shadow: inset 0 0 40px rgba(255,255,255,0.05), 0 20px 50px rgba(0,0,0,0.4); }
       .bento-formats-zone {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         grid-auto-rows: minmax(140px, auto);
         gap: 1rem;
+      }
+      @media (min-width: 768px) {
+        .bento-formats-zone { grid-template-rows: repeat(4, minmax(0, 1fr)); grid-auto-rows: unset; height: 100%; gap: 0.5rem; }
       }
       .bento-formats-zone a {
         transition: transform 0.25s ease-out;
@@ -101,11 +104,75 @@
       }
       .glass-violet-glow { @apply border-[#7a6ac7]/40; box-shadow: 0 0 20px rgba(91,42,181,0.2), inset 0 0 20px rgba(122,106,199,0.1); }
       .glass-rose-glow { @apply border-[#cf3594]/40; box-shadow: 0 0 20px rgba(207,53,148,0.2), inset 0 0 20px rgba(207,53,148,0.1); }
+      .atelier-modal-overlay {
+        position: fixed; inset: 0; z-index: 100;
+        background: rgba(0, 0, 0, 0.25);
+        -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+        display: flex; align-items: center; justify-content: center;
+        padding: 2rem; opacity: 0; visibility: hidden; transition: opacity 0.25s ease, visibility 0.25s ease;
+      }
+      .atelier-modal-overlay.is-open { opacity: 1; visibility: visible; }
+      .atelier-modal-box {
+        background: rgba(255, 250, 255, 0.88);
+        -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 1.5rem;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2), inset 0 0 2px 1px rgba(255, 255, 255, 0.12);
+        max-width: 72rem; width: 100%; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column;
+        transform: scale(0.95); transition: transform 0.25s ease;
+      }
+      .atelier-modal-overlay.is-open .atelier-modal-box { transform: scale(1); }
+      .atelier-modal-content {
+        overflow-y: auto; padding: 2.5rem 1.5rem 2rem 1.5rem; flex: 1;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(207, 53, 148, 0.6) rgba(255, 255, 255, 0.06);
+      }
+      .atelier-modal-content::-webkit-scrollbar { width: 10px; }
+      .atelier-modal-content::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.06); border-radius: 10px; }
+      .atelier-modal-content::-webkit-scrollbar-thumb { background: rgba(207, 53, 148, 0.5); border-radius: 10px; }
+      .atelier-modal-content::-webkit-scrollbar-thumb:hover { background: rgba(207, 53, 148, 0.75); }
+      .atelier-modal-content .article-content { padding: 0; }
+      .atelier-modal-content .article-content h2 { color: #fff !important; font-size: 1.75rem !important; font-weight: 700 !important; margin-bottom: 0.25rem !important; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+      .atelier-modal-content .article-content h3 { color: #7a6ac7 !important; font-size: 1.25rem !important; font-weight: 600 !important; margin-top: 1.5rem !important; margin-bottom: 0.75rem !important; }
+      .atelier-modal-content .article-content h4 { color: #7a6ac7 !important; font-size: 1.1rem !important; font-weight: 600 !important; margin-bottom: 0.5rem !important; }
+      .atelier-modal-content .article-content p,
+      .atelier-modal-content .article-content li { color: rgba(255,255,255,0.92) !important; line-height: 1.6; }
+      .atelier-modal-content .article-content .article-subtitle,
+      .atelier-modal-content .article-content p.article-subtitle { color: rgba(255,255,255,0.8) !important; font-size: 1.125rem !important; }
+      .atelier-modal-content .article-content a { color: #cf3594 !important; text-decoration: underline !important; }
+      .atelier-modal-content .article-content a:hover { color: #e8a0c4 !important; }
+      .atelier-modal-content .article-content strong { color: rgba(255,255,255,0.95) !important; }
+      .atelier-modal-content .article-content small { color: rgba(255,255,255,0.75) !important; }
+      .atelier-modal-content .article-content img.article-image { width: 100% !important; max-width: 100% !important; height: auto !important; border-radius: 1rem !important; border: 1px solid rgba(255,255,255,0.2) !important; margin-bottom: 1.5rem !important; }
+      .atelier-modal-content .article-content div[style*="background"] { background: rgba(255,255,255,0.08) !important; border: 1px solid rgba(255,255,255,0.15) !important; border-radius: 0.75rem !important; padding: 1rem 1.25rem !important; margin: 1rem 0 !important; }
+      .atelier-modal-content .article-content div[style*="border-left"] { border-left: 4px solid #7a6ac7 !important; }
+      .atelier-modal-content .article-content .highlight-box-small,
+      .atelier-modal-content .article-content .highlight-box-dashed,
+      .atelier-modal-content .article-content .highlight-box-white-transparent,
+      .atelier-modal-content .article-content .highlight-box-dashed-accent,
+      .atelier-modal-content .article-content .glass-panel,
+      .atelier-modal-content .article-content .glass-premium { background: rgba(255,255,255,0.08) !important; border: 1px solid rgba(255,255,255,0.2) !important; border-radius: 0.75rem !important; }
+      .atelier-modal-content .article-content span[style*="background: var"] { background: rgba(91,42,181,0.5) !important; color: #fff !important; padding: 0.25rem 0.75rem !important; border-radius: 9999px !important; font-size: 0.875rem !important; font-weight: 600 !important; border: none !important; }
+      .atelier-modal-content .article-content button.atelier-see-workshops-btn,
+      .atelier-modal-content .article-content a.rdv-btn,
+      .atelier-modal-content .article-content .rdv-btn { display: inline-flex !important; align-items: center !important; justify-content: center !important; gap: 0.5rem !important; padding: 0.75rem 1.5rem !important; border-radius: 0.75rem !important; font-weight: 600 !important; background: rgba(207,53,148,0.6) !important; border: 1px solid #cf3594 !important; color: #fff !important; text-decoration: none !important; cursor: pointer !important; font-size: 1rem !important; }
+      .atelier-modal-content .article-content a[href="/contact"] { display: inline-flex !important; align-items: center !important; gap: 0.5rem !important; padding: 0.75rem 1.5rem !important; border-radius: 0.75rem !important; font-weight: 600 !important; border: 1px solid rgba(255,255,255,0.3) !important; background: rgba(255,255,255,0.1) !important; color: #fff !important; text-decoration: none !important; }
+      .atelier-modal-content .article-content ul { padding-left: 1.5rem !important; margin: 0.75rem 0 !important; }
+      .atelier-modal-close {
+        position: absolute; top: 1rem; right: 1rem; z-index: 2;
+        width: 2.5rem; height: 2.5rem; border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white; cursor: pointer; display: flex; align-items: center; justify-content: center;
+        transition: background 0.2s, transform 0.2s;
+      }
+      .atelier-modal-close:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.05); }
+      .atelier-modal-external { padding: 2rem; text-align: center; }
+      .atelier-modal-external h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+      .atelier-modal-external p { color: rgba(255,255,255,0.9); margin-bottom: 1.5rem; }
       .hero-overlay::before {
         content: '';
         position: absolute;
         inset: 0;
-        background: rgba(0, 0, 0, 0.12);
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.12) 70%, transparent 100%);
         pointer-events: none;
         z-index: 0;
       }
@@ -142,6 +209,163 @@
         background: linear-gradient(135deg, rgba(91, 42, 181, 0.85) 0%, rgba(207, 53, 148, 0.85) 100%);
         border: 1px solid rgba(255, 255, 255, 0.35);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      }
+      .section-title-bentos {
+        font-size: 1.875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        margin-bottom: 1rem;
+        margin-top: 30px;
+        color: #fff;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+        flex-shrink: 0;
+      }
+      @media (min-width: 768px) {
+        .section-title-bentos { margin-bottom: 0.75rem; }
+      }
+      .bento-dates-zone {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      @media (min-width: 640px) {
+        .bento-dates-zone { grid-template-columns: repeat(2, 1fr); }
+      }
+      @media (min-width: 1024px) {
+        .bento-dates-zone { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+      }
+      .bento-date-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 1rem;
+        min-height: 280px;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.25s ease-out;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+      }
+      .bento-dates-zone a.bento-date-card:hover { transform: translateY(-4px); }
+      .bento-date-card-visual {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+      .bento-date-card-visual::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background-size: cover;
+        background-position: center;
+        filter: blur(10px);
+      }
+      .bento-date-card.bento-date-bg-0 .bento-date-card-visual::after { background-image: url('/assets/bg.jpg'); }
+      .bento-date-card.bento-date-bg-1 .bento-date-card-visual::after { background-image: url('/assets/bg1.jpg'); }
+      .bento-date-card.bento-date-bg-2 .bento-date-card-visual::after { background-image: url('/assets/bg2.jpg'); }
+      .bento-date-card.bento-date-bg-3 .bento-date-card-visual::after { background-image: url('/assets/bg3.jpg'); }
+      .bento-date-card.bento-date-bg-4 .bento-date-card-visual::after { background-image: url('/assets/bg4.jpg'); }
+      .bento-date-card-visual::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: linear-gradient(135deg, rgba(13, 2, 24, 0.5) 0%, rgba(91, 42, 181, 0.25) 50%, rgba(207, 53, 148, 0.2) 100%);
+        pointer-events: none;
+      }
+      .bento-date-card-illustration {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        text-align: center;
+        z-index: 1;
+      }
+      .bento-date-card-illustration-title {
+        display: block;
+        font-weight: 700;
+        font-size: clamp(1rem, 2.5vw, 1.25rem);
+        line-height: 1.2;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        color: white;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 0 20px rgba(91, 42, 181, 0.3);
+      }
+      .bento-date-card-illustration-subtitle {
+        display: block;
+        margin-top: 0.35rem;
+        font-weight: 500;
+        font-size: clamp(1rem, 1.8vw, 1.05rem);
+        line-height: 1.25;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: rgba(255, 255, 255, 0.9);
+      }
+      .bento-date-medallion {
+        position: absolute;
+        top: 0.75rem;
+        left: 0.75rem;
+        z-index: 2;
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(91, 42, 181, 0.95) 0%, rgba(207, 53, 148, 0.95) 100%);
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.1;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      }
+      .bento-date-medallion .day { font-size: 1.125rem; font-weight: 700; color: white; }
+      .bento-date-medallion .month { font-size: 1rem; font-weight: 600; text-transform: uppercase; color: rgba(255,255,255,0.95); }
+      .bento-date-card-content {
+        padding: 1rem 1.25rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        transition: filter 0.3s ease;
+      }
+      .bento-date-card:hover .bento-date-card-content { filter: blur(3px); }
+      .bento-date-card-title { font-weight: 600; font-size: 1rem; color: white; line-height: 1.25; }
+      .bento-date-card-time, .bento-date-card-location {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.85);
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+      .bento-date-card-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(13, 2, 24, 0.75);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        z-index: 5;
+      }
+      .bento-date-card:hover .bento-date-card-overlay { opacity: 1; pointer-events: auto; }
+      .bento-date-card-overlay span {
+        font-weight: 600;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: white;
+        padding: 0.5rem 1rem;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        border-radius: 9999px;
       }
     }
   </style>
@@ -236,15 +460,16 @@
     <!-- Contenu scrollable -->
     <div class="px-4 md:px-8 max-w-5xl mx-auto pb-24">
     <!-- Formats d'ateliers (bentos comme page d'accueil) -->
-    <section class="mb-12 md:mb-16" id="formats-bentos">
-      <h2 class="text-3xl font-bold uppercase tracking-wide mb-6 text-white" style="text-shadow: 0 2px 10px rgba(0,0,0,0.35);">Formats d'ateliers</h2>
-      <div class="bento-formats-zone">
-        <a href="#ateliers-focus" class="bento-f-2x2 glass-panel-rose bento-bg-blur bento-bg-focus group p-6 rounded-2xl flex flex-col gap-4 justify-center relative overflow-hidden">
+    <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28 md:max-h-screen md:h-screen md:flex md:flex-col md:overflow-hidden" id="formats-bentos">
+      <h2 class="text-3xl font-bold uppercase tracking-wide mb-4 md:mb-3 text-white mt-[30px] md:flex-shrink-0" style="text-shadow: 0 2px 10px rgba(0,0,0,0.35);">Formats d'ateliers</h2>
+      <div class="bento-formats-zone-wrapper md:flex-1 md:min-h-0 md:overflow-hidden">
+      <div class="bento-formats-zone h-full">
+        <a href="#ateliers-focus" class="bento-f-2x1 glass-panel-rose bento-bg-blur bento-bg-focus group p-6 rounded-2xl flex flex-col gap-4 sm:flex-row sm:items-center relative overflow-hidden">
           <span class="bento-type-badge absolute top-3 right-3 text-[10px] uppercase tracking-widest font-semibold text-white rounded-full px-2.5 py-1">Atelier</span>
-          <div class="size-14 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-primary/30 transition-colors">
+          <div class="size-14 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-primary/30 transition-colors shrink-0">
             <span class="material-symbols-outlined text-4xl">tune</span>
           </div>
-          <div>
+          <div class="min-w-0">
             <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">Atelier Focus</h3>
             <p class="text-base text-white/90 leading-snug font-light">Impro mensuelle, circlesongs.</p>
           </div>
@@ -279,12 +504,12 @@
             <p class="text-base text-white/90 leading-snug font-light">Découverte gratuite.</p>
           </div>
         </a>
-        <a href="/ateliers#circlesong-poesie" class="bento-f-1x2 glass-panel-rose bento-bg-blur bento-bg-poesie group p-6 rounded-2xl flex flex-col gap-4 justify-center relative overflow-hidden">
+        <a href="/ateliers#circlesong-poesie" class="bento-f-2x1 glass-panel-rose bento-bg-blur bento-bg-poesie group p-6 rounded-2xl flex flex-col gap-4 sm:flex-row sm:items-center relative overflow-hidden">
           <span class="bento-type-badge absolute top-3 right-3 text-[10px] uppercase tracking-widest font-semibold text-white rounded-full px-2.5 py-1">Stage</span>
-          <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-primary/30 transition-colors">
+          <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-primary/30 transition-colors shrink-0">
             <span class="material-symbols-outlined text-3xl">menu_book</span>
           </div>
-          <div>
+          <div class="min-w-0">
             <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">Circlesong poésie</h3>
             <p class="text-base text-white/90 leading-snug font-light">Voix, mots &amp; impro.</p>
           </div>
@@ -309,7 +534,7 @@
             <p class="text-base text-white/90 leading-snug font-light">Performance dans la rue.</p>
           </div>
         </a>
-        <a href="/ateliers#coaching-personnalise" class="bento-f-1x2 glass-panel-rose bento-bg-blur bento-bg-coaching group p-6 rounded-2xl flex flex-col gap-4 justify-center relative overflow-hidden">
+        <a href="/ateliers#coaching-personnalise" class="bento-f-1x1 glass-panel-rose bento-bg-blur bento-bg-coaching group p-6 rounded-2xl flex flex-col gap-4 relative overflow-hidden">
           <span class="bento-type-badge absolute top-3 right-3 text-[10px] uppercase tracking-widest font-semibold text-white rounded-full px-2.5 py-1">Stage</span>
           <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-white/10 transition-colors">
             <span class="material-symbols-outlined text-3xl">person_search</span>
@@ -320,35 +545,20 @@
           </div>
         </a>
       </div>
+      </div>
     </section>
 
-    <!-- Prochaines dates -->
-    <section id="calendrier" class="glass-panel rounded-2xl p-6 md:p-8 mb-12">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-        <div class="view-toggle-container">
-          <div class="view-toggle">
-            <button type="button" class="view-toggle-btn" aria-label="Basculer entre vue liste et calendrier">
-              <span class="view-toggle-part view-toggle-left active" data-view="list">vue liste</span>
-              <span class="view-toggle-part view-toggle-right" data-view="calendar">vue calendrier</span>
-            </button>
-          </div>
-        </div>
-        <h2 class="text-2xl font-bold text-white m-0">Les prochains stages &amp; ateliers</h2>
-      </div>
-      <div class="cards-grid workshops-list" id="workshops-list-view">
+    <!-- Dates à venir (bentos) -->
+    <section id="calendrier" class="mb-12 md:mb-16 scroll-mt-28" aria-label="Dates à venir">
+      <div class="bento-dates-zone" id="workshops-bentos-view">
         <!-- Rempli par JS (BilletWeb) -->
       </div>
-      <div class="calendar-view" id="calendar-view" style="display: none;">
-        <div class="calendar-container">
-          <div class="calendar-month">
-            <div class="calendar-header flex justify-between items-center gap-4 mb-4">
-              <button type="button" class="calendar-nav-btn" id="prev-month" aria-label="Mois précédent"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
-              <h2 class="calendar-month-title m-0" id="month-title">Mars 2024</h2>
-              <button type="button" class="calendar-nav-btn" id="next-month" aria-label="Mois suivant"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
-            </div>
-            <div class="calendar-grid" id="calendar-grid"></div>
-          </div>
-        </div>
+      <div class="bento-dates-empty text-center py-12 text-white/80 hidden" id="workshops-bentos-empty">
+        <p class="text-lg">Aucun atelier à venir pour le moment.</p>
+        <p class="mt-2">Revenez bientôt pour découvrir nos prochains ateliers !</p>
+      </div>
+      <div class="bento-dates-loading text-center py-12 text-white/80 hidden" id="workshops-bentos-loading">
+        <p class="text-lg">Chargement des ateliers…</p>
       </div>
     </section>
 
@@ -497,6 +707,14 @@
     <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="/mentions-legales">Mentions Légales</a>
   </div>
 
+  <!-- Popup atelier -->
+  <div class="atelier-modal-overlay" id="atelier-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="atelier-modal-title">
+    <div class="atelier-modal-box relative">
+      <button type="button" class="atelier-modal-close" id="atelier-modal-close" aria-label="Fermer"><span class="material-symbols-outlined text-xl">close</span></button>
+      <div class="atelier-modal-content" id="atelier-modal-content"></div>
+    </div>
+  </div>
+
   <script src="/env-config.js"></script>
   <script src="/secrets.local.js"></script>
   <script src="/billetweb-config.js"></script>
@@ -504,10 +722,72 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof lucide !== 'undefined') lucide.createIcons();
+      function smoothScrollTo(id) {
+        var el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
       document.querySelectorAll('a[href="#calendrier"]').forEach(function(a) {
+        a.addEventListener('click', function(e) { e.preventDefault(); smoothScrollTo('calendrier'); });
+      });
+      document.querySelectorAll('a[href="#formats-bentos"]').forEach(function(a) {
+        a.addEventListener('click', function(e) { e.preventDefault(); smoothScrollTo('formats-bentos'); });
+      });
+
+      var modal = document.getElementById('atelier-modal');
+      var modalContent = document.getElementById('atelier-modal-content');
+      var modalClose = document.getElementById('atelier-modal-close');
+      function openAtelierModal() { modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; }
+      function closeAtelierModal() { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; modalContent.innerHTML = ''; }
+      modalClose.addEventListener('click', closeAtelierModal);
+      modal.addEventListener('click', function(e) { if (e.target === modal) closeAtelierModal(); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeAtelierModal(); });
+      modalContent.addEventListener('click', function(e) {
+        var link = e.target.closest('a[href="#calendrier"]');
+        var btn = e.target.closest('.atelier-see-workshops-btn[data-section="calendrier"]');
+        if (link || btn) { e.preventDefault(); closeAtelierModal(); setTimeout(function() { smoothScrollTo('calendrier'); }, 300); }
+      });
+
+      function showAtelierInModal(id) {
+        var article = document.getElementById(id);
+        if (article) {
+          var content = article.querySelector('.article-content');
+          if (content) { modalContent.innerHTML = ''; modalContent.appendChild(content.cloneNode(true)); openAtelierModal(); return true; }
+        }
+        return false;
+      }
+      function loadAtelierFromPage(hashId, onDone) {
+        modalContent.innerHTML = '<div class="atelier-modal-external py-12"><p class="text-white/90">Chargement…</p></div>';
+        openAtelierModal();
+        fetch('/ateliers').then(function(r) { return r.text(); }).then(function(html) {
+          var parser = new DOMParser();
+          var doc = parser.parseFromString(html, 'text/html');
+          var section = doc.getElementById(hashId);
+          if (section) {
+            var content = section.querySelector('.article-content');
+            if (content) {
+              modalContent.innerHTML = '';
+              modalContent.appendChild(content.cloneNode(true));
+              onDone();
+              return;
+            }
+          }
+          modalContent.innerHTML = '<div class="atelier-modal-external"><p class="text-white/90">Contenu non disponible.</p><a href="/ateliers#' + hashId + '" class="text-accent underline">Voir sur la page ateliers</a></div>';
+        }).catch(function() {
+          modalContent.innerHTML = '<div class="atelier-modal-external"><p class="text-white/90">Impossible de charger le contenu.</p><a href="/ateliers#' + hashId + '" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold bg-accent/70 border border-accent hover:bg-accent/90 text-white">Voir la fiche sur la page ateliers</a></div>';
+        });
+      }
+
+      document.querySelectorAll('.bento-formats-zone a[href^="#"], .bento-formats-zone a[href^="/ateliers"]').forEach(function(a) {
         a.addEventListener('click', function(e) {
           e.preventDefault();
-          document.getElementById('calendrier').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          var href = a.getAttribute('href') || '';
+          if (href.indexOf('#') === -1) return;
+          var hash = href.indexOf('#') >= 0 ? href.split('#')[1] : '';
+          if (!hash) return;
+          if (showAtelierInModal(hash)) return;
+          if (href.indexOf('/ateliers') === 0) {
+            loadAtelierFromPage(hash, function() {});
+          }
         });
       });
     });
