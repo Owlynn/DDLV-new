@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html class="dark" lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <base href="/">
+  <title>Stages &amp; Ateliers – Improvisation vocale &amp; Circlesongs | Donner de la Voix</title>
+  <meta name="description" content="Ateliers d'improvisation vocale et circlesongs à Toulouse. Ateliers mensuels, stages intensifs et formations en impro vocale, co-improvisation et vocal painting.">
+  <meta name="keywords" content="ateliers improvisation vocale toulouse, circlesongs toulouse, impro vocale toulouse, ateliers chant toulouse, coach vocal toulouse, vocal painting, stage circlesongs">
+  <meta property="og:title" content="Stages & Ateliers – Donner de la Voix">
+  <meta property="og:description" content="Ateliers d'improvisation vocale et circlesongs à Toulouse. Stages, formations et ateliers mensuels pour tous niveaux.">
+  <meta property="og:url" content="https://donnerdelavoix.fr/ateliers">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://donnerdelavoix.fr/ateliers">
+  <link rel="icon" type="image/png" href="/assets/logo-ddlv.png">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#5b2ab5",
+            "primary-light": "#7a6ac7",
+            "accent": "#cf3594",
+            "deep-bg": "#0d0218",
+          },
+          fontFamily: {
+            "display": ["'Josefin Sans'", "sans-serif"],
+            "sans": ["'Josefin Sans'", "sans-serif"]
+          },
+        },
+      },
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer components {
+      .glass-panel { @apply backdrop-blur-[25px] bg-white/10 border border-white/20; box-shadow: 0 8px 32px 0 rgba(0,0,0,0.3), inset 0 0 2px 1px rgba(255,255,255,0.15); }
+      .glass-premium { @apply backdrop-blur-[25px] bg-white/5 border border-white/30; box-shadow: inset 0 0 40px rgba(255,255,255,0.05), 0 20px 50px rgba(0,0,0,0.4); }
+      .glass-violet-glow { @apply border-[#7a6ac7]/40; box-shadow: 0 0 20px rgba(91,42,181,0.2), inset 0 0 20px rgba(122,106,199,0.1); }
+      .glass-rose-glow { @apply border-[#cf3594]/40; box-shadow: 0 0 20px rgba(207,53,148,0.2), inset 0 0 20px rgba(207,53,148,0.1); }
+      .hero-gradient-word {
+        @apply text-transparent bg-clip-text;
+        background-image: linear-gradient(to right, #b83d7a 0%, #9849a8 30%, #6b5fa8 65%, #4db8aa 100%);
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+        text-stroke: 1px rgba(255, 255, 255, 0.5);
+      }
+      .bg-blur-image { position: fixed; inset: -20px; z-index: -3; background: url('/assets/bg.jpg') 65% 50% / cover no-repeat; filter: blur(14px); transform: scale(1.05); }
+      .hero-blur-bg {
+        position: absolute;
+        inset: -20px;
+        z-index: 0;
+        background: url('/assets/bg.jpg') 65% 50% / cover no-repeat;
+        filter: blur(14px);
+        transform: scale(1.05);
+      }
+      .bg-textured-art { background-color: rgba(30,15,50,0.08); background-image: radial-gradient(ellipse 120% 100% at 0% 50%, rgba(255,255,255,0.07) 0%, transparent 50%), radial-gradient(circle at 10% 20%, rgba(91,42,181,0.35) 0%, transparent 55%), radial-gradient(circle at 90% 10%, rgba(207,53,148,0.3) 0%, transparent 55%); position: fixed; inset: 0; z-index: -2; }
+      .blob { position: absolute; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.6; }
+      .nav-item::after { content: ''; display: block; width: 0; height: 2px; background: #cf3594; transition: width .3s; }
+      .nav-item:hover::after { width: 100%; }
+    }
+  </style>
+  <!-- Styles des cartes = exactement ceux de la page ateliers (originale) -->
+  <link rel="stylesheet" href="/styles.css">
+  <!-- Overrides pour garder le thème sombre sur cette page (body etc.) -->
+  <style>
+    body.ateliers-new-page {
+      background: #0d0218 !important;
+      color: white !important;
+      font-family: 'Josefin Sans', sans-serif !important;
+    }
+    body.ateliers-new-page::before,
+    body.ateliers-new-page::after { display: none !important; }
+    .ateliers-new-page .view-toggle-btn { display: flex; padding: 0; overflow: hidden; border-radius: 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); }
+    .ateliers-new-page .view-toggle-part { padding: 0.5rem 1rem; font-size: 0.875rem; color: white; cursor: pointer; transition: background .2s; }
+    .ateliers-new-page .view-toggle-part.active { background: rgba(91,42,181,0.4); }
+    .ateliers-new-page .view-toggle-part:not(.active):hover { background: rgba(255,255,255,0.1); }
+    .ateliers-new-page .calendar-view { padding: 1.5rem; }
+    .ateliers-new-page .calendar-container { background: rgba(255,255,255,0.05); border-radius: 1rem; padding: 1rem; border: 1px solid rgba(255,255,255,0.15); }
+    .ateliers-new-page .calendar-month-title { color: #cf3594; font-weight: 600; font-size: 1.25rem; }
+    .ateliers-new-page .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.35rem; }
+    .ateliers-new-page .calendar-day-header { text-align: center; font-weight: 600; color: #7a6ac7; font-size: 0.75rem; }
+    .ateliers-new-page .calendar-day { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.5rem; min-height: 2.5rem; }
+    .ateliers-new-page .calendar-day.empty { background: transparent; border: none; }
+    .ateliers-new-page .calendar-day .day-number { font-weight: 500; color: rgba(255,255,255,0.9); font-size: 0.8rem; }
+    .ateliers-new-page .calendar-day.has-workshop { background: rgba(91,42,181,0.25); border-color: rgba(122,106,199,0.4); }
+    .ateliers-new-page .calendar-nav-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 0.5rem 0.75rem; border-radius: 10px; cursor: pointer; font-family: 'Josefin Sans', sans-serif; }
+    .ateliers-new-page .calendar-nav-btn:hover { background: rgba(91,42,181,0.3); }
+    .ateliers-new-page .article-content p, .ateliers-new-page .article-content li { color: rgba(255,255,255,0.9); }
+    .ateliers-new-page .article-content h2 { color: white; font-size: 1.75rem; margin-bottom: 0.25rem; }
+    .ateliers-new-page .article-content h3 { color: #7a6ac7; font-size: 1.25rem; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+    .ateliers-new-page .article-content a { color: #cf3594; text-decoration: underline; }
+    .ateliers-new-page .article-content a:hover { color: #e8a0c4; }
+    .ateliers-new-page .article-section { margin-bottom: 3rem; }
+    .ateliers-new-page .article-content img.article-image { width: 100%; max-width: 100%; height: auto; border-radius: 1rem; border: 1px solid rgba(255,255,255,0.15); }
+  </style>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="font-display text-white relative bg-deep-bg ateliers-new-page min-h-screen" id="ateliers-new-body">
+  <div class="bg-blur-image" aria-hidden="true"></div>
+  <div class="bg-textured-art"></div>
+  <div class="blob w-[600px] h-[600px] bg-primary top-[-10%] left-[-10%]"></div>
+  <div class="blob w-[500px] h-[500px] bg-accent bottom-[-10%] right-[-5%]"></div>
+  <div class="blob w-[400px] h-[400px] bg-primary-light top-[40%] right-[10%]"></div>
+
+  <header class="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-4">
+    <div class="max-w-7xl mx-auto flex items-center gap-16">
+      <a href="/" aria-label="Retour à l'accueil" class="shrink-0">
+        <img alt="Donner de la Voix" class="h-32 w-auto brightness-0 invert drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]" src="/assets/logo-ddlv.png"/>
+      </a>
+      <nav class="flex-1 flex items-center justify-center gap-6 lg:gap-10 glass-panel px-6 py-3 rounded-2xl min-w-0" aria-label="Navigation principale">
+        <a class="nav-item text-white text-sm font-medium tracking-widest uppercase whitespace-nowrap" href="/impro-vocale">L'impro vocale</a>
+        <a class="nav-item text-white text-sm font-medium tracking-widest uppercase whitespace-nowrap" href="/ateliers">Stages et ateliers</a>
+        <a class="nav-item text-white text-sm font-medium tracking-widest uppercase whitespace-nowrap" href="/offre-entreprise">Offre entreprise</a>
+        <a class="nav-item text-white text-sm font-medium tracking-widest uppercase whitespace-nowrap" href="/newsletter">Newsletter</a>
+      </nav>
+      <a href="/contact" class="shrink-0 text-white px-8 py-3 rounded-2xl font-bold text-xs uppercase tracking-[0.2em] border border-[#cf3594]/70 bg-[#cf3594]/60 hover:bg-[#cf3594]/80 backdrop-blur-sm">
+        Prendre RDV
+      </a>
+    </div>
+  </header>
+
+  <main class="pt-32 pb-24 px-4 md:px-8 max-w-5xl mx-auto" role="main">
+    <!-- Hero avec fond bg.jpg blur (comme page d'accueil) -->
+    <section class="relative min-h-[32vh] md:min-h-[38vh] flex flex-col justify-center overflow-hidden rounded-2xl mb-12 md:mb-16">
+      <div class="hero-blur-bg" aria-hidden="true"></div>
+      <div class="relative z-10 px-2">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white leading-tight">
+          <span class="block">Stages &amp;</span>
+          <span class="hero-gradient-word block">ateliers</span>
+        </h1>
+      </div>
+    </section>
+
+    <!-- Prochaines dates -->
+    <section id="calendrier" class="glass-panel rounded-2xl p-6 md:p-8 mb-12">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <div class="view-toggle-container">
+          <div class="view-toggle">
+            <button type="button" class="view-toggle-btn" aria-label="Basculer entre vue liste et calendrier">
+              <span class="view-toggle-part view-toggle-left active" data-view="list">vue liste</span>
+              <span class="view-toggle-part view-toggle-right" data-view="calendar">vue calendrier</span>
+            </button>
+          </div>
+        </div>
+        <h2 class="text-2xl font-bold text-white m-0">Les prochains stages &amp; ateliers</h2>
+      </div>
+      <div class="cards-grid workshops-list" id="workshops-list-view">
+        <!-- Rempli par JS (BilletWeb) -->
+      </div>
+      <div class="calendar-view" id="calendar-view" style="display: none;">
+        <div class="calendar-container">
+          <div class="calendar-month">
+            <div class="calendar-header flex justify-between items-center gap-4 mb-4">
+              <button type="button" class="calendar-nav-btn" id="prev-month" aria-label="Mois précédent"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+              <h2 class="calendar-month-title m-0" id="month-title">Mars 2024</h2>
+              <button type="button" class="calendar-nav-btn" id="next-month" aria-label="Mois suivant"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+            </div>
+            <div class="calendar-grid" id="calendar-grid"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formats d'ateliers (pas d'id formats-d-ateliers pour désactiver le toggle TOC) -->
+    <section id="formats-ateliers" class="space-y-16">
+      <h2 class="text-2xl font-bold text-white uppercase tracking-wide mb-8">Formats d'ateliers</h2>
+
+      <!-- Atelier Focus -->
+      <article class="article-section glass-panel rounded-2xl p-6 md:p-8" id="ateliers-focus">
+        <div class="article-content">
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="bg-primary/80 text-white px-3 py-1 rounded-full text-sm font-semibold">💜 TARIF LIBRE</span>
+            <span class="bg-accent/80 text-white px-3 py-1 rounded-full text-sm font-semibold">🎵 CIRCLESONGS</span>
+            <span class="bg-primary-light/80 text-white px-3 py-1 rounded-full text-sm font-semibold">👥 PETIT GROUPE</span>
+            <span class="text-white px-3 py-1 rounded-full text-sm font-semibold border border-white/30">📍 TOULOUSE</span>
+          </div>
+          <h2 class="text-2xl font-bold text-white mb-1">Atelier – Focus</h2>
+          <p class="text-white/80 text-lg mb-6">Improvisation vocale mensuelle</p>
+          <img src="/assets/atelierfocus.png" alt="Ateliers focus d'improvisation vocale à Toulouse" class="article-image rounded-2xl border border-white/20 w-full mb-6"/>
+          <p class="mb-4">Un <strong>atelier mensuel d'improvisation vocale à Toulouse</strong>, tous les deuxièmes mardis du mois. Plongez dans l'univers des <strong>circlesongs</strong> et de la <strong>co-improvisation</strong> dans une ambiance chaleureuse et ludique.</p>
+          <p class="mb-6"><strong>L'impro vocale</strong> mois après mois : chaque séance explore un ou deux aspects spécifiques du <strong>chant improvisé</strong> pour enrichir votre pratique et développer votre créativité vocale.</p>
+          <h3 class="text-primary-light text-xl font-semibold mt-8 mb-3">Au programme</h3>
+          <p class="mb-2">À chaque atelier d'<strong>improvisation vocale</strong>, nous explorons 1 à 2 thématiques parmi :</p>
+          <ul class="list-disc pl-6 space-y-1 mb-6 text-white/90">
+            <li><strong>Musicalité</strong> : cohésion, harmonie, rythmique, polyphonie dans les <strong>circlesongs</strong></li>
+            <li><strong>Expression</strong> : présence, créativité, connexion au groupe</li>
+            <li><strong>Jeu vocal</strong> : textures sonores, exploration de timbres, contrastes dynamiques</li>
+            <li><strong>Écoute active</strong> : interaction, complémentarité</li>
+            <li><strong>Solo et collectif</strong> : trouver sa place, oser, soutenir</li>
+          </ul>
+          <p class="mb-6">Et bien d'autres aspects pour varier les approches et s'amuser ensemble !</p>
+          <div class="glass-premium rounded-xl p-6 my-8 border border-white/20">
+            <h3 class="text-primary-light text-xl font-semibold mb-4">L'esprit des ateliers d'impro vocale</h3>
+            <div class="space-y-3">
+              <div class="flex gap-3"><span class="text-accent text-xl">✓</span><span><strong>Cadre bienveillant</strong> – Exploration sans jugement, où chaque voix a sa place</span></div>
+              <div class="flex gap-3"><span class="text-accent text-xl">✓</span><span><strong>Approche ludique</strong> – Le plaisir avant la performance</span></div>
+              <div class="flex gap-3"><span class="text-accent text-xl">✓</span><span><strong>Liberté d'expérimentation</strong> – Un espace pour tester, se tromper, progresser</span></div>
+              <div class="flex gap-3"><span class="text-accent text-xl">✓</span><span><strong>Petit groupe</strong> – Max. 10 personnes pour favoriser l'écoute et la connexion</span></div>
+            </div>
+          </div>
+          <div class="rounded-xl p-6 my-8 bg-white/5 border-l-4 border-primary">
+            <h3 class="text-primary-light font-semibold mb-2">Prérequis</h3>
+            <p>Pour profiter pleinement de cet atelier d'<strong>improvisation vocale</strong>, il est nécessaire de <strong>savoir tenir une pulsation stable</strong> et de <strong>pouvoir reproduire une mélodie donnée à l'identique</strong>.</p>
+          </div>
+          <div class="glass-panel rounded-xl p-6 my-8">
+            <h3 class="text-primary-light text-center font-semibold mb-4">Informations pratiques</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="flex gap-3"><span class="text-primary-light shrink-0">📅</span><div><strong class="text-primary-light block mb-1">Quand ?</strong><span>Tous les 2èmes mardis du mois</span></div></div>
+              <div class="flex gap-3"><span class="text-primary-light shrink-0">⏰</span><div><strong class="text-primary-light block mb-1">Durée</strong><span>3 heures (19h – 22h)</span></div></div>
+              <div class="flex gap-3"><span class="text-primary-light shrink-0">📍</span><div><strong class="text-primary-light block mb-1">Où ?</strong><span>Quartier Minimes, Toulouse</span></div></div>
+              <div class="flex gap-3"><span class="text-primary-light shrink-0">👥</span><div><strong class="text-primary-light block mb-1">Groupe</strong><span>Max. 10 personnes</span></div></div>
+            </div>
+          </div>
+          <div class="glass-panel rounded-xl p-6 my-8 text-center">
+            <h3 class="text-primary-light font-semibold text-xl mb-4">Tarif libre et conscient</h3>
+            <p class="mb-6 text-white/90">Choisissez le montant selon vos moyens et la valeur que vous donnez à l'atelier</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
+              <div class="bg-white/10 rounded-xl p-4 border border-white/20"><div class="text-2xl font-bold text-primary">15 €</div><div class="text-sm text-white/70">Tarif minimum</div></div>
+              <div class="bg-primary/20 rounded-xl p-4 border-2 border-primary"><div class="text-xs font-bold text-white mb-1">RECOMMANDÉ</div><div class="text-2xl font-bold text-primary">20 €</div><div class="text-sm text-white/70">Couvre frais et préparation</div></div>
+              <div class="bg-white/10 rounded-xl p-4 border border-accent/50"><div class="text-2xl font-bold text-accent">25 €+</div><div class="text-sm text-white/70">Soutien</div></div>
+            </div>
+          </div>
+          <div class="rounded-xl p-6 my-8 bg-white/5 border border-dashed border-white/30">
+            <h3 class="text-primary-light font-semibold mb-2">Inscriptions</h3>
+            <p class="mb-4">L'inscription se fait via la <a href="https://www.billetweb.fr/pro/donnerdelavoix" target="_blank" rel="noopener noreferrer" class="text-accent underline font-semibold">billetterie BilletWeb</a>, paiement sur place.</p>
+            <p class="text-sm text-white/80">En cas d'annulation, merci de prévenir le plus tôt possible.</p>
+          </div>
+          <div class="rounded-xl p-6 my-8 border border-white/20 text-center">
+            <h3 class="text-white font-semibold text-xl mb-2">Prêt.e à rejoindre l'aventure ?</h3>
+            <p class="italic text-white/80 mb-6">Il me tarde de chanter avec vous !</p>
+            <div class="flex flex-wrap justify-center gap-4">
+              <a href="#calendrier" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold bg-accent/70 border border-accent hover:bg-accent/90 text-white">Voir les prochaines dates</a>
+              <a href="/contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold border border-white/30 bg-white/10 hover:bg-white/20 text-white">Une question ?</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Stage – L'art des circle songs -->
+      <article class="article-section glass-panel rounded-2xl p-6 md:p-8" id="art-circle-songs">
+        <div class="article-content">
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="bg-primary/80 text-white px-3 py-1 rounded-full text-sm font-semibold">💜 TARIF LIBRE</span>
+            <span class="bg-accent/80 text-white px-3 py-1 rounded-full text-sm font-semibold">🎵 CIRCLESONGS</span>
+            <span class="bg-primary-light/80 text-white px-3 py-1 rounded-full text-sm font-semibold">📚 FORMATION</span>
+            <span class="text-white px-3 py-1 rounded-full text-sm font-semibold border border-white/30">📍 TOULOUSE</span>
+          </div>
+          <h2 class="text-2xl font-bold text-white mb-1">Stage – L'art des circle songs</h2>
+          <p class="text-white/80 text-lg mb-6">Journée immersive de circlesongs</p>
+          <img src="/assets/artdescirclesongs.png" alt="Formation art des circlesongs à Toulouse" class="article-image rounded-2xl border border-white/20 w-full mb-6"/>
+          <p class="mb-4">Une <strong>journée immersive d'improvisation vocale à Toulouse</strong> pour maîtriser l'art des <strong>circlesongs</strong>. Les <strong>circlesongs</strong> sont une pratique de <strong>chant en groupe a capella</strong> où nous créons ensemble des <strong>polyphonies improvisées</strong> guidées par un.e conducteur.rice.</p>
+          <p class="mb-6">Cette pratique d'<strong>improvisation vocale</strong> permet de s'initier au <strong>chant polyphonique</strong>, de développer l'écoute, le sens du rythme et l'oreille musicale dans un cadre collectif et bienveillant.</p>
+          <h3 class="text-primary-light text-xl font-semibold mt-8 mb-3">Objectifs de la journée</h3>
+          <ul class="list-disc pl-6 space-y-1 mb-6 text-white/90">
+            <li><strong>Créer des circlesongs de A à Z</strong> – Apprendre à construire et guider une improvisation vocale collective</li>
+            <li><strong>Développer votre assurance</strong> – Gagner en confiance dans votre créativité et votre direction</li>
+            <li><strong>Affiner votre écoute</strong> – Développer votre perception harmonique et rythmique</li>
+            <li><strong>Explorer les gestes de direction</strong> – Découvrir les langages gestuels en improvisation vocale, inspirés du vocal painting</li>
+            <li><strong>Se faire plaisir !</strong> – Partager la joie du chant improvisé en groupe</li>
+          </ul>
+          <div class="glass-premium rounded-xl p-6 my-8">
+            <h3 class="text-primary-light font-semibold mb-2">👥 Pour qui ?</h3>
+            <p><strong>Ouvert à tous.tes</strong> – 10 participant.es maximum</p>
+          </div>
+          <div class="glass-panel rounded-xl p-6 my-8">
+            <h3 class="text-primary-light text-center font-semibold mb-4">Informations pratiques</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="flex gap-3"><span>📅</span><div><strong class="text-primary-light block mb-1">Format</strong><span>Journée complète</span></div></div>
+              <div class="flex gap-3"><span>⏰</span><div><strong class="text-primary-light block mb-1">Horaires</strong><span>10h – 18h</span></div></div>
+              <div class="flex gap-3"><span>📍</span><div><strong class="text-primary-light block mb-1">Où ?</strong><span>Lieu communiqué à l'inscription (généralement Atelier des Chalets, Toulouse)</span></div></div>
+              <div class="flex gap-3"><span>👥</span><div><strong class="text-primary-light block mb-1">Groupe</strong><span>Max. 10 personnes</span></div></div>
+            </div>
+          </div>
+          <div class="glass-panel rounded-xl p-6 my-8 text-center">
+            <h3 class="text-primary-light font-semibold text-xl mb-4">Tarif libre et conscient</h3>
+            <p class="mb-6 text-white/90">Choisissez le montant selon vos moyens et la valeur que vous donnez à cet atelier</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
+              <div class="bg-white/10 rounded-xl p-4 border border-white/20"><div class="text-2xl font-bold text-primary">50 €</div><div class="text-sm text-white/70">Couvre préparation et communication</div></div>
+              <div class="bg-primary/20 rounded-xl p-4 border-2 border-primary"><div class="text-xs font-bold text-white mb-1">RECOMMANDÉ</div><div class="text-2xl font-bold text-primary">70 €</div><div class="text-sm text-white/70">Tarif de base viable</div></div>
+              <div class="bg-white/10 rounded-xl p-4 border border-accent/50"><div class="text-2xl font-bold text-accent">80 €+</div><div class="text-sm text-white/70">Soutien</div></div>
+            </div>
+          </div>
+          <div class="rounded-xl p-6 my-8 border border-white/20 text-center">
+            <h3 class="text-white font-semibold text-xl mb-2">Plongez dans l'univers des circlesongs</h3>
+            <div class="flex flex-wrap justify-center gap-4 mt-4">
+              <a href="#calendrier" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold bg-accent/70 border border-accent hover:bg-accent/90 text-white">Voir les prochaines dates</a>
+              <a href="/contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold border border-white/30 bg-white/10 hover:bg-white/20 text-white">Une question ?</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <p class="text-center text-white/70 py-6">
+        <a href="/ateliers" class="text-accent underline font-medium">Voir les autres formats (Circlesong immersif, Chant pour tous, Poésie, Gestuelle, Flashmob, Coaching, FAQ) sur la page ateliers</a>
+      </p>
+    </section>
+  </main>
+
+  <div class="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-5">
+    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all" href="/contact" title="Contact"><svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>
+    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-accent transition-all" href="https://www.instagram.com/donnerdelavoixchant/" target="_blank" rel="noopener noreferrer" title="Instagram"><svg class="size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059 1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg></a>
+    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-primary transition-all" href="https://www.facebook.com/donnerdelavoix" target="_blank" rel="noopener noreferrer" title="Facebook"><svg class="size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg></a>
+  </div>
+  <div class="fixed bottom-6 left-8 z-50">
+    <a class="text-[10px] text-white/30 hover:text-white/70 uppercase tracking-widest font-medium" href="/mentions-legales">Mentions Légales</a>
+  </div>
+
+  <script src="/env-config.js"></script>
+  <script src="/secrets.local.js"></script>
+  <script src="/billetweb-config.js"></script>
+  <script type="module" src="/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+      document.querySelectorAll('a[href="#calendrier"]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+          e.preventDefault();
+          document.getElementById('calendrier').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
