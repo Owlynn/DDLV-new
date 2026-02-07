@@ -12,6 +12,7 @@ const ROOT = path.join(__dirname, '..');
 const REWRITES = {
   '/impro-vocale': '/pages/impro-vocale.html',
   '/ateliers': '/pages/ateliers.html',
+  '/ateliers-new': '/pages/ateliers-new.html',
   '/cours-chant': '/pages/cours-chant.html',
   '/about': '/pages/about.html',
   '/contact': '/pages/contact.html',

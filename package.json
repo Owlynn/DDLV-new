@@ -4,7 +4,7 @@
   "description": "Site statique Donner de la Voix",
   "scripts": {
     "dev": "node scripts/serve-with-rewrites.js",
-    "serve": "npx http-server . -p 3000",
+    "serve": "node scripts/serve-with-rewrites.js",
     "start": "node scripts/serve-with-rewrites.js",
     "build": "node scripts/generate-env-config.js"
   },

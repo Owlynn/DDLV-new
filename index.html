@@ -21,6 +21,7 @@
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"/>
   <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -48,6 +49,15 @@
                     0 8px 32px 0 rgba(0, 0, 0, 0.3),
                     inset 0 0 2px 1px rgba(255, 255, 255, 0.15),
                     0 0 15px rgba(255, 255, 255, 0.05);
+            }
+            .glass-panel-rose {
+                @apply backdrop-blur-[25px] border;
+                background-color: rgba(255, 250, 252, 0.11);
+                border-color: rgba(255, 240, 245, 0.28);
+                box-shadow:
+                    0 8px 32px 0 rgba(0, 0, 0, 0.28),
+                    inset 0 0 2px 1px rgba(255, 250, 252, 0.2),
+                    0 0 15px rgba(255, 245, 250, 0.04);
             }
             .glass-premium {
                 @apply backdrop-blur-[25px] bg-white/5 border border-white/30;
@@ -81,25 +91,32 @@
                 transform: scale(1.05);
             }
             .bg-textured-art {
-                background-color: rgba(13, 2, 24, 0.18);
+                background-color: rgba(30, 15, 50, 0.08);
                 background-image:
-                    radial-gradient(circle at 10% 20%, rgba(91, 42, 181, 0.55) 0%, transparent 58%),
-                    radial-gradient(circle at 90% 10%, rgba(207, 53, 148, 0.5) 0%, transparent 58%),
-                    radial-gradient(circle at 50% 50%, rgba(122, 106, 199, 0.45) 0%, transparent 65%);
+                    radial-gradient(ellipse 120% 100% at 0% 50%, rgba(255, 255, 255, 0.07) 0%, transparent 50%),
+                    radial-gradient(circle at 10% 20%, rgba(91, 42, 181, 0.35) 0%, transparent 55%),
+                    radial-gradient(circle at 90% 10%, rgba(207, 53, 148, 0.3) 0%, transparent 55%),
+                    radial-gradient(circle at 50% 50%, rgba(122, 106, 199, 0.28) 0%, transparent 60%);
                 position: fixed;
                 inset: 0;
                 z-index: -2;
             }
             .hero-gradient-word {
-                @apply text-transparent bg-clip-text bg-gradient-to-r from-accent via-white to-primary;
+                @apply text-transparent bg-clip-text;
+                background-image: linear-gradient(to right, #b83d7a 0%, #9849a8 30%, #6b5fa8 65%, #4db8aa 100%);
+                -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+                text-stroke: 1px rgba(255, 255, 255, 0.5);
             }
             .hero-rotating-track {
                 overflow: hidden;
-                height: 12rem;
-                min-height: 12rem;
+                height: 17rem;
+                min-height: 17rem;
             }
             @media (min-width: 768px) {
-                .hero-rotating-track { height: 15rem; min-height: 15rem; }
+                .hero-rotating-track { height: 22rem; min-height: 22rem; }
+            }
+            @media (min-width: 1024px) {
+                .hero-rotating-track { height: 28rem; min-height: 28rem; }
             }
             .hero-rotating-slide {
                 transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), top 0.55s cubic-bezier(0.4, 0, 0.2, 1);
@@ -136,10 +153,81 @@
                 height: 2px;
                 background: #cf3594;
                 transition: width .3s;
-                @apply shadow-[0_0_10px_#cf3594];
+                box-shadow: 0 0 10px #cf3594;
             }
             .nav-item:hover::after {
                 width: 100%;
+            }
+            .bento-zone {
+                display: flex;
+                flex-wrap: wrap;
+                align-content: flex-start;
+                gap: 0.75rem 0;
+                justify-content: space-between;
+                row-gap: 1rem;
+            }
+            .bento-zone .bento-small {
+                min-width: 0;
+            }
+            .bento-zone .bento-small:nth-child(1) {
+                width: 46%;
+                margin-right: 0.25rem;
+            }
+            .bento-zone .bento-small:nth-child(2) {
+                width: 48%;
+                margin-left: auto;
+                margin-top: 1.25rem;
+            }
+            .bento-zone .bento-small:nth-child(3) {
+                width: 48%;
+                margin-right: 0.5rem;
+                margin-top: 0.5rem;
+            }
+            .bento-zone .bento-small:nth-child(4) {
+                width: 46%;
+                margin-left: auto;
+                margin-top: 1rem;
+            }
+            .bento-zone .bento-large {
+                width: 97%;
+                margin-top: 1rem;
+                margin-left: 2%;
+            }
+            .bento-zone .bento-small,
+            .bento-zone .bento-large {
+                transition: transform 0.3s ease-out;
+            }
+            .bento-zone .bento-small:nth-child(1):hover { transform: rotate(-2deg) translateY(-2px); }
+            .bento-zone .bento-small:nth-child(2):hover { transform: rotate(1.5deg) translateY(-2px); }
+            .bento-zone .bento-small:nth-child(3):hover { transform: rotate(2deg) translateY(-2px); }
+            .bento-zone .bento-small:nth-child(4):hover { transform: rotate(-1.5deg) translateY(-2px); }
+            .bento-zone .bento-large:hover { transform: rotate(0.5deg); }
+            #calendly-popup-home {
+                position: fixed; inset: 0; z-index: 10000;
+                display: none; align-items: center; justify-content: center;
+                padding: 1.5rem; box-sizing: border-box;
+            }
+            #calendly-popup-home .calendly-popup-overlay {
+                position: absolute; inset: 0;
+                background: rgba(0,0,0,0.5);
+                backdrop-filter: blur(8px);
+            }
+            #calendly-popup-home .calendly-popup-content-wrapper {
+                position: relative; width: 90%; max-width: 800px; max-height: 90vh;
+                border-radius: 1rem; overflow: hidden; z-index: 10001;
+                background: rgba(255,255,255,0.95);
+                border: 1px solid rgba(255,255,255,0.3);
+                box-shadow: 0 20px 60px rgba(91,42,181,0.25);
+            }
+            #calendly-popup-home .calendly-popup-close-btn {
+                position: absolute; top: 0.75rem; right: 0.75rem; z-index: 10002;
+                width: 2.5rem; height: 2.5rem; border-radius: 50%;
+                background: linear-gradient(135deg, #5b2ab5, #cf3594);
+                color: white; border: none; font-size: 1.5rem; line-height: 1;
+                cursor: pointer; display: flex; align-items: center; justify-content: center;
+            }
+            #calendly-popup-home .calendly-inline-widget {
+                min-width: 320px; height: 700px;
             }
         }
     </style>
@@ -152,94 +240,93 @@
   <div class="blob w-[400px] h-[400px] bg-primary-light top-[40%] right-[10%]"></div>
   <div class="blob w-[300px] h-[300px] bg-primary bottom-[20%] left-[20%]"></div>
 
-  <header class="fixed top-0 left-0 right-0 z-50 px-8 py-8">
-    <nav class="max-w-7xl mx-auto flex items-center justify-between">
-      <div class="flex items-center gap-8">
-        <a href="/" aria-label="Retour à l'accueil - Donner de la Voix">
-          <img alt="Donner de la Voix Logo" class="h-32 w-auto brightness-0 invert drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]" src="/assets/logo-ddlv.png"/>
-        </a>
-      </div>
-      <div class="hidden lg:flex items-center gap-12 glass-panel px-12 py-4 rounded-full">
-        <a class="nav-item text-white hover:text-accent text-sm font-medium transition-colors tracking-widest uppercase" href="/">Accueil</a>
-        <a class="nav-item text-white hover:text-accent text-sm font-medium transition-colors tracking-widest uppercase" href="/ateliers">Cours</a>
-        <a class="nav-item text-white hover:text-accent text-sm font-medium transition-colors tracking-widest uppercase" href="/offre-entreprise">Entreprise</a>
-        <a class="nav-item text-white hover:text-accent text-sm font-medium transition-colors tracking-widest uppercase" href="/about">Pédagogie</a>
-      </div>
-      <a href="/contact" class="bg-primary/40 backdrop-blur-xl text-white px-10 py-4 rounded-full font-bold text-xs hover:bg-primary/70 transition-all border border-white/30 shadow-[0_0_25px_rgba(91,42,181,0.4)] uppercase tracking-[0.2em]">
+  <header class="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-4">
+    <div class="max-w-7xl mx-auto flex items-center gap-16">
+      <a href="/" aria-label="Retour à l'accueil - Donner de la Voix" class="shrink-0">
+        <img alt="Donner de la Voix Logo" class="h-32 w-auto brightness-0 invert drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]" src="/assets/logo-ddlv.png"/>
+      </a>
+      <nav class="flex-1 flex items-center justify-center gap-6 lg:gap-10 glass-panel px-6 py-3 rounded-2xl min-w-0" aria-label="Navigation principale">
+        <a class="nav-item text-white text-sm font-medium transition-colors tracking-widest uppercase whitespace-nowrap" href="/">Accueil</a>
+        <a class="nav-item text-white text-sm font-medium transition-colors tracking-widest uppercase whitespace-nowrap" href="/impro-vocale">L'impro vocale</a>
+        <a class="nav-item text-white text-sm font-medium transition-colors tracking-widest uppercase whitespace-nowrap" href="/ateliers-new">Stages et ateliers</a>
+        <a class="nav-item text-white text-sm font-medium transition-colors tracking-widest uppercase whitespace-nowrap" href="/offre-entreprise">Offre entreprise</a>
+        <a class="nav-item text-white text-sm font-medium transition-colors tracking-widest uppercase whitespace-nowrap" href="/newsletter">Newsletter</a>
+      </nav>
+      <a href="/contact" class="shrink-0 text-white px-8 py-3 rounded-2xl font-bold text-xs uppercase tracking-[0.2em] transition-all border border-[#cf3594]/70 bg-[#cf3594]/60 hover:bg-[#cf3594]/80 backdrop-blur-sm shadow-[0_4px_20px_rgba(207,53,148,0.3)]">
         Prendre RDV
       </a>
-    </nav>
+    </div>
   </header>
 
-  <main class="flex-1 min-h-0 flex items-center justify-center px-8 pt-28 pb-6">
-    <div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center h-full">
+  <main class="flex-1 min-h-0 flex items-center justify-center px-6 md:px-8 pt-24 pb-6 md:pt-28 overflow-auto">
+    <div class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-0">
+      <!-- Colonne gauche : titre défilant -->
       <div class="lg:col-span-5 flex flex-col gap-6">
-        <div class="flex flex-col gap-4">
           <div class="hero-rotating-track relative" aria-live="polite">
-            <h1 class="hero-rotating-title text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tighter text-white drop-shadow-2xl h-full min-h-[12rem] md:min-h-[15rem] relative block">
+            <h1 class="hero-rotating-title text-6xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tighter text-white drop-shadow-2xl h-full min-h-[17rem] md:min-h-[22rem] lg:min-h-[28rem] relative block">
               <div id="hero-slide-1" class="hero-rotating-slide slide-in absolute left-0 right-0 top-0"></div>
               <div id="hero-slide-2" class="hero-rotating-slide slide-wait absolute left-0 right-0 top-0"></div>
             </h1>
           </div>
-          <p class="text-xl text-white/90 max-w-lg leading-snug font-light">
-            Venez découvrir et développer votre créativité avec votre voix — une approche de la musique ouverte à tous.
-          </p>
         </div>
-      </div>
-      <div class="lg:col-span-7 grid grid-cols-2 gap-4">
-        <a class="glass-premium glass-violet-glow group p-6 rounded-2xl flex flex-col gap-4 hover:-translate-y-1 transition-all duration-500" href="/impro-vocale">
+        <!-- Colonne droite : bentos -->
+        <div class="lg:col-span-7 flex flex-col gap-6">
+        <div class="bento-zone">
+        <a class="bento-small glass-panel-rose group p-6 rounded-2xl flex flex-col gap-4" href="/impro-vocale">
           <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-primary/30 transition-colors">
             <span class="material-symbols-outlined text-3xl">lyrics</span>
           </div>
           <div>
             <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">L'impro vocale</h3>
-            <p class="text-xs text-white/70 leading-snug font-light">Cultiver la présence et l'expression spontanée en groupe.</p>
+            <p class="text-base text-white/90 leading-snug font-light">Présence et expression en groupe.</p>
           </div>
         </a>
-        <a class="glass-premium glass-violet-glow group p-6 rounded-2xl flex flex-col gap-4 hover:-translate-y-1 transition-all duration-500" href="/ateliers">
+        <a class="bento-small glass-panel-rose group p-6 rounded-2xl flex flex-col gap-4" href="/ateliers-new">
           <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-white/10 transition-colors">
             <span class="material-symbols-outlined text-3xl">calendar_month</span>
           </div>
           <div>
-            <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">Stages</h3>
-            <p class="text-xs text-white/70 leading-snug font-light">Des parenthèses suspendues pour approfondir votre voyage vocal.</p>
+            <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">Stages & Ateliers</h3>
+            <p class="text-base text-white/90 leading-snug font-light">Stages pour approfondir le chant.</p>
           </div>
         </a>
-        <a class="glass-premium glass-violet-glow group p-6 rounded-2xl flex flex-col gap-4 hover:-translate-y-1 transition-all duration-500" href="/cours-chant">
+        <a class="bento-small glass-panel-rose group p-6 rounded-2xl flex flex-col gap-4" href="/cours-chant">
           <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-white/10 transition-colors">
             <span class="material-symbols-outlined text-3xl">mic_external_on</span>
           </div>
           <div>
-            <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">Cours Chant</h3>
-            <p class="text-xs text-white/70 leading-snug font-light">Accompagnement personnalisé pour libérer votre timbre unique.</p>
+            <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">Cours de chant</h3>
+            <p class="text-base text-white/90 leading-snug font-light">Voix et chant personnalisés.</p>
           </div>
         </a>
-        <a class="glass-premium glass-violet-glow group p-6 rounded-2xl flex flex-col gap-4 hover:-translate-y-1 transition-all duration-500" href="/offre-entreprise">
+        <a class="bento-small glass-panel-rose group p-6 rounded-2xl flex flex-col gap-4" href="/offre-entreprise">
           <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-accent/30 transition-colors">
             <span class="material-symbols-outlined text-3xl">corporate_fare</span>
           </div>
           <div>
-            <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">Entreprise</h3>
-            <p class="text-xs text-white/70 leading-snug font-light">Développer l'écoute et la cohésion par l'harmonie collective.</p>
+            <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">Offre entreprise</h3>
+            <p class="text-base text-white/90 leading-snug font-light">Écoute et cohésion en équipe.</p>
           </div>
         </a>
-        <a class="col-span-2 glass-premium glass-violet-glow group p-6 rounded-2xl flex flex-col gap-4 hover:bg-white/10 transition-all duration-500 sm:flex-row sm:items-center" href="/about">
+        <a class="bento-large glass-panel-rose group p-6 rounded-2xl flex flex-col gap-4 hover:bg-white/10 sm:flex-row sm:items-center" href="/about">
           <div class="size-14 shrink-0 rounded-full bg-primary/20 flex items-center justify-center border border-white/30 shadow-[0_0_30px_rgba(91,42,181,0.3)] group-hover:scale-105 transition-transform">
             <span class="material-symbols-outlined text-4xl text-white">psychology</span>
           </div>
           <div class="flex flex-col gap-0.5 flex-1">
             <h3 class="text-2xl font-bold text-white uppercase tracking-tight">La Pédagogue</h3>
-            <p class="text-sm text-white/80 leading-snug font-light italic">Une approche sensitive centrée sur la transmission et le pouvoir du chant.</p>
+            <p class="text-base text-white/90 leading-snug font-light italic">Transmission et pouvoir du chant.</p>
           </div>
           <div class="size-12 glass-panel rounded-full flex items-center justify-center group-hover:translate-x-2 transition-transform bg-white/10 shrink-0">
             <span class="material-symbols-outlined text-white text-2xl">arrow_forward</span>
           </div>
         </a>
+        </div>
+        </div>
       </div>
     </div>
   </main>
 
-  <div class="fixed bottom-12 right-12 z-50 flex flex-col gap-5">
+  <div class="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-5">
     <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-white/20 hover:border-white/40 transition-all shadow-2xl hover:scale-110" href="/contact" title="Contact">
       <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
     </a>
@@ -251,7 +338,7 @@
     </a>
   </div>
 
-  <div class="fixed bottom-6 right-12 z-50">
+  <div class="fixed bottom-6 left-8 z-50">
     <a class="text-[10px] text-white/30 hover:text-white/70 transition-colors uppercase tracking-[0.5em] font-medium" href="/mentions-legales">Mentions Légales</a>
   </div>
 
@@ -315,6 +402,34 @@
 
       setInterval(next, 4500);
     })();
+  </script>
+  <div id="calendly-popup-home" aria-hidden="true">
+    <div class="calendly-popup-overlay" id="calendly-popup-overlay-home"></div>
+    <div class="calendly-popup-content-wrapper">
+      <button type="button" class="calendly-popup-close-btn" id="calendly-popup-close-home" aria-label="Fermer">×</button>
+      <div class="calendly-inline-widget" data-url="https://calendly.com/contactdonnerdelavoix/30min" style="min-width:320px;height:700px;"></div>
+    </div>
+  </div>
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var trigger = document.getElementById('calendly-trigger-rdv');
+      var popup = document.getElementById('calendly-popup-home');
+      var closeBtn = document.getElementById('calendly-popup-close-home');
+      var overlay = document.getElementById('calendly-popup-overlay-home');
+      function openCalendly() {
+        if (popup) { popup.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+      }
+      function closeCalendly() {
+        if (popup) { popup.style.display = 'none'; document.body.style.overflow = ''; }
+      }
+      if (trigger) trigger.addEventListener('click', openCalendly);
+      if (closeBtn) closeBtn.addEventListener('click', closeCalendly);
+      if (overlay) overlay.addEventListener('click', closeCalendly);
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && popup && popup.style.display === 'flex') closeCalendly();
+      });
+    });
   </script>
 </body>
 </html>
