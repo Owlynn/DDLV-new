@@ -61,8 +61,12 @@
         position: fixed; inset: 0; z-index: -2;
       }
       .blob { position: fixed; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.6; }
+      .nav-item { position: relative; }
       .nav-item::after {
         content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
         display: block;
         width: 0;
         height: 2px;
@@ -209,6 +213,16 @@
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof lucide !== 'undefined') lucide.createIcons();
     });
+  </script>
+  <div id="floating-rdv-container"></div>
+  <script>
+    (function() {
+      var el = document.getElementById('floating-rdv-container');
+      if (!el) return;
+      fetch('/partials/floating-rdv.html').then(function(r) { return r.ok ? r.text() : Promise.reject(); })
+        .then(function(html) { el.innerHTML = html; })
+        .catch(function() {});
+    })();
   </script>
 </body>
 </html>

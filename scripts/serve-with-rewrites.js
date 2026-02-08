@@ -24,6 +24,7 @@ const REWRITES = {
   '/offre-entreprise': '/pages/offre-entreprise.html',
   '/offre-entreprise-new': '/pages/offre-entreprise-new.html',
   '/mentions-legales': '/pages/mentions-legales.html',
+  '/espace-eleve-new': '/pages/espace-eleve-new.html',
 };
 
 const MIME = {

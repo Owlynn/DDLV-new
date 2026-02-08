@@ -4,18 +4,18 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <base href="/">
-  <title>Donner de la Voix - Improvisation vocale &amp; Circlesongs</title>
-  <meta name="description" content="Cours d'improvisation vocale, circlesongs, technique vocale et coach vocal à Toulouse et ailleurs. Ateliers d'impro vocale, circle song, vocal painting. Cours de chant individuels et en groupe. Donner de la Voix.">
-  <meta name="keywords" content="improvisation vocale, impro vocale, circle song, circlesong, circlesongs, cours de chant, technique vocale, coach vocal, vocal painting, improvisation vocale toulouse, impro vocale toulouse">
-  <meta property="og:title" content="Improvisation vocale & Circlesongs à Toulouse et ailleurs | Donner de la Voix">
-  <meta property="og:description" content="Cours d'improvisation vocale, circlesongs, technique vocale et coach vocal à Toulouse et ailleurs. Ateliers d'impro vocale, circle song, vocal painting.">
+  <title>Donner de la Voix - Circle song &amp; Circlesongs | Improvisation vocale</title>
+  <meta name="description" content="Circle song et circlesongs à Toulouse : ateliers d'improvisation vocale, technique vocale, coach vocal. Impro vocale, circle song, circlesongs, vocal painting. Cours de chant individuels et en groupe. Donner de la Voix.">
+  <meta name="keywords" content="circle song, circlesong, circlesongs, improvisation vocale, impro vocale, cours de chant, technique vocale, coach vocal, vocal painting, circle song toulouse, circlesongs toulouse, improvisation vocale toulouse, impro vocale toulouse">
+  <meta property="og:title" content="Circle song & Circlesongs à Toulouse | Improvisation vocale | Donner de la Voix">
+  <meta property="og:description" content="Circle song et circlesongs : ateliers d'improvisation vocale, technique vocale et coach vocal à Toulouse. Impro vocale, vocal painting. Donner de la Voix.">
   <meta property="og:url" content="https://donnerdelavoix.fr">
-  <meta property="og:site_name" content="Donner de la Voix - Impro vocale & Circlesongs">
+  <meta property="og:site_name" content="Donner de la Voix - Circle song & Circlesongs">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Improvisation vocale & Circlesongs à Toulouse et ailleurs">
-  <meta name="twitter:description" content="Cours d'improvisation vocale, circlesongs, technique vocale et coach vocal à Toulouse et ailleurs.">
+  <meta name="twitter:title" content="Circle song & Circlesongs à Toulouse | Donner de la Voix">
+  <meta name="twitter:description" content="Circle song et circlesongs : improvisation vocale, technique vocale et coach vocal à Toulouse. Donner de la Voix.">
   <link rel="canonical" href="https://donnerdelavoix.fr">
   <link rel="icon" type="image/png" href="/assets/logo-ddlv.png">
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -59,6 +59,10 @@
                     0 8px 32px 0 rgba(0, 0, 0, 0.28),
                     inset 0 0 2px 1px rgba(255, 250, 252, 0.2),
                     0 0 15px rgba(255, 245, 250, 0.04);
+            }
+            /* Bento rectangles : style glass comme page impro vocale */
+            .bento-zone .bento-small.glass-panel-rose {
+                box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.28), inset 0 0 2px 1px rgba(255, 250, 252, 0.2), 0 0 15px rgba(255, 245, 250, 0.04);
             }
             .glass-premium {
                 @apply backdrop-blur-[25px] bg-white/5 border border-white/30;
@@ -115,14 +119,42 @@
                 .hero-rotating-track { height: 17rem; min-height: 17rem; }
             }
             @media (min-width: 768px) {
-                .hero-rotating-track { height: 22rem; min-height: 22rem; }
+                .hero-rotating-track { height: 20rem; min-height: 20rem; }
             }
             @media (min-width: 1024px) {
-                .hero-rotating-track { height: 28rem; min-height: 28rem; }
+                .hero-rotating-track { height: 24rem; min-height: 24rem; }
+            }
+            /* Titre défilant 1.1× plus gros */
+            .hero-rotating-title {
+                font-size: 3.3rem;
+            }
+            @media (min-width: 640px) {
+                .hero-rotating-title { font-size: 4.125rem; }
+            }
+            @media (min-width: 1024px) {
+                .hero-rotating-title { font-size: 4.95rem; }
+            }
+            @media (min-width: 1280px) {
+                .hero-rotating-title { font-size: 6.6rem; }
             }
             .hero-rotating-slide {
                 transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), top 0.55s cubic-bezier(0.4, 0, 0.2, 1);
                 will-change: transform, top;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+                gap: 0;
+                height: 100%;
+                min-height: 100%;
+            }
+            .hero-line-1 {
+                display: block;
+                white-space: nowrap;
+            }
+            .hero-line-2 {
+                display: block;
+                margin-top: 0.12em;
             }
             .hero-rotating-slide.slide-out {
                 transform: translateY(-100%);
@@ -161,8 +193,60 @@
                 .blob.w-\[400px\] { width: 120px !important; height: 120px !important; }
                 .blob.w-\[300px\] { width: 100px !important; height: 100px !important; }
             }
+            /* Bulles décoratives : se déplacent partout sur l'écran */
+            #bubbles-deco {
+                position: fixed;
+                inset: 0;
+                z-index: 0;
+                pointer-events: none;
+                overflow: hidden;
+            }
+            .bubble-deco {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                will-change: transform;
+            }
+            /* Bulles décoratives : palette (primary, primary-light, accent, teal) + profondeur */
+            .bubble-deco:nth-child(1) { width: 60px; height: 60px; left: 8%; top: 15%; background: rgba(91,42,181,0.22); border-color: rgba(91,42,181,0.4); animation: bubble-drift-1 28s ease-in-out infinite; }
+            .bubble-deco:nth-child(2) { width: 90px; height: 90px; left: 25%; top: 70%; background: rgba(207,53,148,0.12); border-color: rgba(207,53,148,0.28); animation: bubble-drift-2 32s ease-in-out infinite 2s; }
+            .bubble-deco:nth-child(3) { width: 45px; height: 45px; left: 15%; top: 45%; background: rgba(77,184,170,0.18); border-color: rgba(77,184,170,0.35); animation: bubble-drift-3 24s ease-in-out infinite 4s; }
+            .bubble-deco:nth-child(4) { width: 70px; height: 70px; left: 75%; top: 20%; background: rgba(122,106,199,0.14); border-color: rgba(122,106,199,0.3); animation: bubble-drift-1 30s ease-in-out infinite 1s; }
+            .bubble-deco:nth-child(5) { width: 55px; height: 55px; left: 85%; top: 60%; background: rgba(207,53,148,0.2); border-color: rgba(207,53,148,0.38); animation: bubble-drift-2 26s ease-in-out infinite 3s; }
+            .bubble-deco:nth-child(6) { width: 80px; height: 80px; left: 40%; top: 10%; background: rgba(77,184,170,0.08); border-color: rgba(77,184,170,0.2); animation: bubble-drift-3 34s ease-in-out infinite 0.5s; }
+            .bubble-deco:nth-child(7) { width: 50px; height: 50px; left: 55%; top: 80%; background: rgba(91,42,181,0.16); border-color: rgba(91,42,181,0.32); animation: bubble-drift-1 22s ease-in-out infinite 2.5s; }
+            .bubble-deco:nth-child(8) { width: 65px; height: 65px; left: 5%; top: 80%; background: rgba(77,184,170,0.14); border-color: rgba(77,184,170,0.3); animation: bubble-drift-2 29s ease-in-out infinite 1.5s; }
+            .bubble-deco:nth-child(9) { width: 40px; height: 40px; left: 70%; top: 40%; background: rgba(122,106,199,0.2); border-color: rgba(122,106,199,0.4); animation: bubble-drift-3 27s ease-in-out infinite 3.5s; }
+            .bubble-deco:nth-child(10) { width: 75px; height: 75px; left: 35%; top: 55%; background: rgba(77,184,170,0.1); border-color: rgba(77,184,170,0.25); animation: bubble-drift-1 31s ease-in-out infinite 0s; }
+            .bubble-deco:nth-child(11) { width: 48px; height: 48px; left: 90%; top: 35%; background: rgba(207,53,148,0.18); border-color: rgba(207,53,148,0.35); animation: bubble-drift-2 25s ease-in-out infinite 4s; }
+            .bubble-deco:nth-child(12) { width: 58px; height: 58px; left: 12%; top: 25%; background: rgba(122,106,199,0.12); border-color: rgba(122,106,199,0.28); animation: bubble-drift-3 33s ease-in-out infinite 2s; }
+            .bubble-deco:nth-child(13) { width: 72px; height: 72px; left: 62%; top: 15%; background: rgba(77,184,170,0.2); border-color: rgba(77,184,170,0.38); animation: bubble-drift-1 26s ease-in-out infinite 1s; }
+            .bubble-deco:nth-child(14) { width: 42px; height: 42px; left: 48%; top: 70%; background: rgba(207,53,148,0.08); border-color: rgba(207,53,148,0.2); animation: bubble-drift-2 30s ease-in-out infinite 3s; }
+            .bubble-deco:nth-child(15) { width: 68px; height: 68px; left: 22%; top: 35%; background: rgba(91,42,181,0.18); border-color: rgba(91,42,181,0.36); animation: bubble-drift-3 28s ease-in-out infinite 0.8s; }
+            @keyframes bubble-drift-1 {
+                0%, 100% { transform: translate(0, 0); }
+                25% { transform: translate(12vw, -10vh); }
+                50% { transform: translate(-8vw, 15vh); }
+                75% { transform: translate(10vw, 8vh); }
+            }
+            @keyframes bubble-drift-2 {
+                0%, 100% { transform: translate(0, 0); }
+                33% { transform: translate(-15vw, -5vh); }
+                66% { transform: translate(5vw, 12vh); }
+            }
+            @keyframes bubble-drift-3 {
+                0%, 100% { transform: translate(0, 0); }
+                25% { transform: translate(8vw, 10vh); }
+                50% { transform: translate(-12vw, -8vh); }
+                75% { transform: translate(-5vw, 5vh); }
+            }
+            .nav-item { position: relative; }
             .nav-item::after {
                 content: '';
+                position: absolute;
+                left: 0;
+                bottom: 0;
                 display: block;
                 width: 0;
                 height: 2px;
@@ -173,79 +257,121 @@
             .nav-item:hover::after {
                 width: 100%;
             }
-            /* Bento : disposition décalée, tailles variables */
-            .bento-zone {
+            .nav-item--btn::after { display: none; }
+            .nav-item--btn .nav-item-inner { position: relative; }
+            .nav-item--btn .nav-item-inner::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 0;
+                height: 2px;
+                background: #cf3594;
+                transition: width .3s;
+                box-shadow: 0 0 10px #cf3594;
+            }
+            .nav-item--btn:hover .nav-item-inner::after { width: 100%; }
+            /* Zone bentos = moitié droite uniquement (bulles cliquables) */
+            .bento-column-pull {
+                position: fixed;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 50%;
+                margin: 0;
+                padding: 5.5rem 1rem 2rem;
+                min-height: 0;
                 display: flex;
-                flex-wrap: wrap;
-                gap: 1.25rem;
+                align-items: center;
                 justify-content: center;
-                align-items: flex-start;
+                z-index: 5;
+            }
+            .bento-zone {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
+                gap: 1.25rem;
                 width: 100%;
-                max-width: 780px;
-                margin-left: auto;
-                margin-right: auto;
+                max-width: 420px;
+                height: calc(100vh - 9rem);
+                max-height: calc(100vh - 9rem);
+                min-height: 0;
+                box-sizing: border-box;
             }
             .bento-hex-cell {
                 min-height: 0;
                 display: flex;
-                flex: 1 1 44%;
-                min-width: 180px;
-                max-width: 360px;
+                align-items: center;
+                justify-content: center;
             }
-            .bento-zone .bento-hex-cell:nth-child(2) { margin-top: 0.75rem; }
-            .bento-zone .bento-hex-cell:nth-child(4) { margin-top: 0.5rem; }
-            .bento-hex-cell .bento-small {
+            .bento-drift {
                 width: 100%;
-                min-height: 12rem;
-                border-radius: 1rem;
+                height: 100%;
+                min-height: 0;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                padding: 1.5rem;
-                transition: transform 0.25s ease-out;
             }
-            .bento-zone .bento-hex-cell:nth-child(1) .bento-small { min-height: 13rem; }
-            .bento-zone .bento-hex-cell:nth-child(3) .bento-small { min-height: 11rem; }
-            .bento-hex-cell .bento-small:hover {
-                transform: translateY(-3px) rotate(1.5deg);
+            /* Bulles cliquables : cercles + mouvement plus marqué (reste à droite) */
+            .bento-hex-cell .bento-small {
+                display: block;
+                position: relative;
+                width: 100%;
+                padding-bottom: 100%;
+                height: 0;
+                border-radius: 50%;
+                transition: box-shadow 0.3s ease, border-color 0.3s ease;
+                box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.28), inset 0 0 2px 1px rgba(255, 250, 252, 0.2), 0 0 15px rgba(255, 245, 250, 0.04);
+                animation: bento-bubble-float 8s ease-in-out infinite;
             }
-            .bento-hex-inner {
+            .bento-hex-cell:nth-child(2) .bento-small { animation: bento-bubble-float-2 9s ease-in-out infinite -1s; }
+            .bento-hex-cell:nth-child(3) .bento-small { animation: bento-bubble-float-3 7.5s ease-in-out infinite -2.5s; }
+            .bento-hex-cell:nth-child(4) .bento-small { animation: bento-bubble-float-4 10s ease-in-out infinite -4s; }
+            @keyframes bento-bubble-float {
+                0%, 100% { transform: translate(0, 0); }
+                25% { transform: translate(10%, -8%); }
+                50% { transform: translate(-6%, 12%); }
+                75% { transform: translate(8%, 5%); }
+            }
+            @keyframes bento-bubble-float-2 {
+                0%, 100% { transform: translate(0, 0); }
+                33% { transform: translate(-8%, -10%); }
+                66% { transform: translate(12%, 8%); }
+            }
+            @keyframes bento-bubble-float-3 {
+                0%, 100% { transform: translate(0, 0); }
+                25% { transform: translate(-10%, 6%); }
+                50% { transform: translate(6%, -8%); }
+                75% { transform: translate(-4%, 10%); }
+            }
+            @keyframes bento-bubble-float-4 {
+                0%, 100% { transform: translate(0, 0); }
+                50% { transform: translate(9%, 10%); }
+            }
+            .bento-hex-cell .bento-small .bento-hex-inner {
+                position: absolute;
+                inset: 0;
+                padding: 1.25rem;
                 display: flex;
                 flex-direction: column;
-                gap: 0.6rem;
+                gap: 0.5rem;
                 align-items: center;
                 justify-content: center;
                 text-align: center;
-                max-width: 100%;
             }
-            .bento-hex-inner .text-xl { font-size: 1.1rem; line-height: 1.2; }
-            .bento-hex-inner p { font-size: 0.85rem; line-height: 1.3; }
+            .bento-hex-cell .bento-small:hover,
+            .bento-hex-cell .bento-small:focus-visible {
+                animation: none;
+                transform: translateY(-6px) scale(1.08);
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), inset 0 0 2px 1px rgba(255, 250, 252, 0.25), 0 0 28px rgba(207, 53, 148, 0.2);
+                border-color: rgba(255, 240, 245, 0.45);
+            }
+            .bento-hex-inner { max-width: 100%; }
+            .bento-hex-inner .text-xl { font-size: 1.1rem; line-height: 1.25; }
+            .bento-hex-inner p { font-size: 0.875rem; line-height: 1.35; }
             @media (max-width: 1023px) {
-                .bento-zone { display: none; }
+                .bento-column-pull { display: none; }
             }
-            /* Marges négatives : rapprocher les bentos du titre, adapté à l'écran */
-            @media (min-width: 1024px) {
-                .bento-column-pull { margin-left: -3rem; }
-            }
-            @media (min-width: 1280px) {
-                .bento-column-pull { margin-left: -4.5rem; }
-            }
-            @media (min-width: 1536px) {
-                .bento-column-pull { margin-left: -6rem; }
-            }
-            /* Animation flottement des bentos */
-            @keyframes bento-float {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-6px); }
-            }
-            .bento-zone .bento-hex-cell {
-                animation: bento-float 4s ease-in-out infinite;
-            }
-            .bento-zone .bento-hex-cell:nth-child(1) { animation-delay: 0s; }
-            .bento-zone .bento-hex-cell:nth-child(2) { animation-delay: 0.5s; }
-            .bento-zone .bento-hex-cell:nth-child(3) { animation-delay: 1s; }
-            .bento-zone .bento-hex-cell:nth-child(4) { animation-delay: 1.5s; }
-            /* Hover tilt commun : défini dans /styles.css */
             /* Popup Calendly – glassmorphism, pleine page sans scroll */
             #calendly-popup-home {
                 position: fixed; inset: 0; z-index: 10000;
@@ -312,6 +438,12 @@
   <div class="blob w-[400px] h-[400px] bg-primary-light top-[40%] right-[10%]"></div>
   <div class="blob w-[300px] h-[300px] bg-primary bottom-[20%] left-[20%]"></div>
 
+  <div id="bubbles-deco" aria-hidden="true">
+    <span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span>
+    <span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span>
+    <span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span>
+  </div>
+
   <div id="site-header"></div>
   <script>
     (function() {
@@ -359,21 +491,23 @@
     })();
   </script>
 
-  <main class="flex-1 min-h-0 flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 lg:pt-12 pb-4 sm:pb-6 overflow-auto">
-    <div class="max-w-7xl xl:max-w-[1600px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-0 items-start min-h-0 lg:overflow-x-clip">
-      <!-- Colonne gauche : titre défilant (assez large pour ne pas tronquer) -->
-      <div class="lg:col-span-5 xl:col-span-4 flex flex-col gap-6 items-center lg:items-start lg:pr-2 min-w-0">
+  <main class="flex-1 min-h-0 flex items-center justify-center pl-3 sm:pl-6 md:pl-8 pr-3 sm:pr-6 md:pr-4 lg:pr-4 py-6 sm:py-10 overflow-auto min-h-[calc(100vh-5rem)] relative z-10">
+    <div class="hero-content-inner max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-0 items-center justify-items-center lg:justify-items-stretch min-h-0 lg:overflow-x-clip">
+      <!-- Colonne gauche : titre défilant (moitié écran) -->
+      <div class="lg:col-span-1 flex flex-col gap-6 items-center lg:items-start lg:pl-8 lg:pr-4 xl:pl-12 xl:pr-8 min-w-0">
           <div class="hero-rotating-track relative w-full text-center lg:text-left" aria-live="polite">
-            <h1 class="hero-rotating-title text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight tracking-tighter text-white drop-shadow-2xl h-full min-h-[14rem] sm:min-h-[17rem] lg:min-h-[22rem] xl:min-h-[28rem] relative block">
+            <h1 class="hero-rotating-title font-bold leading-tight tracking-tighter text-white drop-shadow-2xl h-full min-h-[14rem] sm:min-h-[17rem] lg:min-h-[20rem] xl:min-h-[24rem] relative block">
               <div id="hero-slide-1" class="hero-rotating-slide slide-in absolute left-0 right-0 top-0"></div>
               <div id="hero-slide-2" class="hero-rotating-slide slide-wait absolute left-0 right-0 top-0"></div>
             </h1>
           </div>
         </div>
-        <!-- Colonne droite : bentos (marge négative = collés au titre) -->
-        <div class="bento-column-pull hidden lg:flex lg:col-span-7 xl:col-span-8 flex-col gap-6 xl:gap-8 min-w-0">
+        <!-- Colonne droite : bulles cliquables (reste à droite) -->
+        <div class="hidden lg:block lg:col-span-1 min-w-0 relative">
+        <div class="bento-column-pull">
         <div class="bento-zone">
           <div class="bento-hex-cell">
+            <div class="bento-drift">
             <a class="bento-small glass-panel-rose bento-tint-mix group relative overflow-hidden" href="/impro-vocale-new">
               <span class="bento-hex-inner">
                 <span class="size-12 rounded-lg bg-white/5 inline-flex items-center justify-center text-white border border-white/20 group-hover:bg-primary/30 transition-colors shrink-0">
@@ -383,8 +517,10 @@
                 <p class="text-white/90 font-light">Présence et expression en groupe.</p>
               </span>
             </a>
+            </div>
           </div>
           <div class="bento-hex-cell">
+            <div class="bento-drift">
             <a class="bento-small glass-panel-rose bento-tint-primary group relative overflow-hidden" href="/ateliers-new">
               <span class="bento-hex-inner">
                 <span class="size-12 rounded-lg bg-white/5 inline-flex items-center justify-center text-white border border-white/20 group-hover:bg-white/10 transition-colors shrink-0">
@@ -394,8 +530,10 @@
                 <p class="text-white/90 font-light">Stages pour approfondir le chant.</p>
               </span>
             </a>
+            </div>
           </div>
           <div class="bento-hex-cell">
+            <div class="bento-drift">
             <a class="bento-small glass-panel-rose bento-tint-primary-light group relative overflow-hidden" href="/cours-chant-new">
               <span class="bento-hex-inner">
                 <span class="size-12 rounded-lg bg-white/5 inline-flex items-center justify-center text-white border border-white/20 group-hover:bg-white/10 transition-colors shrink-0">
@@ -405,8 +543,10 @@
                 <p class="text-white/90 font-light">Voix et chant personnalisés.</p>
               </span>
             </a>
+            </div>
           </div>
           <div class="bento-hex-cell">
+            <div class="bento-drift">
             <a class="bento-small glass-panel-rose bento-tint-accent group relative overflow-hidden" href="/offre-entreprise-new">
               <span class="bento-hex-inner">
                 <span class="size-12 rounded-lg bg-white/5 inline-flex items-center justify-center text-white border border-white/20 group-hover:bg-accent/30 transition-colors shrink-0">
@@ -416,7 +556,9 @@
                 <p class="text-white/90 font-light">Écoute et cohésion en équipe.</p>
               </span>
             </a>
+            </div>
           </div>
+        </div>
         </div>
         </div>
       </div>
@@ -442,10 +584,13 @@
     (function () {
       var gradientClass = 'hero-gradient-word';
       var phrases = [
-        { html: 'Impro vocale et<br><span class="' + gradientClass + '">Circlesongs</span>' },
-        { html: 'Cours de chant &<br><span class="' + gradientClass + '">coaching vocal</span>' },
-        { html: '<span class="' + gradientClass + '">Stages</span><br>& ateliers' },
-        { html: 'Voix &<br><span class="' + gradientClass + '">créativité</span>' }
+        { html: '<div class="hero-line-1"><span class="text-white">Les</span></div><div class="hero-line-2"><span class="' + gradientClass + '">Circlesongs</span></div>' },
+        { html: '<div class="hero-line-1"><span class="' + gradientClass + '">Chorale</span></div><div class="hero-line-2">improvisée</div>' },
+        { html: '<div class="hero-line-1"><span class="' + gradientClass + '">Impro</span></div><div class="hero-line-2">vocale</div>' },
+        { html: '<div class="hero-line-1">Cours de</div><div class="hero-line-2"><span class="' + gradientClass + '">chant</span></div>' },
+        { html: '<div class="hero-line-1"><span class="' + gradientClass + '">Coaching</span></div><div class="hero-line-2">vocal</div>' },
+        { html: '<div class="hero-line-1"><span class="' + gradientClass + '">Stages</span> &</div><div class="hero-line-2">ateliers</div>' },
+        { html: '<div class="hero-line-1">Voix &</div><div class="hero-line-2"><span class="' + gradientClass + '">créativité</span></div>' }
       ];
       var slide1 = document.getElementById('hero-slide-1');
       var slide2 = document.getElementById('hero-slide-2');
@@ -527,6 +672,16 @@
         if (e.key === 'Escape' && popup && popup.style.display === 'flex') closeCalendly();
       });
     });
+  </script>
+  <div id="floating-rdv-container"></div>
+  <script>
+    (function() {
+      var el = document.getElementById('floating-rdv-container');
+      if (!el) return;
+      fetch('/partials/floating-rdv.html').then(function(r) { return r.ok ? r.text() : Promise.reject(); })
+        .then(function(html) { el.innerHTML = html; })
+        .catch(function() {});
+    })();
   </script>
 </body>
 </html>

@@ -388,8 +388,12 @@
         background: rgba(255, 255, 255, 0.04);
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 0 2px 1px rgba(255, 255, 255, 0.06);
       }
+      .nav-item { position: relative; }
       .nav-item::after {
         content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
         display: block;
         width: 0;
         height: 2px;
@@ -867,6 +871,16 @@
         });
       });
     });
+  </script>
+  <div id="floating-rdv-container"></div>
+  <script>
+    (function() {
+      var el = document.getElementById('floating-rdv-container');
+      if (!el) return;
+      fetch('/partials/floating-rdv.html').then(function(r) { return r.ok ? r.text() : Promise.reject(); })
+        .then(function(html) { el.innerHTML = html; })
+        .catch(function() {});
+    })();
   </script>
 </body>
 </html>

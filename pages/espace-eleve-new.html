@@ -4,19 +4,18 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <base href="/">
-  <title>Newsletter – Donner de la Voix | Restez informé.e des ateliers et événements</title>
-  <meta name="description" content="Abonnez-vous à la newsletter de Donner de la Voix pour recevoir les dernières actualités sur les cours de chant, les ateliers d'improvisation vocale et les circle songs à Toulouse.">
-  <meta name="keywords" content="newsletter, Donner de la Voix, cours de chant Toulouse, improvisation vocale Toulouse, ateliers chant, circle songs">
-  <meta property="og:title" content="Newsletter – Donner de la Voix | Restez informé.e des ateliers et événements">
-  <meta property="og:description" content="Abonnez-vous à la newsletter de Donner de la Voix pour recevoir les dernières actualités sur les cours de chant et les ateliers d'improvisation vocale à Toulouse.">
-  <meta property="og:url" content="https://donnerdelavoix.fr/newsletter">
+  <title>Espace élève – Donner de la Voix | Suivi de cours et matériel pédagogique</title>
+  <meta name="description" content="Accédez à votre espace élève Donner de la Voix : suivi de cours et matériel pédagogique.">
+  <meta name="keywords" content="espace élève, Donner de la Voix, suivi cours, matériel pédagogique, cours de chant">
+  <meta property="og:title" content="Espace élève – Donner de la Voix">
+  <meta property="og:description" content="Retrouvez votre suivi de cours et du matériel pédagogique.">
+  <meta property="og:url" content="https://donnerdelavoix.fr/espace-eleve-new">
   <meta property="og:type" content="website">
-  <link rel="canonical" href="https://donnerdelavoix.fr/newsletter">
+  <link rel="canonical" href="https://donnerdelavoix.fr/espace-eleve-new">
   <link rel="icon" type="image/png" href="/assets/logo-ddlv.png">
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"/>
   <script id="tailwind-config">
     tailwind.config = {
       darkMode: "class",
@@ -81,30 +80,30 @@
         border: none;
         box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.28), inset 0 0 2px 1px rgba(255, 250, 252, 0.2), 0 0 15px rgba(255, 245, 250, 0.04);
       }
-      .newsletter-new-form .form-field {
+      .espace-eleve-form .form-field {
         @apply w-full rounded-xl border border-white/25 bg-white/10 px-4 py-3 text-white placeholder-white/50 focus:border-accent focus:bg-white/15 focus:ring-2 focus:ring-accent/30 focus:outline-none transition-all;
       }
-      .newsletter-new-form .form-field::placeholder { color: rgba(255, 255, 255, 0.5); }
-      .newsletter-new-form .form-submit-btn {
-        @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm uppercase tracking-widest text-white bg-accent hover:bg-accent/90 border-0 cursor-pointer transition-all disabled:opacity-60 disabled:cursor-not-allowed;
+      .espace-eleve-form .form-field::placeholder { color: rgba(255, 255, 255, 0.5); }
+      .espace-eleve-form .form-submit-btn {
+        @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm uppercase tracking-widest text-white bg-accent hover:bg-accent/90 border-0 cursor-pointer transition-all disabled:opacity-60 disabled:cursor-not-allowed w-full;
         box-shadow: 0 4px 14px rgba(207, 53, 148, 0.4);
       }
-      .newsletter-new-form .form-submit-btn:hover:not(:disabled) { box-shadow: 0 6px 20px rgba(207, 53, 148, 0.5); }
+      .espace-eleve-form .form-submit-btn:hover:not(:disabled) { box-shadow: 0 6px 20px rgba(207, 53, 148, 0.5); }
     }
   </style>
   <link rel="stylesheet" href="/styles.css">
   <style>
-    body.newsletter-new-page {
+    body.espace-eleve-page {
       background: transparent !important;
       color: #fff !important;
       font-family: 'Josefin Sans', sans-serif !important;
     }
-    body.newsletter-new-page::before,
-    body.newsletter-new-page::after { display: none !important; }
+    body.espace-eleve-page::before,
+    body.espace-eleve-page::after { display: none !important; }
   </style>
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 </head>
-<body class="font-display text-white relative newsletter-new-page min-h-screen">
+<body class="font-display text-white relative espace-eleve-page min-h-screen">
   <div class="bg-blur-image" aria-hidden="true"></div>
   <div class="bg-textured-art"></div>
   <div class="blob w-[600px] h-[600px] bg-primary top-[-10%] left-[-10%]"></div>
@@ -118,48 +117,73 @@
       var el = document.getElementById('site-header');
       if (!el) return;
       fetch('/partials/header.html').then(function(r) { return r.ok ? r.text() : Promise.reject(); })
-        .then(function(html) { el.innerHTML = html; })
+        .then(function(html) {
+          el.innerHTML = html;
+          var toggle = el.querySelector('.header-nav-toggle');
+          var panel = document.getElementById('header-nav');
+          var iconMenu = el.querySelector('.icon-menu');
+          var iconClose = el.querySelector('.icon-close');
+          if (toggle && panel) {
+            toggle.addEventListener('click', function() {
+              var open = panel.classList.contains('nav-open');
+              if (open) {
+                panel.classList.remove('nav-open');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.setAttribute('aria-label', 'Ouvrir le menu');
+                if (iconMenu) iconMenu.classList.remove('hidden');
+                if (iconClose) iconClose.classList.add('hidden');
+                document.body.classList.remove('no-scroll');
+              } else {
+                panel.classList.add('nav-open');
+                toggle.setAttribute('aria-expanded', 'true');
+                toggle.setAttribute('aria-label', 'Fermer le menu');
+                if (iconMenu) iconMenu.classList.add('hidden');
+                if (iconClose) iconClose.classList.remove('hidden');
+                document.body.classList.add('no-scroll');
+              }
+            });
+            panel.querySelectorAll('a').forEach(function(link) {
+              link.addEventListener('click', function() {
+                panel.classList.remove('nav-open');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.setAttribute('aria-label', 'Ouvrir le menu');
+                if (iconMenu) iconMenu.classList.remove('hidden');
+                if (iconClose) iconClose.classList.add('hidden');
+                document.body.classList.remove('no-scroll');
+              });
+            });
+          }
+        })
         .catch(function() {});
     })();
   </script>
 
   <main class="relative" role="main">
-    <section class="hero-overlay relative min-h-screen flex items-center pt-24 pb-12" aria-label="Newsletter">
+    <section class="hero-overlay relative min-h-screen flex items-center pt-24 pb-16 md:pb-24" aria-label="Espace élève" id="espace-eleve">
       <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 lg:gap-16">
-        <!-- Gauche : titre + texte -->
         <div class="flex flex-col gap-6 max-w-xl">
           <h1 class="text-[3.5rem] md:text-[5rem] lg:text-[6rem] font-bold tracking-tight text-white leading-tight">
-            <span class="hero-gradient-word">Newsletter</span>
+            <span class="hero-gradient-word">Espace élève</span>
           </h1>
           <p class="text-white/90 text-lg md:text-xl font-light leading-relaxed">
-            Restez informé.e des prochains stages & ateliers, événements et actualités de Donner de la Voix. Abonnez-vous pour ne rien manquer !
-          </p>
-          <p class="text-white/70 text-sm md:text-base font-light">
-            Pour des raisons de sécurité, nous vous demanderons de confirmer votre adresse email après votre inscription.
+            Retrouvez votre suivi de cours et du matériel pédagogique.
           </p>
         </div>
-
-        <!-- Droite : formulaire d'inscription newsletter -->
-        <div class="w-full lg:flex-1 lg:min-w-0">
-          <div class="newsletter-new-form glass-panel-rose rounded-2xl p-6 md:p-8 w-full">
-            <form action="https://donnerdelavoix.us19.list-manage.com/subscribe/post?u=98a48e5d0af7d8386462b6124&amp;id=f6cad0bc4a&amp;f_id=00c961e7f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="flex flex-col gap-4" target="_blank" aria-label="Formulaire d'inscription à la newsletter" novalidate>
-              <div aria-hidden="true" style="position: absolute; left: -5000px;">
-                <input type="text" name="b_98a48e5d0af7d8386462b6124_f6cad0bc4a" tabindex="-1" value="">
-              </div>
-              <div>
-                <label for="mce-EMAIL" class="sr-only">Adresse email</label>
-                <input type="email" name="EMAIL" id="mce-EMAIL" class="form-field" required aria-required="true" placeholder="Votre adresse email *" value="">
-              </div>
-              <div id="mce-responses" class="hidden">
-                <div class="response" id="mce-error-response"></div>
-                <div class="response" id="mce-success-response"></div>
-              </div>
-              <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="form-submit-btn mt-2">
-                <i data-lucide="bell" class="w-4 h-4" aria-hidden="true"></i>
-                S'abonner
-              </button>
-            </form>
-          </div>
+        <div class="w-full lg:flex-1 lg:min-w-0 lg:max-w-md">
+          <form class="espace-eleve-form glass-panel-rose bento-tint-primary rounded-2xl p-6 md:p-8 flex flex-col gap-4 w-full relative overflow-hidden" action="javascript:void(0)" method="POST" aria-label="Connexion à l'espace élève" id="espace-eleve-login">
+            <div>
+              <label for="eleve-email" class="sr-only">Email</label>
+              <input type="email" id="eleve-email" name="email" class="form-field" required aria-required="true" placeholder="Email *" autocomplete="email" maxlength="254">
+            </div>
+            <div>
+              <label for="eleve-password" class="sr-only">Mot de passe</label>
+              <input type="password" id="eleve-password" name="password" class="form-field" required aria-required="true" placeholder="Mot de passe *" autocomplete="current-password">
+            </div>
+            <button type="submit" class="form-submit-btn mt-2">
+              <span class="material-symbols-outlined text-xl">login</span>
+              Se connecter
+            </button>
+          </form>
         </div>
       </div>
     </section>
@@ -173,11 +197,21 @@
   <div class="fixed bottom-6 left-8 z-50">
     <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="/mentions-legales">Mentions Légales</a>
   </div>
-
-  <script type="module" src="/js/main.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      if (typeof lucide !== 'undefined') lucide.createIcons();
+      var form = document.getElementById('espace-eleve-login');
+      if (!form) return;
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Placeholder : à brancher sur votre backend d'authentification
+        var email = form.querySelector('[name="email"]').value.trim();
+        var password = form.querySelector('[name="password"]').value;
+        if (!email || !password) {
+          alert('Veuillez remplir l\'email et le mot de passe.');
+          return;
+        }
+        alert('Connexion en cours de configuration. Cette page sera reliée à votre système d\'authentification.');
+      });
     });
   </script>
   <div id="floating-rdv-container"></div>
