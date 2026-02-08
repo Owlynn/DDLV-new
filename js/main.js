@@ -72,5 +72,28 @@ runWhenDOMReady(function() {
   if (calendarView && calendarView.style.display === 'block') {
     renderCalendar(getWorkshops());
   }
+
+  // Basculement vue cartes / vue calendrier (page ateliers-new)
+  const bentosBlock = document.getElementById('workshops-bentos-block');
+  const ateliersNewToggle = document.querySelector('.ateliers-new-view-toggle');
+  const toggleCartes = document.querySelector('.view-toggle-cartes');
+  const toggleCalendrier = document.querySelector('.view-toggle-calendrier');
+  if (ateliersNewToggle && bentosBlock && calendarView && toggleCartes && toggleCalendrier) {
+    ateliersNewToggle.addEventListener('click', function(e) {
+      const target = e.target.closest('.view-toggle-part');
+      if (!target) return;
+      const view = target.getAttribute('data-view');
+      toggleCartes.classList.toggle('active', view === 'cartes');
+      toggleCalendrier.classList.toggle('active', view === 'calendrier');
+      if (view === 'cartes') {
+        bentosBlock.style.display = '';
+        calendarView.style.display = 'none';
+      } else {
+        bentosBlock.style.display = 'none';
+        calendarView.style.display = 'flex';
+        renderCalendar(getWorkshops());
+      }
+    });
+  }
 });
 

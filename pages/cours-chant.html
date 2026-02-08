@@ -34,10 +34,10 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/assets/logo-ddlv.png">
   
-  <!-- Google Fonts - Inter -->
+  <!-- Google Fonts - Josefin Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Lien vers le fichier CSS -->
   <link rel="stylesheet" href="/styles.css">
@@ -52,110 +52,16 @@
   <!-- Skip link pour la navigation au clavier -->
   <a href="#main-content" class="skip-link">Aller au contenu principal</a>
   
-  <!-- Logo flottant en haut à gauche -->
-  <a href="/" class="floating-logo" aria-label="Retour à l'accueil - Donner de la Voix">
-    <img src="/assets/logo-ddlv.png" alt="Donner de la Voix" class="floating-logo-image">
-  </a>
-  
-  <!-- Nav réutilisable -->
-  <nav class="site-nav" role="navigation">
-    <div class="header-container">
-      <button class="menu-toggle" aria-label="Menu de navigation" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      
-      <!-- Menu Desktop -->
-      <nav class="header-nav-desktop" aria-label="Navigation principale desktop">
-        <ul class="header-menu-desktop" role="list">
-          <li>
-            <a href="/" class="header-menu-item-desktop">
-              Accueil
-            </a>
-          </li>
-          <li class="header-menu-dropdown-desktop">
-            <a href="#" class="header-menu-item-desktop active">
-              Cours & ateliers
-            </a>
-            <ul class="header-submenu-desktop">
-              <li>
-                <a href="/impro-vocale" class="header-submenu-item-desktop">Qu'est-ce que l'impro vocale</a>
-              </li>
-              <li>
-                <a href="ateliers.html" class="header-submenu-item-desktop">Stages & ateliers</a>
-              </li>
-              <li>
-                <a href="/cours-chant" class="header-submenu-item-desktop">Les cours de chant</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="offre-entreprise.html" class="header-menu-item-desktop">
-              Offres entreprise
-            </a>
-          </li>
-          <li>
-            <a href="/about" class="header-menu-item-desktop">
-              La pédagogue
-            </a>
-          </li>
-          <li>
-            <a href="newsletter.html" class="header-menu-item-desktop">
-              Newsletter
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </nav>
-  
-  <!-- Menu Mobile (hors site-nav pour position fixed viewport, sans marge) -->
-  <nav class="header-nav-mobile" aria-label="Navigation principale mobile">
-    <ul class="header-menu-mobile" role="list">
-      <li>
-        <a href="/" class="header-menu-item-mobile">
-          Accueil
-        </a>
-      </li>
-      <li>
-        <a href="/impro-vocale" class="header-menu-item-mobile">
-          Qu'est-ce que l'impro vocale
-        </a>
-      </li>
-      <li>
-        <a href="ateliers.html" class="header-menu-item-mobile">
-          Stages & ateliers
-        </a>
-      </li>
-      <li>
-        <a href="/cours-chant" class="header-menu-item-mobile active">
-          Les cours de chant
-        </a>
-      </li>
-      <li>
-        <a href="offre-entreprise.html" class="header-menu-item-mobile">
-          Offres entreprise
-        </a>
-      </li>
-      <li>
-        <a href="/about" class="header-menu-item-mobile">
-          La pédagogue
-        </a>
-      </li>
-      <li>
-        <a href="newsletter.html" class="header-menu-item-mobile">
-          Newsletter
-        </a>
-      </li>
-    </ul>
-  </nav>
-  
-  <!-- Bouton flottant PRENDRE RDV -->
-  <button class="floating-rdv-btn" id="calendly-trigger" aria-label="Prendre rendez-vous">
-    <i data-lucide="calendar-check" class="floating-rdv-icon"></i>
-    PRENDRE RDV
-  </button>
+  <div id="site-header"></div>
+  <script>
+    (function() {
+      var el = document.getElementById('site-header');
+      if (!el) return;
+      fetch('/partials/header.html').then(function(r) { return r.ok ? r.text() : Promise.reject(); })
+        .then(function(html) { el.innerHTML = html; })
+        .catch(function() {});
+    })();
+  </script>
   
   <!-- Popup Calendly -->
   <div id="calendly-popup" class="calendly-popup-container hidden">
@@ -204,7 +110,7 @@
           <!-- Section Héro -->
           <section class="article-section glass-section" style="text-align: center; padding: 3rem 1.5rem;">
             <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--color-primary);">Cours de Chant à Toulouse</h1>
-            <p style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--color-primary-dark); font-weight: 500;">Développez votre voix avec écoute et technique</p>
+            <p style="font-size: 1.5rem; margin-bottom: 1rem; color: #fff; font-weight: 500;">Développez votre voix avec écoute et technique</p>
             <p style="font-size: 1.1rem; margin-bottom: 2rem; color: #666;">Coaching vocal personnalisé • Technique vocale • Prévention vocale</p>
             <div style="text-align: left;">
               <button class="rdv-btn" id="calendly-trigger-hero" aria-label="Prendre rendez-vous pour un cours d'essai" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
@@ -273,19 +179,19 @@
                   <div style="display: flex; align-items: start; gap: 0.75rem;">
                     <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
                     <div>
-                      <strong style="color: var(--color-primary-dark);">Approche holistique</strong> – Corps, voix et émotion sont liés. Je travaille avec vous dans votre globalité.
+                      <strong style="color: #fff;">Approche holistique</strong> – Corps, voix et émotion sont liés. Je travaille avec vous dans votre globalité.
                     </div>
                   </div>
                   <div style="display: flex; align-items: start; gap: 0.75rem;">
                     <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
                     <div>
-                      <strong style="color: var(--color-primary-dark);">Bienveillance et écoute</strong> – Pas de jugement, progression à votre rythme, dans un cadre sécurisant.
+                      <strong style="color: #fff;">Bienveillance et écoute</strong> – Pas de jugement, progression à votre rythme, dans un cadre sécurisant.
                     </div>
                   </div>
                   <div style="display: flex; align-items: start; gap: 0.75rem;">
                     <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
                     <div>
-                      <strong style="color: var(--color-primary-dark);">Technique adaptative</strong> – Chaque voix est unique. Ma méthode s'adapte à VOS besoins, pas l'inverse.
+                      <strong style="color: #fff;">Technique adaptative</strong> – Chaque voix est unique. Ma méthode s'adapte à VOS besoins, pas l'inverse.
                     </div>
                   </div>
                   <div style="display: flex; align-items: start; gap: 0.75rem;">
@@ -361,7 +267,7 @@
                   <div style="background: var(--color-primary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">1</div>
                   <div style="flex: 1;">
                     <h3 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.2rem;">Évaluation et écoute</h3>
-                    <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: var(--color-primary-dark);">⏱️ 5-10 min</p>
+                    <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: #fff;">⏱️ 5-10 min</p>
                     <p style="margin: 0; line-height: 1.6; color: #666;">Nous discutons de vos objectifs, de votre ressenti, de ce que vous souhaitez travailler aujourd'hui. Chaque cours s'adapte à où vous en êtes.</p>
                   </div>
                 </div>
@@ -370,7 +276,7 @@
                   <div style="background: var(--color-primary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">2</div>
                   <div style="flex: 1;">
                     <h3 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.2rem;">Mise en condition corporelle</h3>
-                    <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: var(--color-primary-dark);">⏱️ 10 min</p>
+                    <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: #fff;">⏱️ 10 min</p>
                     <p style="margin: 0; line-height: 1.6; color: #666;">Détente, étirements, prise de conscience du corps. Nous identifions et déverrouillons les tensions qui peuvent entraver la libre expression de la voix.</p>
                   </div>
                 </div>
@@ -379,7 +285,7 @@
                   <div style="background: var(--color-primary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">3</div>
                   <div style="flex: 1;">
                     <h3 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.2rem;">Échauffement vocal</h3>
-                    <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: var(--color-primary-dark);">⏱️ 10 min</p>
+                    <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: #fff;">⏱️ 10 min</p>
                     <p style="margin: 0; line-height: 1.6; color: #666;">Vocalises progressives pour réveiller la voix en douceur et préparer l'appareil vocal au travail technique.</p>
                   </div>
                 </div>
@@ -388,7 +294,7 @@
                   <div style="background: var(--color-primary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">4</div>
                   <div style="flex: 1;">
                     <h3 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.2rem;">Exercices ciblés</h3>
-                    <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: var(--color-primary-dark);">⏱️ 15-20 min</p>
+                    <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: #fff;">⏱️ 15-20 min</p>
                     <p style="margin: 0; line-height: 1.6; color: #666;">Travail technique sur vos objectifs spécifiques : justesse, puissance, agilité, respiration, etc. Exercices adaptés à votre niveau et vos besoins.</p>
                   </div>
                 </div>
@@ -397,7 +303,7 @@
                   <div style="background: var(--color-primary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">5</div>
                   <div style="flex: 1;">
                     <h3 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.2rem;">Application sur un morceau</h3>
-                    <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: var(--color-primary-dark);">⏱️ 15-20 min</p>
+                    <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: #fff;">⏱️ 15-20 min</p>
                     <p style="margin: 0; line-height: 1.6; color: #666;">Mise en pratique sur un morceau de votre choix ou adapté à vos objectifs. C'est là que tout prend sens !</p>
                   </div>
                 </div>
@@ -406,7 +312,7 @@
                   <div style="background: var(--color-primary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">6</div>
                   <div style="flex: 1;">
                     <h3 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.2rem;">Plan d'action personnel</h3>
-                    <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: var(--color-primary-dark);">⏱️ 5 min</p>
+                    <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: #fff;">⏱️ 5 min</p>
                     <p style="margin: 0; line-height: 1.6; color: #666;">Nous définissons ensemble ce que vous pouvez travailler chez vous jusqu'au prochain cours (exercices, écoutes, etc.). La progression se fait aussi entre les cours !</p>
                   </div>
                 </div>
@@ -658,7 +564,7 @@
                   <div style="text-align: center;">
                     <h4 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.25rem;">Pack 4 cours</h4>
                     <div style="font-size: 3rem; font-weight: 700; color: var(--color-primary); margin: 1rem 0;">180€</div>
-                    <p style="color: var(--color-primary-dark); margin-bottom: 0.25rem; font-size: 1.1rem; font-weight: 600;">45€/cours</p>
+                    <p style="color: #fff; margin-bottom: 0.25rem; font-size: 1.1rem; font-weight: 600;">45€/cours</p>
                     <p style="color: #666; margin-bottom: 1.5rem; font-size: 0.95rem;">Valable 2 mois</p>
                   </div>
                   <ul style="list-style: none; padding: 0; margin: 0;">
@@ -682,7 +588,7 @@
                   <div style="text-align: center;">
                     <h4 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.25rem;">Pack 10 cours</h4>
                     <div style="font-size: 3rem; font-weight: 700; color: var(--color-primary); margin: 1rem 0;">450€</div>
-                    <p style="color: var(--color-primary-dark); margin-bottom: 0.25rem; font-size: 1.1rem; font-weight: 600;">45€/cours</p>
+                    <p style="color: #fff; margin-bottom: 0.25rem; font-size: 1.1rem; font-weight: 600;">45€/cours</p>
                     <p style="color: #666; margin-bottom: 1.5rem; font-size: 0.95rem;">Valable 3 mois</p>
                   </div>
                   <ul style="list-style: none; padding: 0; margin: 0;">
@@ -711,7 +617,7 @@
                   <span style="background: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;">💰 PayPal</span>
                   <span style="background: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;">💵 Espèces</span>
                 </div>
-                <p style="text-align: center; margin-top: 1.5rem; font-weight: 600; color: var(--color-primary-dark);">⚠️ Tout cours non annulé au moins 24h à l'avance est dû.</p>
+                <p style="text-align: center; margin-top: 1.5rem; font-weight: 600; color: #fff;">⚠️ Tout cours non annulé au moins 24h à l'avance est dû.</p>
               </div>
               
               <div style="margin-top: 3rem; text-align: left;">
@@ -873,7 +779,7 @@
               </div>
               
               <div style="text-align: center; margin: 3rem 0;">
-                <p style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--color-primary-dark); font-weight: 500;">Au plaisir de vous rencontrer et d'entendre votre belle voix ! 💜</p>
+                <p style="font-size: 1.2rem; margin-bottom: 1rem; color: #fff; font-weight: 500;">Au plaisir de vous rencontrer et d'entendre votre belle voix ! 💜</p>
               </div>
             </div>
           </section>
@@ -889,7 +795,7 @@
               <script src="https://widgets.sociablekit.com/google-reviews/widget.js" defer></script>
               
               <div class="highlight-box-dashed" style="margin-top: 3rem;">
-                <p style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--color-primary-dark); text-align: center;">Prêt.e à rejoindre mes élèves ?</p>
+                <p style="font-size: 1.1rem; margin-bottom: 1rem; color: #fff; text-align: center;">Prêt.e à rejoindre mes élèves ?</p>
                 <div style="text-align: left;">
                   <button id="calendly-trigger-avis" class="rdv-btn" aria-label="Prendre rendez-vous" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
                     <i data-lucide="calendar-check" class="btn-icon"></i>

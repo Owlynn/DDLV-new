@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html class="dark" lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <base href="/">
+  <title>Offres Entreprise | Cours de chant &amp; Impro CE | Team building vocal | Donner de la Voix</title>
+  <meta name="description" content="Cours de chant et d'improvisation vocale pour entreprises et comités d'entreprise. Team building vocal, ice breaker pour séminaires. Animation séminaire entreprise à Toulouse et ailleurs.">
+  <meta name="keywords" content="cours de chant comité d'entreprise, cours de chant entreprise, formation vocale entreprise, cours d'impro entreprise, team building vocal, ice breaker séminaire, animation séminaire, activité team building, séminaire entreprise">
+  <meta property="og:title" content="Offres Entreprise – Donner de la Voix">
+  <meta property="og:description" content="Cours de chant et d'improvisation vocale pour entreprises. Team building vocal, ice breaker pour séminaires. Animation séminaire entreprise.">
+  <meta property="og:url" content="https://donnerdelavoix.fr/offre-entreprise-new">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://donnerdelavoix.fr/offre-entreprise-new">
+  <link rel="icon" type="image/png" href="/assets/logo-ddlv.png">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#5b2ab5",
+            "primary-light": "#7a6ac7",
+            "accent": "#cf3594",
+            "deep-bg": "#0d0218",
+          },
+          fontFamily: {
+            "display": ["'Josefin Sans'", "sans-serif"],
+            "sans": ["'Josefin Sans'", "sans-serif"]
+          },
+        },
+      },
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer components {
+      .glass-panel {
+        @apply backdrop-blur-[25px] bg-white/10 border border-white/20;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 0 2px 1px rgba(255, 255, 255, 0.15), 0 0 15px rgba(255, 255, 255, 0.05);
+      }
+      .hero-overlay::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.12) 70%, transparent 100%);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .hero-overlay > * { position: relative; z-index: 1; }
+      .hero-cta-icon { font-size: 1.75rem; }
+      .hero-gradient-word {
+        @apply text-transparent bg-clip-text;
+        background-image: linear-gradient(to right, #b83d7a 0%, #9849a8 30%, #6b5fa8 65%, #4db8aa 100%);
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+        text-stroke: 1px rgba(255, 255, 255, 0.5);
+        text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+      }
+      .bg-blur-image { position: fixed; inset: -20px; z-index: -3; background: url('/assets/bg.jpg') 65% 50% / cover no-repeat; filter: blur(14px); transform: scale(1.05); }
+      .bg-textured-art {
+        background-color: rgba(30, 15, 50, 0.08);
+        background-image:
+          radial-gradient(ellipse 120% 100% at 0% 50%, rgba(255, 255, 255, 0.07) 0%, transparent 50%),
+          radial-gradient(circle at 10% 20%, rgba(91, 42, 181, 0.35) 0%, transparent 55%),
+          radial-gradient(circle at 90% 10%, rgba(207, 53, 148, 0.3) 0%, transparent 55%),
+          radial-gradient(circle at 50% 50%, rgba(122, 106, 199, 0.28) 0%, transparent 60%);
+        position: fixed; inset: 0; z-index: -2;
+      }
+      .blob { position: fixed; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.6; }
+      .nav-item::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 2px;
+        background: #cf3594;
+        transition: width .3s;
+        box-shadow: 0 0 10px #cf3594;
+      }
+      .nav-item:hover::after { width: 100%; }
+      .glass-panel-rose {
+        @apply backdrop-blur-[25px];
+        background-image: linear-gradient(135deg, rgba(255, 252, 255, 0.28) 0%, rgba(255, 240, 248, 0.14) 45%, rgba(240, 235, 255, 0.22) 100%);
+        border: none;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.28), inset 0 0 2px 1px rgba(255, 250, 252, 0.2), 0 0 15px rgba(255, 245, 250, 0.04);
+      }
+      .glass-panel-rose.bento-bg-blur {
+        background-image: linear-gradient(135deg, rgba(255, 252, 255, 0.06) 0%, rgba(255, 240, 248, 0.02) 45%, rgba(240, 235, 255, 0.04) 100%);
+      }
+      .bento-bg-blur::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        border-radius: inherit;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        filter: blur(10px);
+        opacity: 0.9;
+      }
+      .bento-formats-zone {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: minmax(140px, auto);
+        gap: 1rem;
+      }
+      @media (min-width: 768px) {
+        .bento-formats-zone:not(.bento-formats-zone--content) { grid-template-rows: repeat(3, minmax(0, 1fr)); grid-auto-rows: unset; height: 100%; gap: 0.5rem; }
+        .bento-formats-zone.bento-formats-zone--content { gap: 1rem; grid-auto-rows: minmax(140px, auto); }
+      }
+      .bento-formats-zone a,
+      .bento-formats-zone > div {
+        transition: transform 0.25s ease-out;
+        min-height: 0;
+      }
+      .bento-icon-wrap { flex-shrink: 0; margin-bottom: 0.75rem; width: 100%; display: flex; justify-content: center; }
+      .bento-content-glass .bento-icon { width: 5.25rem; height: 5.25rem; color: #fff; }
+      .bento-content-glass p,
+      .bento-content-glass li { color: rgba(255, 255, 255, 0.92); line-height: 1.6; font-size: 1rem !important; }
+      .bento-content-glass h3 { color: rgba(255, 255, 255, 0.98); font-size: 22px; font-weight: 600; margin: 0 0 0.5rem 0; }
+      .bento-content-glass strong { color: rgba(255, 255, 255, 0.98); }
+      .bento-content-glass a:not(.btn-rdv) { color: #e090c0; text-decoration: underline; text-underline-offset: 2px; }
+      .bento-content-glass a:not(.btn-rdv):hover { color: #f0b0d0; }
+      .bento-content-glass .btn-rdv,
+      .entreprise-new-page .btn-rdv { text-decoration: none !important; color: #fff !important; }
+      .bento-content-glass .btn-rdv:hover,
+      .entreprise-new-page .btn-rdv:hover { color: #fff !important; text-decoration: none !important; }
+      .bento-glass-accent { border: 1px solid rgba(255, 255, 255, 0.2); background-image: linear-gradient(135deg, rgba(255, 240, 248, 0.2) 0%, rgba(240, 235, 255, 0.15) 100%); }
+      .bento-formats-zone .bento-f-1x1 { grid-column: span 1; grid-row: span 1; }
+      .bento-formats-zone .bento-f-2x1 { grid-column: span 2; grid-row: span 1; }
+      .bento-formats-zone .bento-f-1x2 { grid-column: span 1; grid-row: span 2; }
+      .bento-formats-zone .bento-f-2x2 { grid-column: span 2; grid-row: span 2; }
+      @media (max-width: 767px) {
+        .bento-formats-zone { grid-template-columns: 1fr; grid-auto-rows: minmax(120px, auto); }
+        .bento-formats-zone .bento-f-1x1,
+        .bento-formats-zone .bento-f-2x1,
+        .bento-formats-zone .bento-f-1x2,
+        .bento-formats-zone .bento-f-2x2 { grid-column: span 1; grid-row: span 1; }
+      }
+      .bento-type-badge {
+        background: linear-gradient(135deg, rgba(91, 42, 181, 0.85) 0%, rgba(207, 53, 148, 0.85) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      }
+      .section-title-bentos {
+        font-size: 1.875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        margin-bottom: 1rem;
+        margin-top: 30px;
+        color: #fff;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+        flex-shrink: 0;
+      }
+      .bento-content-zone {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      @media (min-width: 768px) {
+        .bento-content-zone { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+      }
+      .bento-content-card {
+        border-radius: 1rem;
+        padding: 1.5rem;
+        background: rgba(255,255,255,0.85);
+        border: 1px solid rgba(91,42,181,0.12);
+        box-shadow: 0 4px 20px rgba(91,42,181,0.06);
+      }
+      .bento-content-card-accent {
+        border-color: rgba(207,53,148,0.25);
+        background: rgba(255,255,255,0.9);
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    body.entreprise-new-page {
+      background: transparent !important;
+      color: #fff !important;
+      font-family: 'Josefin Sans', sans-serif !important;
+    }
+    body.entreprise-new-page::before,
+    body.entreprise-new-page::after { display: none !important; }
+    .entreprise-new-page .article-section {
+      margin-bottom: 3rem;
+      background: rgba(255,255,255,0.85) !important;
+      border: 1px solid rgba(91,42,181,0.12) !important;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(91,42,181,0.06) !important;
+      padding: 2rem 1.5rem !important;
+    }
+    .entreprise-new-page .article-content p,
+    .entreprise-new-page .article-content li { color: rgba(255,255,255,0.95); }
+    .entreprise-new-page .article-content h1 { color: #fff; font-size: 1.75rem; margin-bottom: 0.5rem; }
+    .entreprise-new-page .article-content h2 { color: #fff; font-size: 1.5rem; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+    .entreprise-new-page .article-content h3 { color: #fff; font-size: 1.25rem; margin-top: 1.25rem; margin-bottom: 0.5rem; }
+    .entreprise-new-page .article-content a { color: #cf3594; text-decoration: underline; }
+    .entreprise-new-page .article-content a:hover { color: #b82d7a; }
+    .entreprise-new-page .article-content ul { padding-left: 1.5rem; margin: 0.5rem 0 1rem 0; }
+    .entreprise-new-page .bento-content-card p,
+    .entreprise-new-page .bento-content-card li { color: rgba(255,255,255,0.95); }
+    .entreprise-new-page .bento-content-card h3 { color: #fff; font-size: 1.25rem; margin-top: 0; margin-bottom: 0.5rem; }
+    .entreprise-new-page .bento-content-card a { color: #cf3594; text-decoration: underline; }
+    .entreprise-new-page .bento-content-card ul { padding-left: 1.5rem; margin: 0.5rem 0 0 0; }
+    .entreprise-new-page .article-section .section-title-bentos { color: #fff; text-shadow: none; }
+  </style>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="font-display text-white relative entreprise-new-page min-h-screen" id="entreprise-new-body">
+  <div class="bg-blur-image" aria-hidden="true"></div>
+  <div class="bg-textured-art"></div>
+  <div class="blob w-[600px] h-[600px] bg-primary top-[-10%] left-[-10%]"></div>
+  <div class="blob w-[500px] h-[500px] bg-accent bottom-[-10%] right-[-5%]"></div>
+  <div class="blob w-[400px] h-[400px] bg-primary-light top-[40%] right-[10%]"></div>
+  <div class="blob w-[300px] h-[300px] bg-primary bottom-[20%] left-[20%]"></div>
+
+  <div id="site-header"></div>
+  <script>
+    (function() {
+      var el = document.getElementById('site-header');
+      if (!el) return;
+      fetch('/partials/header.html').then(function(r) { return r.ok ? r.text() : Promise.reject(); })
+        .then(function(html) { el.innerHTML = html; })
+        .catch(function() {});
+    })();
+  </script>
+
+  <main class="relative" role="main">
+    <section class="hero-overlay relative min-h-screen flex items-center pt-24 pb-12" aria-label="Hero">
+      <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-10 md:gap-12">
+        <div class="flex flex-col items-start gap-10">
+          <h1 class="text-[3.5rem] md:text-[5.8rem] lg:text-[7rem] font-bold tracking-tight text-white leading-tight">
+            <span class="block">Offres</span>
+            <span class="hero-gradient-word block">Entreprise</span>
+          </h1>
+          <nav class="flex flex-wrap gap-3" aria-label="Sommaire">
+            <a href="#pour-qui" class="inline-flex items-center px-5 py-3 rounded-2xl font-semibold text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Pour qui ?</a>
+            <a href="#cours-chant-ce" class="inline-flex items-center px-5 py-3 rounded-2xl font-semibold text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Cours de chant CE</a>
+            <a href="#cours-impro" class="inline-flex items-center px-5 py-3 rounded-2xl font-semibold text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Cours d'impro</a>
+            <a href="#team-building" class="inline-flex items-center px-5 py-3 rounded-2xl font-semibold text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Team building</a>
+            <a href="#seminaires" class="inline-flex items-center px-5 py-3 rounded-2xl font-semibold text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Séminaires</a>
+            <a href="#benefices" class="inline-flex items-center px-5 py-3 rounded-2xl font-semibold text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Les bénéfices</a>
+            <a href="/contact" class="btn-rdv">Demander un devis</a>
+          </nav>
+        </div>
+        <p class="text-white/90 text-lg md:text-xl font-light leading-relaxed max-w-[36.4rem] md:max-w-[31.2rem]">
+          <strong>Cours de chant</strong> et d'<strong>improvisation vocale</strong> pour comités d'entreprise. Team building vocal, ice breaker séminaires, animation entreprise. Formations et animations sur mesure.
+        </p>
+      </div>
+    </section>
+
+    <div class="px-4 md:px-8 max-w-7xl mx-auto pb-24">
+      <!-- Section 1 : Pour qui ? -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="pour-qui">
+        <h2 class="section-title-bentos scroll-mt-28">Pour qui sont ces offres entreprise ?</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-2x2 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-3 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="building-2" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="text-lg font-medium m-0">Mes <strong>offres entreprise</strong> s'adressent à toutes les structures qui souhaitent proposer à leurs collaborateurs des activités originales, bienveillantes et fédératrices autour de la voix et de l'<strong>improvisation vocale</strong> ou du chant en général.</p>
+              <p class="m-0 mt-2">Toutes mes offres sont adaptables à vos besoins, contraintes et objectifs. Je me déplace dans vos locaux ou peux accueillir vos équipes dans mon local à Toulouse.</p>
+            </div>
+            <div class="bento-f-1x2 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="users" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Comités d'entreprise</h3>
+              <p class="m-0 text-sm">Proposer des <strong>cours de chant</strong> ou d'<strong>improvisation vocale</strong> réguliers à vos salariés.</p>
+              <h3 class="mt-4">Services RH</h3>
+              <p class="m-0 text-sm">Organiser des <strong>activités team building</strong> originales pour renforcer la cohésion d'équipe.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="target" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Organisateurs de séminaires</h3>
+              <p class="mb-0 text-sm">Animer des <strong>ice breakers</strong> et <strong>activités de team building</strong> lors de vos événements.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="graduation-cap" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Centres de formation</h3>
+              <p class="mb-0 text-sm">Intégrer des <strong>formations vocales</strong> dans vos parcours de développement personnel.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2 : Cours de chant CE -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="cours-chant-ce">
+        <h2 class="section-title-bentos scroll-mt-28">Cours de chant pour comités d'entreprise</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="music-2" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="text-base m-0">Proposez à vos salariés des <strong>cours de chant</strong> réguliers dans le cadre de votre <strong>comité d'entreprise</strong>. Une activité bienveillante qui permet de se détendre, développer sa créativité et renforcer les liens entre collaborateurs.</p>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="list-checks" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Formules disponibles</h3>
+              <ul class="text-sm mb-0 list-disc pl-4 space-y-1">
+                <li><strong>Cours collectifs réguliers</strong> – Sessions hebdomadaires ou bi-mensuelles pour un groupe de 5 à 15 participants</li>
+                <li><strong>Interventions ponctuelles</strong> – Demi-journée ou journée pour découvrir le chant en groupe comme outil de cohésion</li>
+                <li><strong>Cours individuels</strong> – Coaching vocal personnalisé pour vos collaborateurs (sur devis)</li>
+                <li><strong>Prévention vocale</strong> – Formation pour les professions utilisant beaucoup la voix (enseignants, commerciaux, animateurs…)</li>
+              </ul>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="mic" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Contenu des cours</h3>
+              <ul class="text-sm mb-0 list-disc pl-4 space-y-1">
+                <li><strong>Technique vocale adaptée</strong> – Respiration, justesse, puissance, agilité vocale</li>
+                <li><strong>Chant en groupe</strong> – Harmonies, polyphonies, chant a capella</li>
+                <li><strong>Répertoire varié</strong> – Morceaux choisis ensemble selon les goûts du groupe</li>
+              </ul>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="heart" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="m-0 text-sm">Le <strong>chant en groupe</strong> est un excellent moyen de renforcer la cohésion d'équipe, développer l'écoute mutuelle et créer des moments de partage uniques entre collaborateurs.</p>
+              <a href="/contact" class="btn-rdv mt-auto">Demander un devis</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3 : Cours d'impro -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="cours-impro">
+        <h2 class="section-title-bentos scroll-mt-28">Cours d'improvisation vocale pour entreprises</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="sparkles" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="text-base m-0">L'<strong>improvisation vocale</strong> est une activité créative et libératrice, parfaite pour les entreprises qui souhaitent sortir de leurs habitudes et développer la créativité de leurs équipes.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="music" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Circlesongs</h3>
+              <p class="mb-0 text-sm">Création collective de polyphonies vocales improvisées, où chacun trouve sa place dans l'ensemble.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="hand" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Vocal painting</h3>
+              <p class="mb-0 text-sm">Diriger un groupe vocal en temps réel avec des gestes, développer leadership et écoute.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="circle-dot" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Impro libre</h3>
+              <p class="mb-0 text-sm">Explorer sa voix de manière spontanée, sans partition ni contrainte, libérer sa créativité.</p>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="trending-up" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Bénéfices pour vos équipes</h3>
+              <ul class="text-sm mb-0 list-disc pl-4 space-y-1">
+                <li>Développer la créativité et oser l'innovation</li>
+                <li>Renforcer l'écoute et s'adapter en temps réel</li>
+                <li>Améliorer la communication et l'intelligence émotionnelle</li>
+                <li>Booster la confiance et la cohésion</li>
+              </ul>
+              <a href="/contact" class="btn-rdv mt-auto">Demander un devis</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4 : Team building -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="team-building">
+        <h2 class="section-title-bentos scroll-mt-28">Team building vocal et improvisation</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="users" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="text-base m-0">Organisez un <strong>team building vocal</strong> original et fédérateur pour vos équipes. Une activité qui sort des sentiers battus et crée des souvenirs mémorables.</p>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="list-checks" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Formules team building</h3>
+              <ul class="text-sm mb-0 list-disc pl-4 space-y-1">
+                <li><strong>Team building circlesongs</strong> – Création collective d'une œuvre vocale improvisée (2-3h)</li>
+                <li><strong>Team building chant en groupe</strong> – Apprendre un morceau ensemble et le chanter en fin de session (2-3h)</li>
+                <li><strong>Team building sur mesure</strong> – Formule adaptée à vos objectifs et contraintes</li>
+              </ul>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="check-circle" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Pourquoi choisir un team building vocal ?</h3>
+              <ul class="text-sm mb-0 list-disc pl-4 space-y-1">
+                <li>Activité accessible à tous – Pas besoin de savoir chanter</li>
+                <li>Fédérateur et bienveillant – Crée des liens authentiques</li>
+                <li>Original et mémorable – Sort des activités classiques</li>
+                <li>Développe écoute, créativité, confiance, communication</li>
+              </ul>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="star" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="m-0 text-sm"><strong>Idéal pour :</strong> Renforcer la cohésion d'équipe, célébrer un succès, intégrer de nouveaux collaborateurs, ou simplement offrir un moment de détente et de partage à vos équipes.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5 : Séminaires -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="seminaires">
+        <h2 class="section-title-bentos scroll-mt-28">Animation séminaire : Ice breaker et team building</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="calendar-days" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="text-base m-0">Animez vos <strong>séminaires d'entreprise</strong> avec des <strong>ice breakers</strong> et <strong>activités de team building</strong> autour de la voix et de l'<strong>improvisation vocale</strong>. Parfait pour dynamiser vos événements et créer une atmosphère positive dès le début.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="sparkles" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Ice breaker vocal</h3>
+              <p class="mb-0 text-sm">Animation courte (30-45 min) pour briser la glace et créer une dynamique positive dès le début du séminaire.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="calendar" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Animation séminaire</h3>
+              <p class="mb-0 text-sm">Activité de 1h30 à 2h intégrée dans votre programme pour dynamiser la journée.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="party-popper" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Clôture événement</h3>
+              <p class="mb-0 text-sm">Animation de fin de séminaire pour terminer sur une note positive et fédératrice.</p>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="list" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Contenu des animations</h3>
+              <ul class="text-sm mb-0 list-disc pl-4 space-y-1">
+                <li>Jeux vocaux interactifs – Activités ludiques pour se détendre et créer du lien</li>
+                <li>Circlesongs découverte – Initiation à l'improvisation vocale collective</li>
+                <li>Chant en groupe – Apprendre un morceau simple ensemble</li>
+                <li>Contenu personnalisé selon vos objectifs et le thème de votre séminaire</li>
+              </ul>
+              <a href="/contact" class="btn-rdv mt-auto">Demander un devis</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 6 : Les bénéfices -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="benefices">
+        <h2 class="section-title-bentos scroll-mt-28">Les bénéfices pour votre entreprise</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="users" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Cohésion d'équipe</h3>
+              <p class="mb-0 text-sm">Renforcer les liens entre collaborateurs, créer des moments de partage authentiques.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="palette" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Créativité</h3>
+              <p class="mb-0 text-sm">Développer l'innovation et la pensée créative, sortir des schémas habituels.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="message-circle" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Communication</h3>
+              <p class="mb-0 text-sm">Améliorer l'écoute mutuelle, développer l'intelligence émotionnelle.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="heart" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Bien-être</h3>
+              <p class="mb-0 text-sm">Réduire le stress, favoriser la détente et le lâcher-prise.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="trending-up" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Confiance</h3>
+              <p class="mb-0 text-sm">Booster l'estime de soi, oser s'exprimer et prendre sa place.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="award" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Image de marque</h3>
+              <p class="mb-0 text-sm">Proposer des activités originales et bienveillantes renforce l'attractivité de votre entreprise.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 7 : Contact CTA -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="contact">
+        <h2 class="section-title-bentos scroll-mt-28">Contactez-moi pour votre projet</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-2x2 glass-panel-rose bento-tint-mix p-8 rounded-2xl flex flex-col gap-4 relative overflow-hidden bento-content-glass text-center items-center justify-center">
+              <div class="bento-icon-wrap flex justify-center"><i data-lucide="mail" class="bento-icon" aria-hidden="true"></i></div>
+              <h3 class="mt-0 text-xl">Parlons de votre projet</h3>
+              <p class="mb-0 text-base max-w-xl">Vous avez un projet d'<strong>activité entreprise</strong> ? Je serais ravie d'échanger avec vous pour créer une offre sur mesure. Je réponds à toutes vos questions et vous propose un devis personnalisé adapté à vos besoins.</p>
+              <p class="text-sm text-white/90">Au plaisir de créer ensemble une activité mémorable pour vos équipes !</p>
+              <div class="flex flex-wrap gap-4 justify-center">
+                <a href="/contact" class="btn-rdv">Me contacter / Demander un devis</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div class="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-5">
+    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all" href="/contact" title="Contact"><svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>
+    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-accent transition-all" href="https://www.instagram.com/donnerdelavoixchant/" target="_blank" rel="noopener noreferrer" title="Instagram"><svg class="size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059 1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg></a>
+    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-primary transition-all" href="https://www.facebook.com/donnerdelavoix" target="_blank" rel="noopener noreferrer" title="Facebook"><svg class="size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg></a>
+  </div>
+  <div class="fixed bottom-6 left-8 z-50">
+    <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="/mentions-legales">Mentions Légales</a>
+  </div>
+  <div class="fixed bottom-6 right-8 z-50">
+    <a href="/contact" class="btn-rdv inline-flex items-center justify-center px-5 py-3 rounded-2xl font-semibold text-sm uppercase tracking-widest text-white border border-white/30 bg-white/10 hover:bg-white/20 transition-all shadow-lg">Prendre RDV</a>
+  </div>
+
+  <script type="module" src="/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+      function smoothScrollTo(id) {
+        var el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+          var href = a.getAttribute('href');
+          if (href && href.length > 1) {
+            e.preventDefault();
+            smoothScrollTo(href.slice(1));
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

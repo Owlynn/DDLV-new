@@ -2,6 +2,14 @@ import { escapeHtml, validateExternalUrl } from '../utils/security.js';
 
 let currentDate = new Date();
 
+/** Retourne true si la date du calendrier est au mois actuel ou dans le passé (on ne peut pas aller avant) */
+function isAtOrBeforeCurrentMonth() {
+  const now = new Date();
+  if (currentDate.getFullYear() < now.getFullYear()) return true;
+  if (currentDate.getFullYear() === now.getFullYear() && currentDate.getMonth() <= now.getMonth()) return true;
+  return false;
+}
+
 /**
  * Rend le calendrier
  * @param {Array} workshops - Liste des ateliers
@@ -9,9 +17,19 @@ let currentDate = new Date();
 export function renderCalendar(workshops = []) {
   const calendarGrid = document.getElementById('calendar-grid');
   const monthTitle = document.getElementById('month-title');
-  
+  const prevMonthBtn = document.getElementById('prev-month');
+
   if (!calendarGrid || !monthTitle) return; // Si on n'est pas sur une page avec calendrier
-  
+
+  const now = new Date();
+  if (currentDate.getFullYear() < now.getFullYear() || (currentDate.getFullYear() === now.getFullYear() && currentDate.getMonth() < now.getMonth())) {
+    currentDate = new Date(now.getFullYear(), now.getMonth(), 1);
+  }
+
+  if (prevMonthBtn) {
+    prevMonthBtn.disabled = isAtOrBeforeCurrentMonth();
+  }
+
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
   
@@ -109,6 +127,7 @@ export function initCalendarNavigation() {
   
   if (prevMonthBtn) {
     prevMonthBtn.addEventListener('click', function() {
+      if (isAtOrBeforeCurrentMonth()) return;
       currentDate.setMonth(currentDate.getMonth() - 1);
       window.dispatchEvent(new CustomEvent('calendarUpdate'));
     });

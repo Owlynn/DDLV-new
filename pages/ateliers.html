@@ -26,10 +26,10 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/assets/logo-ddlv.png">
   
-  <!-- Google Fonts - Inter -->
+  <!-- Google Fonts - Josefin Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="/styles.css">
   
@@ -172,109 +172,17 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="ateliers-copy-page">
-  <!-- Logo flottant en haut à gauche -->
-  <a href="/" class="floating-logo" aria-label="Retour à l'accueil - Donner de la Voix">
-    <img src="/assets/logo-ddlv.png" alt="Donner de la Voix" class="floating-logo-image">
-  </a>
-  <!-- Nav -->
-  <nav class="site-nav" role="navigation">
-    <div class="header-container">
-      <button class="menu-toggle" aria-label="Menu de navigation" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      
-      <!-- Menu Desktop -->
-      <nav class="header-nav-desktop" aria-label="Navigation principale desktop">
-        <ul class="header-menu-desktop" role="list">
-          <li>
-            <a href="/" class="header-menu-item-desktop">
-              Accueil
-            </a>
-          </li>
-          <li class="header-menu-dropdown-desktop">
-            <a href="#" class="header-menu-item-desktop active">
-              Cours & ateliers
-            </a>
-            <ul class="header-submenu-desktop">
-              <li>
-                <a href="impro-vocale.html" class="header-submenu-item-desktop">Qu'est-ce que l'impro vocale</a>
-              </li>
-              <li>
-                <a href="/ateliers" class="header-submenu-item-desktop">Stages & ateliers</a>
-              </li>
-              <li>
-                <a href="/cours-chant" class="header-submenu-item-desktop">Les cours de chant</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="/offre-entreprise" class="header-menu-item-desktop">
-              Offres entreprise
-            </a>
-          </li>
-          <li>
-            <a href="/about" class="header-menu-item-desktop">
-              La pédagogue
-            </a>
-          </li>
-          <li>
-            <a href="/newsletter" class="header-menu-item-desktop">
-              Newsletter
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </nav>
-  
-  <!-- Menu Mobile (hors site-nav pour position fixed viewport, sans marge) -->
-  <nav class="header-nav-mobile" aria-label="Navigation principale mobile">
-    <ul class="header-menu-mobile" role="list">
-      <li>
-        <a href="/" class="header-menu-item-mobile">
-          Accueil
-        </a>
-      </li>
-      <li>
-        <a href="impro-vocale.html" class="header-menu-item-mobile">
-          Qu'est-ce que l'impro vocale
-        </a>
-      </li>
-      <li>
-        <a href="/ateliers" class="header-menu-item-mobile active">
-          Stages & ateliers
-        </a>
-      </li>
-      <li>
-        <a href="/cours-chant" class="header-menu-item-mobile">
-          Les cours de chant
-        </a>
-      </li>
-      <li>
-        <a href="/offre-entreprise" class="header-menu-item-mobile">
-          Offres entreprise
-        </a>
-      </li>
-      <li>
-        <a href="/about" class="header-menu-item-mobile">
-          La pédagogue
-        </a>
-      </li>
-      <li>
-        <a href="/newsletter" class="header-menu-item-mobile">
-          Newsletter
-        </a>
-      </li>
-    </ul>
-  </nav>
-  
-  <!-- Bouton flottant PRENDRE RDV -->
-  <button class="floating-rdv-btn" id="calendly-trigger" aria-label="Prendre rendez-vous">
-    <i data-lucide="calendar-check" class="floating-rdv-icon"></i>
-    PRENDRE RDV
-  </button>
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+  <div id="site-header"></div>
+  <script>
+    (function() {
+      var el = document.getElementById('site-header');
+      if (!el) return;
+      fetch('/partials/header.html').then(function(r) { return r.ok ? r.text() : Promise.reject(); })
+        .then(function(html) { el.innerHTML = html; })
+        .catch(function() {});
+    })();
+  </script>
   
   <!-- Popup Calendly -->
   <div id="calendly-popup" class="calendly-popup-container hidden">
@@ -560,7 +468,7 @@
                 
                 <div style="background: rgba(255, 255, 255, 0.25); padding: 1.5rem; border-radius: 12px; margin: 2rem 0;">
                   <h3 style="color: var(--color-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; font-size: 1.375rem; font-weight: 600;">
-                    👥 Pour qui ?
+                    Pour qui ?
                   </h3>
                   <p style="margin-bottom: 0;"><strong>Ouvert à tous.tes</strong> – 10 participant.es maximum</p>
                 </div>
@@ -675,7 +583,7 @@
                 <p>Gagner en confiance • Solidifier sa pratique • Lâcher prise • S'amuser • Développer sa créativité</p>
 
                 <div class="highlight-box-small" style="border: 2px solid rgba(91, 42, 181, 0.2);">
-                  <h3 style="font-size: 1.25rem; color: var(--color-primary); margin-bottom: 1.25rem; text-align: center; font-weight: 600;">📅 Format &amp; Durée</h3>
+                  <h3 style="font-size: 1.25rem; color: var(--color-primary); margin-bottom: 1.25rem; text-align: center; font-weight: 600;">Format &amp; Durée</h3>
                   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
                       <span style="font-size: 1.5rem;">📅</span>
@@ -708,7 +616,7 @@
                   </div>
                 </div>
 
-                <h3 style="font-size: 1.375rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 600;">🎵 Programme détaillé</h3>
+                <h3 style="font-size: 1.375rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 600;">Programme détaillé</h3>
                 <ul>
                   <li><strong>Jour 1 – Les bases du Circlesong</strong><br>Poser les fondations : prendre sa place dans le cercle, oser proposer des idées vocales, lâcher le mental pour se connecter au groupe. Exercices progressifs pour développer la confiance et libérer sa créativité sans jugement.</li>
                   <li><strong>Jour 2 – Approfondir les bases</strong><br>Affiner la technique : structurer les différentes voix dans le cercle (arrangements), suivre et répondre aux indications du chef de chœur (direction). Développement de l'écoute active et de l'interaction musicale.</li>
@@ -718,12 +626,12 @@
                 </ul>
 
                 <div style="background: rgba(255, 255, 255, 0.25); padding: 1.5rem; border-radius: 12px; margin: 2rem 0;">
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">🎭 Représentation publique</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">Représentation publique</h3>
                   <p style="margin-bottom: 0;">Le stage se conclut par une <strong>représentation publique en soirée</strong>, où les participants partagent l'expérience du circlesong avec le public.</p>
                 </div>
 
                 <div style="background: rgba(255, 255, 255, 0.25); padding: 1.5rem; border-radius: 12px; margin: 2rem 0;">
-                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.375rem; font-weight: 600;">👥 À qui s'adresse ce stage ?</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.375rem; font-weight: 600;">À qui s'adresse ce stage ?</h3>
                   <p style="margin-bottom: 0.75rem;"><strong>Débutants et curieux bienvenus.</strong></p>
                   <p style="margin-bottom: 0.75rem;"><strong>Prérequis :</strong> Savoir reproduire une mélodie donnée en respectant tonalité et rythmique.</p>
                   <p style="margin-bottom: 0.75rem;">Ce stage s'adresse aux chanteurs et chanteuses de tous niveaux, aux musiciens souhaitant explorer la voix, aux amateurs de musique improvisée et à toute personne curieuse de découvrir le circlesong. Aucune expérience préalable en circlesong n'est requise.</p>
@@ -741,7 +649,7 @@
                 </div>
 
                 <div style="background: rgba(212, 197, 255, 0.15); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-primary);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">✉️ Inscriptions &amp; informations</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">Inscriptions &amp; informations</h3>
                   <p style="margin-bottom: 0;">Inscriptions ouvertes. Pour vous inscrire ou pour toute question : <a href="/contact" style="color: var(--color-primary); text-decoration: underline; font-weight: 600;">contact</a> ou <a href="mailto:contact@donnerdelavoix.fr" style="color: var(--color-primary); text-decoration: underline;">contact@donnerdelavoix.fr</a>.</p>
                 </div>
 
@@ -779,32 +687,32 @@
                 <p><strong>Chant pour tous</strong> est un <strong>atelier gratuit d'improvisation vocale à Toulouse</strong>, ouvert à toutes et tous. Un atelier de <strong>chant en groupe</strong> accessible à tous, où nous explorons le <strong>chant a capella</strong> et l'improvisation vocale collective. Une belle occasion de découvrir l'<strong>impro vocale</strong> et les <strong>circlesongs</strong> dans un cadre accessible et bienveillant, sans aucun engagement financier.</p>
                 <p>Parfait pour une première approche du <strong>chant improvisé</strong>, cet atelier vous permet de tester cette pratique et de voir si elle vous correspond.</p>
                 
-                <h3 style="font-size: 1.375rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 600;">🎯 Ce que vous allez découvrir</h3>
+                <h3 style="font-size: 1.375rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 600;">Ce que vous allez découvrir</h3>
                 <div style="display: flex; flex-direction: column; gap: 1rem;">
                   <div style="background: rgba(255, 255, 255, 0.3); padding: 1.25rem; border-radius: 12px; border-left: 4px solid var(--color-primary);">
-                    <h4 style="color: var(--color-primary); margin-bottom: 0.5rem; font-weight: 600; font-size: 1.1rem;">🎵 Découvrir l'improvisation vocale</h4>
+                    <h4 style="color: var(--color-primary); margin-bottom: 0.5rem; font-weight: 600; font-size: 1.1rem;">Découvrir l'improvisation vocale</h4>
                     <p style="margin: 0;">Explorer cette pratique dans un cadre convivial et bienveillant, sans prérequis musicaux.</p>
                   </div>
                   
                   <div style="background: rgba(255, 255, 255, 0.3); padding: 1.25rem; border-radius: 12px; border-left: 4px solid var(--color-accent);">
-                    <h4 style="color: var(--color-accent); margin-bottom: 0.5rem; font-weight: 600; font-size: 1.1rem;">🗣️ Expérimenter votre voix</h4>
+                    <h4 style="color: var(--color-accent); margin-bottom: 0.5rem; font-weight: 600; font-size: 1.1rem;">Expérimenter votre voix</h4>
                     <p style="margin: 0;">Explorer votre voix dans un cadre collectif, participer à des jeux d'<strong>improvisation vocale</strong> et découvrir votre potentiel créatif.</p>
                   </div>
                   
                   <div style="background: rgba(255, 255, 255, 0.3); padding: 1.25rem; border-radius: 12px; border-left: 4px solid var(--color-primary-light);">
-                    <h4 style="color: var(--color-primary-light); margin-bottom: 0.5rem; font-weight: 600; font-size: 1.1rem;">🔄 Créer des circle songs</h4>
+                    <h4 style="color: var(--color-primary-light); margin-bottom: 0.5rem; font-weight: 600; font-size: 1.1rem;">Créer des circle songs</h4>
                     <p style="margin: 0;">Participer à la création de <strong>circlesongs</strong> envoûtants, apprendre à créer ensemble des œuvres vocales spontanées et harmonieuses.</p>
                   </div>
                   
                   <div style="background: rgba(255, 255, 255, 0.3); padding: 1.25rem; border-radius: 12px; border-left: 4px solid var(--color-accent);">
-                    <h4 style="color: var(--color-accent); margin-bottom: 0.5rem; font-weight: 600; font-size: 1.1rem;">🤝 Rencontrer une communauté</h4>
+                    <h4 style="color: var(--color-accent); margin-bottom: 0.5rem; font-weight: 600; font-size: 1.1rem;">Rencontrer une communauté</h4>
                     <p style="margin: 0;">Faire connaissance avec d'autres personnes intéressées par la voix et le chant à Toulouse, partager un moment musical collectif sous le signe de la bonne humeur.</p>
                   </div>
                 </div>
 
                 <div style="background: rgba(255, 255, 255, 0.25); padding: 1.5rem; border-radius: 12px; margin: 2rem 0;">
                   <h3 style="color: var(--color-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; font-size: 1.375rem; font-weight: 600;">
-                    👥 Pour qui ?
+                    Pour qui ?
                   </h3>
                   <div style="display: flex; flex-direction: column; gap: 0.75rem;">
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
@@ -1008,7 +916,7 @@
                 </div>
 
                 <div class="highlight-box-dashed" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">🎵 Envie de tisser voix, mots et improvisation ?</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">Envie de tisser voix, mots et improvisation ?</h3>
                   <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Rejoignez cette journée unique d'exploration vocale et poétique</p>
                   <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                     <button class="atelier-see-workshops-btn" data-section="calendrier" style="padding: 0.75rem 2rem; font-size: 1rem;">
@@ -1065,7 +973,7 @@
                 
                 <div style="background: rgba(255, 255, 255, 0.25); padding: 1.5rem; border-radius: 12px; margin: 2rem 0;">
                   <h3 style="color: var(--color-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; font-size: 1.375rem; font-weight: 600;">
-                    👥 Atelier co-animé par
+                    Atelier co-animé par
                   </h3>
                   <div style="display: flex; flex-direction: column; gap: 0.75rem;">
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
@@ -1115,7 +1023,7 @@
                 </div>
 
                 <div class="highlight-box-white-transparent">
-                  <h3 style="text-align: center; color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600;">💸 Tarif</h3>
+                  <h3 style="text-align: center; color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600;">Tarif</h3>
                   <div style="text-align: center; margin-bottom: 1.5rem;">
                     <div style="font-size: 2.5rem; font-weight: 700; color: var(--color-primary); margin-bottom: 0.5rem;">40 €</div>
                     <p style="font-size: 1.05rem; color: #666; margin: 0;">Règlement sur place</p>
@@ -1129,7 +1037,7 @@
                 </div>
 
                 <div class="highlight-box-dashed">
-                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">🎵 Prêt.e à explorer la gestuelle dans les circlesongs ?</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">Prêt.e à explorer la gestuelle dans les circlesongs ?</h3>
                   <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Une journée pour parler avec les mains, chanter ensemble… et prendre encore plus de plaisir à improviser</p>
                   <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                     <button class="atelier-see-workshops-btn" data-section="calendrier" style="padding: 0.75rem 2rem; font-size: 1rem;">
@@ -1163,27 +1071,27 @@
                 <p>Le <strong>flashmob improvisé</strong> est une expérience collective unique qui combine l'<strong>improvisation vocale</strong>, la performance publique et la création spontanée dans l'espace urbain de <strong>Toulouse</strong>.</p>
                 <p>Vivez un moment poétique et spontané dans les rues toulousaines, guidé.e par des facilitateur.ices. Des petits groupes créeront des <strong>circlesongs</strong> éphémères dans différents lieux de la ville, où chaque conducteur.rice propose une séquence vocale que le chœur reprend, créant ainsi une expérience musicale unique et partagée avec les passants.</p>
                 
-                <h3 style="font-size: 1.375rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 600;">🎯 Ce que vous allez vivre</h3>
+                <h3 style="font-size: 1.375rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 600;">Ce que vous allez vivre</h3>
                 <div style="display: flex; flex-direction: column; gap: 1rem;">
                   <div style="background: rgba(255, 255, 255, 0.3); padding: 1.25rem; border-radius: 12px; border-left: 4px solid var(--color-accent);">
-                    <h4 style="color: var(--color-accent); margin-bottom: 0.5rem; font-weight: 600; font-size: 1.1rem;">🎭 Création vocale collective en public</h4>
+                    <h4 style="color: var(--color-accent); margin-bottom: 0.5rem; font-weight: 600; font-size: 1.1rem;">Création vocale collective en public</h4>
                     <p style="margin: 0;">Sortir l'<strong>improvisation vocale</strong> des espaces habituels et la partager avec un public plus large, dans un esprit de jeu et de créativité collective.</p>
                   </div>
                   
                   <div style="background: rgba(255, 255, 255, 0.3); padding: 1.25rem; border-radius: 12px; border-left: 4px solid var(--color-primary-light);">
-                    <h4 style="color: var(--color-primary-light); margin-bottom: 0.5rem; font-weight: 600; font-size: 1.1rem;">🏙️ Impro vocale dans l'espace urbain</h4>
+                    <h4 style="color: var(--color-primary-light); margin-bottom: 0.5rem; font-weight: 600; font-size: 1.1rem;">Impro vocale dans l'espace urbain</h4>
                     <p style="margin: 0;">Découvrir comment la voix résonne et se transforme dans différents contextes urbains à <strong>Toulouse</strong>, créer des dialogues entre la voix et l'espace public.</p>
                   </div>
                   
                   <div style="background: rgba(255, 255, 255, 0.3); padding: 1.25rem; border-radius: 12px; border-left: 4px solid var(--color-accent);">
-                    <h4 style="color: var(--color-accent); margin-bottom: 0.5rem; font-weight: 600; font-size: 1.1rem;">✨ Vivre une expérience artistique partagée</h4>
+                    <h4 style="color: var(--color-accent); margin-bottom: 0.5rem; font-weight: 600; font-size: 1.1rem;">Vivre une expérience artistique partagée</h4>
                     <p style="margin: 0;">Participer à une aventure collective où la musique naît de l'instant, où chaque participant.e contribue à créer une œuvre vocale éphémère et unique avec des <strong>circlesongs</strong> spontanés.</p>
                   </div>
                 </div>
 
                 <div style="background: rgba(255, 255, 255, 0.25); padding: 1.5rem; border-radius: 12px; margin: 2rem 0;">
                   <h3 style="color: var(--color-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; font-size: 1.375rem; font-weight: 600;">
-                    🗓️ Programme de la journée
+                    Programme de la journée
                   </h3>
                   <div style="display: flex; flex-direction: column; gap: 1rem;">
                     <div style="display: flex; align-items: flex-start; gap: 1rem;">
@@ -1205,7 +1113,7 @@
 
                 <div style="background: rgba(255, 255, 255, 0.25); padding: 1.5rem; border-radius: 12px; margin: 2rem 0;">
                   <h3 style="color: var(--color-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; font-size: 1.375rem; font-weight: 600;">
-                    👥 Pour qui ?
+                    Pour qui ?
                   </h3>
                   <div style="display: flex; flex-direction: column; gap: 0.75rem;">
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
@@ -1276,7 +1184,7 @@
                 </div>
 
                 <div class="highlight-box-dashed-accent">
-                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">🎵 Prêt.e pour un flashmob vocal dans les rues de Toulouse ?</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">Prêt.e pour un flashmob vocal dans les rues de Toulouse ?</h3>
                   <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Rejoignez-nous et partagez l'improvisation vocale dans l'espace public !</p>
                   <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                     <button class="atelier-see-workshops-btn" data-section="calendrier" style="padding: 0.75rem 2rem; font-size: 1rem;">
@@ -1309,7 +1217,7 @@
                 <p>Le <strong>coaching personnalisé</strong> vous offre un accompagnement sur mesure adapté à vos besoins spécifiques en <strong>improvisation vocale</strong> et <strong>circlesongs</strong>.</p>
                 <p>Une <strong>journée intensive à Toulouse</strong> pour approfondir un ou deux aspects précis de votre pratique du <strong>circlesong</strong>, autant en tant que conducteur.rice qu'en tant que choriste.</p>
                 
-                <h3 style="font-size: 1.375rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 600;">🎯 Comment ça marche ?</h3>
+                <h3 style="font-size: 1.375rem; color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-weight: 600;">Comment ça marche ?</h3>
                 <div style="background: rgba(212, 197, 255, 0.15); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border-left: 4px solid var(--color-primary);">
                   <p style="margin-bottom: 1rem;">À l'inscription, vous m'indiquez <strong>un ou deux aspects</strong> de votre pratique du <strong>circlesong</strong> que vous souhaitez travailler, par exemple :</p>
                   <ul style="margin-bottom: 1rem;">
@@ -1323,13 +1231,13 @@
                 </div>
 
                 <div style="background: rgba(255, 255, 255, 0.25); padding: 1.5rem; border-radius: 12px; margin: 2rem 0;">
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">⚡ Une journée intensive</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 600;">Une journée intensive</h3>
                   <p style="margin-bottom: 0;">Cette journée est <strong>intensive</strong>, aussi bien en tant que conducteur.rice qu'en tant que choriste. Soyez prêt.e à vous investir pleinement dans la pratique, à donner et recevoir du feedback, et à explorer en profondeur !</p>
                 </div>
 
                 <div style="background: rgba(255, 255, 255, 0.25); padding: 1.5rem; border-radius: 12px; margin: 2rem 0;">
                   <h3 style="color: var(--color-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; font-size: 1.375rem; font-weight: 600;">
-                    👥 Pour qui ?
+                    Pour qui ?
                   </h3>
                   <div style="display: flex; flex-direction: column; gap: 0.75rem;">
                     <div style="display: flex; align-items: start; gap: 0.75rem;">
@@ -1414,7 +1322,7 @@
                 </div>
 
                 <div class="highlight-box-dashed" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">🎵 Prêt.e pour une journée intensive de circlesongs ?</h3>
+                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">Prêt.e pour une journée intensive de circlesongs ?</h3>
                   <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Approfondissez votre pratique avec un accompagnement personnalisé</p>
                   <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                     <button class="atelier-see-workshops-btn" data-section="calendrier" style="padding: 0.75rem 2rem; font-size: 1rem;">

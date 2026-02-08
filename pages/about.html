@@ -34,10 +34,10 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/assets/logo-ddlv.png">
   
-  <!-- Google Fonts - Inter -->
+  <!-- Google Fonts - Josefin Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Lien vers le fichier CSS -->
   <link rel="stylesheet" href="/styles.css">
@@ -86,110 +86,16 @@
   <!-- Skip link pour la navigation au clavier -->
   <a href="#main-content" class="skip-link">Aller au contenu principal</a>
   
-  <!-- Logo flottant en haut à gauche -->
-  <a href="/" class="floating-logo" aria-label="Retour à l'accueil - Donner de la Voix">
-    <img src="/assets/logo-ddlv.png" alt="Donner de la Voix" class="floating-logo-image">
-  </a>
-  
-  <!-- Nav réutilisable -->
-  <nav class="site-nav" role="navigation">
-    <div class="header-container">
-      <button class="menu-toggle" aria-label="Menu de navigation" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      
-      <!-- Menu Desktop -->
-      <nav class="header-nav-desktop" aria-label="Navigation principale desktop">
-        <ul class="header-menu-desktop" role="list">
-          <li>
-            <a href="/" class="header-menu-item-desktop">
-              Accueil
-            </a>
-          </li>
-          <li class="header-menu-dropdown-desktop">
-            <a href="#" class="header-menu-item-desktop">
-              Cours & ateliers
-            </a>
-            <ul class="header-submenu-desktop">
-              <li>
-                <a href="impro-vocale.html" class="header-submenu-item-desktop">Qu'est-ce que l'impro vocale</a>
-              </li>
-              <li>
-                <a href="/ateliers" class="header-submenu-item-desktop">Stages & ateliers</a>
-              </li>
-              <li>
-                <a href="cours-chant.html" class="header-submenu-item-desktop">Les cours de chant</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="/offre-entreprise" class="header-menu-item-desktop">
-              Offres entreprise
-            </a>
-          </li>
-          <li>
-            <a href="about.html" class="header-menu-item-desktop active">
-              La pédagogue
-            </a>
-          </li>
-          <li>
-            <a href="/newsletter" class="header-menu-item-desktop">
-              Newsletter
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </nav>
-  
-  <!-- Menu Mobile (hors site-nav pour position fixed viewport, sans marge) -->
-  <nav class="header-nav-mobile" aria-label="Navigation principale mobile">
-    <ul class="header-menu-mobile" role="list">
-      <li>
-        <a href="/" class="header-menu-item-mobile">
-          Accueil
-        </a>
-      </li>
-      <li>
-        <a href="impro-vocale.html" class="header-menu-item-mobile">
-          Qu'est-ce que l'impro vocale
-        </a>
-      </li>
-      <li>
-        <a href="/ateliers" class="header-menu-item-mobile">
-          Stages & ateliers
-        </a>
-      </li>
-      <li>
-        <a href="cours-chant.html" class="header-menu-item-mobile">
-          Les cours de chant
-        </a>
-      </li>
-      <li>
-        <a href="/offre-entreprise" class="header-menu-item-mobile">
-          Offres entreprise
-        </a>
-      </li>
-      <li>
-        <a href="about.html" class="header-menu-item-mobile active">
-          La pédagogue
-        </a>
-      </li>
-      <li>
-        <a href="/newsletter" class="header-menu-item-mobile">
-          Newsletter
-        </a>
-      </li>
-    </ul>
-  </nav>
-  
-  <!-- Bouton flottant PRENDRE RDV -->
-  <button class="floating-rdv-btn" id="calendly-trigger" aria-label="Prendre rendez-vous">
-    <i data-lucide="calendar-check" class="floating-rdv-icon"></i>
-    PRENDRE RDV
-  </button>
+  <div id="site-header"></div>
+  <script>
+    (function() {
+      var el = document.getElementById('site-header');
+      if (!el) return;
+      fetch('/partials/header.html').then(function(r) { return r.ok ? r.text() : Promise.reject(); })
+        .then(function(html) { el.innerHTML = html; })
+        .catch(function() {});
+    })();
+  </script>
   
   <!-- Popup Calendly -->
   <div id="calendly-popup" class="calendly-popup-container hidden">

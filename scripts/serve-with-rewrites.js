@@ -7,17 +7,22 @@ const fs = require('fs');
 const path = require('path');
 
 const PORT = process.env.PORT || 3000;
-const ROOT = path.join(__dirname, '..');
+const ROOT = path.resolve(__dirname, '..');
 
 const REWRITES = {
   '/impro-vocale': '/pages/impro-vocale.html',
+  '/impro-vocale-new': '/pages/impro-vocale-new.html',
   '/ateliers': '/pages/ateliers.html',
   '/ateliers-new': '/pages/ateliers-new.html',
   '/cours-chant': '/pages/cours-chant.html',
+  '/cours-chant-new': '/pages/cours-chant-new.html',
   '/about': '/pages/about.html',
-  '/contact': '/pages/contact.html',
+  '/about-new': '/pages/about-new.html',
+  '/contact': '/pages/contact-new.html',
+  '/contact-new': '/pages/contact-new.html',
   '/newsletter': '/pages/newsletter.html',
   '/offre-entreprise': '/pages/offre-entreprise.html',
+  '/offre-entreprise-new': '/pages/offre-entreprise-new.html',
   '/mentions-legales': '/pages/mentions-legales.html',
 };
 
@@ -38,12 +43,12 @@ const MIME = {
 };
 
 function getFilePath(urlPath) {
-  let filePath = urlPath;
-  if (REWRITES[urlPath]) {
-    filePath = REWRITES[urlPath];
-  }
+  // Normaliser : enlever trailing slash et décoder l'URL
+  const normalized = (urlPath.replace(/\/$/, '') || '/').replace(/%2F/gi, '/');
+  let filePath = REWRITES[normalized] || normalized;
   if (filePath === '/') filePath = '/index.html';
-  return path.join(ROOT, filePath.replace(/^\//, ''));
+  const segments = filePath.replace(/^\//, '').split('/');
+  return path.join(ROOT, ...segments);
 }
 
 function getMimeType(filePath) {
@@ -57,7 +62,7 @@ const server = http.createServer((req, res) => {
 
   if (!fs.existsSync(filePath) || !fs.statSync(filePath).isFile()) {
     res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
-    res.end('Cannot GET ' + urlPath);
+    res.end('Cannot GET ' + urlPath + '\n(resolved: ' + filePath + ')');
     return;
   }
 

@@ -38,7 +38,10 @@
   </script>
   <style type="text/tailwindcss">
     @layer components {
-      .glass-panel { @apply backdrop-blur-[25px] bg-white/10 border border-white/20; box-shadow: 0 8px 32px 0 rgba(0,0,0,0.3), inset 0 0 2px 1px rgba(255,255,255,0.15); }
+      .glass-panel {
+        @apply backdrop-blur-[25px] bg-white/10 border border-white/20;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 0 2px 1px rgba(255, 255, 255, 0.15), 0 0 15px rgba(255, 255, 255, 0.05);
+      }
       .glass-panel-rose {
         @apply backdrop-blur-[25px];
         background-image: linear-gradient(135deg, rgba(255, 252, 255, 0.28) 0%, rgba(255, 240, 248, 0.14) 45%, rgba(240, 235, 255, 0.22) 100%);
@@ -56,26 +59,30 @@
         border-radius: inherit;
         background-size: cover;
         background-position: center;
+        background-repeat: no-repeat;
         filter: blur(10px);
         opacity: 0.9;
       }
-      .bento-bg-blur.bento-bg-focus::before { background-image: url('/assets/bg.jpg'); background-position: 10% 15%; transform: scale(1.05); }
-      .bento-bg-blur.bento-bg-art::before { background-image: url('/assets/bg1.jpg'); background-position: 88% 22%; transform: scale(1.18); }
-      .bento-bg-blur.bento-bg-stage::before { background-image: url('/assets/bg2.jpg'); background-position: 5% 78%; transform: scale(0.95); }
-      .bento-bg-blur.bento-bg-chant::before { background-image: url('/assets/bg3.jpg'); background-position: 92% 85%; transform: scale(1.12); }
-      .bento-bg-blur.bento-bg-poesie::before { background-image: url('/assets/bg4.jpg'); background-position: 50% 8%; transform: scale(1.08); }
-      .bento-bg-blur.bento-bg-gestuelle::before { background-image: url('/assets/bg.jpg'); background-position: 72% 62%; transform: scale(1.22); }
-      .bento-bg-blur.bento-bg-flashmob::before { background-image: url('/assets/bg1.jpg'); background-position: 18% 92%; transform: scale(0.92); }
-      .bento-bg-blur.bento-bg-coaching::before { background-image: url('/assets/bg2.jpg'); background-position: 55% 45%; transform: scale(1.15); }
+      .bento-bg-blur.bento-bg-focus::before { background-image: url('/assets/bg.jpg'); }
+      .bento-bg-blur.bento-bg-art::before { background-image: url('/assets/bg1.jpg'); }
+      .bento-bg-blur.bento-bg-stage::before { background-image: url('/assets/bg2.jpg'); }
+      .bento-bg-blur.bento-bg-chant::before { background-image: url('/assets/bg3.jpg'); }
+      .bento-bg-blur.bento-bg-poesie::before { background-image: url('/assets/bg4.jpg'); }
+      .bento-bg-blur.bento-bg-gestuelle::before { background-image: url('/assets/bg.jpg'); }
+      .bento-bg-blur.bento-bg-flashmob::before { background-image: url('/assets/bg1.jpg'); }
+      .bento-bg-blur.bento-bg-coaching::before { background-image: url('/assets/bg2.jpg'); }
       .bento-bg-blur::after {
         content: '';
         position: absolute;
         inset: 0;
         z-index: -1;
         border-radius: inherit;
-        background: linear-gradient(135deg, rgba(91, 42, 181, 0.5) 0%, rgba(122, 106, 199, 0.35) 40%, rgba(207, 53, 148, 0.4) 100%);
+        background: linear-gradient(135deg, rgba(91, 42, 181, 0.15) 0%, rgba(122, 106, 199, 0.1) 40%, rgba(207, 53, 148, 0.15) 100%);
         pointer-events: none;
       }
+      /* Bento tints : opacités définies dans /styles.css (partagées avec impro-vocale-new) */
+      .bento-formats-zone a { display: flex; flex-direction: column; align-items: stretch; gap: 0; }
+      .bento-format-text { width: 100%; min-width: 0; }
       .glass-premium { @apply backdrop-blur-[25px] bg-white/5 border border-white/30; box-shadow: inset 0 0 40px rgba(255,255,255,0.05), 0 20px 50px rgba(0,0,0,0.4); }
       .bento-formats-zone {
         display: grid;
@@ -84,13 +91,13 @@
         gap: 1rem;
       }
       @media (min-width: 768px) {
-        .bento-formats-zone { grid-template-rows: repeat(4, minmax(0, 1fr)); grid-auto-rows: unset; height: 100%; gap: 0.5rem; }
+        .bento-formats-zone { grid-auto-rows: minmax(160px, auto); gap: 0.5rem; }
       }
       .bento-formats-zone a {
         transition: transform 0.25s ease-out;
         min-height: 0;
       }
-      .bento-formats-zone a:hover { transform: translateY(-3px) rotate(1.5deg); }
+      /* Hover tilt : défini dans /styles.css */
       .bento-formats-zone .bento-f-1x1 { grid-column: span 1; grid-row: span 1; }
       .bento-formats-zone .bento-f-2x1 { grid-column: span 2; grid-row: span 1; }
       .bento-formats-zone .bento-f-1x2 { grid-column: span 1; grid-row: span 2; }
@@ -104,70 +111,256 @@
       }
       .glass-violet-glow { @apply border-[#7a6ac7]/40; box-shadow: 0 0 20px rgba(91,42,181,0.2), inset 0 0 20px rgba(122,106,199,0.1); }
       .glass-rose-glow { @apply border-[#cf3594]/40; box-shadow: 0 0 20px rgba(207,53,148,0.2), inset 0 0 20px rgba(207,53,148,0.1); }
+      /* --- Volet droit détail format atelier (slide-in panel) --- */
       .atelier-modal-overlay {
-        position: fixed; inset: 0; z-index: 100;
-        background: rgba(0, 0, 0, 0.25);
-        -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
-        display: flex; align-items: center; justify-content: center;
-        padding: 2rem; opacity: 0; visibility: hidden; transition: opacity 0.25s ease, visibility 0.25s ease;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        background: rgba(45, 25, 75, 0.4);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
       }
-      .atelier-modal-overlay.is-open { opacity: 1; visibility: visible; }
+      .atelier-modal-overlay.is-open {
+        opacity: 1;
+        visibility: visible;
+      }
       .atelier-modal-box {
-        background: rgba(255, 250, 255, 0.88);
-        -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
-        border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 1.5rem;
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2), inset 0 0 2px 1px rgba(255, 255, 255, 0.12);
-        max-width: 72rem; width: 100%; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column;
-        transform: scale(0.95); transition: transform 0.25s ease;
+        position: fixed !important;
+        top: 0;
+        right: 0;
+        left: auto;
+        width: 40%;
+        min-width: 18rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border-radius: 1.25rem 0 0 1.25rem;
+        background: linear-gradient(165deg, rgba(55, 35, 85, 0.97) 0%, rgba(45, 28, 72, 0.98) 100%);
+        -webkit-backdrop-filter: blur(24px);
+        backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-right: none;
+        box-shadow:
+          -8px 0 32px rgba(0, 0, 0, 0.4),
+          0 0 0 1px rgba(91, 42, 181, 0.12) inset;
+        transform: translateX(100%);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 101;
       }
-      .atelier-modal-overlay.is-open .atelier-modal-box { transform: scale(1); }
+      .atelier-modal-overlay.is-open .atelier-modal-box {
+        transform: translateX(0);
+      }
+      .atelier-modal-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        border-radius: 1.25rem 0 0 0;
+        background: linear-gradient(90deg, #5b2ab5 0%, #7a6ac7 40%, #cf3594 100%);
+        pointer-events: none;
+      }
+      .atelier-modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        z-index: 10;
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        cursor: pointer;
+        transition: color 0.2s, background 0.2s, border-color 0.2s, transform 0.2s;
+      }
+      .atelier-modal-close:hover {
+        color: #fff;
+        background: rgba(207, 53, 148, 0.35);
+        border-color: rgba(207, 53, 148, 0.5);
+        transform: scale(1.08);
+      }
+      .atelier-modal-close:focus-visible {
+        outline: 2px solid #cf3594;
+        outline-offset: 2px;
+      }
       .atelier-modal-content {
-        overflow-y: auto; padding: 2.5rem 1.5rem 2rem 1.5rem; flex: 1;
+        flex: 1;
+        overflow-y: auto;
+        padding: 2.5rem 1.5rem 2rem 1.75rem;
         scrollbar-width: thin;
-        scrollbar-color: rgba(207, 53, 148, 0.6) rgba(255, 255, 255, 0.06);
+        scrollbar-color: rgba(207, 53, 148, 0.5) rgba(255, 255, 255, 0.04);
       }
-      .atelier-modal-content::-webkit-scrollbar { width: 10px; }
-      .atelier-modal-content::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.06); border-radius: 10px; }
-      .atelier-modal-content::-webkit-scrollbar-thumb { background: rgba(207, 53, 148, 0.5); border-radius: 10px; }
-      .atelier-modal-content::-webkit-scrollbar-thumb:hover { background: rgba(207, 53, 148, 0.75); }
-      .atelier-modal-content .article-content { padding: 0; }
-      .atelier-modal-content .article-content h2 { color: #fff !important; font-size: 1.75rem !important; font-weight: 700 !important; margin-bottom: 0.25rem !important; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-      .atelier-modal-content .article-content h3 { color: #7a6ac7 !important; font-size: 1.25rem !important; font-weight: 600 !important; margin-top: 1.5rem !important; margin-bottom: 0.75rem !important; }
-      .atelier-modal-content .article-content h4 { color: #7a6ac7 !important; font-size: 1.1rem !important; font-weight: 600 !important; margin-bottom: 0.5rem !important; }
+      .atelier-modal-content::-webkit-scrollbar { width: 8px; }
+      .atelier-modal-content::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 4px;
+      }
+      .atelier-modal-content::-webkit-scrollbar-thumb {
+        background: rgba(207, 53, 148, 0.45);
+        border-radius: 4px;
+      }
+      .atelier-modal-content::-webkit-scrollbar-thumb:hover {
+        background: rgba(207, 53, 148, 0.65);
+      }
+      .atelier-modal-content .article-content {
+        padding: 0;
+      }
+      .atelier-modal-content .article-content h2:first-child,
+      .atelier-modal-content .article-content h2:first-of-type {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #fff;
+        margin: 0 0 0.25rem 0;
+        padding-right: 3rem;
+        letter-spacing: 0.02em;
+        text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+      }
+      .atelier-modal-content .article-content h2:not(:first-child):not(:first-of-type) {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.95);
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+      .atelier-modal-content .article-content h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #e8e0fa;
+        margin-top: 1.25rem;
+        margin-bottom: 0.5rem;
+      }
+      .atelier-modal-content .article-content h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #e0d8f5;
+        margin-bottom: 0.35rem;
+      }
       .atelier-modal-content .article-content p,
-      .atelier-modal-content .article-content li { color: rgba(255,255,255,0.92) !important; line-height: 1.6; }
+      .atelier-modal-content .article-content li {
+        color: rgba(255, 255, 255, 0.88);
+        line-height: 1.65;
+        font-size: 0.9375rem;
+      }
       .atelier-modal-content .article-content .article-subtitle,
-      .atelier-modal-content .article-content p.article-subtitle { color: rgba(255,255,255,0.8) !important; font-size: 1.125rem !important; }
-      .atelier-modal-content .article-content a { color: #cf3594 !important; text-decoration: underline !important; }
-      .atelier-modal-content .article-content a:hover { color: #e8a0c4 !important; }
-      .atelier-modal-content .article-content strong { color: rgba(255,255,255,0.95) !important; }
-      .atelier-modal-content .article-content small { color: rgba(255,255,255,0.75) !important; }
-      .atelier-modal-content .article-content img.article-image { width: 100% !important; max-width: 100% !important; height: auto !important; border-radius: 1rem !important; border: 1px solid rgba(255,255,255,0.2) !important; margin-bottom: 1.5rem !important; }
-      .atelier-modal-content .article-content div[style*="background"] { background: rgba(255,255,255,0.08) !important; border: 1px solid rgba(255,255,255,0.15) !important; border-radius: 0.75rem !important; padding: 1rem 1.25rem !important; margin: 1rem 0 !important; }
-      .atelier-modal-content .article-content div[style*="border-left"] { border-left: 4px solid #7a6ac7 !important; }
+      .atelier-modal-content .article-content p.article-subtitle {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+      .atelier-modal-content .article-content a {
+        color: #e090c0;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      .atelier-modal-content .article-content a:hover {
+        color: #f0b0d0;
+      }
+      .atelier-modal-content .article-content strong {
+        color: rgba(255, 255, 255, 0.95);
+      }
+      .atelier-modal-content .article-content small {
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .atelier-modal-content .article-content img.article-image {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border-radius: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        margin: 1rem 0 1.25rem 0;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      }
+      .atelier-modal-content .article-content div[style*="background"] {
+        background: rgba(255, 255, 255, 0.06) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.75rem;
+        padding: 1rem 1.25rem;
+        margin: 1rem 0;
+      }
+      .atelier-modal-content .article-content div[style*="border-left"] {
+        border-left: 4px solid #7a6ac7;
+      }
       .atelier-modal-content .article-content .highlight-box-small,
       .atelier-modal-content .article-content .highlight-box-dashed,
       .atelier-modal-content .article-content .highlight-box-white-transparent,
       .atelier-modal-content .article-content .highlight-box-dashed-accent,
       .atelier-modal-content .article-content .glass-panel,
-      .atelier-modal-content .article-content .glass-premium { background: rgba(255,255,255,0.08) !important; border: 1px solid rgba(255,255,255,0.2) !important; border-radius: 0.75rem !important; }
-      .atelier-modal-content .article-content span[style*="background: var"] { background: rgba(91,42,181,0.5) !important; color: #fff !important; padding: 0.25rem 0.75rem !important; border-radius: 9999px !important; font-size: 0.875rem !important; font-weight: 600 !important; border: none !important; }
+      .atelier-modal-content .article-content .glass-premium {
+        background: rgba(255, 255, 255, 0.06) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 0.75rem;
+        padding: 1rem 1.25rem;
+        margin: 1rem 0;
+      }
+      .atelier-modal-content .article-content span[style*="background: var"] {
+        background: rgba(91, 42, 181, 0.5) !important;
+        color: #fff !important;
+        padding: 0.25rem 0.75rem !important;
+        border-radius: 9999px !important;
+        font-size: 0.8125rem !important;
+        font-weight: 600 !important;
+        border: none !important;
+      }
       .atelier-modal-content .article-content button.atelier-see-workshops-btn,
       .atelier-modal-content .article-content a.rdv-btn,
-      .atelier-modal-content .article-content .rdv-btn { display: inline-flex !important; align-items: center !important; justify-content: center !important; gap: 0.5rem !important; padding: 0.75rem 1.5rem !important; border-radius: 0.75rem !important; font-weight: 600 !important; background: rgba(207,53,148,0.6) !important; border: 1px solid #cf3594 !important; color: #fff !important; text-decoration: none !important; cursor: pointer !important; font-size: 1rem !important; }
-      .atelier-modal-content .article-content a[href="/contact"] { display: inline-flex !important; align-items: center !important; gap: 0.5rem !important; padding: 0.75rem 1.5rem !important; border-radius: 0.75rem !important; font-weight: 600 !important; border: 1px solid rgba(255,255,255,0.3) !important; background: rgba(255,255,255,0.1) !important; color: #fff !important; text-decoration: none !important; }
-      .atelier-modal-content .article-content ul { padding-left: 1.5rem !important; margin: 0.75rem 0 !important; }
-      .atelier-modal-close {
-        position: absolute; top: 1rem; right: 1rem; z-index: 2;
-        width: 2.5rem; height: 2.5rem; border-radius: 50%;
-        background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
-        color: white; cursor: pointer; display: flex; align-items: center; justify-content: center;
-        transition: background 0.2s, transform 0.2s;
+      .atelier-modal-content .article-content .rdv-btn,
+      .atelier-modal-content .article-content a[href="/contact"] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.75rem 2rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: #fff;
+        background: rgba(207, 53, 148, 0.6);
+        border: 1px solid rgba(207, 53, 148, 0.7);
+        border-radius: 1rem;
+        box-shadow: 0 4px 20px rgba(207, 53, 148, 0.3);
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
       }
-      .atelier-modal-close:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.05); }
-      .atelier-modal-external { padding: 2rem; text-align: center; }
-      .atelier-modal-external h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-      .atelier-modal-external p { color: rgba(255,255,255,0.9); margin-bottom: 1.5rem; }
+      .atelier-modal-content .article-content button.atelier-see-workshops-btn:hover,
+      .atelier-modal-content .article-content a.rdv-btn:hover,
+      .atelier-modal-content .article-content .rdv-btn:hover,
+      .atelier-modal-content .article-content a[href="/contact"]:hover {
+        background: rgba(207, 53, 148, 0.8);
+        color: #fff;
+      }
+      .atelier-modal-content .article-content ul {
+        padding-left: 1.5rem;
+        margin: 0.5rem 0 1rem 0;
+      }
+      .atelier-modal-external {
+        padding: 2.5rem 1.5rem;
+        text-align: center;
+      }
+      .atelier-modal-external h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 0.5rem;
+      }
+      .atelier-modal-external p {
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: 1.5rem;
+      }
+      .atelier-modal-external a {
+        color: #e090c0;
+        text-decoration: underline;
+      }
       .hero-overlay::before {
         content: '';
         position: absolute;
@@ -203,7 +396,15 @@
         background: rgba(255, 255, 255, 0.04);
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 0 2px 1px rgba(255, 255, 255, 0.06);
       }
-      .nav-item::after { content: ''; display: block; width: 0; height: 2px; background: #cf3594; transition: width .3s; }
+      .nav-item::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 2px;
+        background: #cf3594;
+        transition: width .3s;
+        box-shadow: 0 0 10px #cf3594;
+      }
       .nav-item:hover::after { width: 100%; }
       .bento-type-badge {
         background: linear-gradient(135deg, rgba(91, 42, 181, 0.85) 0%, rgba(207, 53, 148, 0.85) 100%);
@@ -247,7 +448,7 @@
         border: 1px solid rgba(255, 255, 255, 0.15);
         backdrop-filter: blur(20px);
       }
-      .bento-dates-zone a.bento-date-card:hover { transform: translateY(-4px); }
+      /* .bento-date-card:hover tilt : défini dans /styles.css */
       .bento-date-card-visual {
         position: relative;
         width: 100%;
@@ -258,11 +459,11 @@
       .bento-date-card-visual::after {
         content: '';
         position: absolute;
-        inset: 0;
+        inset: -30px;
         z-index: 0;
         background-size: cover;
         background-position: center;
-        filter: blur(10px);
+        filter: blur(20px);
       }
       .bento-date-card.bento-date-bg-0 .bento-date-card-visual::after { background-image: url('/assets/bg.jpg'); }
       .bento-date-card.bento-date-bg-1 .bento-date-card-visual::after { background-image: url('/assets/bg1.jpg'); }
@@ -274,7 +475,7 @@
         position: absolute;
         inset: 0;
         z-index: 1;
-        background: linear-gradient(135deg, rgba(13, 2, 24, 0.5) 0%, rgba(91, 42, 181, 0.25) 50%, rgba(207, 53, 148, 0.2) 100%);
+        background: linear-gradient(135deg, rgba(91, 42, 181, 0.5) 0%, rgba(122, 106, 199, 0.4) 25%, rgba(77, 184, 170, 0.35) 50%, rgba(207, 53, 148, 0.5) 100%);
         pointer-events: none;
       }
       .bento-date-card-illustration {
@@ -369,43 +570,65 @@
       }
     }
   </style>
-  <!-- Styles des cartes = exactement ceux de la page ateliers (originale) -->
+  <!-- Styles partagés : calendrier, view-toggle, articles -->
   <link rel="stylesheet" href="/styles.css">
-  <!-- Overrides pour garder le thème sombre sur cette page (body etc.) -->
+  <!-- Overrides thème clair pour cette page -->
   <style>
     body.ateliers-new-page {
       background: transparent !important;
-      color: white !important;
+      color: #fff !important;
       font-family: 'Josefin Sans', sans-serif !important;
     }
     body.ateliers-new-page::before,
     body.ateliers-new-page::after { display: none !important; }
-    .ateliers-new-page .view-toggle-btn { display: flex; padding: 0; overflow: hidden; border-radius: 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); }
-    .ateliers-new-page .view-toggle-part { padding: 0.5rem 1rem; font-size: 0.875rem; color: white; cursor: pointer; transition: background .2s; }
-    .ateliers-new-page .view-toggle-part.active { background: rgba(91,42,181,0.4); }
-    .ateliers-new-page .view-toggle-part:not(.active):hover { background: rgba(255,255,255,0.1); }
-    .ateliers-new-page .calendar-view { padding: 1.5rem; }
-    .ateliers-new-page .calendar-container { background: rgba(255,255,255,0.05); border-radius: 1rem; padding: 1rem; border: 1px solid rgba(255,255,255,0.15); }
+    .ateliers-new-page .view-toggle-btn { display: flex; padding: 0; overflow: hidden; border-radius: 12px; background: rgba(255,255,255,0.9); border: 1px solid rgba(91,42,181,0.2); }
+    .ateliers-new-page .view-toggle-part { padding: 0.5rem 1rem; font-size: 0.875rem; color: #fff; cursor: pointer; transition: background .2s; }
+    .ateliers-new-page .view-toggle-part.active { background: rgba(91,42,181,0.15); color: #5b2ab5; }
+    .ateliers-new-page .view-toggle-part:not(.active):hover { background: rgba(91,42,181,0.08); }
+    .ateliers-new-page .calendar-view.ateliers-new-calendar {
+      padding: 1.5rem;
+      min-height: calc(100vh - 6rem);
+      display: flex;
+      flex-direction: column;
+    }
+    .ateliers-new-page .calendar-view.ateliers-new-calendar .calendar-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2), inset 0 0 2px 1px rgba(255, 255, 255, 0.1);
+    }
+    .ateliers-new-page .calendar-view.ateliers-new-calendar .calendar-month { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+    .ateliers-new-page .calendar-view.ateliers-new-calendar .calendar-grid { flex: 1; min-height: 0; }
     .ateliers-new-page .calendar-month-title { color: #cf3594; font-weight: 600; font-size: 1.25rem; }
     .ateliers-new-page .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.35rem; }
-    .ateliers-new-page .calendar-day-header { text-align: center; font-weight: 600; color: #7a6ac7; font-size: 0.75rem; }
-    .ateliers-new-page .calendar-day { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.5rem; min-height: 2.5rem; }
+    .ateliers-new-page .calendar-day-header { text-align: center; font-weight: 600; color: rgba(255,255,255,0.9); font-size: 0.75rem; }
+    .ateliers-new-page .calendar-day { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 0.5rem; min-height: 0; }
     .ateliers-new-page .calendar-day.empty { background: transparent; border: none; }
-    .ateliers-new-page .calendar-day .day-number { font-weight: 500; color: rgba(255,255,255,0.9); font-size: 0.8rem; }
+    .ateliers-new-page .calendar-day .day-number { font-weight: 500; color: rgba(255,255,255,0.95); font-size: 0.8rem; }
     .ateliers-new-page .calendar-day.has-workshop { background: rgba(91,42,181,0.25); border-color: rgba(122,106,199,0.4); }
     .ateliers-new-page .calendar-nav-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 0.5rem 0.75rem; border-radius: 10px; cursor: pointer; font-family: 'Josefin Sans', sans-serif; }
-    .ateliers-new-page .calendar-nav-btn:hover { background: rgba(91,42,181,0.3); }
-    .ateliers-new-page .article-content p, .ateliers-new-page .article-content li { color: rgba(255,255,255,0.9); }
-    .ateliers-new-page .article-content h2 { color: white; font-size: 1.75rem; margin-bottom: 0.25rem; }
+    .ateliers-new-page .calendar-nav-btn:hover:not(:disabled) { background: rgba(91,42,181,0.3); }
+    .ateliers-new-page .calendar-nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .ateliers-new-page .calendar-day.has-workshop .workshop-indicator { color: rgba(255,255,255,0.9); }
+    .ateliers-new-page .calendar-day.has-workshop .workshop-overlay .workshop-overlay-text { color: white; }
+    .ateliers-new-page .article-section { margin-bottom: 3rem; background: rgba(255,255,255,0.85) !important; border: 1px solid rgba(91,42,181,0.12) !important; box-shadow: 0 4px 20px rgba(91,42,181,0.06) !important; }
+    .ateliers-new-page .article-content p, .ateliers-new-page .article-content li { color: rgba(255,255,255,0.95); }
+    .ateliers-new-page .article-content h2 { color: #fff; font-size: 1.75rem; margin-bottom: 0.25rem; }
     .ateliers-new-page .article-content h3 { color: #7a6ac7; font-size: 1.25rem; margin-top: 1.5rem; margin-bottom: 0.75rem; }
     .ateliers-new-page .article-content a { color: #cf3594; text-decoration: underline; }
-    .ateliers-new-page .article-content a:hover { color: #e8a0c4; }
-    .ateliers-new-page .article-section { margin-bottom: 3rem; }
-    .ateliers-new-page .article-content img.article-image { width: 100%; max-width: 100%; height: auto; border-radius: 1rem; border: 1px solid rgba(255,255,255,0.15); }
+    .ateliers-new-page .article-content a:hover { color: #b82d7a; }
+    .ateliers-new-page .article-content img.article-image { width: 100%; max-width: 100%; height: auto; border-radius: 1rem; border: 1px solid rgba(91,42,181,0.15); }
   </style>
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="font-display text-white relative bg-deep-bg ateliers-new-page min-h-screen" id="ateliers-new-body">
+<body class="font-display text-white relative ateliers-new-page min-h-screen" id="ateliers-new-body">
   <div class="bg-blur-image" aria-hidden="true"></div>
   <div class="bg-textured-art"></div>
   <div class="blob w-[600px] h-[600px] bg-primary top-[-10%] left-[-10%]"></div>
@@ -413,23 +636,16 @@
   <div class="blob w-[400px] h-[400px] bg-primary-light top-[40%] right-[10%]"></div>
   <div class="blob w-[300px] h-[300px] bg-primary bottom-[20%] left-[20%]"></div>
 
-  <header class="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-4">
-    <div class="max-w-7xl mx-auto flex items-center gap-16">
-      <a href="/" aria-label="Retour à l'accueil" class="shrink-0">
-        <img alt="Donner de la Voix" class="h-32 w-auto brightness-0 invert drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]" src="/assets/logo-ddlv.png"/>
-      </a>
-      <nav class="flex-1 flex items-center justify-center gap-6 lg:gap-10 glass-panel px-6 py-3 rounded-2xl min-w-0" aria-label="Navigation principale">
-        <a class="nav-item text-white flex items-center justify-center p-1" href="/" aria-label="Accueil"><span class="material-symbols-outlined text-2xl">home</span></a>
-        <a class="nav-item text-white text-sm font-medium tracking-widest uppercase whitespace-nowrap" href="/impro-vocale">L'impro vocale</a>
-        <a class="nav-item text-white text-sm font-medium tracking-widest uppercase whitespace-nowrap" href="/ateliers">Stages et ateliers</a>
-        <a class="nav-item text-white text-sm font-medium tracking-widest uppercase whitespace-nowrap" href="/offre-entreprise">Offre entreprise</a>
-        <a class="nav-item text-white text-sm font-medium tracking-widest uppercase whitespace-nowrap" href="/newsletter">Newsletter</a>
-      </nav>
-      <a href="/contact" class="shrink-0 text-white px-8 py-3 rounded-2xl font-bold text-xs uppercase tracking-[0.2em] border border-[#cf3594]/70 bg-[#cf3594]/60 hover:bg-[#cf3594]/80 backdrop-blur-sm">
-        Prendre RDV
-      </a>
-    </div>
-  </header>
+  <div id="site-header"></div>
+  <script>
+    (function() {
+      var el = document.getElementById('site-header');
+      if (!el) return;
+      fetch('/partials/header.html').then(function(r) { return r.ok ? r.text() : Promise.reject(); })
+        .then(function(html) { el.innerHTML = html; })
+        .catch(function() {});
+    })();
+  </script>
 
   <main class="relative" role="main">
     <!-- Hero = même fond que l'accueil (bg.jpg + blobs), largeur contenu, titre à gauche / boutons à droite -->
@@ -445,7 +661,7 @@
               Les formats d'ateliers
               <span class="material-symbols-outlined hero-cta-icon" aria-hidden="true">expand_more</span>
             </a>
-            <a href="#calendrier" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-bold text-sm uppercase tracking-widest border border-[#cf3594]/70 bg-[#cf3594]/50 hover:bg-[#cf3594]/70 text-white transition-all">
+            <a href="#prochaines-dates" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-bold text-sm uppercase tracking-widest border border-[#cf3594]/70 bg-[#cf3594]/50 hover:bg-[#cf3594]/70 text-white transition-all">
               Voir les prochaines dates
               <span class="material-symbols-outlined hero-cta-icon" aria-hidden="true">expand_more</span>
             </a>
@@ -460,86 +676,62 @@
     <!-- Contenu scrollable -->
     <div class="px-4 md:px-8 max-w-5xl mx-auto pb-24">
     <!-- Formats d'ateliers (bentos comme page d'accueil) -->
-    <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28 md:max-h-screen md:h-screen md:flex md:flex-col md:overflow-hidden" id="formats-bentos">
+    <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28 md:min-h-screen md:flex md:flex-col" id="formats-bentos">
       <h2 class="text-3xl font-bold uppercase tracking-wide mb-4 md:mb-3 text-white mt-[30px] md:flex-shrink-0" style="text-shadow: 0 2px 10px rgba(0,0,0,0.35);">Formats d'ateliers</h2>
-      <div class="bento-formats-zone-wrapper md:flex-1 md:min-h-0 md:overflow-hidden">
-      <div class="bento-formats-zone h-full">
-        <a href="#ateliers-focus" class="bento-f-2x1 glass-panel-rose bento-bg-blur bento-bg-focus group p-6 rounded-2xl flex flex-col gap-4 sm:flex-row sm:items-center relative overflow-hidden">
+      <div class="bento-formats-zone-wrapper">
+      <div class="bento-formats-zone md:h-auto">
+        <a href="/ateliers#ateliers-focus" class="bento-f-2x1 glass-panel-rose bento-tint-mix group p-6 rounded-2xl relative overflow-hidden">
           <span class="bento-type-badge absolute top-3 right-3 text-[10px] uppercase tracking-widest font-semibold text-white rounded-full px-2.5 py-1">Atelier</span>
-          <div class="size-14 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-primary/30 transition-colors shrink-0">
-            <span class="material-symbols-outlined text-4xl">tune</span>
-          </div>
-          <div class="min-w-0">
+          <div class="bento-format-text">
             <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">Atelier Focus</h3>
             <p class="text-base text-white/90 leading-snug font-light">Impro mensuelle, circlesongs.</p>
           </div>
         </a>
-        <a href="#art-circle-songs" class="bento-f-1x1 glass-panel-rose bento-bg-blur bento-bg-art group p-6 rounded-2xl flex flex-col gap-4 relative overflow-hidden">
+        <a href="/ateliers#art-circle-songs" class="bento-f-1x1 glass-panel-rose bento-tint-primary group p-6 rounded-2xl relative overflow-hidden">
           <span class="bento-type-badge absolute top-3 right-3 text-[10px] uppercase tracking-widest font-semibold text-white rounded-full px-2.5 py-1">Stage</span>
-          <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-white/10 transition-colors">
-            <span class="material-symbols-outlined text-3xl">album</span>
-          </div>
-          <div>
+          <div class="bento-format-text">
             <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">Art des circle songs</h3>
             <p class="text-base text-white/90 leading-snug font-light">Journée immersive.</p>
           </div>
         </a>
-        <a href="/ateliers#stage-circlesong" class="bento-f-1x1 glass-panel-rose bento-bg-blur bento-bg-stage group p-6 rounded-2xl flex flex-col gap-4 relative overflow-hidden">
+        <a href="/ateliers#stage-circlesong" class="bento-f-1x1 glass-panel-rose bento-tint-accent group p-6 rounded-2xl relative overflow-hidden">
           <span class="bento-type-badge absolute top-3 right-3 text-[10px] uppercase tracking-widest font-semibold text-white rounded-full px-2.5 py-1">Stage</span>
-          <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-accent/30 transition-colors">
-            <span class="material-symbols-outlined text-3xl">groups</span>
-          </div>
-          <div>
+          <div class="bento-format-text">
             <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">Circlesong immersif</h3>
             <p class="text-base text-white/90 leading-snug font-light">5 jours d'immersion.</p>
           </div>
         </a>
-        <a href="/ateliers#chant-pour-tous" class="bento-f-2x1 glass-panel-rose bento-bg-blur bento-bg-chant group p-6 rounded-2xl flex flex-col gap-4 sm:flex-row sm:items-center relative overflow-hidden">
+        <a href="/ateliers#chant-pour-tous" class="bento-f-2x1 glass-panel-rose bento-tint-teal group p-6 rounded-2xl relative overflow-hidden">
           <span class="bento-type-badge absolute top-3 right-3 text-[10px] uppercase tracking-widest font-semibold text-white rounded-full px-2.5 py-1">Évènement</span>
-          <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-white/10 transition-colors shrink-0">
-            <span class="material-symbols-outlined text-3xl">volunteer_activism</span>
-          </div>
-          <div class="min-w-0">
+          <div class="bento-format-text">
             <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">Chant pour tous</h3>
             <p class="text-base text-white/90 leading-snug font-light">Découverte gratuite.</p>
           </div>
         </a>
-        <a href="/ateliers#circlesong-poesie" class="bento-f-2x1 glass-panel-rose bento-bg-blur bento-bg-poesie group p-6 rounded-2xl flex flex-col gap-4 sm:flex-row sm:items-center relative overflow-hidden">
+        <a href="/ateliers#circlesong-poesie" class="bento-f-2x1 glass-panel-rose bento-tint-primary-light group p-6 rounded-2xl relative overflow-hidden">
           <span class="bento-type-badge absolute top-3 right-3 text-[10px] uppercase tracking-widest font-semibold text-white rounded-full px-2.5 py-1">Stage</span>
-          <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-primary/30 transition-colors shrink-0">
-            <span class="material-symbols-outlined text-3xl">menu_book</span>
-          </div>
-          <div class="min-w-0">
+          <div class="bento-format-text">
             <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">Circlesong poésie</h3>
             <p class="text-base text-white/90 leading-snug font-light">Voix, mots &amp; impro.</p>
           </div>
         </a>
-        <a href="/ateliers#circlesong-gestuelle" class="bento-f-1x1 glass-panel-rose bento-bg-blur bento-bg-gestuelle group p-6 rounded-2xl flex flex-col gap-4 relative overflow-hidden">
+        <a href="/ateliers#circlesong-gestuelle" class="bento-f-1x1 glass-panel-rose bento-tint-mix group p-6 rounded-2xl relative overflow-hidden">
           <span class="bento-type-badge absolute top-3 right-3 text-[10px] uppercase tracking-widest font-semibold text-white rounded-full px-2.5 py-1">Stage</span>
-          <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-white/10 transition-colors">
-            <span class="material-symbols-outlined text-3xl">back_hand</span>
-          </div>
-          <div>
+          <div class="bento-format-text">
             <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">Circlesong gestuelle</h3>
             <p class="text-base text-white/90 leading-snug font-light">Direction &amp; gestes.</p>
           </div>
         </a>
-        <a href="/ateliers#flashmob-improvise" class="bento-f-2x1 glass-panel-rose bento-bg-blur bento-bg-flashmob group p-6 rounded-2xl flex flex-col gap-4 sm:flex-row sm:items-center relative overflow-hidden">
+        <a href="/ateliers#flashmob-improvise" class="bento-f-2x1 glass-panel-rose bento-tint-accent group p-6 rounded-2xl relative overflow-hidden">
           <span class="bento-type-badge absolute top-3 right-3 text-[10px] uppercase tracking-widest font-semibold text-white rounded-full px-2.5 py-1">Évènement</span>
-          <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-accent/30 transition-colors shrink-0">
-            <span class="material-symbols-outlined text-3xl">celebration</span>
-          </div>
-          <div class="min-w-0">
+          <div class="bento-format-text">
             <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">Flashmob improvisé</h3>
             <p class="text-base text-white/90 leading-snug font-light">Performance dans la rue.</p>
           </div>
         </a>
-        <a href="/ateliers#coaching-personnalise" class="bento-f-1x1 glass-panel-rose bento-bg-blur bento-bg-coaching group p-6 rounded-2xl flex flex-col gap-4 relative overflow-hidden">
+        <a href="/ateliers#coaching-personnalise" class="bento-f-1x1 glass-panel-rose bento-tint-teal group p-6 rounded-2xl relative overflow-hidden">
           <span class="bento-type-badge absolute top-3 right-3 text-[10px] uppercase tracking-widest font-semibold text-white rounded-full px-2.5 py-1">Stage</span>
-          <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-white/10 transition-colors">
-            <span class="material-symbols-outlined text-3xl">person_search</span>
-          </div>
-          <div>
+          <div class="bento-format-text">
             <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">Coaching personnalisé</h3>
             <p class="text-base text-white/90 leading-snug font-light">Journée sur mesure.</p>
           </div>
@@ -548,153 +740,43 @@
       </div>
     </section>
 
+    <h2 id="prochaines-dates" class="section-title-bentos scroll-mt-28">Les prochaines dates</h2>
+    <div class="flex flex-wrap items-center gap-4 mb-4">
+      <div class="view-toggle" role="group" aria-label="Choisir la vue">
+        <button type="button" class="view-toggle-btn ateliers-new-view-toggle" aria-label="Basculer entre vue cartes et vue calendrier">
+          <span class="view-toggle-part view-toggle-cartes active" data-view="cartes">vue cartes</span>
+          <span class="view-toggle-part view-toggle-calendrier" data-view="calendrier">vue calendrier</span>
+        </button>
+      </div>
+    </div>
     <!-- Dates à venir (bentos) -->
     <section id="calendrier" class="mb-12 md:mb-16 scroll-mt-28" aria-label="Dates à venir">
-      <div class="bento-dates-zone" id="workshops-bentos-view">
-        <!-- Rempli par JS (BilletWeb) -->
+      <div id="workshops-bentos-block">
+        <div class="bento-dates-zone" id="workshops-bentos-view">
+          <!-- Rempli par JS (BilletWeb) -->
+        </div>
+        <div class="bento-dates-empty text-center py-12 text-white/80 hidden" id="workshops-bentos-empty">
+          <p class="text-lg">Aucun atelier à venir pour le moment.</p>
+          <p class="mt-2">Revenez bientôt pour découvrir nos prochains ateliers !</p>
+        </div>
+        <div class="bento-dates-loading text-center py-12 text-white/80 hidden" id="workshops-bentos-loading">
+          <p class="text-lg">Chargement des ateliers…</p>
+        </div>
       </div>
-      <div class="bento-dates-empty text-center py-12 text-white/80 hidden" id="workshops-bentos-empty">
-        <p class="text-lg">Aucun atelier à venir pour le moment.</p>
-        <p class="mt-2">Revenez bientôt pour découvrir nos prochains ateliers !</p>
-      </div>
-      <div class="bento-dates-loading text-center py-12 text-white/80 hidden" id="workshops-bentos-loading">
-        <p class="text-lg">Chargement des ateliers…</p>
+      <div class="calendar-view ateliers-new-calendar" id="calendar-view" style="display: none;">
+        <div class="calendar-container">
+          <div class="calendar-month">
+            <div class="calendar-header flex justify-between items-center gap-4 mb-4">
+              <button type="button" class="calendar-nav-btn" id="prev-month" aria-label="Mois précédent"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+              <h3 class="calendar-month-title m-0" id="month-title">Mars 2024</h3>
+              <button type="button" class="calendar-nav-btn" id="next-month" aria-label="Mois suivant"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+            </div>
+            <div class="calendar-grid" id="calendar-grid"></div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Formats d'ateliers (pas d'id formats-d-ateliers pour désactiver le toggle TOC) -->
-    <section id="formats-ateliers" class="space-y-16">
-      <h2 class="text-3xl font-bold uppercase tracking-wide mb-8 text-white" style="text-shadow: 0 2px 10px rgba(0,0,0,0.35);">Formats d'ateliers</h2>
-
-      <!-- Atelier Focus -->
-      <article class="article-section glass-panel rounded-2xl p-6 md:p-8" id="ateliers-focus">
-        <div class="article-content">
-          <div class="flex flex-wrap gap-2 mb-6">
-            <span class="bg-primary/80 text-white px-3 py-1 rounded-full text-sm font-semibold">💜 TARIF LIBRE</span>
-            <span class="bg-accent/80 text-white px-3 py-1 rounded-full text-sm font-semibold">🎵 CIRCLESONGS</span>
-            <span class="bg-primary-light/80 text-white px-3 py-1 rounded-full text-sm font-semibold">👥 PETIT GROUPE</span>
-            <span class="text-white px-3 py-1 rounded-full text-sm font-semibold border border-white/30">📍 TOULOUSE</span>
-          </div>
-          <h2 class="text-2xl font-bold text-white mb-1">Atelier – Focus</h2>
-          <p class="text-white/80 text-lg mb-6">Improvisation vocale mensuelle</p>
-          <img src="/assets/atelierfocus.png" alt="Ateliers focus d'improvisation vocale à Toulouse" class="article-image rounded-2xl border border-white/20 w-full mb-6"/>
-          <p class="mb-4">Un <strong>atelier mensuel d'improvisation vocale à Toulouse</strong>, tous les deuxièmes mardis du mois. Plongez dans l'univers des <strong>circlesongs</strong> et de la <strong>co-improvisation</strong> dans une ambiance chaleureuse et ludique.</p>
-          <p class="mb-6"><strong>L'impro vocale</strong> mois après mois : chaque séance explore un ou deux aspects spécifiques du <strong>chant improvisé</strong> pour enrichir votre pratique et développer votre créativité vocale.</p>
-          <h3 class="text-primary-light text-xl font-semibold mt-8 mb-3">Au programme</h3>
-          <p class="mb-2">À chaque atelier d'<strong>improvisation vocale</strong>, nous explorons 1 à 2 thématiques parmi :</p>
-          <ul class="list-disc pl-6 space-y-1 mb-6 text-white/90">
-            <li><strong>Musicalité</strong> : cohésion, harmonie, rythmique, polyphonie dans les <strong>circlesongs</strong></li>
-            <li><strong>Expression</strong> : présence, créativité, connexion au groupe</li>
-            <li><strong>Jeu vocal</strong> : textures sonores, exploration de timbres, contrastes dynamiques</li>
-            <li><strong>Écoute active</strong> : interaction, complémentarité</li>
-            <li><strong>Solo et collectif</strong> : trouver sa place, oser, soutenir</li>
-          </ul>
-          <p class="mb-6">Et bien d'autres aspects pour varier les approches et s'amuser ensemble !</p>
-          <div class="glass-premium rounded-xl p-6 my-8 border border-white/20">
-            <h3 class="text-primary-light text-xl font-semibold mb-4">L'esprit des ateliers d'impro vocale</h3>
-            <div class="space-y-3">
-              <div class="flex gap-3"><span class="text-accent text-xl">✓</span><span><strong>Cadre bienveillant</strong> – Exploration sans jugement, où chaque voix a sa place</span></div>
-              <div class="flex gap-3"><span class="text-accent text-xl">✓</span><span><strong>Approche ludique</strong> – Le plaisir avant la performance</span></div>
-              <div class="flex gap-3"><span class="text-accent text-xl">✓</span><span><strong>Liberté d'expérimentation</strong> – Un espace pour tester, se tromper, progresser</span></div>
-              <div class="flex gap-3"><span class="text-accent text-xl">✓</span><span><strong>Petit groupe</strong> – Max. 10 personnes pour favoriser l'écoute et la connexion</span></div>
-            </div>
-          </div>
-          <div class="rounded-xl p-6 my-8 bg-white/5 border-l-4 border-primary">
-            <h3 class="text-primary-light font-semibold mb-2">Prérequis</h3>
-            <p>Pour profiter pleinement de cet atelier d'<strong>improvisation vocale</strong>, il est nécessaire de <strong>savoir tenir une pulsation stable</strong> et de <strong>pouvoir reproduire une mélodie donnée à l'identique</strong>.</p>
-          </div>
-          <div class="glass-panel rounded-xl p-6 my-8">
-            <h3 class="text-primary-light text-center font-semibold mb-4">Informations pratiques</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div class="flex gap-3"><span class="text-primary-light shrink-0">📅</span><div><strong class="text-primary-light block mb-1">Quand ?</strong><span>Tous les 2èmes mardis du mois</span></div></div>
-              <div class="flex gap-3"><span class="text-primary-light shrink-0">⏰</span><div><strong class="text-primary-light block mb-1">Durée</strong><span>3 heures (19h – 22h)</span></div></div>
-              <div class="flex gap-3"><span class="text-primary-light shrink-0">📍</span><div><strong class="text-primary-light block mb-1">Où ?</strong><span>Quartier Minimes, Toulouse</span></div></div>
-              <div class="flex gap-3"><span class="text-primary-light shrink-0">👥</span><div><strong class="text-primary-light block mb-1">Groupe</strong><span>Max. 10 personnes</span></div></div>
-            </div>
-          </div>
-          <div class="glass-panel rounded-xl p-6 my-8 text-center">
-            <h3 class="text-primary-light font-semibold text-xl mb-4">Tarif libre et conscient</h3>
-            <p class="mb-6 text-white/90">Choisissez le montant selon vos moyens et la valeur que vous donnez à l'atelier</p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
-              <div class="bg-white/10 rounded-xl p-4 border border-white/20"><div class="text-2xl font-bold text-primary">15 €</div><div class="text-sm text-white/90">Tarif minimum</div></div>
-              <div class="bg-primary/20 rounded-xl p-4 border-2 border-primary"><div class="text-xs font-bold text-white mb-1">RECOMMANDÉ</div><div class="text-2xl font-bold text-primary">20 €</div><div class="text-sm text-white/90">Couvre frais et préparation</div></div>
-              <div class="bg-white/10 rounded-xl p-4 border border-accent/50"><div class="text-2xl font-bold text-accent">25 €+</div><div class="text-sm text-white/90">Soutien</div></div>
-            </div>
-          </div>
-          <div class="rounded-xl p-6 my-8 bg-white/5 border border-dashed border-white/30">
-            <h3 class="text-primary-light font-semibold mb-2">Inscriptions</h3>
-            <p class="mb-4">L'inscription se fait via la <a href="https://www.billetweb.fr/pro/donnerdelavoix" target="_blank" rel="noopener noreferrer" class="text-accent underline font-semibold">billetterie BilletWeb</a>, paiement sur place.</p>
-            <p class="text-sm text-white/80">En cas d'annulation, merci de prévenir le plus tôt possible.</p>
-          </div>
-          <div class="rounded-xl p-6 my-8 border border-white/20 text-center">
-            <h3 class="text-white font-semibold text-xl mb-2">Prêt.e à rejoindre l'aventure ?</h3>
-            <p class="italic text-white/80 mb-6">Il me tarde de chanter avec vous !</p>
-            <div class="flex flex-wrap justify-center gap-4">
-              <a href="#calendrier" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold bg-accent/70 border border-accent hover:bg-accent/90 text-white">Voir les prochaines dates</a>
-              <a href="/contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold border border-white/30 bg-white/10 hover:bg-white/20 text-white">Une question ?</a>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Stage – L'art des circle songs -->
-      <article class="article-section glass-panel rounded-2xl p-6 md:p-8" id="art-circle-songs">
-        <div class="article-content">
-          <div class="flex flex-wrap gap-2 mb-6">
-            <span class="bg-primary/80 text-white px-3 py-1 rounded-full text-sm font-semibold">💜 TARIF LIBRE</span>
-            <span class="bg-accent/80 text-white px-3 py-1 rounded-full text-sm font-semibold">🎵 CIRCLESONGS</span>
-            <span class="bg-primary-light/80 text-white px-3 py-1 rounded-full text-sm font-semibold">📚 FORMATION</span>
-            <span class="text-white px-3 py-1 rounded-full text-sm font-semibold border border-white/30">📍 TOULOUSE</span>
-          </div>
-          <h2 class="text-2xl font-bold text-white mb-1">Stage – L'art des circle songs</h2>
-          <p class="text-white/80 text-lg mb-6">Journée immersive de circlesongs</p>
-          <img src="/assets/artdescirclesongs.png" alt="Formation art des circlesongs à Toulouse" class="article-image rounded-2xl border border-white/20 w-full mb-6"/>
-          <p class="mb-4">Une <strong>journée immersive d'improvisation vocale à Toulouse</strong> pour maîtriser l'art des <strong>circlesongs</strong>. Les <strong>circlesongs</strong> sont une pratique de <strong>chant en groupe a capella</strong> où nous créons ensemble des <strong>polyphonies improvisées</strong> guidées par un.e conducteur.rice.</p>
-          <p class="mb-6">Cette pratique d'<strong>improvisation vocale</strong> permet de s'initier au <strong>chant polyphonique</strong>, de développer l'écoute, le sens du rythme et l'oreille musicale dans un cadre collectif et bienveillant.</p>
-          <h3 class="text-primary-light text-xl font-semibold mt-8 mb-3">Objectifs de la journée</h3>
-          <ul class="list-disc pl-6 space-y-1 mb-6 text-white/90">
-            <li><strong>Créer des circlesongs de A à Z</strong> – Apprendre à construire et guider une improvisation vocale collective</li>
-            <li><strong>Développer votre assurance</strong> – Gagner en confiance dans votre créativité et votre direction</li>
-            <li><strong>Affiner votre écoute</strong> – Développer votre perception harmonique et rythmique</li>
-            <li><strong>Explorer les gestes de direction</strong> – Découvrir les langages gestuels en improvisation vocale, inspirés du vocal painting</li>
-            <li><strong>Se faire plaisir !</strong> – Partager la joie du chant improvisé en groupe</li>
-          </ul>
-          <div class="glass-premium rounded-xl p-6 my-8">
-            <h3 class="text-primary-light font-semibold mb-2">👥 Pour qui ?</h3>
-            <p><strong>Ouvert à tous.tes</strong> – 10 participant.es maximum</p>
-          </div>
-          <div class="glass-panel rounded-xl p-6 my-8">
-            <h3 class="text-primary-light text-center font-semibold mb-4">Informations pratiques</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div class="flex gap-3"><span>📅</span><div><strong class="text-primary-light block mb-1">Format</strong><span>Journée complète</span></div></div>
-              <div class="flex gap-3"><span>⏰</span><div><strong class="text-primary-light block mb-1">Horaires</strong><span>10h – 18h</span></div></div>
-              <div class="flex gap-3"><span>📍</span><div><strong class="text-primary-light block mb-1">Où ?</strong><span>Lieu communiqué à l'inscription (généralement Atelier des Chalets, Toulouse)</span></div></div>
-              <div class="flex gap-3"><span>👥</span><div><strong class="text-primary-light block mb-1">Groupe</strong><span>Max. 10 personnes</span></div></div>
-            </div>
-          </div>
-          <div class="glass-panel rounded-xl p-6 my-8 text-center">
-            <h3 class="text-primary-light font-semibold text-xl mb-4">Tarif libre et conscient</h3>
-            <p class="mb-6 text-white/90">Choisissez le montant selon vos moyens et la valeur que vous donnez à cet atelier</p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
-              <div class="bg-white/10 rounded-xl p-4 border border-white/20"><div class="text-2xl font-bold text-primary">50 €</div><div class="text-sm text-white/90">Couvre préparation et communication</div></div>
-              <div class="bg-primary/20 rounded-xl p-4 border-2 border-primary"><div class="text-xs font-bold text-white mb-1">RECOMMANDÉ</div><div class="text-2xl font-bold text-primary">70 €</div><div class="text-sm text-white/90">Tarif de base viable</div></div>
-              <div class="bg-white/10 rounded-xl p-4 border border-accent/50"><div class="text-2xl font-bold text-accent">80 €+</div><div class="text-sm text-white/90">Soutien</div></div>
-            </div>
-          </div>
-          <div class="rounded-xl p-6 my-8 border border-white/20 text-center">
-            <h3 class="text-white font-semibold text-xl mb-2">Plongez dans l'univers des circlesongs</h3>
-            <div class="flex flex-wrap justify-center gap-4 mt-4">
-              <a href="#calendrier" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold bg-accent/70 border border-accent hover:bg-accent/90 text-white">Voir les prochaines dates</a>
-              <a href="/contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold border border-white/30 bg-white/10 hover:bg-white/20 text-white">Une question ?</a>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <p class="text-center text-white/90 py-6">
-        <a href="/ateliers" class="text-accent underline font-medium">Voir les autres formats (Circlesong immersif, Chant pour tous, Poésie, Gestuelle, Flashmob, Coaching, FAQ) sur la page ateliers</a>
-      </p>
-    </section>
     </div>
   </main>
 
@@ -706,10 +788,13 @@
   <div class="fixed bottom-6 left-8 z-50">
     <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="/mentions-legales">Mentions Légales</a>
   </div>
+  <div class="fixed bottom-6 right-8 z-50">
+    <a href="/contact" class="btn-rdv inline-flex items-center justify-center px-5 py-3 rounded-2xl font-semibold text-sm uppercase tracking-widest text-white border border-white/30 bg-white/10 hover:bg-white/20 transition-all shadow-lg">Prendre RDV</a>
+  </div>
 
   <!-- Popup atelier -->
   <div class="atelier-modal-overlay" id="atelier-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="atelier-modal-title">
-    <div class="atelier-modal-box relative">
+    <div class="atelier-modal-box">
       <button type="button" class="atelier-modal-close" id="atelier-modal-close" aria-label="Fermer"><span class="material-symbols-outlined text-xl">close</span></button>
       <div class="atelier-modal-content" id="atelier-modal-content"></div>
     </div>
@@ -728,6 +813,9 @@
       }
       document.querySelectorAll('a[href="#calendrier"]').forEach(function(a) {
         a.addEventListener('click', function(e) { e.preventDefault(); smoothScrollTo('calendrier'); });
+      });
+      document.querySelectorAll('a[href="#prochaines-dates"]').forEach(function(a) {
+        a.addEventListener('click', function(e) { e.preventDefault(); smoothScrollTo('prochaines-dates'); });
       });
       document.querySelectorAll('a[href="#formats-bentos"]').forEach(function(a) {
         a.addEventListener('click', function(e) { e.preventDefault(); smoothScrollTo('formats-bentos'); });
@@ -773,7 +861,7 @@
           }
           modalContent.innerHTML = '<div class="atelier-modal-external"><p class="text-white/90">Contenu non disponible.</p><a href="/ateliers#' + hashId + '" class="text-accent underline">Voir sur la page ateliers</a></div>';
         }).catch(function() {
-          modalContent.innerHTML = '<div class="atelier-modal-external"><p class="text-white/90">Impossible de charger le contenu.</p><a href="/ateliers#' + hashId + '" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold bg-accent/70 border border-accent hover:bg-accent/90 text-white">Voir la fiche sur la page ateliers</a></div>';
+          modalContent.innerHTML = '<div class="atelier-modal-external"><p class="text-white/90">Impossible de charger le contenu.</p><a href="/ateliers#' + hashId + '" class="btn-rdv">Voir la fiche sur la page ateliers</a></div>';
         });
       }
 

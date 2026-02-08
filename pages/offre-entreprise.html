@@ -36,10 +36,10 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/assets/logo-ddlv.png">
   
-  <!-- Google Fonts - Inter -->
+  <!-- Google Fonts - Josefin Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Lien vers le fichier CSS -->
   <link rel="stylesheet" href="/styles.css">
@@ -54,110 +54,16 @@
   <!-- Skip link pour la navigation au clavier -->
   <a href="#main-content" class="skip-link">Aller au contenu principal</a>
   
-  <!-- Logo flottant en haut à gauche -->
-  <a href="/" class="floating-logo" aria-label="Retour à l'accueil - Donner de la Voix">
-    <img src="/assets/logo-ddlv.png" alt="Donner de la Voix" class="floating-logo-image">
-  </a>
-  
-  <!-- Nav réutilisable -->
-  <nav class="site-nav" role="navigation">
-    <div class="header-container">
-      <button class="menu-toggle" aria-label="Menu de navigation" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      
-      <!-- Menu Desktop -->
-      <nav class="header-nav-desktop" aria-label="Navigation principale desktop">
-        <ul class="header-menu-desktop" role="list">
-          <li>
-            <a href="/" class="header-menu-item-desktop">
-              Accueil
-            </a>
-          </li>
-          <li class="header-menu-dropdown-desktop">
-            <a href="#" class="header-menu-item-desktop">
-              Cours & ateliers
-            </a>
-            <ul class="header-submenu-desktop">
-              <li>
-                <a href="/impro-vocale" class="header-submenu-item-desktop">Qu'est-ce que l'impro vocale</a>
-              </li>
-              <li>
-                <a href="/ateliers" class="header-submenu-item-desktop">Stages & ateliers</a>
-              </li>
-              <li>
-                <a href="/cours-chant" class="header-submenu-item-desktop">Les cours de chant</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="/offre-entreprise" class="header-menu-item-desktop active">
-              Offres entreprise
-            </a>
-          </li>
-          <li>
-            <a href="/about" class="header-menu-item-desktop">
-              La pédagogue
-            </a>
-          </li>
-          <li>
-            <a href="/newsletter" class="header-menu-item-desktop">
-              Newsletter
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </nav>
-  
-  <!-- Menu Mobile (hors site-nav pour position fixed viewport, sans marge) -->
-  <nav class="header-nav-mobile" aria-label="Navigation principale mobile">
-    <ul class="header-menu-mobile" role="list">
-      <li>
-        <a href="/" class="header-menu-item-mobile">
-          Accueil
-        </a>
-      </li>
-      <li>
-        <a href="/impro-vocale" class="header-menu-item-mobile">
-          Qu'est-ce que l'impro vocale
-        </a>
-      </li>
-      <li>
-        <a href="/ateliers" class="header-menu-item-mobile">
-          Stages & ateliers
-        </a>
-      </li>
-      <li>
-        <a href="/cours-chant" class="header-menu-item-mobile">
-          Les cours de chant
-        </a>
-      </li>
-      <li>
-        <a href="/offre-entreprise" class="header-menu-item-mobile active">
-          Offres entreprise
-        </a>
-      </li>
-      <li>
-        <a href="/about" class="header-menu-item-mobile">
-          La pédagogue
-        </a>
-      </li>
-      <li>
-        <a href="/newsletter" class="header-menu-item-mobile">
-          Newsletter
-        </a>
-      </li>
-    </ul>
-  </nav>
-  
-  <!-- Bouton flottant PRENDRE RDV -->
-  <button class="floating-rdv-btn" id="calendly-trigger" aria-label="Prendre rendez-vous">
-    <i data-lucide="calendar-check" class="floating-rdv-icon"></i>
-    PRENDRE RDV
-  </button>
+  <div id="site-header"></div>
+  <script>
+    (function() {
+      var el = document.getElementById('site-header');
+      if (!el) return;
+      fetch('/partials/header.html').then(function(r) { return r.ok ? r.text() : Promise.reject(); })
+        .then(function(html) { el.innerHTML = html; })
+        .catch(function() {});
+    })();
+  </script>
   
   <!-- Popup Calendly -->
   <div id="calendly-popup" class="calendly-popup-container hidden">
@@ -191,7 +97,7 @@
           <!-- Section Héro -->
           <section class="article-section glass-section" style="text-align: center; padding: 3rem 1.5rem;">
             <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--color-primary);">Offres Entreprise</h1>
-            <p style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--color-primary-dark); font-weight: 500;">Cours de chant et d'impro pour comités d'entreprise</p>
+            <p style="font-size: 1.5rem; margin-bottom: 1rem; color: #fff; font-weight: 500;">Cours de chant et d'impro pour comités d'entreprise</p>
             <p style="font-size: 1.1rem; margin-bottom: 2rem; color: #666;">Team building vocal • Ice breaker séminaires • Animation entreprise</p>
             <a href="/contact" class="rdv-btn" style="font-size: 1.1rem; padding: 1rem 2.5rem; text-decoration: none; display: inline-flex;">
               <i data-lucide="file-text" class="btn-icon"></i>
@@ -260,25 +166,25 @@
                   <div style="display: flex; align-items: start; gap: 0.75rem;">
                     <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
                     <div>
-                      <strong style="color: var(--color-primary-dark);">Cours collectifs réguliers</strong> – Sessions hebdomadaires ou bi-mensuelles pour un groupe de 5 à 15 participants
+                      <strong style="color: #fff;">Cours collectifs réguliers</strong> – Sessions hebdomadaires ou bi-mensuelles pour un groupe de 5 à 15 participants
                     </div>
                   </div>
                   <div style="display: flex; align-items: start; gap: 0.75rem;">
                     <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
                     <div>
-                      <strong style="color: var(--color-primary-dark);">Interventions ponctuelles</strong> – Une demi-journée ou journée complète pour découvrir le chant en groupe comme outil de cohésion de groupe
+                      <strong style="color: #fff;">Interventions ponctuelles</strong> – Une demi-journée ou journée complète pour découvrir le chant en groupe comme outil de cohésion de groupe
                     </div>
                   </div>
                   <div style="display: flex; align-items: start; gap: 0.75rem;">
                     <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
                     <div>
-                      <strong style="color: var(--color-primary-dark);">Cours individuels</strong> – Coaching vocal personnalisé pour vos collaborateurs (sur devis)
+                      <strong style="color: #fff;">Cours individuels</strong> – Coaching vocal personnalisé pour vos collaborateurs (sur devis)
                     </div>
                   </div>
                   <div style="display: flex; align-items: start; gap: 0.75rem;">
                     <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
                     <div>
-                      <strong style="color: var(--color-primary-dark);">Prévention vocale</strong> – Formation spécifique pour les professions utilisant beaucoup la voix (enseignants, commerciaux, animateurs...)
+                      <strong style="color: #fff;">Prévention vocale</strong> – Formation spécifique pour les professions utilisant beaucoup la voix (enseignants, commerciaux, animateurs...)
                     </div>
                   </div>
                 </div>
@@ -362,19 +268,19 @@
                   <div style="display: flex; align-items: start; gap: 0.75rem;">
                     <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
                     <div>
-                      <strong style="color: var(--color-primary-dark);">Team building circlesongs</strong> – Création collective d'une œuvre vocale improvisée (2-3h)
+                      <strong style="color: #fff;">Team building circlesongs</strong> – Création collective d'une œuvre vocale improvisée (2-3h)
                     </div>
                   </div>
                   <div style="display: flex; align-items: start; gap: 0.75rem;">
                     <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
                     <div>
-                      <strong style="color: var(--color-primary-dark);">Team building chant en groupe</strong> – Apprendre un morceau ensemble et le chanter en fin de session (2-3h)
+                      <strong style="color: #fff;">Team building chant en groupe</strong> – Apprendre un morceau ensemble et le chanter en fin de session (2-3h)
                     </div>
                   </div>
                   <div style="display: flex; align-items: start; gap: 0.75rem;">
                     <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
                     <div>
-                      <strong style="color: var(--color-primary-dark);">Team building sur mesure</strong> – Formule adaptée à vos objectifs et contraintes
+                      <strong style="color: #fff;">Team building sur mesure</strong> – Formule adaptée à vos objectifs et contraintes
                     </div>
                   </div>
                 </div>
@@ -531,7 +437,7 @@
               </div>
               
               <div style="text-align: center; margin: 3rem 0;">
-                <p style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--color-primary-dark); font-weight: 500;">Au plaisir de créer ensemble une activité mémorable pour vos équipes !</p>
+                <p style="font-size: 1.2rem; margin-bottom: 1rem; color: #fff; font-weight: 500;">Au plaisir de créer ensemble une activité mémorable pour vos équipes !</p>
               </div>
             </div>
           </section>

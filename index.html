@@ -22,6 +22,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="/styles.css"/>
   <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -197,37 +198,52 @@
             .bento-zone .bento-large {
                 transition: transform 0.3s ease-out;
             }
-            .bento-zone .bento-small:nth-child(1):hover { transform: rotate(-2deg) translateY(-2px); }
-            .bento-zone .bento-small:nth-child(2):hover { transform: rotate(1.5deg) translateY(-2px); }
-            .bento-zone .bento-small:nth-child(3):hover { transform: rotate(2deg) translateY(-2px); }
-            .bento-zone .bento-small:nth-child(4):hover { transform: rotate(-1.5deg) translateY(-2px); }
-            .bento-zone .bento-large:hover { transform: rotate(0.5deg); }
+            /* Hover tilt commun : défini dans /styles.css */
+            /* Popup Calendly – glassmorphism, pleine page sans scroll */
             #calendly-popup-home {
                 position: fixed; inset: 0; z-index: 10000;
-                display: none; align-items: center; justify-content: center;
-                padding: 1.5rem; box-sizing: border-box;
+                display: none; align-items: stretch; justify-content: stretch;
+                padding: 0; box-sizing: border-box; overflow: hidden;
             }
             #calendly-popup-home .calendly-popup-overlay {
                 position: absolute; inset: 0;
-                background: rgba(0,0,0,0.5);
-                backdrop-filter: blur(8px);
+                background: rgba(13, 2, 24, 0.55);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
             }
             #calendly-popup-home .calendly-popup-content-wrapper {
-                position: relative; width: 90%; max-width: 800px; max-height: 90vh;
-                border-radius: 1rem; overflow: hidden; z-index: 10001;
-                background: rgba(255,255,255,0.95);
-                border: 1px solid rgba(255,255,255,0.3);
-                box-shadow: 0 20px 60px rgba(91,42,181,0.25);
+                position: relative; width: 100%; height: 100%;
+                border-radius: 0; overflow: hidden; z-index: 10001;
+                display: flex; flex-direction: column;
+                background: rgba(255, 255, 255, 0.12);
+                backdrop-filter: blur(25px);
+                -webkit-backdrop-filter: blur(25px);
+                border: 1px solid rgba(255, 255, 255, 0.25);
+                box-shadow:
+                    0 8px 32px 0 rgba(0, 0, 0, 0.35),
+                    inset 0 0 2px 1px rgba(255, 255, 255, 0.2),
+                    0 0 30px rgba(91, 42, 181, 0.15);
             }
             #calendly-popup-home .calendly-popup-close-btn {
                 position: absolute; top: 0.75rem; right: 0.75rem; z-index: 10002;
                 width: 2.5rem; height: 2.5rem; border-radius: 50%;
-                background: linear-gradient(135deg, #5b2ab5, #cf3594);
-                color: white; border: none; font-size: 1.5rem; line-height: 1;
+                background: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(10px);
+                color: white; border: 1px solid rgba(255, 255, 255, 0.35);
+                font-size: 1.5rem; line-height: 1;
                 cursor: pointer; display: flex; align-items: center; justify-content: center;
+                transition: background 0.2s, border-color 0.2s;
+            }
+            #calendly-popup-home .calendly-popup-close-btn:hover {
+                background: rgba(255, 255, 255, 0.35);
+                border-color: rgba(255, 255, 255, 0.5);
             }
             #calendly-popup-home .calendly-inline-widget {
-                min-width: 320px; height: 700px;
+                flex: 1; min-width: 0; min-height: 0;
+                width: 100%; height: 100%;
+            }
+            #calendly-popup-home .calendly-inline-widget iframe {
+                width: 100% !important; height: 100% !important;
             }
         }
     </style>
@@ -240,23 +256,16 @@
   <div class="blob w-[400px] h-[400px] bg-primary-light top-[40%] right-[10%]"></div>
   <div class="blob w-[300px] h-[300px] bg-primary bottom-[20%] left-[20%]"></div>
 
-  <header class="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-4">
-    <div class="max-w-7xl mx-auto flex items-center gap-16">
-      <a href="/" aria-label="Retour à l'accueil - Donner de la Voix" class="shrink-0">
-        <img alt="Donner de la Voix Logo" class="h-32 w-auto brightness-0 invert drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]" src="/assets/logo-ddlv.png"/>
-      </a>
-      <nav class="flex-1 flex items-center justify-center gap-6 lg:gap-10 glass-panel px-6 py-3 rounded-2xl min-w-0" aria-label="Navigation principale">
-        <a class="nav-item text-white flex items-center justify-center p-1" href="/" aria-label="Accueil"><span class="material-symbols-outlined text-2xl">home</span></a>
-        <a class="nav-item text-white text-sm font-medium transition-colors tracking-widest uppercase whitespace-nowrap" href="/impro-vocale">L'impro vocale</a>
-        <a class="nav-item text-white text-sm font-medium transition-colors tracking-widest uppercase whitespace-nowrap" href="/ateliers-new">Stages et ateliers</a>
-        <a class="nav-item text-white text-sm font-medium transition-colors tracking-widest uppercase whitespace-nowrap" href="/offre-entreprise">Offre entreprise</a>
-        <a class="nav-item text-white text-sm font-medium transition-colors tracking-widest uppercase whitespace-nowrap" href="/newsletter">Newsletter</a>
-      </nav>
-      <a href="/contact" class="shrink-0 text-white px-8 py-3 rounded-2xl font-bold text-xs uppercase tracking-[0.2em] transition-all border border-[#cf3594]/70 bg-[#cf3594]/60 hover:bg-[#cf3594]/80 backdrop-blur-sm shadow-[0_4px_20px_rgba(207,53,148,0.3)]">
-        Prendre RDV
-      </a>
-    </div>
-  </header>
+  <div id="site-header"></div>
+  <script>
+    (function() {
+      var el = document.getElementById('site-header');
+      if (!el) return;
+      fetch('/partials/header.html').then(function(r) { return r.ok ? r.text() : Promise.reject(); })
+        .then(function(html) { el.innerHTML = html; })
+        .catch(function() {});
+    })();
+  </script>
 
   <main class="flex-1 min-h-0 flex items-center justify-center px-6 md:px-8 pt-24 pb-6 md:pt-28 overflow-auto">
     <div class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-0">
@@ -272,7 +281,7 @@
         <!-- Colonne droite : bentos -->
         <div class="lg:col-span-7 flex flex-col gap-6">
         <div class="bento-zone">
-        <a class="bento-small glass-panel-rose group p-6 rounded-2xl flex flex-col gap-4" href="/impro-vocale">
+        <a class="bento-small glass-panel-rose bento-tint-mix group p-6 rounded-2xl flex flex-col gap-4 relative overflow-hidden" href="/impro-vocale-new">
           <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-primary/30 transition-colors">
             <span class="material-symbols-outlined text-3xl">lyrics</span>
           </div>
@@ -281,7 +290,7 @@
             <p class="text-base text-white/90 leading-snug font-light">Présence et expression en groupe.</p>
           </div>
         </a>
-        <a class="bento-small glass-panel-rose group p-6 rounded-2xl flex flex-col gap-4" href="/ateliers-new">
+        <a class="bento-small glass-panel-rose bento-tint-primary group p-6 rounded-2xl flex flex-col gap-4 relative overflow-hidden" href="/ateliers-new">
           <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-white/10 transition-colors">
             <span class="material-symbols-outlined text-3xl">calendar_month</span>
           </div>
@@ -290,7 +299,7 @@
             <p class="text-base text-white/90 leading-snug font-light">Stages pour approfondir le chant.</p>
           </div>
         </a>
-        <a class="bento-small glass-panel-rose group p-6 rounded-2xl flex flex-col gap-4" href="/cours-chant">
+        <a class="bento-small glass-panel-rose bento-tint-primary-light group p-6 rounded-2xl flex flex-col gap-4 relative overflow-hidden" href="/cours-chant-new">
           <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-white/10 transition-colors">
             <span class="material-symbols-outlined text-3xl">mic_external_on</span>
           </div>
@@ -299,7 +308,7 @@
             <p class="text-base text-white/90 leading-snug font-light">Voix et chant personnalisés.</p>
           </div>
         </a>
-        <a class="bento-small glass-panel-rose group p-6 rounded-2xl flex flex-col gap-4" href="/offre-entreprise">
+        <a class="bento-small glass-panel-rose bento-tint-accent group p-6 rounded-2xl flex flex-col gap-4 relative overflow-hidden" href="/offre-entreprise-new">
           <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-accent/30 transition-colors">
             <span class="material-symbols-outlined text-3xl">corporate_fare</span>
           </div>
@@ -308,7 +317,7 @@
             <p class="text-base text-white/90 leading-snug font-light">Écoute et cohésion en équipe.</p>
           </div>
         </a>
-        <a class="bento-large glass-panel-rose group p-6 rounded-2xl flex flex-col gap-4 hover:bg-white/10 sm:flex-row sm:items-center" href="/about">
+        <a class="bento-large glass-panel-rose bento-tint-teal group p-6 rounded-2xl flex flex-col gap-4 hover:bg-white/10 sm:flex-row sm:items-center relative overflow-hidden" href="/about-new">
           <div class="size-14 shrink-0 rounded-full bg-primary/20 flex items-center justify-center border border-white/30 shadow-[0_0_30px_rgba(91,42,181,0.3)] group-hover:scale-105 transition-transform">
             <span class="material-symbols-outlined text-4xl text-white">psychology</span>
           </div>
@@ -340,6 +349,9 @@
 
   <div class="fixed bottom-6 left-8 z-50">
     <a class="text-[10px] text-white/30 hover:text-white/70 transition-colors uppercase tracking-[0.5em] font-medium" href="/mentions-legales">Mentions Légales</a>
+  </div>
+  <div class="fixed bottom-6 right-8 z-50">
+    <a href="/contact" id="calendly-trigger-rdv" class="btn-rdv inline-flex items-center justify-center px-5 py-3 rounded-2xl font-semibold text-sm uppercase tracking-widest text-white border border-white/30 bg-white/10 hover:bg-white/20 transition-all shadow-lg">Prendre RDV</a>
   </div>
 
   <script>
@@ -407,7 +419,7 @@
     <div class="calendly-popup-overlay" id="calendly-popup-overlay-home"></div>
     <div class="calendly-popup-content-wrapper">
       <button type="button" class="calendly-popup-close-btn" id="calendly-popup-close-home" aria-label="Fermer">×</button>
-      <div class="calendly-inline-widget" data-url="https://calendly.com/contactdonnerdelavoix/30min" style="min-width:320px;height:700px;"></div>
+      <div class="calendly-inline-widget" data-url="https://calendly.com/contactdonnerdelavoix/30min"></div>
     </div>
   </div>
   <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
@@ -417,11 +429,12 @@
       var popup = document.getElementById('calendly-popup-home');
       var closeBtn = document.getElementById('calendly-popup-close-home');
       var overlay = document.getElementById('calendly-popup-overlay-home');
-      function openCalendly() {
-        if (popup) { popup.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+      function openCalendly(e) {
+        if (e && e.preventDefault) e.preventDefault();
+        if (popup) { popup.style.display = 'flex'; popup.setAttribute('aria-hidden', 'false'); document.body.classList.add('no-scroll'); }
       }
       function closeCalendly() {
-        if (popup) { popup.style.display = 'none'; document.body.style.overflow = ''; }
+        if (popup) { popup.style.display = 'none'; popup.setAttribute('aria-hidden', 'true'); document.body.classList.remove('no-scroll'); }
       }
       if (trigger) trigger.addEventListener('click', openCalendly);
       if (closeBtn) closeBtn.addEventListener('click', closeCalendly);

@@ -37,10 +37,10 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/assets/logo-ddlv.png">
   
-  <!-- Google Fonts - Inter -->
+  <!-- Google Fonts - Josefin Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Lien vers le fichier CSS qui contient tous les styles de la page -->
   <link rel="stylesheet" href="/styles.css">
@@ -55,110 +55,16 @@
   <!-- Skip link pour la navigation au clavier -->
   <a href="#main-content" class="skip-link">Aller au contenu principal</a>
   
-  <!-- Logo flottant en haut à gauche -->
-  <a href="/" class="floating-logo" aria-label="Retour à l'accueil - Donner de la Voix">
-    <img src="/assets/logo-ddlv.png" alt="Donner de la Voix" class="floating-logo-image">
-  </a>
-  
-  <!-- Nav réutilisable pour toutes les pages sauf index.html -->
-  <nav class="site-nav" role="navigation">
-    <div class="header-container">
-      <button class="menu-toggle" aria-label="Menu de navigation" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      
-      <!-- Menu Desktop -->
-      <nav class="header-nav-desktop" aria-label="Navigation principale desktop">
-        <ul class="header-menu-desktop" role="list">
-          <li>
-            <a href="/" class="header-menu-item-desktop">
-              Accueil
-            </a>
-          </li>
-          <li class="header-menu-dropdown-desktop">
-            <a href="#" class="header-menu-item-desktop active">
-              Cours & ateliers
-            </a>
-            <ul class="header-submenu-desktop">
-              <li>
-                <a href="/impro-vocale" class="header-submenu-item-desktop">Qu'est-ce que l'impro vocale</a>
-              </li>
-              <li>
-                <a href="/ateliers" class="header-submenu-item-desktop">Stages & ateliers</a>
-              </li>
-              <li>
-                <a href="/cours-chant" class="header-submenu-item-desktop">Les cours de chant</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="offre-entreprise.html" class="header-menu-item-desktop">
-              Offres entreprise
-            </a>
-          </li>
-          <li>
-            <a href="/about" class="header-menu-item-desktop">
-              La pédagogue
-            </a>
-          </li>
-          <li>
-            <a href="/newsletter" class="header-menu-item-desktop">
-              Newsletter
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </nav>
-  
-  <!-- Menu Mobile (hors site-nav pour position fixed viewport, sans marge) -->
-  <nav class="header-nav-mobile" aria-label="Navigation principale mobile">
-    <ul class="header-menu-mobile" role="list">
-      <li>
-        <a href="/" class="header-menu-item-mobile">
-          Accueil
-        </a>
-      </li>
-      <li>
-        <a href="/impro-vocale" class="header-menu-item-mobile active">
-          Qu'est-ce que l'impro vocale
-        </a>
-      </li>
-      <li>
-        <a href="/ateliers" class="header-menu-item-mobile">
-          Stages & ateliers
-        </a>
-      </li>
-      <li>
-        <a href="/cours-chant" class="header-menu-item-mobile">
-          Les cours de chant
-        </a>
-      </li>
-      <li>
-        <a href="offre-entreprise.html" class="header-menu-item-mobile">
-          Offres entreprise
-        </a>
-      </li>
-      <li>
-        <a href="/about" class="header-menu-item-mobile">
-          La pédagogue
-        </a>
-      </li>
-      <li>
-        <a href="/newsletter" class="header-menu-item-mobile">
-          Newsletter
-        </a>
-      </li>
-    </ul>
-  </nav>
-  
-  <!-- Bouton flottant PRENDRE RDV -->
-  <button class="floating-rdv-btn" id="calendly-trigger" aria-label="Prendre rendez-vous">
-    <i data-lucide="calendar-check" class="floating-rdv-icon"></i>
-    PRENDRE RDV
-  </button>
+  <div id="site-header"></div>
+  <script>
+    (function() {
+      var el = document.getElementById('site-header');
+      if (!el) return;
+      fetch('/partials/header.html').then(function(r) { return r.ok ? r.text() : Promise.reject(); })
+        .then(function(html) { el.innerHTML = html; })
+        .catch(function() {});
+    })();
+  </script>
   
   <!-- Popup Calendly -->
   <div id="calendly-popup" class="calendly-popup-container hidden">
@@ -208,7 +114,7 @@
               <h1>L'improvisation vocale : créer sans prévoir</h1>
               
               <div class="highlight-box-center">
-                <p class="text-2xl m-0 leading-relaxed font-medium text-primary-dark">
+                <p class="text-2xl m-0 leading-relaxed font-medium text-white">
                   <strong>L'improvisation vocale</strong> est une pratique musicale où la voix devient un instrument de création spontanée. Ici, pas de partition à suivre, pas de texte à mémoriser, pas d'objectif de performance.
                 </p>
               </div>
@@ -234,14 +140,14 @@
                 
                 <div class="highlight-box no-margin">
                   <h3 class="text-primary mb-1 text-3xl text-center">La co-improvisation</h3>
-                  <p class="mb-1 leading-normal font-semibold text-primary-dark text-center">Construction collective horizontale</p>
+                  <p class="mb-1 leading-normal font-semibold text-white text-center">Construction collective horizontale</p>
                   <p class="m-0 leading-normal">Dans la co-improvisation, chacun apporte sa pierre créative à l'édifice. Il n'y a pas de hiérarchie, pas de leader : les voix dialoguent, se répondent, s'entremêlent de manière horizontale.</p>
                   <p class="list-text-italic">C'est une conversation musicale spontanée où l'écoute mutuelle guide les propositions.</p>
                 </div>
                 
                 <div class="highlight-box-accent no-margin">
                   <h3 class="text-accent mb-1 text-3xl text-center">Le circlesong</h3>
-                  <p class="mb-1 leading-normal font-semibold text-primary-dark text-center">Structure guidée par un leader</p>
+                  <p class="mb-1 leading-normal font-semibold text-white text-center">Structure guidée par un leader</p>
                   <p class="m-0 leading-normal">Le <strong>circle song</strong> (ou <strong>circlesong</strong>) fonctionne différemment. Un ou plusieurs leaders distribuent des voix aux participants, chacun recevant un motif vocal spécifique : une mélodie, un rythme, une texture, un bourdon.</p>
                   <p class="list-text-italic">Ces motifs s'assemblent pour créer une <strong>polyphonie improvisée</strong>, une forme de <strong>chant en groupe a capella</strong> accessible aux débutants.</p>
                 </div>
@@ -338,7 +244,7 @@
               <p class="text-lg leading-relaxed my-2">Ainsi, l'<strong>impro vocale</strong> n'est pas opposée aux <strong>cours de chant</strong> plus traditionnels. Au contraire, ces approches se complètent idéalement : l'une nourrit la créativité et la spontanéité, l'autre affine la maîtrise et les outils techniques.</p>
               
               <div class="highlight-box-strong-center">
-                <p class="m-0 mb-1 text-xl font-semibold text-primary-dark">Vous souhaitez approfondir votre technique vocale tout en gardant cet esprit de liberté et d'exploration ?</p>
+                <p class="m-0 mb-1 text-xl font-semibold text-white">Vous souhaitez approfondir votre technique vocale tout en gardant cet esprit de liberté et d'exploration ?</p>
                 <a href="/cours-chant" class="rdv-btn">
                   <i data-lucide="music" class="btn-icon"></i>
                   Découvrir mes cours de chant
@@ -353,7 +259,7 @@
               <h2>Une pratique accessible à toutes et tous</h2>
               
               <div class="highlight-box-simple">
-                <p class="text-3xl m-0 font-semibold text-primary-dark">
+                <p class="text-3xl m-0 font-semibold text-white">
                   <strong>Aucun prérequis n'est nécessaire</strong> pour <strong>COMMENCER</strong> l'<strong>impro vocale</strong>. Vraiment aucun.
                 </p>
               </div>
@@ -458,7 +364,7 @@
                 
                 <div class="highlight-box no-margin">
                   <h3 class="text-primary mb-1 text-3xl text-center">Ma philosophie</h3>
-                  <p class="mb-1 font-semibold text-primary-dark text-center box-subtitle-center">En tant que <strong>coach vocal</strong> spécialisée en improvisation, je crée des espaces où :</p>
+                  <p class="mb-1 font-semibold text-white text-center box-subtitle-center">En tant que <strong>coach vocal</strong> spécialisée en improvisation, je crée des espaces où :</p>
                   <div class="technique-list">
                     <div class="technique-item">
                       <span class="technique-check-accent">✓</span>
@@ -481,7 +387,7 @@
                 
                 <div class="highlight-box-accent no-margin">
                   <h3 class="text-accent mb-1 text-3xl text-center">Stages & ateliers</h3>
-                  <p class="mb-1 font-semibold text-primary-dark text-center box-subtitle-center">Lors de mes <strong>stages et ateliers d'improvisation vocale à Toulouse</strong>, nous explorons :</p>
+                  <p class="mb-1 font-semibold text-white text-center box-subtitle-center">Lors de mes <strong>stages et ateliers d'improvisation vocale à Toulouse</strong>, nous explorons :</p>
                   <div class="technique-list">
                     <div class="technique-item">
                       <span class="technique-check-primary">✓</span>
