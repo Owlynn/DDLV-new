@@ -85,11 +85,9 @@
             }
             .bg-blur-image {
                 position: fixed;
-                inset: -20px;
+                inset: 0;
                 z-index: -3;
                 background: url('/assets/bg.jpg') 65% 50% / cover no-repeat;
-                filter: blur(14px);
-                transform: scale(1.05);
             }
             .bg-textured-art {
                 background-color: rgba(30, 15, 50, 0.08);
@@ -110,8 +108,11 @@
             }
             .hero-rotating-track {
                 overflow: hidden;
-                height: 17rem;
-                min-height: 17rem;
+                height: 14rem;
+                min-height: 14rem;
+            }
+            @media (min-width: 640px) {
+                .hero-rotating-track { height: 17rem; min-height: 17rem; }
             }
             @media (min-width: 768px) {
                 .hero-rotating-track { height: 22rem; min-height: 22rem; }
@@ -147,6 +148,19 @@
                 z-index: -1;
                 opacity: 0.6;
             }
+            @media (max-width: 768px) {
+                .blob { filter: blur(60px); opacity: 0.5; }
+                .blob.w-\[600px\] { width: 280px !important; height: 280px !important; }
+                .blob.w-\[500px\] { width: 220px !important; height: 220px !important; }
+                .blob.w-\[400px\] { width: 180px !important; height: 180px !important; }
+                .blob.w-\[300px\] { width: 140px !important; height: 140px !important; }
+            }
+            @media (max-width: 640px) {
+                .blob.w-\[600px\] { width: 200px !important; height: 200px !important; }
+                .blob.w-\[500px\] { width: 160px !important; height: 160px !important; }
+                .blob.w-\[400px\] { width: 120px !important; height: 120px !important; }
+                .blob.w-\[300px\] { width: 100px !important; height: 100px !important; }
+            }
             .nav-item::after {
                 content: '';
                 display: block;
@@ -160,43 +174,31 @@
                 width: 100%;
             }
             .bento-zone {
-                display: flex;
-                flex-wrap: wrap;
-                align-content: flex-start;
-                gap: 0.75rem 0;
-                justify-content: space-between;
-                row-gap: 1rem;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem 2rem;
+                align-items: stretch;
+            }
+            @media (min-width: 1280px) {
+                .bento-zone {
+                    gap: 2rem 2.5rem;
+                }
             }
             .bento-zone .bento-small {
                 min-width: 0;
-            }
-            .bento-zone .bento-small:nth-child(1) {
-                width: 46%;
-                margin-right: 0.25rem;
-            }
-            .bento-zone .bento-small:nth-child(2) {
-                width: 48%;
-                margin-left: auto;
-                margin-top: 1.25rem;
-            }
-            .bento-zone .bento-small:nth-child(3) {
-                width: 48%;
-                margin-right: 0.5rem;
-                margin-top: 0.5rem;
-            }
-            .bento-zone .bento-small:nth-child(4) {
-                width: 46%;
-                margin-left: auto;
-                margin-top: 1rem;
-            }
-            .bento-zone .bento-large {
-                width: 97%;
-                margin-top: 1rem;
-                margin-left: 2%;
-            }
-            .bento-zone .bento-small,
-            .bento-zone .bento-large {
                 transition: transform 0.3s ease-out;
+            }
+            @media (max-width: 640px) {
+                .bento-zone {
+                    grid-template-columns: 1fr;
+                    gap: 0.75rem;
+                }
+            }
+            @media (min-width: 641px) and (max-width: 1024px) {
+                .bento-zone {
+                    grid-template-columns: 1fr 1fr;
+                    gap: 1.25rem 1.5rem;
+                }
             }
             /* Hover tilt commun : défini dans /styles.css */
             /* Popup Calendly – glassmorphism, pleine page sans scroll */
@@ -245,6 +247,15 @@
             #calendly-popup-home .calendly-inline-widget iframe {
                 width: 100% !important; height: 100% !important;
             }
+            /* Menu mobile/tablette : afficher le panneau quand ouvert */
+            @media (max-width: 1023px) {
+                .header-nav-panel.nav-open {
+                    display: flex !important;
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    align-items: stretch;
+                }
+            }
         }
     </style>
 </head>
@@ -262,26 +273,62 @@
       var el = document.getElementById('site-header');
       if (!el) return;
       fetch('/partials/header.html').then(function(r) { return r.ok ? r.text() : Promise.reject(); })
-        .then(function(html) { el.innerHTML = html; })
+        .then(function(html) {
+          el.innerHTML = html;
+          var toggle = el.querySelector('.header-nav-toggle');
+          var panel = document.getElementById('header-nav');
+          var iconMenu = el.querySelector('.icon-menu');
+          var iconClose = el.querySelector('.icon-close');
+          if (toggle && panel) {
+            toggle.addEventListener('click', function() {
+              var open = panel.classList.contains('nav-open');
+              if (open) {
+                panel.classList.remove('nav-open');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.setAttribute('aria-label', 'Ouvrir le menu');
+                if (iconMenu) iconMenu.classList.remove('hidden');
+                if (iconClose) iconClose.classList.add('hidden');
+                document.body.classList.remove('no-scroll');
+              } else {
+                panel.classList.add('nav-open');
+                toggle.setAttribute('aria-expanded', 'true');
+                toggle.setAttribute('aria-label', 'Fermer le menu');
+                if (iconMenu) iconMenu.classList.add('hidden');
+                if (iconClose) iconClose.classList.remove('hidden');
+                document.body.classList.add('no-scroll');
+              }
+            });
+            panel.querySelectorAll('a').forEach(function(link) {
+              link.addEventListener('click', function() {
+                panel.classList.remove('nav-open');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.setAttribute('aria-label', 'Ouvrir le menu');
+                if (iconMenu) iconMenu.classList.remove('hidden');
+                if (iconClose) iconClose.classList.add('hidden');
+                document.body.classList.remove('no-scroll');
+              });
+            });
+          }
+        })
         .catch(function() {});
     })();
   </script>
 
-  <main class="flex-1 min-h-0 flex items-center justify-center px-6 md:px-8 pt-24 pb-6 md:pt-28 overflow-auto">
-    <div class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-0">
+  <main class="flex-1 min-h-0 flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-8 sm:pt-16 lg:pt-24 pb-4 sm:pb-6 overflow-auto">
+    <div class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-12 items-center min-h-0">
       <!-- Colonne gauche : titre défilant -->
-      <div class="lg:col-span-5 flex flex-col gap-6">
-          <div class="hero-rotating-track relative" aria-live="polite">
-            <h1 class="hero-rotating-title text-6xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tighter text-white drop-shadow-2xl h-full min-h-[17rem] md:min-h-[22rem] lg:min-h-[28rem] relative block">
+      <div class="lg:col-span-5 flex flex-col gap-6 items-center lg:items-start">
+          <div class="hero-rotating-track relative w-full text-center lg:text-left" aria-live="polite">
+            <h1 class="hero-rotating-title text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight tracking-tighter text-white drop-shadow-2xl h-full min-h-[14rem] sm:min-h-[17rem] lg:min-h-[22rem] xl:min-h-[28rem] relative block">
               <div id="hero-slide-1" class="hero-rotating-slide slide-in absolute left-0 right-0 top-0"></div>
               <div id="hero-slide-2" class="hero-rotating-slide slide-wait absolute left-0 right-0 top-0"></div>
             </h1>
           </div>
         </div>
-        <!-- Colonne droite : bentos -->
-        <div class="lg:col-span-7 flex flex-col gap-6">
+        <!-- Colonne droite : bentos (cachés sur mobile/tablette) -->
+        <div class="hidden lg:flex lg:col-span-7 flex-col gap-6 xl:gap-8">
         <div class="bento-zone">
-        <a class="bento-small glass-panel-rose bento-tint-mix group p-6 rounded-2xl flex flex-col gap-4 relative overflow-hidden" href="/impro-vocale-new">
+        <a class="bento-small glass-panel-rose bento-tint-mix group p-4 sm:p-6 rounded-2xl flex flex-col gap-3 sm:gap-4 relative overflow-hidden" href="/impro-vocale-new">
           <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-primary/30 transition-colors">
             <span class="material-symbols-outlined text-3xl">lyrics</span>
           </div>
@@ -290,7 +337,7 @@
             <p class="text-base text-white/90 leading-snug font-light">Présence et expression en groupe.</p>
           </div>
         </a>
-        <a class="bento-small glass-panel-rose bento-tint-primary group p-6 rounded-2xl flex flex-col gap-4 relative overflow-hidden" href="/ateliers-new">
+        <a class="bento-small glass-panel-rose bento-tint-primary group p-4 sm:p-6 rounded-2xl flex flex-col gap-3 sm:gap-4 relative overflow-hidden" href="/ateliers-new">
           <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-white/10 transition-colors">
             <span class="material-symbols-outlined text-3xl">calendar_month</span>
           </div>
@@ -299,7 +346,7 @@
             <p class="text-base text-white/90 leading-snug font-light">Stages pour approfondir le chant.</p>
           </div>
         </a>
-        <a class="bento-small glass-panel-rose bento-tint-primary-light group p-6 rounded-2xl flex flex-col gap-4 relative overflow-hidden" href="/cours-chant-new">
+        <a class="bento-small glass-panel-rose bento-tint-primary-light group p-4 sm:p-6 rounded-2xl flex flex-col gap-3 sm:gap-4 relative overflow-hidden" href="/cours-chant-new">
           <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-white/10 transition-colors">
             <span class="material-symbols-outlined text-3xl">mic_external_on</span>
           </div>
@@ -308,7 +355,7 @@
             <p class="text-base text-white/90 leading-snug font-light">Voix et chant personnalisés.</p>
           </div>
         </a>
-        <a class="bento-small glass-panel-rose bento-tint-accent group p-6 rounded-2xl flex flex-col gap-4 relative overflow-hidden" href="/offre-entreprise-new">
+        <a class="bento-small glass-panel-rose bento-tint-accent group p-4 sm:p-6 rounded-2xl flex flex-col gap-3 sm:gap-4 relative overflow-hidden" href="/offre-entreprise-new">
           <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-accent/30 transition-colors">
             <span class="material-symbols-outlined text-3xl">corporate_fare</span>
           </div>
@@ -317,37 +364,25 @@
             <p class="text-base text-white/90 leading-snug font-light">Écoute et cohésion en équipe.</p>
           </div>
         </a>
-        <a class="bento-large glass-panel-rose bento-tint-teal group p-6 rounded-2xl flex flex-col gap-4 hover:bg-white/10 sm:flex-row sm:items-center relative overflow-hidden" href="/about-new">
-          <div class="size-14 shrink-0 rounded-full bg-primary/20 flex items-center justify-center border border-white/30 shadow-[0_0_30px_rgba(91,42,181,0.3)] group-hover:scale-105 transition-transform">
-            <span class="material-symbols-outlined text-4xl text-white">psychology</span>
-          </div>
-          <div class="flex flex-col gap-0.5 flex-1">
-            <h3 class="text-2xl font-bold text-white uppercase tracking-tight">La Pédagogue</h3>
-            <p class="text-base text-white/90 leading-snug font-light italic">Transmission et pouvoir du chant.</p>
-          </div>
-          <div class="size-12 glass-panel rounded-full flex items-center justify-center group-hover:translate-x-2 transition-transform bg-white/10 shrink-0">
-            <span class="material-symbols-outlined text-white text-2xl">arrow_forward</span>
-          </div>
-        </a>
         </div>
         </div>
       </div>
     </div>
   </main>
 
-  <div class="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-5">
-    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-white/20 hover:border-white/40 transition-all shadow-2xl hover:scale-110" href="/contact" title="Contact">
-      <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+  <div class="hidden lg:flex fixed right-8 top-1/2 -translate-y-1/2 z-50 flex-col gap-4 xl:gap-5">
+    <a class="size-12 sm:size-14 md:size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-white/20 hover:border-white/40 transition-all shadow-2xl hover:scale-110 shrink-0" href="/contact" title="Contact">
+      <svg class="size-6 sm:size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
     </a>
-    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-accent hover:border-accent transition-all shadow-2xl hover:scale-110" href="https://www.instagram.com/donnerdelavoixchant/" target="_blank" rel="noopener noreferrer" title="Instagram">
-      <svg class="size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059 1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+    <a class="size-12 sm:size-14 md:size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-accent hover:border-accent transition-all shadow-2xl hover:scale-110 shrink-0" href="https://www.instagram.com/donnerdelavoixchant/" target="_blank" rel="noopener noreferrer" title="Instagram">
+      <svg class="size-6 sm:size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059 1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
     </a>
-    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all shadow-2xl hover:scale-110" href="https://www.facebook.com/donnerdelavoix" target="_blank" rel="noopener noreferrer" title="Facebook">
-      <svg class="size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg>
+    <a class="size-12 sm:size-14 md:size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all shadow-2xl hover:scale-110 shrink-0" href="https://www.facebook.com/donnerdelavoix" target="_blank" rel="noopener noreferrer" title="Facebook">
+      <svg class="size-6 sm:size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg>
     </a>
   </div>
 
-  <div class="fixed bottom-6 left-8 z-50">
+  <div class="hidden lg:block fixed bottom-6 left-8 z-50">
     <a class="text-[10px] text-white/30 hover:text-white/70 transition-colors uppercase tracking-[0.5em] font-medium" href="/mentions-legales">Mentions Légales</a>
   </div>
   <script>

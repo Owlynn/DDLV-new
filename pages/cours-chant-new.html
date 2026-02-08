@@ -42,14 +42,6 @@
         @apply backdrop-blur-[25px] bg-white/10 border border-white/20;
         box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 0 2px 1px rgba(255, 255, 255, 0.15), 0 0 15px rgba(255, 255, 255, 0.05);
       }
-      .hero-overlay::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.12) 70%, transparent 100%);
-        pointer-events: none;
-        z-index: 0;
-      }
       .hero-overlay > * { position: relative; z-index: 1; }
       .hero-cta-icon { font-size: 1.75rem; }
       .hero-gradient-word {
@@ -59,7 +51,7 @@
         text-stroke: 1px rgba(255, 255, 255, 0.5);
         text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
       }
-      .bg-blur-image { position: fixed; inset: -20px; z-index: -3; background: url('/assets/bg.jpg') 65% 50% / cover no-repeat; filter: blur(14px); transform: scale(1.05); }
+      .bg-blur-image { position: fixed; inset: 0; z-index: -3; background: url('/assets/bg.jpg') 65% 50% / cover no-repeat; }
       .bg-textured-art {
         background-color: rgba(30, 15, 50, 0.08);
         background-image:
@@ -251,9 +243,6 @@
 
   <header class="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-4">
     <div class="max-w-7xl mx-auto flex items-center gap-16">
-      <a href="/" aria-label="Retour à l'accueil - Donner de la Voix" class="shrink-0">
-        <img alt="Donner de la Voix Logo" class="h-32 w-auto brightness-0 invert drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]" src="/assets/logo-ddlv.png"/>
-      </a>
       <div class="flex-1 flex justify-center min-w-0">
         <nav class="flex items-center gap-6 lg:gap-10 glass-panel px-6 py-3 rounded-2xl w-fit shrink-0" aria-label="Navigation principale">
           <a class="nav-item text-white flex items-center justify-center p-1" href="/" aria-label="Accueil"><span class="material-symbols-outlined text-2xl">home</span></a>

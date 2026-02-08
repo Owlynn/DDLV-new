@@ -1,16 +1,17 @@
-<header class="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-4">
-  <div class="max-w-7xl mx-auto flex items-center gap-16">
-    <a href="/" aria-label="Retour à l'accueil - Donner de la Voix" class="shrink-0">
-      <img alt="Donner de la Voix Logo" class="h-32 w-auto brightness-0 invert drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]" src="/assets/logo-ddlv.png"/>
-    </a>
-    <div class="flex-1 flex justify-center min-w-0">
-      <nav class="flex items-center gap-6 lg:gap-10 glass-panel px-6 py-3 rounded-2xl w-fit shrink-0" aria-label="Navigation principale">
-        <a class="nav-item text-white flex items-center justify-center p-1" href="/" aria-label="Accueil"><span class="material-symbols-outlined text-2xl">home</span></a>
-        <a class="nav-item text-white text-sm font-medium transition-colors tracking-widest uppercase whitespace-nowrap" href="/impro-vocale-new">L'impro vocale</a>
-        <a class="nav-item text-white text-sm font-medium transition-colors tracking-widest uppercase whitespace-nowrap" href="/ateliers-new">Stages et ateliers</a>
-        <a class="nav-item text-white text-sm font-medium transition-colors tracking-widest uppercase whitespace-nowrap" href="/cours-chant-new">Cours</a>
-        <a class="nav-item text-white text-sm font-medium transition-colors tracking-widest uppercase whitespace-nowrap" href="/offre-entreprise-new">Offre entreprise</a>
-        <a class="nav-item text-white text-sm font-medium transition-colors tracking-widest uppercase whitespace-nowrap" href="/about-new">La pédagogue</a>
+<header class="fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 md:px-8 py-3 md:py-4">
+  <div class="max-w-7xl mx-auto flex items-center justify-between gap-4 md:gap-16">
+    <button type="button" class="header-nav-toggle lg:hidden size-12 rounded-xl glass-panel flex items-center justify-center text-white border-0 cursor-pointer hover:bg-white/20 transition-colors ml-auto" aria-expanded="false" aria-controls="header-nav" aria-label="Ouvrir le menu">
+      <span class="material-symbols-outlined text-3xl icon-menu">menu</span>
+      <span class="material-symbols-outlined text-3xl icon-close hidden">close</span>
+    </button>
+    <div id="header-nav" class="header-nav-panel flex-1 flex justify-center min-w-0 max-lg:fixed max-lg:inset-0 max-lg:top-0 max-lg:pt-24 max-lg:pb-8 max-lg:px-4 max-lg:z-40 max-lg:overflow-y-auto max-lg:bg-white/10 max-lg:backdrop-blur-[60px] max-lg:border-b max-lg:border-white/20 max-lg:hidden" aria-hidden="true">
+      <nav class="flex flex-col lg:flex-row items-stretch lg:items-center gap-4 lg:gap-10 glass-panel lg:px-6 lg:py-3 rounded-2xl w-full lg:w-fit shrink-0 p-5 lg:p-0" aria-label="Navigation principale">
+        <a class="nav-item text-white flex items-center py-4 px-4 lg:p-1 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent text-xl lg:text-sm" href="/" aria-label="Accueil"><span class="material-symbols-outlined text-3xl lg:text-2xl mr-4 lg:mr-0">home</span><span class="lg:hidden font-medium tracking-widest uppercase">Accueil</span></a>
+        <a class="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/impro-vocale-new">L'impro vocale</a>
+        <a class="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/ateliers-new">Stages et ateliers</a>
+        <a class="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/cours-chant-new">Cours</a>
+        <a class="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/offre-entreprise-new">Offre entreprise</a>
+        <a class="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/about-new">La pédagogue</a>
       </nav>
     </div>
   </div>
