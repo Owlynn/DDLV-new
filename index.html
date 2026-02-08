@@ -173,33 +173,78 @@
             .nav-item:hover::after {
                 width: 100%;
             }
+            /* Bento : disposition décalée, tailles variables */
             .bento-zone {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 1.5rem 2rem;
-                align-items: stretch;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1.25rem;
+                justify-content: center;
+                align-items: flex-start;
+                width: 100%;
+                max-width: 780px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .bento-hex-cell {
+                min-height: 0;
+                display: flex;
+                flex: 1 1 44%;
+                min-width: 180px;
+                max-width: 360px;
+            }
+            .bento-zone .bento-hex-cell:nth-child(2) { margin-top: 0.75rem; }
+            .bento-zone .bento-hex-cell:nth-child(4) { margin-top: 0.5rem; }
+            .bento-hex-cell .bento-small {
+                width: 100%;
+                min-height: 12rem;
+                border-radius: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 1.5rem;
+                transition: transform 0.25s ease-out;
+            }
+            .bento-zone .bento-hex-cell:nth-child(1) .bento-small { min-height: 13rem; }
+            .bento-zone .bento-hex-cell:nth-child(3) .bento-small { min-height: 11rem; }
+            .bento-hex-cell .bento-small:hover {
+                transform: translateY(-3px) rotate(1.5deg);
+            }
+            .bento-hex-inner {
+                display: flex;
+                flex-direction: column;
+                gap: 0.6rem;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                max-width: 100%;
+            }
+            .bento-hex-inner .text-xl { font-size: 1.1rem; line-height: 1.2; }
+            .bento-hex-inner p { font-size: 0.85rem; line-height: 1.3; }
+            @media (max-width: 1023px) {
+                .bento-zone { display: none; }
+            }
+            /* Marges négatives : rapprocher les bentos du titre, adapté à l'écran */
+            @media (min-width: 1024px) {
+                .bento-column-pull { margin-left: -3rem; }
             }
             @media (min-width: 1280px) {
-                .bento-zone {
-                    gap: 2rem 2.5rem;
-                }
+                .bento-column-pull { margin-left: -4.5rem; }
             }
-            .bento-zone .bento-small {
-                min-width: 0;
-                transition: transform 0.3s ease-out;
+            @media (min-width: 1536px) {
+                .bento-column-pull { margin-left: -6rem; }
             }
-            @media (max-width: 640px) {
-                .bento-zone {
-                    grid-template-columns: 1fr;
-                    gap: 0.75rem;
-                }
+            /* Animation flottement des bentos */
+            @keyframes bento-float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-6px); }
             }
-            @media (min-width: 641px) and (max-width: 1024px) {
-                .bento-zone {
-                    grid-template-columns: 1fr 1fr;
-                    gap: 1.25rem 1.5rem;
-                }
+            .bento-zone .bento-hex-cell {
+                animation: bento-float 4s ease-in-out infinite;
             }
+            .bento-zone .bento-hex-cell:nth-child(1) { animation-delay: 0s; }
+            .bento-zone .bento-hex-cell:nth-child(2) { animation-delay: 0.5s; }
+            .bento-zone .bento-hex-cell:nth-child(3) { animation-delay: 1s; }
+            .bento-zone .bento-hex-cell:nth-child(4) { animation-delay: 1.5s; }
             /* Hover tilt commun : défini dans /styles.css */
             /* Popup Calendly – glassmorphism, pleine page sans scroll */
             #calendly-popup-home {
@@ -314,10 +359,10 @@
     })();
   </script>
 
-  <main class="flex-1 min-h-0 flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-8 sm:pt-16 lg:pt-24 pb-4 sm:pb-6 overflow-auto">
-    <div class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-12 items-center min-h-0">
-      <!-- Colonne gauche : titre défilant -->
-      <div class="lg:col-span-5 flex flex-col gap-6 items-center lg:items-start">
+  <main class="flex-1 min-h-0 flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 lg:pt-12 pb-4 sm:pb-6 overflow-auto">
+    <div class="max-w-7xl xl:max-w-[1600px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-0 items-start min-h-0 lg:overflow-x-clip">
+      <!-- Colonne gauche : titre défilant (assez large pour ne pas tronquer) -->
+      <div class="lg:col-span-5 xl:col-span-4 flex flex-col gap-6 items-center lg:items-start lg:pr-2 min-w-0">
           <div class="hero-rotating-track relative w-full text-center lg:text-left" aria-live="polite">
             <h1 class="hero-rotating-title text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight tracking-tighter text-white drop-shadow-2xl h-full min-h-[14rem] sm:min-h-[17rem] lg:min-h-[22rem] xl:min-h-[28rem] relative block">
               <div id="hero-slide-1" class="hero-rotating-slide slide-in absolute left-0 right-0 top-0"></div>
@@ -325,45 +370,53 @@
             </h1>
           </div>
         </div>
-        <!-- Colonne droite : bentos (cachés sur mobile/tablette) -->
-        <div class="hidden lg:flex lg:col-span-7 flex-col gap-6 xl:gap-8">
+        <!-- Colonne droite : bentos (marge négative = collés au titre) -->
+        <div class="bento-column-pull hidden lg:flex lg:col-span-7 xl:col-span-8 flex-col gap-6 xl:gap-8 min-w-0">
         <div class="bento-zone">
-        <a class="bento-small glass-panel-rose bento-tint-mix group p-4 sm:p-6 rounded-2xl flex flex-col gap-3 sm:gap-4 relative overflow-hidden" href="/impro-vocale-new">
-          <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-primary/30 transition-colors">
-            <span class="material-symbols-outlined text-3xl">lyrics</span>
+          <div class="bento-hex-cell">
+            <a class="bento-small glass-panel-rose bento-tint-mix group relative overflow-hidden" href="/impro-vocale-new">
+              <span class="bento-hex-inner">
+                <span class="size-12 rounded-lg bg-white/5 inline-flex items-center justify-center text-white border border-white/20 group-hover:bg-primary/30 transition-colors shrink-0">
+                  <span class="material-symbols-outlined text-3xl">lyrics</span>
+                </span>
+                <h3 class="text-xl font-bold text-white uppercase tracking-tight">L'impro vocale</h3>
+                <p class="text-white/90 font-light">Présence et expression en groupe.</p>
+              </span>
+            </a>
           </div>
-          <div>
-            <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">L'impro vocale</h3>
-            <p class="text-base text-white/90 leading-snug font-light">Présence et expression en groupe.</p>
+          <div class="bento-hex-cell">
+            <a class="bento-small glass-panel-rose bento-tint-primary group relative overflow-hidden" href="/ateliers-new">
+              <span class="bento-hex-inner">
+                <span class="size-12 rounded-lg bg-white/5 inline-flex items-center justify-center text-white border border-white/20 group-hover:bg-white/10 transition-colors shrink-0">
+                  <span class="material-symbols-outlined text-3xl">calendar_month</span>
+                </span>
+                <h3 class="text-xl font-bold text-white uppercase tracking-tight">Stages & Ateliers</h3>
+                <p class="text-white/90 font-light">Stages pour approfondir le chant.</p>
+              </span>
+            </a>
           </div>
-        </a>
-        <a class="bento-small glass-panel-rose bento-tint-primary group p-4 sm:p-6 rounded-2xl flex flex-col gap-3 sm:gap-4 relative overflow-hidden" href="/ateliers-new">
-          <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-white/10 transition-colors">
-            <span class="material-symbols-outlined text-3xl">calendar_month</span>
+          <div class="bento-hex-cell">
+            <a class="bento-small glass-panel-rose bento-tint-primary-light group relative overflow-hidden" href="/cours-chant-new">
+              <span class="bento-hex-inner">
+                <span class="size-12 rounded-lg bg-white/5 inline-flex items-center justify-center text-white border border-white/20 group-hover:bg-white/10 transition-colors shrink-0">
+                  <span class="material-symbols-outlined text-3xl">mic_external_on</span>
+                </span>
+                <h3 class="text-xl font-bold text-white uppercase tracking-tight">Cours de chant</h3>
+                <p class="text-white/90 font-light">Voix et chant personnalisés.</p>
+              </span>
+            </a>
           </div>
-          <div>
-            <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">Stages & Ateliers</h3>
-            <p class="text-base text-white/90 leading-snug font-light">Stages pour approfondir le chant.</p>
+          <div class="bento-hex-cell">
+            <a class="bento-small glass-panel-rose bento-tint-accent group relative overflow-hidden" href="/offre-entreprise-new">
+              <span class="bento-hex-inner">
+                <span class="size-12 rounded-lg bg-white/5 inline-flex items-center justify-center text-white border border-white/20 group-hover:bg-accent/30 transition-colors shrink-0">
+                  <span class="material-symbols-outlined text-3xl">corporate_fare</span>
+                </span>
+                <h3 class="text-xl font-bold text-white uppercase tracking-tight">Offre entreprise</h3>
+                <p class="text-white/90 font-light">Écoute et cohésion en équipe.</p>
+              </span>
+            </a>
           </div>
-        </a>
-        <a class="bento-small glass-panel-rose bento-tint-primary-light group p-4 sm:p-6 rounded-2xl flex flex-col gap-3 sm:gap-4 relative overflow-hidden" href="/cours-chant-new">
-          <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-white/10 transition-colors">
-            <span class="material-symbols-outlined text-3xl">mic_external_on</span>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">Cours de chant</h3>
-            <p class="text-base text-white/90 leading-snug font-light">Voix et chant personnalisés.</p>
-          </div>
-        </a>
-        <a class="bento-small glass-panel-rose bento-tint-accent group p-4 sm:p-6 rounded-2xl flex flex-col gap-3 sm:gap-4 relative overflow-hidden" href="/offre-entreprise-new">
-          <div class="size-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/20 group-hover:bg-accent/30 transition-colors">
-            <span class="material-symbols-outlined text-3xl">corporate_fare</span>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">Offre entreprise</h3>
-            <p class="text-base text-white/90 leading-snug font-light">Écoute et cohésion en équipe.</p>
-          </div>
-        </a>
         </div>
         </div>
       </div>
