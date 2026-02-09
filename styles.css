@@ -914,11 +914,7 @@ button.rdv-btn:hover {
   display: none;
 }
 
-body.formats-panel-open,
-html.formats-panel-open {
-  overflow: hidden !important;
-  height: 100% !important;
-}
+/* Panneau à droite : on ne bloque pas le scroll de la page (moitié gauche reste scrollable) */
 
 #formats-d-ateliers .formats-panel-close {
   position: fixed;
@@ -963,6 +959,73 @@ body.formats-panel-open #formats-d-ateliers {
   box-shadow: none !important;
   padding-top: 6rem !important;
   padding-bottom: 3rem !important;
+}
+
+/* Bloc visuel format = même rendu que .bento-date-card (image 16/10 + titre et sous-titre centrés) */
+#formats-d-ateliers .format-panel-visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 1rem;
+  margin: 0 0 1.25rem 0;
+}
+#formats-d-ateliers .format-panel-visual::after {
+  content: '';
+  position: absolute;
+  inset: -30px;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(20px);
+}
+#formats-d-ateliers .format-panel-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(91, 42, 181, 0.5) 0%, rgba(122, 106, 199, 0.4) 25%, rgba(77, 184, 170, 0.35) 50%, rgba(207, 53, 148, 0.5) 100%);
+  pointer-events: none;
+}
+#formats-d-ateliers .format-panel-visual--focus::after { background-image: url('/assets/atelierfocus.png'); }
+#formats-d-ateliers .format-panel-visual--art-circle-songs::after { background-image: url('/assets/artdescirclesongs.png'); }
+#formats-d-ateliers .format-panel-visual--stage-circlesong::after { background-image: url('/assets/bg2.jpg'); }
+#formats-d-ateliers .format-panel-visual--chant-pour-tous::after { background-image: url('/assets/Chantpourtous.png'); }
+#formats-d-ateliers .format-panel-visual--circlesong-poesie::after { background-image: url('/assets/icirclesong&poesie.png'); }
+#formats-d-ateliers .format-panel-visual--circlesong-gestuelle::after { background-image: url('/assets/bg3.jpg'); }
+#formats-d-ateliers .format-panel-visual--flashmob::after { background-image: url('/assets/bg1.jpg'); }
+#formats-d-ateliers .format-panel-visual--coaching::after { background-image: url('/assets/circlesongcoachingpersonnalise.png'); }
+#formats-d-ateliers .format-panel-illustration {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  text-align: center;
+  z-index: 1;
+}
+#formats-d-ateliers .format-panel-illustration-title {
+  display: block;
+  font-weight: 700;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 0 20px rgba(91, 42, 181, 0.3);
+}
+#formats-d-ateliers .format-panel-illustration-subtitle {
+  display: block;
+  margin-top: 0.35rem;
+  font-weight: 500;
+  font-size: clamp(1rem, 1.8vw, 1.05rem);
+  line-height: 1.25;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* Sections dans le panneau : glass neutre (pas glass-panel-rose) */
