@@ -61,6 +61,8 @@ export function initSectionNavigation() {
         if (formatsSection && calendrierSection && formatsSection.contains(targetSection)) {
           calendrierSection.style.display = 'none';
           formatsSection.style.display = 'block';
+          document.documentElement.classList.add('formats-panel-open');
+          document.body.classList.add('formats-panel-open');
         }
         scrollToSection(targetSection);
         setActiveToc(sectionId);
@@ -198,9 +200,13 @@ export function initSectionToggle() {
     if (sectionName === 'calendrier') {
       calendrierSection.style.display = 'block';
       formatsSection.style.display = 'none';
+      document.documentElement.classList.remove('formats-panel-open');
+      document.body.classList.remove('formats-panel-open');
     } else if (sectionName === 'formats-d-ateliers') {
       calendrierSection.style.display = 'none';
       formatsSection.style.display = 'block';
+      document.documentElement.classList.add('formats-panel-open');
+      document.body.classList.add('formats-panel-open');
       // Réinitialiser l'observer quand on affiche la section formats
       setTimeout(reinitObserver, 100);
     }

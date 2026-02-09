@@ -1,22 +1,26 @@
-<header class="fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 md:px-8 py-3 md:py-4">
+<header class="fixed top-0 left-0 right-0 z-50 pl-3 sm:pl-6 md:pl-8 pr-3 sm:pr-6 md:pr-4 py-3 md:py-4">
   <div class="max-w-7xl mx-auto flex items-center justify-between gap-4 md:gap-16">
-    <a href="/" class="shrink-0 flex items-center" aria-label="Donner de la Voix - Accueil">
-      <img src="/assets/logo-ddlv.png" alt="Donner de la Voix - Voix &amp; créativité" class="h-14 sm:h-16 md:h-20 lg:h-24 w-auto max-w-[320px] object-contain" width="320" height="80"/>
+    <a href="/" class="header-logo flex items-center shrink-0 max-w-[180px] md:max-w-[220px] mr-2" aria-label="Donner de la Voix - Accueil">
+      <img src="/assets/logo-ddlv.png" alt="Donner de la Voix" class="w-full h-auto object-contain" width="220" height="55"/>
     </a>
     <button type="button" class="header-nav-toggle lg:hidden size-12 rounded-xl glass-panel flex items-center justify-center text-white border-0 cursor-pointer hover:bg-white/20 transition-colors ml-auto" aria-expanded="false" aria-controls="header-nav" aria-label="Ouvrir le menu">
       <span class="material-symbols-outlined text-3xl icon-menu">menu</span>
       <span class="material-symbols-outlined text-3xl icon-close hidden">close</span>
     </button>
-    <div id="header-nav" class="header-nav-panel flex-1 flex justify-center min-w-0 max-lg:fixed max-lg:inset-0 max-lg:top-0 max-lg:pt-24 max-lg:pb-8 max-lg:px-4 max-lg:z-40 max-lg:overflow-y-auto max-lg:bg-white/10 max-lg:backdrop-blur-[60px] max-lg:border-b max-lg:border-white/20 max-lg:hidden" aria-hidden="true">
+    <div id="header-nav" class="header-nav-panel flex-1 flex max-lg:flex-col justify-center min-w-0 max-lg:fixed max-lg:inset-0 max-lg:top-0 max-lg:pt-24 max-lg:pb-8 max-lg:px-4 max-lg:z-40 max-lg:overflow-y-auto max-lg:bg-white/10 max-lg:backdrop-blur-[60px] max-lg:border-b max-lg:border-white/20 max-lg:hidden" aria-hidden="true">
       <nav class="flex flex-col lg:flex-row items-stretch lg:items-center gap-4 lg:gap-10 glass-panel-rose lg:px-6 lg:py-3 rounded-2xl w-full lg:w-fit shrink-0 p-5 lg:p-0" aria-label="Navigation principale">
         <a class="nav-item text-white flex items-center py-4 px-4 lg:p-1 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent text-xl lg:text-sm" href="/" aria-label="Accueil"><span class="material-symbols-outlined text-3xl lg:text-2xl mr-4 lg:mr-0">home</span><span class="lg:hidden font-medium tracking-widest uppercase">Accueil</span></a>
         <a class="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/impro-vocale-new">L'impro vocale</a>
-        <a class="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/ateliers-new">Stages et ateliers</a>
+        <a class="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/ateliers-new">Ateliers</a>
         <a class="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/cours-chant-new">Cours</a>
-        <a class="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/offre-entreprise-new">Offre entreprise</a>
-        <a class="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/about-new">La pédagogue</a>
+        <a class="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/offre-entreprise-new">Entreprise</a>
+        <a class="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/about-new">À propos</a>
         <a class="nav-item text-white flex items-center py-4 px-4 lg:p-1 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase" href="/espace-eleve-new" aria-label="Espace élève"><span class="material-symbols-outlined text-3xl lg:text-2xl mr-4 lg:mr-0 lg:hidden">school</span><span>Espace élève</span></a>
       </nav>
+      <a href="/contact" class="lg:hidden mt-auto w-full max-w-md mx-auto flex items-center justify-center gap-2 py-4 px-6 rounded-2xl font-bold text-sm uppercase tracking-widest border border-[#cf3594]/70 bg-[#cf3594]/50 hover:bg-[#cf3594]/70 text-white transition-all shrink-0" aria-label="Me contacter">
+        <span class="material-symbols-outlined text-2xl" aria-hidden="true">mail</span>
+        Me contacter
+      </a>
     </div>
   </div>
 </header>

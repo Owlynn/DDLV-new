@@ -372,7 +372,7 @@
         text-stroke: 1px rgba(255, 255, 255, 0.5);
         text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
       }
-      .bg-blur-image { position: fixed; inset: 0; z-index: -3; background: url('/assets/bg.jpg') 65% 50% / cover no-repeat; }
+      .bg-blur-image { position: fixed; inset: 0; z-index: -3; background: url('/assets/bg.jpg') center center / cover no-repeat; }
       .bg-textured-art {
         background-color: rgba(30, 15, 50, 0.08);
         background-image:
@@ -577,10 +577,68 @@
     }
     body.ateliers-new-page::before,
     body.ateliers-new-page::after { display: none !important; }
-    .ateliers-new-page .view-toggle-btn { display: flex; padding: 0; overflow: hidden; border-radius: 12px; background: rgba(255,255,255,0.9); border: 1px solid rgba(91,42,181,0.2); }
-    .ateliers-new-page .view-toggle-part { padding: 0.5rem 1rem; font-size: 0.875rem; color: #fff; cursor: pointer; transition: background .2s; }
-    .ateliers-new-page .view-toggle-part.active { background: rgba(91,42,181,0.15); color: #5b2ab5; }
-    .ateliers-new-page .view-toggle-part:not(.active):hover { background: rgba(91,42,181,0.08); }
+    /* Toggle Calendrier / Liste – aligné sur le design glass & bento de la page */
+    .ateliers-new-page .view-toggle {
+      margin-bottom: 0.5rem;
+    }
+    .ateliers-new-page .view-toggle-btn {
+      display: inline-flex;
+      align-items: stretch;
+      padding: 0.25rem;
+      overflow: hidden;
+      border-radius: 1rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), inset 0 0 2px 1px rgba(255, 255, 255, 0.06);
+      cursor: pointer;
+      font-family: 'Josefin Sans', sans-serif;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .ateliers-new-page .view-toggle-btn:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25), 0 0 20px rgba(91, 42, 181, 0.12);
+    }
+    .ateliers-new-page .view-toggle-part {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.625rem 1.25rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255, 255, 255, 0.85);
+      cursor: pointer;
+      transition: color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+      border-radius: 0.75rem;
+      position: relative;
+      min-width: 7rem;
+    }
+    .ateliers-new-page .view-toggle-part:first-child {
+      margin-right: 0.25rem;
+    }
+    .ateliers-new-page .view-toggle-part:last-child {
+      margin-left: 0.25rem;
+    }
+    .ateliers-new-page .view-toggle-part.active {
+      color: #fff;
+      background: linear-gradient(135deg, rgba(91, 42, 181, 0.85) 0%, rgba(207, 53, 148, 0.85) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 2px 12px rgba(91, 42, 181, 0.4), 0 0 20px rgba(207, 53, 148, 0.15);
+    }
+    .ateliers-new-page .view-toggle-part:not(.active):hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .ateliers-new-page .view-toggle-part .view-toggle-icon {
+      font-size: 1.125rem;
+      width: 1.125rem;
+      height: 1.125rem;
+      opacity: 0.95;
+    }
     .ateliers-new-page .calendar-view.ateliers-new-calendar {
       padding: 1.5rem;
       min-height: calc(100vh - 6rem);
@@ -621,27 +679,120 @@
     .ateliers-new-page .article-content a { color: #cf3594; text-decoration: underline; }
     .ateliers-new-page .article-content a:hover { color: #b82d7a; }
     .ateliers-new-page .article-content img.article-image { width: 100%; max-width: 100%; height: auto; border-radius: 1rem; border: 1px solid rgba(91,42,181,0.15); }
+
+    /* Responsive mobile & tablette : pas de vue calendrier, toggle masqué */
+    @media (max-width: 1023px) {
+      .ateliers-new-page #calendar-view {
+        display: none !important;
+      }
+      .ateliers-new-page .view-toggle {
+        display: none;
+      }
+    }
+
+    /* Responsive mobile & tablette : liste ateliers = cards sans images, médaillon | titre+lieu | bouton En savoir plus */
+    @media (max-width: 1023px) {
+      .ateliers-new-page .bento-dates-zone {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
+      .ateliers-new-page .bento-date-card {
+        min-height: 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 1rem 0;
+        padding: 1rem 1.25rem;
+        text-decoration: none;
+      }
+      .ateliers-new-page .bento-date-card:hover {
+        transform: none;
+      }
+      .ateliers-new-page .bento-date-card:hover .bento-date-card-content {
+        filter: none;
+      }
+      /* Cacher l'image / illustration, garder uniquement le médaillon */
+      .ateliers-new-page .bento-date-card-visual {
+        width: 4.5rem;
+        min-width: 4.5rem;
+        height: 4.5rem;
+        aspect-ratio: 1;
+        flex-shrink: 0;
+        border-radius: 50%;
+        overflow: visible;
+      }
+      .ateliers-new-page .bento-date-card-visual::after,
+      .ateliers-new-page .bento-date-card-visual::before {
+        display: none;
+      }
+      .ateliers-new-page .bento-date-card-illustration {
+        display: none;
+      }
+      .ateliers-new-page .bento-date-medallion {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 4.5rem;
+        height: 4.5rem;
+        font-size: 0.9rem;
+      }
+      .ateliers-new-page .bento-date-medallion .day {
+        font-size: 1rem;
+      }
+      .ateliers-new-page .bento-date-medallion .month {
+        font-size: 0.875rem;
+      }
+      /* Titre + lieu à droite du médaillon */
+      .ateliers-new-page .bento-date-card-content {
+        flex: 1;
+        min-width: 0;
+        padding: 0;
+        gap: 0.25rem;
+      }
+      .ateliers-new-page .bento-date-card-title {
+        font-size: 0.9375rem;
+      }
+      .ateliers-new-page .bento-date-card-time,
+      .ateliers-new-page .bento-date-card-location {
+        font-size: 0.8125rem;
+      }
+      /* Bouton En savoir plus en dessous du titre et adresse (ligne suivante) */
+      .ateliers-new-page .bento-date-card-overlay {
+        position: static;
+        opacity: 1;
+        pointer-events: none;
+        background: transparent;
+        flex-shrink: 0;
+        padding: 0;
+        width: 100%;
+        order: 2;
+        margin-top: 0.75rem;
+        justify-content: flex-start;
+      }
+      .ateliers-new-page .bento-date-card-overlay span {
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+        background: rgba(207, 53, 148, 0.6);
+        border: 1px solid rgba(207, 53, 148, 0.7);
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 12px rgba(207, 53, 148, 0.3);
+      }
+    }
   </style>
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="font-display text-white relative ateliers-new-page min-h-screen" id="ateliers-new-body">
+<body class="font-display text-white relative ateliers-new-page min-h-screen bg-deep-bg" id="ateliers-new-body">
   <div class="bg-blur-image" aria-hidden="true"></div>
-  <div class="bg-textured-art"></div>
-  <div class="blob w-[600px] h-[600px] bg-primary top-[-10%] left-[-10%]"></div>
-  <div class="blob w-[500px] h-[500px] bg-accent bottom-[-10%] right-[-5%]"></div>
-  <div class="blob w-[400px] h-[400px] bg-primary-light top-[40%] right-[10%]"></div>
-  <div class="blob w-[300px] h-[300px] bg-primary bottom-[20%] left-[20%]"></div>
+  <div class="overlay-violet-gradient" aria-hidden="true"></div>
+
+  <div id="bubbles-deco" aria-hidden="true">
+    <span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span>
+    <span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span>
+    <span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span>
+  </div>
 
   <div id="site-header"></div>
-  <script>
-    (function() {
-      var el = document.getElementById('site-header');
-      if (!el) return;
-      fetch('/partials/header.html').then(function(r) { return r.ok ? r.text() : Promise.reject(); })
-        .then(function(html) { el.innerHTML = html; })
-        .catch(function() {});
-    })();
-  </script>
+  <script src="/js/init-header-nav.js"></script>
 
   <main class="relative" role="main">
     <!-- Hero = même fond que l'accueil (bg.jpg + blobs), largeur contenu, titre à gauche / boutons à droite -->
@@ -666,6 +817,11 @@
         <p class="text-white/90 text-lg md:text-xl font-light leading-relaxed max-w-[36.4rem] md:max-w-[31.2rem]">
           Les stages et ateliers sont pensés pour progresser ensemble : technique vocale, improvisation et circlesongs. Un cadre structuré pour oser sa voix, développer l'écoute et créer du lien avec d'autres passionnés.
         </p>
+      </div>
+      <div class="hero-logo-wrap">
+        <a href="/" class="flex items-center justify-center w-full max-w-[min(100vw,560px)] px-2 sm:px-4" aria-label="Donner de la Voix - Accueil">
+          <img src="/assets/logo-ddlv.png" alt="Donner de la Voix - Voix &amp; créativité" width="560" height="140"/>
+        </a>
       </div>
     </section>
 
@@ -740,8 +896,14 @@
     <div class="flex flex-wrap items-center gap-4 mb-4">
       <div class="view-toggle" role="group" aria-label="Choisir la vue">
         <button type="button" class="view-toggle-btn ateliers-new-view-toggle" aria-label="Basculer entre vue cartes et vue calendrier">
-          <span class="view-toggle-part view-toggle-cartes active" data-view="cartes">vue cartes</span>
-          <span class="view-toggle-part view-toggle-calendrier" data-view="calendrier">vue calendrier</span>
+          <span class="view-toggle-part view-toggle-cartes active" data-view="cartes">
+            <span class="material-symbols-outlined view-toggle-icon" aria-hidden="true">grid_view</span>
+            Vue cartes
+          </span>
+          <span class="view-toggle-part view-toggle-calendrier" data-view="calendrier">
+            <span class="material-symbols-outlined view-toggle-icon" aria-hidden="true">calendar_month</span>
+            Vue calendrier
+          </span>
         </button>
       </div>
     </div>
@@ -771,6 +933,9 @@
           </div>
         </div>
       </div>
+      <p class="mt-6 text-center text-white/80 text-sm md:text-base">
+        Pour recevoir les prochains ateliers et stages par email, <a href="/contact-new#newsletter" class="text-white underline underline-offset-2 hover:text-accent transition-colors">abonnez-vous à la newsletter</a>.
+      </p>
     </section>
 
     </div>
@@ -781,8 +946,9 @@
     <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-accent transition-all" href="https://www.instagram.com/donnerdelavoixchant/" target="_blank" rel="noopener noreferrer" title="Instagram"><svg class="size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059 1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg></a>
     <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-primary transition-all" href="https://www.facebook.com/donnerdelavoix" target="_blank" rel="noopener noreferrer" title="Facebook"><svg class="size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg></a>
   </div>
-  <div class="fixed bottom-6 left-8 z-50">
+  <div class="fixed bottom-6 left-8 z-50 flex flex-col gap-2">
     <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="/mentions-legales">Mentions Légales</a>
+    <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="/contact-new#newsletter">Newsletter</a>
   </div>
   <!-- Popup atelier -->
   <div class="atelier-modal-overlay" id="atelier-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="atelier-modal-title">
