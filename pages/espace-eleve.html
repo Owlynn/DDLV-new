@@ -4,19 +4,18 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <base href="/">
-  <title>Newsletter – Donner de la Voix | Restez informé.e des ateliers et événements</title>
-  <meta name="description" content="Abonnez-vous à la newsletter de Donner de la Voix pour recevoir les dernières actualités sur les cours de chant, les ateliers d'improvisation vocale et les circle songs à Toulouse.">
-  <meta name="keywords" content="newsletter, Donner de la Voix, cours de chant Toulouse, improvisation vocale Toulouse, ateliers chant, circle songs">
-  <meta property="og:title" content="Newsletter – Donner de la Voix | Restez informé.e des ateliers et événements">
-  <meta property="og:description" content="Abonnez-vous à la newsletter de Donner de la Voix pour recevoir les dernières actualités sur les cours de chant et les ateliers d'improvisation vocale à Toulouse.">
-  <meta property="og:url" content="https://donnerdelavoix.fr/newsletter">
+  <title>Espace élève – Donner de la Voix | Suivi de cours et matériel pédagogique</title>
+  <meta name="description" content="Accédez à votre espace élève Donner de la Voix : suivi de cours et matériel pédagogique.">
+  <meta name="keywords" content="espace élève, Donner de la Voix, suivi cours, matériel pédagogique, cours de chant">
+  <meta property="og:title" content="Espace élève – Donner de la Voix">
+  <meta property="og:description" content="Retrouvez votre suivi de cours et du matériel pédagogique.">
+  <meta property="og:url" content="https://donnerdelavoix.fr/espace-eleve">
   <meta property="og:type" content="website">
-  <link rel="canonical" href="https://donnerdelavoix.fr/newsletter">
+  <link rel="canonical" href="https://donnerdelavoix.fr/espace-eleve">
   <link rel="icon" type="image/png" href="/assets/logo-ddlv.png">
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"/>
   <script id="tailwind-config">
     tailwind.config = {
       darkMode: "class",
@@ -81,30 +80,30 @@
         border: none;
         box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.28), inset 0 0 2px 1px rgba(255, 250, 252, 0.2), 0 0 15px rgba(255, 245, 250, 0.04);
       }
-      .newsletter-new-form .form-field {
+      .espace-eleve-form .form-field {
         @apply w-full rounded-xl border border-white/25 bg-white/10 px-4 py-3 text-white placeholder-white/50 focus:border-accent focus:bg-white/15 focus:ring-2 focus:ring-accent/30 focus:outline-none transition-all;
       }
-      .newsletter-new-form .form-field::placeholder { color: rgba(255, 255, 255, 0.5); }
-      .newsletter-new-form .form-submit-btn {
-        @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm uppercase tracking-widest text-white bg-accent hover:bg-accent/90 border-0 cursor-pointer transition-all disabled:opacity-60 disabled:cursor-not-allowed;
+      .espace-eleve-form .form-field::placeholder { color: rgba(255, 255, 255, 0.5); }
+      .espace-eleve-form .form-submit-btn {
+        @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm uppercase tracking-widest text-white bg-accent hover:bg-accent/90 border-0 cursor-pointer transition-all disabled:opacity-60 disabled:cursor-not-allowed w-full;
         box-shadow: 0 4px 14px rgba(207, 53, 148, 0.4);
       }
-      .newsletter-new-form .form-submit-btn:hover:not(:disabled) { box-shadow: 0 6px 20px rgba(207, 53, 148, 0.5); }
+      .espace-eleve-form .form-submit-btn:hover:not(:disabled) { box-shadow: 0 6px 20px rgba(207, 53, 148, 0.5); }
     }
   </style>
   <link rel="stylesheet" href="/styles.css">
   <style>
-    body.newsletter-new-page {
+    body.espace-eleve-page {
       background: transparent !important;
       color: #fff !important;
       font-family: 'Josefin Sans', sans-serif !important;
     }
-    body.newsletter-new-page::before,
-    body.newsletter-new-page::after { display: none !important; }
+    body.espace-eleve-page::before,
+    body.espace-eleve-page::after { display: none !important; }
   </style>
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 </head>
-<body class="font-display text-white relative newsletter-new-page min-h-screen bg-deep-bg">
+<body class="font-display text-white relative espace-eleve-page min-h-screen bg-deep-bg">
   <div class="bg-blur-image" aria-hidden="true"></div>
   <div class="overlay-violet-gradient" aria-hidden="true"></div>
 
@@ -118,42 +117,31 @@
   <script src="/js/init-header-nav.js"></script>
 
   <main class="relative" role="main">
-    <section class="hero-overlay relative min-h-screen flex items-center pt-24 pb-12" aria-label="Newsletter">
-      <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 lg:gap-16">
-        <!-- Gauche : titre + texte -->
+    <section class="hero-overlay relative min-h-screen flex items-center pt-20 sm:pt-24 pb-12 md:pb-24" aria-label="Espace élève" id="espace-eleve">
+      <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 md:gap-10 lg:gap-16">
         <div class="flex flex-col gap-6 max-w-xl">
-          <h1 class="text-[3.5rem] md:text-[5rem] lg:text-[6rem] font-bold tracking-tight text-white leading-tight">
-            <span class="hero-gradient-word">Newsletter</span>
+          <h1 class="hero-title-mobile-sm text-[2.5rem] sm:text-[3.5rem] md:text-[5rem] lg:text-[6rem] font-bold tracking-tight text-white leading-tight">
+            <span class="hero-gradient-word">Espace élève</span>
           </h1>
-          <p class="text-white/90 text-lg md:text-xl font-light leading-relaxed">
-            Restez informé.e des prochains stages & ateliers, événements et actualités de Donner de la Voix. Abonnez-vous pour ne rien manquer !
-          </p>
-          <p class="text-white/70 text-sm md:text-base font-light">
-            Pour des raisons de sécurité, nous vous demanderons de confirmer votre adresse email après votre inscription.
+          <p class="text-white/90 text-base sm:text-lg md:text-xl font-light leading-relaxed">
+            Retrouvez votre suivi de cours et du matériel pédagogique.
           </p>
         </div>
-
-        <!-- Droite : formulaire d'inscription newsletter -->
-        <div class="w-full lg:flex-1 lg:min-w-0">
-          <div class="newsletter-new-form glass-panel-rose rounded-2xl p-6 md:p-8 w-full">
-            <form action="https://donnerdelavoix.us19.list-manage.com/subscribe/post?u=98a48e5d0af7d8386462b6124&amp;id=f6cad0bc4a&amp;f_id=00c961e7f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="flex flex-col gap-4" target="_blank" aria-label="Formulaire d'inscription à la newsletter" novalidate>
-              <div aria-hidden="true" style="position: absolute; left: -5000px;">
-                <input type="text" name="b_98a48e5d0af7d8386462b6124_f6cad0bc4a" tabindex="-1" value="">
-              </div>
-              <div>
-                <label for="mce-EMAIL" class="sr-only">Adresse email</label>
-                <input type="email" name="EMAIL" id="mce-EMAIL" class="form-field" required aria-required="true" placeholder="Votre adresse email *" value="">
-              </div>
-              <div id="mce-responses" class="hidden">
-                <div class="response" id="mce-error-response"></div>
-                <div class="response" id="mce-success-response"></div>
-              </div>
-              <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="form-submit-btn mt-2">
-                <i data-lucide="bell" class="w-4 h-4" aria-hidden="true"></i>
-                S'abonner
-              </button>
-            </form>
-          </div>
+        <div class="w-full lg:flex-1 lg:min-w-0 lg:max-w-md">
+          <form class="espace-eleve-form glass-panel-rose bento-tint-primary rounded-2xl p-6 md:p-8 flex flex-col gap-4 w-full relative overflow-hidden" action="javascript:void(0)" method="POST" aria-label="Connexion à l'espace élève" id="espace-eleve-login">
+            <div>
+              <label for="eleve-email" class="sr-only">Email</label>
+              <input type="email" id="eleve-email" name="email" class="form-field" required aria-required="true" placeholder="Email *" autocomplete="email" maxlength="254">
+            </div>
+            <div>
+              <label for="eleve-password" class="sr-only">Mot de passe</label>
+              <input type="password" id="eleve-password" name="password" class="form-field" required aria-required="true" placeholder="Mot de passe *" autocomplete="current-password">
+            </div>
+            <button type="submit" class="form-submit-btn mt-2">
+              <span class="material-symbols-outlined text-xl">login</span>
+              Se connecter
+            </button>
+          </form>
         </div>
       </div>
       <div class="hero-logo-wrap">
@@ -164,20 +152,30 @@
     </section>
   </main>
 
-  <div class="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-5">
+  <div class="hidden lg:flex fixed right-8 top-1/2 -translate-y-1/2 z-50 flex-col gap-5">
     <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all" href="/contact" title="Contact"><svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>
     <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-accent transition-all" href="https://www.instagram.com/donnerdelavoixchant/" target="_blank" rel="noopener noreferrer" title="Instagram"><svg class="size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059 1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg></a>
     <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-primary transition-all" href="https://www.facebook.com/donnerdelavoix" target="_blank" rel="noopener noreferrer" title="Facebook"><svg class="size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg></a>
   </div>
-  <div class="fixed bottom-6 left-8 z-50 flex flex-col gap-2">
+  <div class="hidden lg:block fixed bottom-6 left-8 z-50 flex flex-col gap-2">
     <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="/mentions-legales">Mentions Légales</a>
-    <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="/contact-new#newsletter">Newsletter</a>
+    <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="/contact#newsletter">Newsletter</a>
   </div>
-
-  <script type="module" src="/js/main.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      if (typeof lucide !== 'undefined') lucide.createIcons();
+      var form = document.getElementById('espace-eleve-login');
+      if (!form) return;
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Placeholder : à brancher sur votre backend d'authentification
+        var email = form.querySelector('[name="email"]').value.trim();
+        var password = form.querySelector('[name="password"]').value;
+        if (!email || !password) {
+          alert('Veuillez remplir l\'email et le mot de passe.');
+          return;
+        }
+        alert('Connexion en cours de configuration. Cette page sera reliée à votre système d\'authentification.');
+      });
     });
   </script>
   <div id="floating-rdv-container"></div>

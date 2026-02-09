@@ -1,883 +1,678 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html class="dark" lang="fr">
 <head>
-  <!-- Encodage des caractères et viewport -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <base href="/">
-  
-  <!-- 
-    BALISES SEO - Optimisées pour les mots-clés suivants :
-    - cours de chant, coaching vocal, technique vocale, chant Toulouse
-    - cours de chant individuels, cours de chant collectifs
-  -->
-  <title>Cours de Chant à Toulouse | Professeur de Chant | Coaching Vocal Personnalisé</title>
-  <meta name="description" content="Cours de chant à Toulouse avec Jessalynn | Coaching vocal personnalisé, technique vocale et prévention vocale | Tous niveaux | Quartier Minimes | Essai possible">
-  <meta name="keywords" content="cours de chant, professeur de chant Toulouse, coaching vocal, technique vocale, chant Toulouse, cours de chant individuels, prévention vocale, fatigue vocale, apprendre à chanter, cours de chant débutant, coach vocal Toulouse, chant en groupe">
-  
-  <!-- Open Graph : Métadonnées pour le partage sur les réseaux sociaux -->
-  <meta property="og:title" content="Cours de chant à Toulouse | Donner de la Voix">
+  <title>Cours de chant à Toulouse | Coaching vocal | Donner de la Voix</title>
+  <meta name="description" content="Cours de chant à Toulouse avec Jessalynn. Coaching vocal personnalisé, technique vocale et prévention vocale. Tous niveaux. Quartier Minimes. Essai possible.">
+  <meta name="keywords" content="cours de chant, professeur de chant Toulouse, coaching vocal, technique vocale, chant Toulouse, cours de chant individuels, prévention vocale, coach vocal Toulouse">
+  <meta property="og:title" content="Cours de chant à Toulouse – Donner de la Voix">
   <meta property="og:description" content="Cours de chant individuels et collectifs à Toulouse. Coaching vocal et technique vocale avec une approche adaptative.">
   <meta property="og:url" content="https://donnerdelavoix.fr/cours-chant">
-  <meta property="og:site_name" content="Donner de la Voix - Impro vocale & Circlesongs - Cours de chant">
-  <meta property="og:locale" content="fr_FR">
   <meta property="og:type" content="website">
-  
-  <!-- Twitter Cards -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Cours de chant à Toulouse | Donner de la Voix">
-  <meta name="twitter:description" content="Cours de chant individuels et collectifs à Toulouse. Coaching vocal et technique vocale.">
-  
-  <!-- URL canonique -->
   <link rel="canonical" href="https://donnerdelavoix.fr/cours-chant">
-  
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="/assets/logo-ddlv.png">
-  
-  <!-- Google Fonts - Josefin Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Lien vers le fichier CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#5b2ab5",
+            "primary-light": "#7a6ac7",
+            "accent": "#cf3594",
+            "deep-bg": "#0d0218",
+          },
+          fontFamily: {
+            "display": ["'Josefin Sans'", "sans-serif"],
+            "sans": ["'Josefin Sans'", "sans-serif"]
+          },
+        },
+      },
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer components {
+      .glass-panel {
+        @apply backdrop-blur-[25px] bg-white/10 border border-white/20;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 0 2px 1px rgba(255, 255, 255, 0.15), 0 0 15px rgba(255, 255, 255, 0.05);
+      }
+      .hero-overlay > * { position: relative; z-index: 1; }
+      .hero-cta-icon { font-size: 1.75rem; }
+      .hero-gradient-word {
+        @apply text-transparent bg-clip-text;
+        background-image: linear-gradient(to right, #b83d7a 0%, #9849a8 30%, #6b5fa8 65%, #4db8aa 100%);
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+        text-stroke: 1px rgba(255, 255, 255, 0.5);
+        text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+      }
+      .bg-blur-image { position: fixed; inset: 0; z-index: -3; background: url('/assets/bg.jpg') center center / cover no-repeat; }
+      .bg-textured-art {
+        background-color: rgba(30, 15, 50, 0.08);
+        background-image:
+          radial-gradient(ellipse 120% 100% at 0% 50%, rgba(255, 255, 255, 0.07) 0%, transparent 50%),
+          radial-gradient(circle at 10% 20%, rgba(91, 42, 181, 0.35) 0%, transparent 55%),
+          radial-gradient(circle at 90% 10%, rgba(207, 53, 148, 0.3) 0%, transparent 55%),
+          radial-gradient(circle at 50% 50%, rgba(122, 106, 199, 0.28) 0%, transparent 60%);
+        position: fixed; inset: 0; z-index: -2;
+      }
+      .blob { position: fixed; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.6; }
+      .nav-item { position: relative; }
+      .nav-item::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        display: block;
+        width: 0;
+        height: 2px;
+        background: #cf3594;
+        transition: width .3s;
+        box-shadow: 0 0 10px #cf3594;
+      }
+      .nav-item:hover::after { width: 100%; }
+      .article-content-box {
+        @apply rounded-2xl p-6 my-4 border;
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.15);
+      }
+      .glass-panel-rose {
+        @apply backdrop-blur-[25px];
+        background-image: linear-gradient(135deg, rgba(255, 252, 255, 0.28) 0%, rgba(255, 240, 248, 0.14) 45%, rgba(240, 235, 255, 0.22) 100%);
+        border: none;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.28), inset 0 0 2px 1px rgba(255, 250, 252, 0.2), 0 0 15px rgba(255, 245, 250, 0.04);
+      }
+      .glass-panel-rose.bento-bg-blur {
+        background-image: linear-gradient(135deg, rgba(255, 252, 255, 0.06) 0%, rgba(255, 240, 248, 0.02) 45%, rgba(240, 235, 255, 0.04) 100%);
+      }
+      .bento-formats-zone {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: minmax(140px, auto);
+        gap: 1rem;
+      }
+      @media (min-width: 768px) {
+        .bento-formats-zone:not(.bento-formats-zone--content) { grid-template-rows: repeat(3, minmax(0, 1fr)); grid-auto-rows: unset; height: 100%; gap: 0.5rem; }
+        .bento-formats-zone.bento-formats-zone--content { gap: 1rem; grid-auto-rows: minmax(140px, auto); }
+      }
+      .bento-formats-zone a,
+      .bento-formats-zone > div {
+        transition: transform 0.25s ease-out;
+        min-height: 0;
+      }
+      .bento-icon-wrap { flex-shrink: 0; margin-bottom: 0.75rem; width: 100%; display: flex; justify-content: center; }
+      .bento-content-glass .bento-icon { width: 5.25rem; height: 5.25rem; color: #fff; }
+      .bento-content-glass p,
+      .bento-content-glass li { color: rgba(255, 255, 255, 0.92); line-height: 1.6; font-size: 1rem !important; }
+      .bento-content-glass h3 { color: rgba(255, 255, 255, 0.98); font-size: 22px; font-weight: 600; margin: 0 0 0.5rem 0; }
+      .bento-content-glass strong { color: rgba(255, 255, 255, 0.98); }
+      .bento-content-glass a:not(.btn-rdv) { color: #e090c0; text-decoration: underline; text-underline-offset: 2px; }
+      .bento-content-glass a:not(.btn-rdv):hover { color: #f0b0d0; }
+      .bento-content-glass .btn-rdv,
+      .cours-chant-page .btn-rdv { text-decoration: none !important; color: #fff !important; }
+      .bento-content-glass .btn-rdv:hover,
+      .cours-chant-page .btn-rdv:hover { color: #fff !important; text-decoration: none !important; }
+      .bento-glass-accent { border: 1px solid rgba(255, 255, 255, 0.2); background-image: linear-gradient(135deg, rgba(255, 240, 248, 0.2) 0%, rgba(240, 235, 255, 0.15) 100%); }
+      .bento-formats-zone .bento-f-1x1 { grid-column: span 1; grid-row: span 1; }
+      .bento-formats-zone .bento-f-2x1 { grid-column: span 2; grid-row: span 1; }
+      .bento-formats-zone .bento-f-1x2 { grid-column: span 1; grid-row: span 2; }
+      .bento-formats-zone .bento-f-2x2 { grid-column: span 2; grid-row: span 2; }
+      @media (max-width: 767px) {
+        .bento-formats-zone { grid-template-columns: 1fr; grid-auto-rows: minmax(120px, auto); }
+        .bento-formats-zone .bento-f-1x1,
+        .bento-formats-zone .bento-f-2x1,
+        .bento-formats-zone .bento-f-1x2,
+        .bento-formats-zone .bento-f-2x2 { grid-column: span 1; grid-row: span 1; }
+      }
+      .bento-type-badge {
+        background: linear-gradient(135deg, rgba(91, 42, 181, 0.85) 0%, rgba(207, 53, 148, 0.85) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      }
+      .section-title-bentos {
+        font-size: 1.875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        margin-bottom: 1rem;
+        margin-top: 30px;
+        color: #fff;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+        flex-shrink: 0;
+      }
+      .bento-content-zone { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+      @media (min-width: 768px) {
+        .bento-content-zone { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+      }
+      .faq-bento-zone {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      @media (min-width: 768px) {
+        .faq-bento-zone { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+      }
+      .faq-bento-card {
+        border-radius: 1rem;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+      .faq-bento-trigger {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        padding: 1rem 1.25rem;
+        text-align: left;
+        font-family: inherit;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        color: #fff;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+        position: relative;
+        z-index: 1;
+      }
+      .faq-bento-trigger:hover { background: rgba(255,255,255,0.12); color: #fff; }
+      .faq-bento-card.is-open .faq-bento-trigger { background: rgba(255,255,255,0.08); }
+      .faq-bento-trigger .faq-bento-icon { flex-shrink: 0; transition: transform 0.25s ease; color: rgba(255,255,255,0.9); }
+      .faq-bento-card.is-open .faq-bento-icon { transform: rotate(180deg); }
+      .faq-bento-panel {
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.35s ease;
+        position: relative;
+        z-index: 1;
+      }
+      .faq-bento-card.is-open .faq-bento-panel { max-height: 320px; }
+      .faq-bento-panel-inner {
+        padding: 0 1.25rem 1.25rem 1.25rem;
+        color: rgba(255,255,255,0.95);
+        font-size: 0.9375rem;
+        line-height: 1.65;
+      }
+      .faq-bento-panel-inner p { margin: 0 0 0.5rem 0; }
+      .faq-bento-panel-inner p:last-child { margin-bottom: 0; }
+      .faq-bento-panel-inner a { color: #cf3594; text-decoration: underline; }
+      .faq-bento-cta { grid-column: 1 / -1; }
+    }
+  </style>
   <link rel="stylesheet" href="/styles.css">
-  
-  <!-- Calendly CSS -->
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-  
-  <!-- Lucide Icons -->
+  <style>
+    body.cours-chant-page {
+      background: transparent !important;
+      color: #fff !important;
+      font-family: 'Josefin Sans', sans-serif !important;
+    }
+    body.cours-chant-page::before,
+    body.cours-chant-page::after { display: none !important; }
+    .cours-chant-page .article-section {
+      margin-bottom: 3rem;
+      background: rgba(255,255,255,0.85) !important;
+      border: 1px solid rgba(91,42,181,0.12) !important;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(91,42,181,0.06) !important;
+      padding: 2rem 1.5rem !important;
+    }
+    .cours-chant-page .article-content p,
+    .cours-chant-page .article-content li { color: rgba(255,255,255,0.95); }
+    .cours-chant-page .article-content h2 { color: #fff; font-size: 1.5rem; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+    .cours-chant-page .article-content h3 { color: #fff; font-size: 1.25rem; margin-top: 1.25rem; margin-bottom: 0.5rem; }
+    .cours-chant-page .article-content a { color: #cf3594; text-decoration: underline; }
+    .cours-chant-page .article-content a:hover { color: #b82d7a; }
+    .cours-chant-page .article-content ul { padding-left: 1.5rem; margin: 0.5rem 0 1rem 0; }
+    .cours-chant-page .section-title-bentos { color: #fff; text-shadow: none; }
+    .cours-chant-page .faq-section-full { margin-top: 0; padding-top: 0; }
+    .faq-bento-card[class*="bento-tint-"]::after { border-radius: 1rem; }
+  </style>
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
-  <!-- Skip link pour la navigation au clavier -->
-  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
-  
+<body class="font-display text-white relative cours-chant-page min-h-screen bg-deep-bg" id="cours-chant-body">
+  <div class="bg-blur-image" aria-hidden="true"></div>
+  <div class="overlay-violet-gradient" aria-hidden="true"></div>
+
+  <div id="bubbles-deco" aria-hidden="true">
+    <span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span>
+    <span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span>
+    <span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span>
+  </div>
+
   <div id="site-header"></div>
   <script src="/js/init-header-nav.js"></script>
-  
-  <!-- Popup Calendly -->
-  <div id="calendly-popup" class="calendly-popup-container hidden">
-    <div class="calendly-popup-overlay" id="calendly-popup-overlay"></div>
-    <div class="calendly-popup-content-wrapper">
-      <button class="calendly-popup-close-btn" id="calendly-popup-close" aria-label="Fermer">×</button>
-      <div class="calendly-inline-widget" data-url="https://calendly.com/contactdonnerdelavoix/30min" style="min-width:320px;height:700px;"></div>
-    </div>
-  </div>
-  
-  <main id="main-content" role="main">
-    <article class="article-container">
-      <div class="article-layout">
-        <!-- Sommaire latéral -->
-        <aside class="article-toc" aria-label="Sommaire de la page">
-          <p class="article-toc-title">Les cours de chant</p>
-          <div class="article-toc-dropdown">
-            <select class="article-toc-select" aria-label="Aller à la section">
-              <option value="">Aller à la section</option>
-              <option value="pour-qui">Pour qui ?</option>
-              <option value="approche">Mon approche</option>
-              <option value="benefices">Les bénéfices</option>
-              <option value="deroulement">Déroulement d'un cours</option>
-              <option value="prevention">Prévention vocale</option>
-              <option value="offres">Offres et tarifs</option>
-              <option value="faq">FAQ</option>
-              <option value="avis">Avis élèves</option>
-            </select>
-          </div>
-          <nav class="article-toc-nav">
-            <a class="article-toc-link active" href="#pour-qui" data-section="pour-qui">Pour qui ?</a>
-            <a class="article-toc-link" href="#approche" data-section="approche">Mon approche</a>
-            <a class="article-toc-link" href="#benefices" data-section="benefices">Les bénéfices</a>
-            <a class="article-toc-link" href="#deroulement" data-section="deroulement">Déroulement d'un cours</a>
-            <a class="article-toc-link" href="#prevention" data-section="prevention">Prévention vocale</a>
-            <a class="article-toc-link" href="#offres" data-section="offres">Mes offres</a>
-            <a class="article-toc-link" href="#offres" data-section="offres">Offres et tarifs</a>
-            <a class="article-toc-link" href="#faq" data-section="faq">FAQ</a>
-            <a class="article-toc-link" href="#avis" data-section="avis">Avis élèves</a>
+
+  <main class="relative w-full max-w-[100vw] overflow-x-hidden" role="main">
+    <section class="hero-overlay relative min-h-screen flex items-center pt-20 sm:pt-24 pb-12 md:pb-12" aria-label="Hero">
+      <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
+        <div class="flex flex-col items-start gap-6 sm:gap-10">
+          <h1 class="hero-title-mobile-sm text-[2.5rem] sm:text-[3.5rem] md:text-[5.8rem] lg:text-[7rem] font-bold tracking-tight text-white leading-tight">
+            <span class="block">Cours de</span>
+            <span class="hero-gradient-word block">chant</span>
+          </h1>
+          <nav class="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-3 w-full sm:w-auto" aria-label="Sommaire">
+            <a href="#pour-qui" class="inline-flex items-center justify-center sm:justify-start px-4 py-3 sm:px-5 rounded-2xl font-semibold text-xs sm:text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Pour qui ?</a>
+            <a href="#approche" class="inline-flex items-center justify-center sm:justify-start px-4 py-3 sm:px-5 rounded-2xl font-semibold text-xs sm:text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Mon approche</a>
+            <a href="#benefices" class="inline-flex items-center justify-center sm:justify-start px-4 py-3 sm:px-5 rounded-2xl font-semibold text-xs sm:text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Les bénéfices</a>
+            <a href="#deroulement" class="inline-flex items-center justify-center sm:justify-start px-4 py-3 sm:px-5 rounded-2xl font-semibold text-xs sm:text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Déroulement</a>
+            <a href="#offres" class="inline-flex items-center justify-center sm:justify-start px-4 py-3 sm:px-5 rounded-2xl font-semibold text-xs sm:text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Mes offres</a>
+            <a href="#tarifs" class="inline-flex items-center justify-center sm:justify-start px-4 py-3 sm:px-5 rounded-2xl font-semibold text-xs sm:text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Tarifs</a>
+            <a href="#faq" class="inline-flex items-center justify-center sm:justify-start px-4 py-3 sm:px-5 rounded-2xl font-semibold text-xs sm:text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">FAQ</a>
+            <a href="/contact" class="btn-rdv w-full sm:w-auto text-center">Prendre RDV</a>
           </nav>
-        </aside>
-
-        <!-- Contenu principal -->
-        <div class="article-main">
-          
-          <!-- Section Héro -->
-          <section class="article-section glass-section" style="text-align: center; padding: 3rem 1.5rem;">
-            <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--color-primary);">Cours de Chant à Toulouse</h1>
-            <p style="font-size: 1.5rem; margin-bottom: 1rem; color: #fff; font-weight: 500;">Développez votre voix avec écoute et technique</p>
-            <p style="font-size: 1.1rem; margin-bottom: 2rem; color: #666;">Coaching vocal personnalisé • Technique vocale • Prévention vocale</p>
-            <div style="text-align: left;">
-              <button class="rdv-btn" id="calendly-trigger-hero" aria-label="Prendre rendez-vous pour un cours d'essai" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
-                <i data-lucide="calendar-check" class="btn-icon"></i>
-                <span class="rdv-btn-text">Prendre RDV pour un cours d'essai</span>
-              </button>
-            </div>
-          </section>
-
-          <!-- Section Pour qui -->
-          <section class="article-section glass-section" id="pour-qui">
-            <div class="article-content">
-              <h2>Pour qui sont les cours de chant ?</h2>
-              
-              <img src="/assets/jessalynn-3.jpg" alt="Jessalynn enseignant le chant à Toulouse" class="article-image" style="width: 70%; max-width: 600px; margin: 2rem auto; display: block;">
-              
-              <p style="font-size: 1.1rem; margin-bottom: 2rem;">Les <strong>cours de chant à Toulouse</strong> s'adressent à tous, <strong>sans limite d'âge ou de niveau</strong>. Que vous soyez débutant ou chanteur confirmé, je vous accompagne dans votre progression vocale avec <strong>bienveillance et écoute</strong>.</p>
-              
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
-                
-                <div class="highlight-box-small" style="margin: 0;">
-                  <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎤</div>
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem;">Débutants</h3>
-                  <p style="margin: 0; line-height: 1.6;">Découvrir sa voix, apprendre les bases de la <strong>technique vocale</strong>, gagner en confiance</p>
-                </div>
-                
-                <div class="highlight-box-small" style="margin: 0;">
-                  <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎵</div>
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem;">Chanteurs confirmés</h3>
-                  <p style="margin: 0; line-height: 1.6;">Perfectionner sa technique, élargir sa tessiture, affiner l'interprétation</p>
-                </div>
-                
-                <div class="highlight-box-small" style="margin: 0;">
-                  <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎭</div>
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem;">Professions vocales</h3>
-                  <p style="margin: 0; line-height: 1.6;">Enseignants, comédiens, animateurs : préserver et optimiser sa voix professionnelle</p>
-                </div>
-                
-                <div class="highlight-box-small" style="margin: 0;">
-                  <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎸</div>
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.25rem;">Musiciens</h3>
-                  <p style="margin: 0; line-height: 1.6;">Travailler le <strong>chant</strong> en parallèle de votre instrument, sur scène ou en studio</p>
-                </div>
-              </div>
-              
-              <div style="background: rgba(212, 197, 255, 0.2); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-accent);">
-                <p style="margin: 0; font-size: 1.05rem;"><strong>✨ Tous niveaux bienvenus !</strong> Chaque voix est unique, et mon rôle de <strong>coach vocal</strong> est de vous accompagner là où vous en êtes, avec vos objectifs propres.</p>
-              </div>
-            </div>
-          </section>
-
-          <!-- Section Approche pédagogique -->
-          <section class="article-section glass-section" id="approche">
-            <div class="article-content">
-              <h2>Mon approche pédagogique</h2>
-              
-              <p style="font-size: 1.1rem; margin-bottom: 2rem;">En tant que <strong>professeur de chant à Toulouse</strong>, je propose une approche qui vous ressemble, centrée sur <strong>l'écoute</strong>, la <strong>bienveillance</strong> et l'<strong>adaptation à votre singularité</strong>.</p>
-              
-              <div style="background: rgba(254, 102, 195, 0.1); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-accent);">
-                <p style="margin: 0; font-size: 1.05rem;"><strong>🎓 Formation certifiée :</strong> Je suis formée et certifiée à l'<strong>approche Chant Voix et Corps</strong> d'<a href="https://www.chantvoixetcorps.com/formation-prof-de-chant-et-de-technique-vocale/" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary); text-decoration: underline; font-weight: 600;">Emmanuelle Trinquesse</a>, une méthode scientifique et globale de la technique vocale reconnue en France.</p>
-              </div>
-              
-              <div class="highlight-box-strong">
-                <h3 style="color: var(--color-primary); margin-bottom: 1.5rem; font-size: 1.5rem; text-align: center;">🌟 Ce qui me différencie</h3>
-                <div style="display: flex; flex-direction: column; gap: 1rem;">
-                  <div style="display: flex; align-items: start; gap: 0.75rem;">
-                    <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
-                    <div>
-                      <strong style="color: #fff;">Approche holistique</strong> – Corps, voix et émotion sont liés. Je travaille avec vous dans votre globalité.
-                    </div>
-                  </div>
-                  <div style="display: flex; align-items: start; gap: 0.75rem;">
-                    <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
-                    <div>
-                      <strong style="color: #fff;">Bienveillance et écoute</strong> – Pas de jugement, progression à votre rythme, dans un cadre sécurisant.
-                    </div>
-                  </div>
-                  <div style="display: flex; align-items: start; gap: 0.75rem;">
-                    <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
-                    <div>
-                      <strong style="color: #fff;">Technique adaptative</strong> – Chaque voix est unique. Ma méthode s'adapte à VOS besoins, pas l'inverse.
-                    </div>
-                  </div>
-                  <div style="display: flex; align-items: start; gap: 0.75rem;">
-                    <span style="color: var(--color-accent); font-size: 1.25rem; flex-shrink: 0;">✓</span>
-                  </div>
-                </div>
-              </div>
-              
-            </div>
-          </section>
-
-          <!-- Section Les bénéfices -->
-          <section class="article-section glass-section" id="benefices">
-            <div class="article-content">
-              <h2>Les bénéfices des cours de chant</h2>
-              
-              <p style="font-size: 1.1rem; margin-bottom: 2rem;">Un <strong>cours de chant</strong> ne se limite pas à "chanter juste". C'est un travail global qui apporte de nombreux bénéfices, sur le plan vocal, corporel et émotionnel.</p>
-              
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
-                
-                <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Améliorer la justesse</h3>
-                  <p style="margin: 0; color: #666; line-height: 1.6;">Développer votre oreille musicale et chanter juste, même si vous pensez "chanter faux"</p>
-                </div>
-                
-                <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Gagner en puissance</h3>
-                  <p style="margin: 0; color: #666; line-height: 1.6;">Augmenter le volume de votre voix sans forcer, grâce à une <strong>technique vocale</strong> adaptée</p>
-                </div>
-                
-                <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Maîtriser la respiration</h3>
-                  <p style="margin: 0; color: #666; line-height: 1.6;">Acquérir une respiration adaptée au chant pour tenir les notes et gérer le souffle</p>
-                </div>
-                
-                <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Développer l'agilité vocale</h3>
-                  <p style="margin: 0; color: #666; line-height: 1.6;">Gagner en souplesse, passer facilement d'une note à l'autre, explorer votre tessiture</p>
-                </div>
-                
-                <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Affiner l'interprétation</h3>
-                  <p style="margin: 0; color: #666; line-height: 1.6;">Transmettre des émotions, donner du sens à votre chant, développer votre style</p>
-                </div>
-                
-                <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(91, 42, 181, 0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.2rem;">Lâcher prise et confiance</h3>
-                  <p style="margin: 0; color: #666; line-height: 1.6;">S'exprimer librement, gérer le trac, oser sa voix en toute sécurité</p>
-                </div>
-              </div>
-              
-              <div style="text-align: left; margin: 2rem 0;">
-                <button class="rdv-btn" id="calendly-trigger-benefices" aria-label="Prendre rendez-vous">
-                  <i data-lucide="calendar-check" class="btn-icon"></i>
-                  <span class="rdv-btn-text">Prendre RDV pour progresser</span>
-                </button>
-              </div>
-            </div>
-          </section>
-
-          <!-- Section Déroulement -->
-          <section class="article-section glass-section" id="deroulement">
-            <div class="article-content">
-              <h2>Comment se déroule un cours de chant ?</h2>
-              
-              <img src="/assets/deroulement.png" alt="Déroulement d'un cours de chant" class="article-image" style="width: 80%; max-width: 600px; margin: 2rem auto; display: block;">
-              
-              <p style="font-size: 1.1rem; margin-bottom: 2rem;">Un <strong>cours de chant individuel</strong> se structure autour de vos besoins spécifiques. Voici comment se déroule une séance type :</p>
-              
-              <div style="display: flex; flex-direction: column; gap: 1.5rem; margin: 2rem 0;">
-                
-                <div style="display: flex; gap: 1.5rem; align-items: start;">
-                  <div style="background: var(--color-primary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">1</div>
-                  <div style="flex: 1;">
-                    <h3 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.2rem;">Évaluation et écoute</h3>
-                    <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: #fff;">⏱️ 5-10 min</p>
-                    <p style="margin: 0; line-height: 1.6; color: #666;">Nous discutons de vos objectifs, de votre ressenti, de ce que vous souhaitez travailler aujourd'hui. Chaque cours s'adapte à où vous en êtes.</p>
-                  </div>
-                </div>
-                
-                <div style="display: flex; gap: 1.5rem; align-items: start;">
-                  <div style="background: var(--color-primary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">2</div>
-                  <div style="flex: 1;">
-                    <h3 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.2rem;">Mise en condition corporelle</h3>
-                    <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: #fff;">⏱️ 10 min</p>
-                    <p style="margin: 0; line-height: 1.6; color: #666;">Détente, étirements, prise de conscience du corps. Nous identifions et déverrouillons les tensions qui peuvent entraver la libre expression de la voix.</p>
-                  </div>
-                </div>
-                
-                <div style="display: flex; gap: 1.5rem; align-items: start;">
-                  <div style="background: var(--color-primary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">3</div>
-                  <div style="flex: 1;">
-                    <h3 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.2rem;">Échauffement vocal</h3>
-                    <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: #fff;">⏱️ 10 min</p>
-                    <p style="margin: 0; line-height: 1.6; color: #666;">Vocalises progressives pour réveiller la voix en douceur et préparer l'appareil vocal au travail technique.</p>
-                  </div>
-                </div>
-                
-                <div style="display: flex; gap: 1.5rem; align-items: start;">
-                  <div style="background: var(--color-primary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">4</div>
-                  <div style="flex: 1;">
-                    <h3 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.2rem;">Exercices ciblés</h3>
-                    <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: #fff;">⏱️ 15-20 min</p>
-                    <p style="margin: 0; line-height: 1.6; color: #666;">Travail technique sur vos objectifs spécifiques : justesse, puissance, agilité, respiration, etc. Exercices adaptés à votre niveau et vos besoins.</p>
-                  </div>
-                </div>
-                
-                <div style="display: flex; gap: 1.5rem; align-items: start;">
-                  <div style="background: var(--color-primary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">5</div>
-                  <div style="flex: 1;">
-                    <h3 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.2rem;">Application sur un morceau</h3>
-                    <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: #fff;">⏱️ 15-20 min</p>
-                    <p style="margin: 0; line-height: 1.6; color: #666;">Mise en pratique sur un morceau de votre choix ou adapté à vos objectifs. C'est là que tout prend sens !</p>
-                  </div>
-                </div>
-                
-                <div style="display: flex; gap: 1.5rem; align-items: start;">
-                  <div style="background: var(--color-primary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; flex-shrink: 0;">6</div>
-                  <div style="flex: 1;">
-                    <h3 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.2rem;">Plan d'action personnel</h3>
-                    <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: #fff;">⏱️ 5 min</p>
-                    <p style="margin: 0; line-height: 1.6; color: #666;">Nous définissons ensemble ce que vous pouvez travailler chez vous jusqu'au prochain cours (exercices, écoutes, etc.). La progression se fait aussi entre les cours !</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div style="background: rgba(212, 197, 255, 0.2); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-primary);">
-                <p style="margin: 0; font-size: 1.05rem;"><strong>💡 Le cours s'adapte à vous :</strong> Cette structure est flexible et évolue selon vos besoins, votre niveau et vos objectifs du moment.</p>
-              </div>
-            </div>
-          </section>
-
-          <!-- Section Prévention vocale -->
-          <section class="article-section glass-section" id="prevention">
-            <div class="article-content">
-              <h2>Prévention et santé vocale</h2>
-              
-              <img src="/assets/larynx.webp" alt="Anatomie du larynx et santé vocale" class="article-image" style="width: 50%; max-width: 400px; margin: 2rem auto; display: block;">
-              
-              <p style="font-size: 1.1rem; margin-bottom: 2rem;">La <strong>prévention de la fatigue vocale</strong> est au cœur de mon enseignement en tant que <strong>coach vocal à Toulouse</strong>. Que vous soyez chanteur ou que vous utilisiez beaucoup votre voix au quotidien (enseignants, commerciaux, animateurs...), apprendre à <strong>protéger votre appareil vocal</strong> est essentiel.</p>
-              
-              <div class="highlight-box-accent" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(254, 102, 195, 0.2));">
-                <h3 style="color: var(--color-accent); margin-bottom: 1.5rem; font-size: 1.3rem;">🚨 Signes d'alerte à surveiller</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                  <div style="display: flex; align-items: start; gap: 0.5rem;">
-                    <span style="color: var(--color-accent); flex-shrink: 0;">⚠️</span>
-                    <span>Voix qui fatigue rapidement</span>
-                  </div>
-                  <div style="display: flex; align-items: start; gap: 0.5rem;">
-                    <span style="color: var(--color-accent); flex-shrink: 0;">⚠️</span>
-                    <span>Enrouement fréquent</span>
-                  </div>
-                  <div style="display: flex; align-items: start; gap: 0.5rem;">
-                    <span style="color: var(--color-accent); flex-shrink: 0;">⚠️</span>
-                    <span>Sensation de gorge serrée</span>
-                  </div>
-                  <div style="display: flex; align-items: start; gap: 0.5rem;">
-                    <span style="color: var(--color-accent); flex-shrink: 0;">⚠️</span>
-                    <span>Difficulté à tenir les notes</span>
-                  </div>
-                  <div style="display: flex; align-items: start; gap: 0.5rem;">
-                    <span style="color: var(--color-accent); flex-shrink: 0;">⚠️</span>
-                    <span>Douleurs en chantant</span>
-                  </div>
-                  <div style="display: flex; align-items: start; gap: 0.5rem;">
-                    <span style="color: var(--color-accent); flex-shrink: 0;">⚠️</span>
-                    <span>Perte de puissance vocale</span>
-                  </div>
-                </div>
-              </div>
-              
-              <h3 style="color: var(--color-primary); margin-top: 2rem; margin-bottom: 1rem;">Ce que vous apprendrez</h3>
-              <ul style="line-height: 1.8; font-size: 1.05rem;">
-                <li><strong>Développer des réflexes sains</strong> pour chanter sans vous abîmer la voix</li>
-                <li><strong>Identifier les tensions</strong> qui fatiguent votre voix et les déverrouiller</li>
-                <li><strong>Utiliser une technique vocale adaptée</strong> pour préserver votre instrument</li>
-                <li><strong>Gérer votre souffle</strong> pour ne pas forcer sur les cordes vocales</li>
-                <li><strong>Connaître les limites</strong> de votre voix et respecter ses besoins</li>
-              </ul>
-              
-              <div style="background: rgba(91, 42, 181, 0.1); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-primary);">
-                <p style="margin: 0; font-size: 1.1rem;"><strong>💡 Bon à savoir :</strong> Une bonne <strong>technique vocale</strong> permet de chanter pendant des heures sans fatigue ! L'objectif est de vous faire plaisir en chantant, tout en prenant soin de votre voix sur le long terme.</p>
-              </div>
-            </div>
-          </section>
-
-          <!-- Section Mes offres -->
-          <section class="article-section glass-section" id="offres">
-            <div class="article-content">
-              <h2>Mes offres de cours de chant</h2>
-              
-              <p style="font-size: 1.1rem; margin-bottom: 2rem;">Je propose différentes formules pour répondre à vos besoins et objectifs. Tous les <strong>cours de chant</strong> se déroulent dans mon local à <strong>Toulouse, quartier Minimes</strong>.</p>
-              
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0;">
-                
-                <!-- Cours individuels -->
-                <div class="highlight-box-white-strong" style="position: relative;">
-                  <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-primary); color: white; padding: 0.5rem 1.5rem; border-radius: 20px; font-weight: 600; font-size: 0.9rem;">RECOMMANDÉ</div>
-                  <div style="text-align: center; margin-top: 1rem;">
-                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎤</div>
-                    <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">Cours individuels</h3>
-                    <p style="color: #666; margin-bottom: 1.5rem;">Pour une progression ciblée et personnalisée</p>
-                  </div>
-                  <ul style="list-style: none; padding: 0; margin: 0 0 1.5rem 0;">
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Coaching 100% personnalisé</span>
-                    </li>
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Adaptation totale à vos objectifs</span>
-                    </li>
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Flexibilité des horaires</span>
-                    </li>
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Progression rapide et ciblée</span>
-                    </li>
-                  </ul>
-                  <p style="text-align: center; font-size: 0.95rem; color: #666; margin: 0;">Durée : 1 heure</p>
-                </div>
-                
-                <!-- Stages en groupe -->
-                <div class="highlight-box-light">
-                  <div style="text-align: center;">
-                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">👥</div>
-                    <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">Stages en groupe</h3>
-                    <p style="color: #666; margin-bottom: 1.5rem;">Un <strong>cours de chant en groupe</strong> pour progresser ensemble, explorer le <strong>chant a capella</strong> et développer votre technique vocale dans une dynamique collective bienveillante.</p>
-                  </div>
-                  <ul style="list-style: none; padding: 0; margin: 0 0 1.5rem 0;">
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Initiation ou approfondissement</span>
-                    </li>
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Énergie de groupe motivante</span>
-                    </li>
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Tarif accessible</span>
-                    </li>
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Rencontres et partages</span>
-                    </li>
-                  </ul>
-                  <p style="text-align: center; font-size: 0.95rem; color: #666; margin: 0;">Stages ponctuels • Dates annoncées</p>
-                </div>
-                
-                <!-- Cours de looper -->
-                <div class="highlight-box-light">
-                  <div style="text-align: center;">
-                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎛️</div>
-                    <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">Cours de looper</h3>
-                    <p style="color: #666; margin-bottom: 1.5rem;">Pour musiciens et chanteurs créatifs</p>
-                  </div>
-                  <ul style="list-style: none; padding: 0; margin: 0 0 1.5rem 0;">
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Maîtriser le looper vocal</span>
-                    </li>
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Créer des arrangements live</span>
-                    </li>
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Support et suivi personnalisé</span>
-                    </li>
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Techniques avancées</span>
-                    </li>
-                  </ul>
-                  <p style="text-align: center; font-size: 0.95rem; color: #666; margin: 0;">Durée : 1 heure • Matériel fourni</p>
-                </div>
-              </div>
-              
-              <div style="background: rgba(254, 102, 195, 0.1); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--color-accent); text-align: center;">
-                <p style="margin: 0; font-size: 1.1rem;">💜 <strong>Bonus :</strong> Découvrez aussi mes <a href="ateliers.html" style="color: var(--color-primary); text-decoration: underline; font-weight: 600;">stages & ateliers d'improvisation vocale et circlesongs</a> pour une approche complémentaire et créative !</p>
-              </div>
-              
-              <h3 style="color: var(--color-primary); margin-top: 3rem; margin-bottom: 1.5rem; font-size: 1.5rem; text-align: center;">Tarifs</h3>
-              
-              <p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">📍 <strong>Cours à Toulouse, secteur Minimes</strong></p>
-              
-              <h4 style="color: var(--color-primary); margin-top: 2rem; margin-bottom: 1.5rem; font-size: 1.3rem; text-align: center;">Cours individuels</h4>
-              
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin: 2rem 0;">
-                
-                <!-- Cours 1h -->
-                <div class="highlight-box-white">
-                  <div style="text-align: center;">
-                    <h4 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.25rem;">Cours individuel</h4>
-                    <div style="font-size: 3rem; font-weight: 700; color: var(--color-primary); margin: 1rem 0;">50€</div>
-                    <p style="color: #666; margin-bottom: 1.5rem; font-size: 0.95rem;">1 heure • Coaching personnalisé</p>
-                  </div>
-                  <ul style="list-style: none; padding: 0; margin: 0;">
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Progression sur mesure</span>
-                    </li>
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Flexibilité des horaires</span>
-                    </li>
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Paiement à chaque cours</span>
-                    </li>
-                  </ul>
-                </div>
-                
-                <!-- Cours 1h30 -->
-                <div class="highlight-box-white">
-                  <div style="text-align: center;">
-                    <h4 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.25rem;">Cours approfondi</h4>
-                    <div style="font-size: 3rem; font-weight: 700; color: var(--color-primary); margin: 1rem 0;">60€</div>
-                    <p style="color: #666; margin-bottom: 1.5rem; font-size: 0.95rem;">1h30 • Coaching personnalisé</p>
-                  </div>
-                  <ul style="list-style: none; padding: 0; margin: 0;">
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Plus de temps pour approfondir</span>
-                    </li>
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Travail sur plusieurs morceaux</span>
-                    </li>
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Progression accélérée</span>
-                    </li>
-                  </ul>
-                </div>
-                
-                <!-- Cours de looper -->
-                <div class="highlight-box-white">
-                  <div style="text-align: center;">
-                    <h4 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.25rem;">Cours de looper</h4>
-                    <div style="font-size: 3rem; font-weight: 700; color: var(--color-primary); margin: 1rem 0;">80€</div>
-                    <p style="color: #666; margin-bottom: 1.5rem; font-size: 0.95rem;">2 heures • Support et suivi inclus</p>
-                  </div>
-                  <ul style="list-style: none; padding: 0; margin: 0;">
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Matériel fourni</span>
-                    </li>
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Techniques avancées</span>
-                    </li>
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Suivi personnalisé</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              
-              <h4 style="color: var(--color-primary); margin-top: 3rem; margin-bottom: 1.5rem; font-size: 1.3rem; text-align: center;">Packs avantageux</h4>
-              
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin: 2rem 0;">
-                
-                <!-- Pack 4 cours -->
-                <div class="highlight-box" style="border: 2px solid var(--color-primary-light); box-shadow: 0 6px 12px rgba(0,0,0,0.08);">
-                  <div style="text-align: center;">
-                    <h4 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.25rem;">Pack 4 cours</h4>
-                    <div style="font-size: 3rem; font-weight: 700; color: var(--color-primary); margin: 1rem 0;">180€</div>
-                    <p style="color: #fff; margin-bottom: 0.25rem; font-size: 1.1rem; font-weight: 600;">45€/cours</p>
-                    <p style="color: #666; margin-bottom: 1.5rem; font-size: 0.95rem;">Valable 2 mois</p>
-                  </div>
-                  <ul style="list-style: none; padding: 0; margin: 0;">
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span><strong>Économie de 20€</strong></span>
-                    </li>
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Suivi régulier garanti</span>
-                    </li>
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Progression visible</span>
-                    </li>
-                  </ul>
-                </div>
-                
-                <!-- Pack 10 cours -->
-                <div class="highlight-box" style="border: 2px solid var(--color-primary-light); box-shadow: 0 6px 12px rgba(0,0,0,0.08);">
-                  <div style="text-align: center;">
-                    <h4 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.25rem;">Pack 10 cours</h4>
-                    <div style="font-size: 3rem; font-weight: 700; color: var(--color-primary); margin: 1rem 0;">450€</div>
-                    <p style="color: #fff; margin-bottom: 0.25rem; font-size: 1.1rem; font-weight: 600;">45€/cours</p>
-                    <p style="color: #666; margin-bottom: 1.5rem; font-size: 0.95rem;">Valable 3 mois</p>
-                  </div>
-                  <ul style="list-style: none; padding: 0; margin: 0;">
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span><strong>Économie de 50€</strong></span>
-                    </li>
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Engagement sur la durée</span>
-                    </li>
-                    <li style="padding: 0.5rem 0; display: flex; align-items: start; gap: 0.5rem;">
-                      <span style="color: var(--color-accent); flex-shrink: 0;">✓</span>
-                      <span>Résultats garantis</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              
-              <div class="highlight-box-purple">
-                <h3 style="color: var(--color-primary); margin-bottom: 1.5rem; font-size: 1.3rem; text-align: center;">💳 Modalités de règlement</h3>
-                <p style="text-align: center; margin-bottom: 1rem;">Le paiement des <strong>cours de chant</strong> peut s'effectuer par :</p>
-                <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin: 1.5rem 0;">
-                  <span style="background: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;">💳 CB</span>
-                  <span style="background: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;">🏦 Virement</span>
-                  <span style="background: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;">💰 PayPal</span>
-                  <span style="background: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600;">💵 Espèces</span>
-                </div>
-                <p style="text-align: center; margin-top: 1.5rem; font-weight: 600; color: #fff;">⚠️ Tout cours non annulé au moins 24h à l'avance est dû.</p>
-              </div>
-              
-              <div style="margin-top: 3rem; text-align: left;">
-                <button class="rdv-btn" id="calendly-trigger-section" aria-label="Prendre rendez-vous" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
-                  <i data-lucide="calendar-check" class="btn-icon"></i>
-                  <span class="rdv-btn-text">PRENDRE RDV</span>
-                </button>
-              </div>
-            </div>
-          </section>
-
-          <!-- Section FAQ -->
-          <section class="article-section glass-section" id="faq">
-            <div class="article-content">
-              <h2>Questions fréquentes sur les cours de chant</h2>
-              
-              <p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem; color: #666;">Vous avez des questions ? Voici les réponses aux interrogations les plus courantes !</p>
-              
-              <div class="faq-accordion" style="display: flex; flex-direction: column; gap: 1rem; margin: 2rem 0;">
-                
-                <div class="faq-item" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); border-radius: 12px; border-left: 4px solid var(--color-primary); overflow: hidden;">
-                  <button class="faq-question">
-                    Faut-il savoir lire la musique ?
-                    <i data-lucide="chevron-down" class="faq-icon"></i>
-                  </button>
-                  <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;">
-                    <div style="padding: 0 1.5rem 1.5rem 1.5rem; line-height: 1.6; color: #555;">
-                      <strong>Non !</strong> Le solfège n'est absolument pas nécessaire pour prendre des <strong>cours de chant</strong>. Nous travaillons essentiellement à l'oreille et par l'expérimentation.
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="faq-item" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); border-radius: 12px; border-left: 4px solid var(--color-primary); overflow: hidden;">
-                  <button class="faq-question">
-                    Je chante faux, est-ce que je peux progresser ?
-                    <i data-lucide="chevron-down" class="faq-icon"></i>
-                  </button>
-                  <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;">
-                    <div style="padding: 0 1.5rem 1.5rem 1.5rem; line-height: 1.6; color: #555;">
-                      <strong>Absolument !</strong> La justesse se travaille et se développe. Avec des exercices adaptés, de la pratique régulière et un bon accompagnement, tout le monde peut améliorer sa justesse vocale.
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="faq-item" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); border-radius: 12px; border-left: 4px solid var(--color-primary); overflow: hidden;">
-                  <button class="faq-question">
-                    À quelle fréquence prendre des cours ?
-                    <i data-lucide="chevron-down" class="faq-icon"></i>
-                  </button>
-                  <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;">
-                    <div style="padding: 0 1.5rem 1.5rem 1.5rem; line-height: 1.6; color: #555;">
-                      L'idéal est <strong>1 cours toutes les 2 semaines minimum</strong>, avec de la pratique personnelle entre les cours. Un cours par semaine permet une progression encore plus rapide !
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="faq-item" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); border-radius: 12px; border-left: 4px solid var(--color-primary); overflow: hidden;">
-                  <button class="faq-question">
-                    Puis-je choisir les morceaux que je travaille ?
-                    <i data-lucide="chevron-down" class="faq-icon"></i>
-                  </button>
-                  <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;">
-                    <div style="padding: 0 1.5rem 1.5rem 1.5rem; line-height: 1.6; color: #555;">
-                      <strong>Oui !</strong> Nous travaillons sur des morceaux qui vous plaisent et vous motivent, tout en respectant votre niveau et vos objectifs techniques du moment. Le plaisir est essentiel dans l'apprentissage !
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="faq-item" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); border-radius: 12px; border-left: 4px solid var(--color-primary); overflow: hidden;">
-                  <button class="faq-question">
-                    Quelle est la durée d'un cours de chant ?
-                    <i data-lucide="chevron-down" class="faq-icon"></i>
-                  </button>
-                  <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;">
-                    <div style="padding: 0 1.5rem 1.5rem 1.5rem; line-height: 1.6; color: #555;">
-                      Un <strong>cours de chant individuel</strong> dure <strong>1 heure</strong> (60 minutes). C'est la durée idéale pour travailler efficacement sans fatiguer la voix.
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="faq-item" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); border-radius: 12px; border-left: 4px solid var(--color-primary); overflow: hidden;">
-                  <button class="faq-question">
-                    Y a-t-il un âge minimum ou maximum ?
-                    <i data-lucide="chevron-down" class="faq-icon"></i>
-                  </button>
-                  <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;">
-                    <div style="padding: 0 1.5rem 1.5rem 1.5rem; line-height: 1.6; color: #555;">
-                      <strong>Aucune limite d'âge !</strong> J'accompagne les enfants, adolescents, adultes et seniors. Chaque âge a ses spécificités, et l'enseignement s'adapte en conséquence.
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="faq-item" style="background: linear-gradient(135deg, rgba(91, 42, 181, 0.05), rgba(254, 102, 195, 0.05)); border-radius: 12px; border-left: 4px solid var(--color-primary); overflow: hidden;">
-                  <button class="faq-question">
-                    Proposez-vous un cours d'essai ?
-                    <i data-lucide="chevron-down" class="faq-icon"></i>
-                  </button>
-                  <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;">
-                    <div style="padding: 0 1.5rem 1.5rem 1.5rem; line-height: 1.6; color: #555;">
-                      Oui ! Le premier cours dure <strong>1h30</strong> : la première heure est payante (tarif normal), et je vous offre <strong>30 minutes supplémentaires gratuites</strong> pour faire connaissance, discuter de vos objectifs et voir si mon approche vous convient. Vous n'avez <strong>aucun engagement</strong> à continuer par la suite.
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                  const faqItems = document.querySelectorAll('.faq-item');
-                  
-                  faqItems.forEach(item => {
-                    const question = item.querySelector('.faq-question');
-                    const answer = item.querySelector('.faq-answer');
-                    const icon = item.querySelector('.faq-icon');
-                    
-                    question.addEventListener('click', function() {
-                      const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
-                      
-                      // Fermer tous les autres items
-                      faqItems.forEach(otherItem => {
-                        if (otherItem !== item) {
-                          const otherAnswer = otherItem.querySelector('.faq-answer');
-                          const otherIcon = otherItem.querySelector('.faq-icon');
-                          otherAnswer.style.maxHeight = '0px';
-                          if (otherIcon) {
-                            otherIcon.style.transform = 'rotate(0deg)';
-                          }
-                          otherItem.classList.remove('active');
-                        }
-                      });
-                      
-                      // Toggle l'item actuel
-                      if (isOpen) {
-                        answer.style.maxHeight = '0px';
-                        if (icon) {
-                          icon.style.transform = 'rotate(0deg)';
-                        }
-                        item.classList.remove('active');
-                      } else {
-                        answer.style.maxHeight = answer.scrollHeight + 'px';
-                        if (icon) {
-                          icon.style.transform = 'rotate(180deg)';
-                        }
-                        item.classList.add('active');
-                      }
-                    });
-                  });
-                });
-              </script>
-              
-              <div class="highlight-box-simple-dashed">
-                <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.5rem;">💬 Une autre question ?</h3>
-                <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Je me tiens à votre disposition pour toute information supplémentaire 🙂</p>
-                <div style="text-align: center;">
-                  <a href="/contact" class="rdv-btn" style="padding: 0.75rem 2rem; font-size: 1rem;">
-                    <i data-lucide="mail" class="btn-icon"></i>
-                    <span class="rdv-btn-text">Contactez-moi</span>
-                  </a>
-                </div>
-              </div>
-              
-              <div style="text-align: center; margin: 3rem 0;">
-                <p style="font-size: 1.2rem; margin-bottom: 1rem; color: #fff; font-weight: 500;">Au plaisir de vous rencontrer et d'entendre votre belle voix ! 💜</p>
-              </div>
-            </div>
-          </section>
-
-          <!-- Section Avis Google -->
-          <section class="article-section glass-section" id="avis">
-            <div class="article-content">
-              <h2>Ce que disent mes élèves</h2>
-              
-              <p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem; color: #666;">La meilleure façon de savoir si mon approche vous convient ? Écouter ceux et celles qui l'ont déjà expérimentée ! 💜</p>
-              
-              <div class="sk-ww-google-reviews" data-embed-id="25582122"></div>
-              <script src="https://widgets.sociablekit.com/google-reviews/widget.js" defer></script>
-              
-              <div class="highlight-box-dashed" style="margin-top: 3rem;">
-                <p style="font-size: 1.1rem; margin-bottom: 1rem; color: #fff; text-align: center;">Prêt.e à rejoindre mes élèves ?</p>
-                <div style="text-align: left;">
-                  <button id="calendly-trigger-avis" class="rdv-btn" aria-label="Prendre rendez-vous" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
-                    <i data-lucide="calendar-check" class="btn-icon"></i>
-                    <span class="rdv-btn-text">Réserver mon cours découverte</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </section>
         </div>
+        <p class="text-white/90 text-base sm:text-lg md:text-xl font-light leading-relaxed max-w-[36.4rem] md:max-w-[31.2rem]">
+          Développez votre voix avec <strong>écoute et technique</strong>. Coaching vocal personnalisé, technique vocale et prévention vocale à Toulouse, quartier Minimes. Tous niveaux bienvenus.
+        </p>
       </div>
-    </article>
+      <div class="hero-logo-wrap">
+        <a href="/" class="flex items-center justify-center w-full max-w-[min(100vw,560px)] px-2 sm:px-4" aria-label="Donner de la Voix - Accueil">
+          <img src="/assets/logo-ddlv.png" alt="Donner de la Voix - Voix &amp; créativité" width="560" height="140"/>
+        </a>
+      </div>
+    </section>
+
+    <div class="px-4 md:px-8 max-w-7xl mx-auto pb-24">
+      <!-- Section 1 : Pour qui ? -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="pour-qui">
+        <h2 class="section-title-bentos scroll-mt-28" style="text-shadow: 0 2px 10px rgba(0,0,0,0.35);">Pour qui sont les cours de chant ?</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-2x2 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-3 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="users" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="text-lg font-medium m-0">Les <strong>cours de chant à Toulouse</strong> s'adressent à tous, <strong>sans limite d'âge ou de niveau</strong>. Que vous soyez débutant ou chanteur confirmé, je vous accompagne dans votre progression vocale avec <strong>bienveillance et écoute</strong>.</p>
+              <p class="m-0 mt-2">Chaque voix est unique, et mon rôle de <strong>coach vocal</strong> est de vous accompagner là où vous en êtes, avec vos objectifs propres. Tous niveaux bienvenus !</p>
+            </div>
+            <div class="bento-f-1x2 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="mic" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Débutants</h3>
+              <p class="m-0 text-sm">Découvrir sa voix, apprendre les bases de la <strong>technique vocale</strong>, gagner en confiance.</p>
+              <h3 class="mt-4">Chanteurs confirmés</h3>
+              <p class="m-0 text-sm">Perfectionner sa technique, élargir sa tessiture, affiner l'interprétation.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="briefcase" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Professions vocales</h3>
+              <p class="mb-0 text-sm">Enseignants, comédiens, animateurs : préserver et optimiser sa voix professionnelle.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="music" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Musiciens</h3>
+              <p class="mb-0 text-sm">Travailler le <strong>chant</strong> en parallèle de votre instrument, sur scène ou en studio.</p>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="sparkles" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="m-0 text-sm">Tous niveaux bienvenus ! Chaque voix est unique. Mon rôle est de vous accompagner avec vos objectifs propres.</p>
+              <a href="/contact" class="btn-rdv mt-auto">Prendre RDV pour un cours d'essai</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2 : Mon approche -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="approche">
+        <h2 class="section-title-bentos scroll-mt-28" style="text-shadow: 0 2px 10px rgba(0,0,0,0.35);">Mon approche pédagogique</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="heart" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="text-base m-0">En tant que <strong>professeur de chant à Toulouse</strong>, je propose une approche centrée sur <strong>l'écoute</strong>, la <strong>bienveillance</strong> et l'<strong>adaptation à votre singularité</strong>.</p>
+            </div>
+            <div class="bento-f-1x2 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="award" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Formation certifiée</h3>
+              <p class="m-0 text-sm">Je suis formée et certifiée à l'<strong>approche Chant Voix et Corps</strong> d'<a href="https://www.chantvoixetcorps.com/formation-prof-de-chant-et-de-technique-vocale/" target="_blank" rel="noopener noreferrer">Emmanuelle Trinquesse</a>, une méthode scientifique et globale de la technique vocale reconnue en France.</p>
+              <h3 class="mt-4">Ce qui me différencie</h3>
+              <p class="m-0 text-sm"><strong>Approche holistique</strong> – Corps, voix et émotion sont liés. <strong>Bienveillance et écoute</strong> – Pas de jugement, progression à votre rythme. <strong>Technique adaptative</strong> – Chaque voix est unique, ma méthode s'adapte à vos besoins.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="target" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Cadre sécurisant</h3>
+              <p class="mb-0 text-sm">Progression à votre rythme, dans un cadre sécurisant. Pas de jugement.</p>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="layers" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="m-0 text-sm">Je travaille avec vous dans votre globalité. Chaque voix est unique ; ma méthode s'adapte à <strong>vos</strong> besoins, pas l'inverse.</p>
+              <a href="/impro-vocale" class="btn-rdv mt-auto">Découvrir l'impro vocale</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3 : Les bénéfices -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="benefices">
+        <h2 class="section-title-bentos scroll-mt-28" style="text-shadow: 0 2px 10px rgba(0,0,0,0.35);">Les bénéfices des cours de chant</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="music-2" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Améliorer la justesse</h3>
+              <p class="m-0 text-sm">Développer votre oreille musicale et chanter juste, même si vous pensez « chanter faux ».</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="volume-2" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Gagner en puissance</h3>
+              <p class="m-0 text-sm">Augmenter le volume de votre voix sans forcer, grâce à une <strong>technique vocale</strong> adaptée.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="wind" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Maîtriser la respiration</h3>
+              <p class="m-0 text-sm">Acquérir une respiration adaptée au chant pour tenir les notes et gérer le souffle.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="activity" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Agilité vocale</h3>
+              <p class="m-0 text-sm">Gagner en souplesse, passer facilement d'une note à l'autre, explorer votre tessiture.</p>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="smile" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Interprétation &amp; confiance</h3>
+              <p class="m-0 text-sm">Transmettre des émotions, donner du sens à votre chant. S'exprimer librement, gérer le trac, oser sa voix en toute sécurité.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="sun" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="mb-0 text-sm">Un <strong>cours de chant</strong> ne se limite pas à « chanter juste ». C'est un travail global : vocal, corporel et émotionnel.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4 : Déroulement d'un cours -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="deroulement">
+        <h2 class="section-title-bentos scroll-mt-28" style="text-shadow: 0 2px 10px rgba(0,0,0,0.35);">Comment se déroule un cours de chant ?</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="list-ordered" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="text-base m-0">Un <strong>cours de chant individuel</strong> se structure autour de vos besoins. Voici une séance type :</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="message-circle" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>1. Évaluation et écoute</h3>
+              <p class="m-0 text-sm">5–10 min. Nous discutons de vos objectifs, de ce que vous souhaitez travailler. Chaque cours s'adapte à où vous en êtes.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="body" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>2. Mise en condition</h3>
+              <p class="m-0 text-sm">10 min. Détente, étirements, prise de conscience du corps. Déverrouiller les tensions qui entravent la voix.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="mic" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>3. Échauffement vocal</h3>
+              <p class="m-0 text-sm">10 min. Vocalises progressives pour réveiller la voix et préparer l'appareil vocal.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="target" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>4. Exercices ciblés</h3>
+              <p class="m-0 text-sm">15–20 min. Travail technique sur vos objectifs : justesse, puissance, agilité, respiration.</p>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="disc-3" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>5. Application sur un morceau</h3>
+              <p class="m-0 text-sm">15–20 min. Mise en pratique sur un morceau de votre choix ou adapté à vos objectifs. C'est là que tout prend sens !</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="clipboard-list" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>6. Plan d'action</h3>
+              <p class="m-0 text-sm">5 min. Ce que vous pouvez travailler chez vous jusqu'au prochain cours. La progression se fait aussi entre les cours !</p>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-mix p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <p class="m-0 text-sm"><strong>Le cours s'adapte à vous :</strong> Cette structure est flexible et évolue selon vos besoins, votre niveau et vos objectifs du moment.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5 : Prévention vocale -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="prevention">
+        <h2 class="section-title-bentos scroll-mt-28" style="text-shadow: 0 2px 10px rgba(0,0,0,0.35);">Prévention et santé vocale</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="shield" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="text-base m-0">La <strong>prévention de la fatigue vocale</strong> est au cœur de mon enseignement. Que vous soyez chanteur ou que vous utilisiez beaucoup votre voix (enseignants, animateurs…), apprendre à <strong>protéger votre appareil vocal</strong> est essentiel.</p>
+            </div>
+            <div class="bento-f-1x2 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="alert-triangle" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Signes d'alerte</h3>
+              <ul class="text-sm mb-0 list-disc pl-4 space-y-1">
+                <li>Voix qui fatigue rapidement</li>
+                <li>Enrouement fréquent</li>
+                <li>Sensation de gorge serrée</li>
+                <li>Difficulté à tenir les notes</li>
+                <li>Douleurs en chantant</li>
+                <li>Perte de puissance vocale</li>
+              </ul>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="check-circle" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Ce que vous apprendrez</h3>
+              <ul class="text-sm mb-0 list-disc pl-4 space-y-1">
+                <li>Réflexes sains pour chanter sans abîmer la voix</li>
+                <li>Identifier les tensions et les déverrouiller</li>
+                <li>Technique vocale adaptée pour préserver votre instrument</li>
+                <li>Gérer votre souffle pour ne pas forcer sur les cordes vocales</li>
+                <li>Connaître les limites de votre voix et respecter ses besoins</li>
+              </ul>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="info" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="mb-0 text-sm">Une bonne <strong>technique vocale</strong> permet de chanter pendant des heures sans fatigue. L'objectif : vous faire plaisir en chantant tout en prenant soin de votre voix sur le long terme.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 6 : Mes offres -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="offres">
+        <h2 class="section-title-bentos scroll-mt-28" style="text-shadow: 0 2px 10px rgba(0,0,0,0.35);">Mes offres de cours de chant</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="map-pin" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="text-base m-0">Tous les <strong>cours de chant</strong> se déroulent dans mon local à <strong>Toulouse, quartier Minimes</strong>.</p>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="user" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Cours individuels (recommandé)</h3>
+              <p class="m-0 text-sm">Coaching 100 % personnalisé, adaptation à vos objectifs, flexibilité des horaires, progression rapide. Durée : 1 heure.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="users" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Stages en groupe</h3>
+              <p class="m-0 text-sm">Cours de chant en groupe, chant a capella, dynamique collective bienveillante. Stages ponctuels, dates annoncées.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="sliders" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Cours de looper</h3>
+              <p class="m-0 text-sm">Pour musiciens et chanteurs créatifs : maîtriser le looper vocal, créer des arrangements live. Matériel fourni. 2 h.</p>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-mix p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="calendar-days" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="m-0 text-sm">Découvrez aussi mes <a href="/ateliers">stages &amp; ateliers d'improvisation vocale et circlesongs</a> pour une approche complémentaire et créative.</p>
+              <a href="/ateliers" class="btn-rdv mt-auto">Voir les stages &amp; ateliers</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 7 : Tarifs -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="tarifs">
+        <h2 class="section-title-bentos scroll-mt-28" style="text-shadow: 0 2px 10px rgba(0,0,0,0.35);">Tarifs</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="euro" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Cours individuel</h3>
+              <p class="m-0 text-sm"><strong>50 €</strong> / 1 h – Coaching personnalisé. Paiement à chaque cours.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="clock" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Cours approfondi</h3>
+              <p class="m-0 text-sm"><strong>60 €</strong> / 1 h 30 – Plus de temps pour approfondir, travail sur plusieurs morceaux.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="sliders" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Cours de looper</h3>
+              <p class="m-0 text-sm"><strong>80 €</strong> / 2 h – Support et suivi inclus, matériel fourni.</p>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="package" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Packs avantageux</h3>
+              <p class="m-0 text-sm"><strong>Pack 4 cours : 180 €</strong> (45 €/cours, valable 2 mois). <strong>Pack 10 cours : 450 €</strong> (45 €/cours, valable 3 mois). Économies et suivi régulier.</p>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-mix p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="credit-card" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Modalités de règlement</h3>
+              <p class="m-0 text-sm">CB, virement, PayPal, espèces. <strong>Tout cours non annulé au moins 24 h à l'avance est dû.</strong></p>
+              <a href="/contact" class="btn-rdv mt-auto">Prendre RDV</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 8 : FAQ -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28 faq-section-full" id="faq">
+        <h2 class="section-title-bentos scroll-mt-28" style="text-shadow: 0 2px 10px rgba(0,0,0,0.35);">Questions fréquentes sur les cours de chant</h2>
+        <p class="mb-6 text-white/90 text-sm">Cliquez sur une question pour afficher la réponse.</p>
+        <div class="faq-bento-zone">
+          <div class="faq-bento-card glass-panel-rose bento-tint-primary rounded-2xl relative overflow-hidden" role="listitem">
+            <button type="button" class="faq-bento-trigger" aria-expanded="false" aria-controls="faq-cchant-panel-1" id="faq-cchant-trigger-1">
+              <span>Faut-il savoir lire la musique ?</span>
+              <span class="faq-bento-icon material-symbols-outlined" aria-hidden="true">expand_more</span>
+            </button>
+            <div class="faq-bento-panel" id="faq-cchant-panel-1" role="region" aria-labelledby="faq-cchant-trigger-1">
+              <div class="faq-bento-panel-inner">
+                <p><strong>Non !</strong> Le solfège n'est pas nécessaire pour prendre des <strong>cours de chant</strong>. Nous travaillons à l'oreille et par l'expérimentation.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-bento-card glass-panel-rose bento-tint-primary-light rounded-2xl relative overflow-hidden" role="listitem">
+            <button type="button" class="faq-bento-trigger" aria-expanded="false" aria-controls="faq-cchant-panel-2" id="faq-cchant-trigger-2">
+              <span>Je chante faux, est-ce que je peux progresser ?</span>
+              <span class="faq-bento-icon material-symbols-outlined" aria-hidden="true">expand_more</span>
+            </button>
+            <div class="faq-bento-panel" id="faq-cchant-panel-2" role="region" aria-labelledby="faq-cchant-trigger-2">
+              <div class="faq-bento-panel-inner">
+                <p><strong>Absolument !</strong> La justesse se travaille. Avec des exercices adaptés, de la pratique et un bon accompagnement, tout le monde peut améliorer sa justesse vocale.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-bento-card glass-panel-rose bento-tint-accent rounded-2xl relative overflow-hidden" role="listitem">
+            <button type="button" class="faq-bento-trigger" aria-expanded="false" aria-controls="faq-cchant-panel-3" id="faq-cchant-trigger-3">
+              <span>À quelle fréquence prendre des cours ?</span>
+              <span class="faq-bento-icon material-symbols-outlined" aria-hidden="true">expand_more</span>
+            </button>
+            <div class="faq-bento-panel" id="faq-cchant-panel-3" role="region" aria-labelledby="faq-cchant-trigger-3">
+              <div class="faq-bento-panel-inner">
+                <p>L'idéal est <strong>1 cours toutes les 2 semaines minimum</strong>, avec de la pratique entre les cours. Un cours par semaine permet une progression encore plus rapide.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-bento-card glass-panel-rose bento-tint-teal rounded-2xl relative overflow-hidden" role="listitem">
+            <button type="button" class="faq-bento-trigger" aria-expanded="false" aria-controls="faq-cchant-panel-4" id="faq-cchant-trigger-4">
+              <span>Puis-je choisir les morceaux que je travaille ?</span>
+              <span class="faq-bento-icon material-symbols-outlined" aria-hidden="true">expand_more</span>
+            </button>
+            <div class="faq-bento-panel" id="faq-cchant-panel-4" role="region" aria-labelledby="faq-cchant-trigger-4">
+              <div class="faq-bento-panel-inner">
+                <p><strong>Oui !</strong> Nous travaillons sur des morceaux qui vous plaisent, en respectant votre niveau et vos objectifs. Le plaisir est essentiel.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-bento-card glass-panel-rose bento-tint-primary rounded-2xl relative overflow-hidden" role="listitem">
+            <button type="button" class="faq-bento-trigger" aria-expanded="false" aria-controls="faq-cchant-panel-5" id="faq-cchant-trigger-5">
+              <span>Quelle est la durée d'un cours ? Y a-t-il un cours d'essai ?</span>
+              <span class="faq-bento-icon material-symbols-outlined" aria-hidden="true">expand_more</span>
+            </button>
+            <div class="faq-bento-panel" id="faq-cchant-panel-5" role="region" aria-labelledby="faq-cchant-trigger-5">
+              <div class="faq-bento-panel-inner">
+                <p>Un <strong>cours individuel</strong> dure <strong>1 heure</strong>. Cours d'essai : première séance <strong>1 h 30</strong> (1 h payante + 30 min offertes) pour faire connaissance et voir si mon approche vous convient. Aucun engagement.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-bento-card glass-panel-rose bento-tint-accent rounded-2xl relative overflow-hidden" role="listitem">
+            <button type="button" class="faq-bento-trigger" aria-expanded="false" aria-controls="faq-cchant-panel-6" id="faq-cchant-trigger-6">
+              <span>Y a-t-il un âge minimum ou maximum ?</span>
+              <span class="faq-bento-icon material-symbols-outlined" aria-hidden="true">expand_more</span>
+            </button>
+            <div class="faq-bento-panel" id="faq-cchant-panel-6" role="region" aria-labelledby="faq-cchant-trigger-6">
+              <div class="faq-bento-panel-inner">
+                <p><strong>Aucune limite d'âge !</strong> J'accompagne enfants, adolescents, adultes et seniors. L'enseignement s'adapte à chaque âge.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-bento-cta glass-panel-rose bento-tint-mix rounded-2xl p-6 text-center bento-content-glass relative overflow-hidden">
+            <div class="bento-icon-wrap flex justify-center"><i data-lucide="help-circle" class="bento-icon" aria-hidden="true"></i></div>
+            <h3 class="mt-0 text-lg font-semibold text-white">Une autre question ?</h3>
+            <p class="mb-4 text-sm text-white/90">Je me tiens à votre disposition pour toute information supplémentaire.</p>
+            <a href="/contact" class="btn-rdv">Contactez-moi</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section Avis -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="avis">
+        <h2 class="section-title-bentos scroll-mt-28" style="text-shadow: 0 2px 10px rgba(0,0,0,0.35);">Ce que disent mes élèves</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="glass-panel-rose bento-tint-primary p-6 rounded-2xl relative overflow-hidden bento-content-glass min-w-0">
+            <p class="mb-4 text-white/90">La meilleure façon de savoir si mon approche vous convient ? Écouter ceux et celles qui l'ont déjà expérimentée.</p>
+            <div class="sk-ww-google-reviews min-w-0 overflow-hidden" data-embed-id="25582122"></div>
+            <script src="https://widgets.sociablekit.com/google-reviews/widget.js" defer></script>
+            <a href="/contact" class="btn-rdv mt-4 block w-full max-w-full sm:inline-block sm:w-auto text-center">Réserver mon cours découverte</a>
+            <p class="mt-4 text-sm text-white/80">Pour rester informé des cours et ateliers : <a href="/contact#newsletter" class="text-white underline underline-offset-2 hover:text-accent transition-colors">s'abonner à la newsletter</a>.</p>
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
+
+  <div class="hidden lg:flex fixed right-8 top-1/2 -translate-y-1/2 z-50 flex-col gap-5">
+    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all" href="/contact" title="Contact"><svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>
+    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-accent transition-all" href="https://www.instagram.com/donnerdelavoixchant/" target="_blank" rel="noopener noreferrer" title="Instagram"><svg class="size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059 1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg></a>
+    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-primary transition-all" href="https://www.facebook.com/donnerdelavoix" target="_blank" rel="noopener noreferrer" title="Facebook"><svg class="size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg></a>
+  </div>
+  <div class="hidden lg:block fixed bottom-6 left-8 z-50 flex flex-col gap-2">
+    <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="/mentions-legales">Mentions Légales</a>
+    <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="/contact#newsletter">Newsletter</a>
+  </div>
   <script type="module" src="/js/main.js"></script>
-  
-  <!-- Calendly Script -->
-  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
   <script>
-    // Gestion de la popup Calendly
     document.addEventListener('DOMContentLoaded', function() {
-      const trigger = document.getElementById('calendly-trigger');
-      const triggerSection = document.getElementById('calendly-trigger-section');
-      const triggerHero = document.getElementById('calendly-trigger-hero');
-      const triggerBenefices = document.getElementById('calendly-trigger-benefices');
-      const triggerAvis = document.getElementById('calendly-trigger-avis');
-      const popup = document.getElementById('calendly-popup');
-      const closeBtn = document.getElementById('calendly-popup-close');
-      const overlay = document.getElementById('calendly-popup-overlay');
-      
-      function openPopup() {
-        if (popup) {
-          popup.style.display = 'block';
-          document.body.style.overflow = 'hidden';
-        }
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+      function smoothScrollTo(id) {
+        var el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-      
-      function closePopup() {
-        if (popup) {
-          popup.style.display = 'none';
-          document.body.style.overflow = '';
-        }
-      }
-      
-      if (trigger) trigger.addEventListener('click', openPopup);
-      if (triggerSection) triggerSection.addEventListener('click', openPopup);
-      if (triggerHero) triggerHero.addEventListener('click', openPopup);
-      if (triggerBenefices) triggerBenefices.addEventListener('click', openPopup);
-      if (triggerAvis) triggerAvis.addEventListener('click', openPopup);
-      
-      if (closeBtn) closeBtn.addEventListener('click', closePopup);
-      if (overlay) overlay.addEventListener('click', closePopup);
-      
-      // Fermer avec la touche Escape
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && popup && popup.style.display === 'block') {
-          closePopup();
-        }
+
+      document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+          var href = a.getAttribute('href');
+          if (href && href.length > 1) {
+            e.preventDefault();
+            smoothScrollTo(href.slice(1));
+          }
+        });
+      });
+
+      document.querySelectorAll('.faq-bento-trigger').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var card = btn.closest('.faq-bento-card');
+          var isOpen = card.classList.contains('is-open');
+          card.classList.toggle('is-open', !isOpen);
+          btn.setAttribute('aria-expanded', !isOpen);
+        });
       });
     });
   </script>
-  
-  <!-- Initialiser Lucide Icons -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
-      }
-    });
-  </script>
-  <!-- Médaillons réseaux sociaux flottants -->
-  <aside class="social-medallions" aria-label="Réseaux sociaux et contact Donner de la Voix">
-    <a href="/contact" class="social-medallion social-medallion-mail" aria-label="Contact - envoyer un message">
-      <svg class="social-medallion-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-        <polyline points="22,6 12,13 2,6"></polyline>
-      </svg>
-    </a>
-    <a href="https://www.instagram.com/donnerdelavoixchant/" class="social-medallion social-medallion-insta" target="_blank" rel="noopener noreferrer" aria-label="Instagram Donner de la Voix">
-      <svg class="social-medallion-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
-      </svg>
-    </a>
-    <a href="https://www.facebook.com/donnerdelavoix" class="social-medallion social-medallion-fb" target="_blank" rel="noopener noreferrer" aria-label="Facebook Donner de la Voix">
-      <svg class="social-medallion-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-      </svg>
-    </a>
-  </aside>
   <div id="floating-rdv-container"></div>
   <script>
     (function() {
@@ -891,4 +686,3 @@
   <script src="/js/init-floating-calendly.js"></script>
 </body>
 </html>
-

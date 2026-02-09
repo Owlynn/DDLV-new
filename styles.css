@@ -70,166 +70,6 @@ body.no-scroll, html.no-scroll {
   height: 100%;
 }
 
-/* Panneau formats d'ateliers ouvert : seul le panel scroll */
-html.formats-panel-open,
-body.formats-panel-open {
-  overflow: hidden;
-  height: 100%;
-}
-body.formats-panel-open #formats-d-ateliers {
-  overflow-y: auto;
-  max-height: calc(100vh - 6rem);
-  -webkit-overflow-scrolling: touch;
-}
-
-/* ============================================
-   PANNEAU FORMATS D'ATELIERS – même apparence que le menu mobile
-   ============================================ */
-/* Fond du panneau = header-nav-panel (bg-white/10, blur 60px, bordure basse) */
-#formats-d-ateliers {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(60px);
-  -webkit-backdrop-filter: blur(60px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 1.5rem 1rem 2rem;
-}
-
-/* Chaque section = bloc type glass-panel-rose (comme la nav du menu) */
-#formats-d-ateliers .article-section {
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  background-color: rgba(255, 250, 252, 0.11);
-  border: 1px solid rgba(255, 240, 245, 0.28);
-  border-radius: 1rem;
-  box-shadow:
-    0 8px 32px 0 rgba(0, 0, 0, 0.28),
-    inset 0 0 2px 1px rgba(255, 250, 252, 0.2);
-  padding: 1.25rem 1.25rem;
-  margin-bottom: 1rem;
-}
-#formats-d-ateliers .article-section:not(:last-child)::after {
-  display: none;
-}
-
-/* Texte = comme le menu : blanc, lisible */
-#formats-d-ateliers .article-content h1,
-#formats-d-ateliers .article-content h2 {
-  color: #fff !important;
-  font-size: 1.5rem;
-  line-height: 1.25;
-  margin-bottom: 0.5rem;
-  margin-top: 0;
-  font-weight: 600;
-}
-#formats-d-ateliers .article-content h3 {
-  color: rgba(255, 255, 255, 0.95) !important;
-  font-size: 1.125rem;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
-#formats-d-ateliers .article-content .article-subtitle,
-#formats-d-ateliers .article-content p.article-subtitle {
-  color: rgba(255, 255, 255, 0.85) !important;
-  font-size: 1rem;
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-weight: 400;
-}
-#formats-d-ateliers .article-content p,
-#formats-d-ateliers .article-content li {
-  color: rgba(255, 255, 255, 0.9) !important;
-  font-size: 0.9375rem;
-  line-height: 1.6;
-}
-#formats-d-ateliers .article-content strong {
-  color: #fff !important;
-}
-#formats-d-ateliers .article-content small {
-  color: rgba(255, 255, 255, 0.75) !important;
-}
-#formats-d-ateliers .article-content a {
-  color: rgba(255, 255, 255, 0.95);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-#formats-d-ateliers .article-content a:hover {
-  color: #fff;
-}
-
-/* Blocs type bento / highlight = fond type hover menu (bg-white/10), rounded-xl */
-#formats-d-ateliers .article-content .highlight-box-small,
-#formats-d-ateliers .article-content .highlight-box-dashed,
-#formats-d-ateliers .article-content .highlight-box-white-transparent,
-#formats-d-ateliers .article-content .highlight-box-dashed-accent,
-#formats-d-ateliers .article-content .highlight-box-strong-center,
-#formats-d-ateliers .article-content .highlight-box-simple-dashed,
-#formats-d-ateliers .article-content div[style*="background"] {
-  background: rgba(255, 255, 255, 0.1) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  border-radius: 0.75rem;
-  padding: 1rem 1.25rem;
-  margin: 1rem 0;
-}
-#formats-d-ateliers .article-content div[style*="border-left"] {
-  border-left: 4px solid rgba(255, 255, 255, 0.35) !important;
-}
-#formats-d-ateliers .article-content .highlight-box-small h3,
-#formats-d-ateliers .article-content .highlight-box-dashed h3,
-#formats-d-ateliers .article-content div[style*="background"] h3 {
-  color: rgba(255, 255, 255, 0.95) !important;
-}
-#formats-d-ateliers .article-content div[style*="#666"],
-#formats-d-ateliers .article-content div[style*="color: #666"] {
-  color: rgba(255, 255, 255, 0.85) !important;
-}
-#formats-d-ateliers .article-content div[style*="font-size: 2rem"] {
-  color: rgba(255, 255, 255, 0.95) !important;
-}
-#formats-d-ateliers .article-content div[style*="font-size: 2rem"] + div {
-  color: rgba(255, 255, 255, 0.85) !important;
-}
-#formats-d-ateliers .article-content div[style*="background: white"],
-#formats-d-ateliers .article-content div[style*="background:white"] {
-  background: rgba(255, 255, 255, 0.1) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-}
-
-/* Badges (tags) : garder les couleurs mais bordure type menu */
-#formats-d-ateliers .article-content span[style*="background: var(--color-primary)"],
-#formats-d-ateliers .article-content span[style*="background: var(--color-accent)"],
-#formats-d-ateliers .article-content span[style*="background: var(--color-primary-light)"],
-#formats-d-ateliers .article-content span[style*="background: var(--color-primary-dark)"] {
-  border: 1px solid rgba(255, 255, 255, 0.25);
-}
-
-/* Tableaux */
-#formats-d-ateliers .article-content thead {
-  background: rgba(255, 255, 255, 0.1) !important;
-}
-#formats-d-ateliers .article-content th {
-  color: #fff !important;
-}
-#formats-d-ateliers .article-content td {
-  color: rgba(255, 255, 255, 0.9) !important;
-  border-bottom-color: rgba(255, 255, 255, 0.15) !important;
-}
-
-/* Image */
-#formats-d-ateliers .article-content .article-image {
-  border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-@media (max-width: 640px) {
-  #formats-d-ateliers {
-    padding: 1rem 0.75rem 1.5rem;
-  }
-  #formats-d-ateliers .article-section {
-    padding: 1rem;
-  }
-}
-
 /* Overlay violet/rose désactivé sur toutes les pages (image de fond et blobs restent visibles) */
 .bg-textured-art {
   display: none !important;
@@ -420,6 +260,18 @@ main img,
 }
 .nav-item--btn:hover .nav-item-inner::after {
   width: 100%;
+}
+
+/* Barre de nav : même fond que la page d'accueil (moins opaque) sur toutes les pages – priorité sur les surcharges des pages internes */
+header nav.glass-panel-rose,
+.header-nav-panel nav.glass-panel-rose {
+  background-color: rgba(255, 250, 252, 0.11);
+  background-image: none;
+  border: 1px solid rgba(255, 240, 245, 0.28);
+  box-shadow:
+    0 8px 32px 0 rgba(0, 0, 0, 0.28),
+    inset 0 0 2px 1px rgba(255, 250, 252, 0.2),
+    0 0 15px rgba(255, 245, 250, 0.04);
 }
 
 /* Menu mobile/tablette : afficher le panneau quand ouvert (toutes les pages) */
@@ -1053,4 +905,161 @@ button.rdv-btn:hover {
     width: 100%;
     max-width: 100%;
   }
+}
+
+/* ============================================
+   PANNEAU FORMATS D'ATELIERS – même apparence que le menu mobile (verre dépoli clair)
+   ============================================ */
+#formats-d-ateliers {
+  display: none;
+}
+
+body.formats-panel-open,
+html.formats-panel-open {
+  overflow: hidden !important;
+  height: 100% !important;
+}
+
+#formats-d-ateliers .formats-panel-close {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 50;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+#formats-d-ateliers .formats-panel-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+#formats-d-ateliers .formats-panel-close .material-symbols-outlined {
+  font-size: 1.5rem;
+}
+
+body.formats-panel-open #formats-d-ateliers {
+  display: block !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 45 !important;
+  max-height: 100vh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  background: rgba(255, 255, 255, 0.45) !important;
+  backdrop-filter: blur(60px) !important;
+  -webkit-backdrop-filter: blur(60px) !important;
+  border: none !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: none !important;
+  padding-top: 6rem !important;
+  padding-bottom: 3rem !important;
+}
+
+/* Sections dans le panneau : glass neutre (pas glass-panel-rose) */
+#formats-d-ateliers .article-section {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: none !important;
+}
+
+#formats-d-ateliers .article-section:not(:last-child)::after {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Hiérarchie des textes dans le panneau – blanc / gris très clair */
+#formats-d-ateliers .article-content h1,
+#formats-d-ateliers .article-content h2 {
+  color: #fff !important;
+}
+
+#formats-d-ateliers .article-content h3 {
+  color: rgba(255, 255, 255, 0.98) !important;
+}
+
+#formats-d-ateliers .article-content {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+#formats-d-ateliers .article-content p,
+#formats-d-ateliers .article-content li {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+#formats-d-ateliers .article-content small {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+#formats-d-ateliers .article-content a {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+#formats-d-ateliers .article-content a:hover {
+  color: #fff !important;
+}
+
+#formats-d-ateliers .formats-panel-cta-link {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+#formats-d-ateliers .article-content strong {
+  color: inherit !important;
+}
+
+/* Encarts (bentos, highlight boxes) – fond neutre, bordure claire */
+#formats-d-ateliers .highlight-box-small,
+#formats-d-ateliers .highlight-box-dashed,
+#formats-d-ateliers .highlight-box-white-transparent,
+#formats-d-ateliers [class*="highlight-box"],
+#formats-d-ateliers .article-content div[style*="background"] {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+#formats-d-ateliers .article-content div[style*="background"] * {
+  color: inherit !important;
+}
+
+/* Grilles infos pratiques / tarifs */
+#formats-d-ateliers .article-content [class*="grid"] [class*="label"],
+#formats-d-ateliers .article-content dt {
+  color: #fff !important;
+}
+
+#formats-d-ateliers .article-content [class*="grid"] [class*="value"],
+#formats-d-ateliers .article-content dd {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Badges (TARIF LIBRE, CIRCLESONGS, etc.) – garder le fond, texte blanc */
+#formats-d-ateliers .article-content [class*="badge"],
+#formats-d-ateliers .article-content [class*="tag"],
+#formats-d-ateliers .article-content span[class*="rounded-full"][class*="px-"],
+#formats-d-ateliers .bento-type-badge {
+  color: #fff !important;
+}
+
+/* Tableaux */
+#formats-d-ateliers .article-content thead {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+#formats-d-ateliers .article-content th {
+  color: #fff !important;
+}
+
+#formats-d-ateliers .article-content td {
+  color: rgba(255, 255, 255, 0.9) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.2) !important;
 }

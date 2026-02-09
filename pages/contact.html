@@ -1,401 +1,338 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html class="dark" lang="fr">
 <head>
-  <!-- Encodage des caractères et viewport -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <base href="/">
-  
-  <!-- 
-    BALISES SEO - Optimisées pour les mots-clés suivants :
-    - contact, Donner de la Voix, cours de chant, improvisation vocale Toulouse
-  -->
-  <title>Contact - Donner de la Voix | Cours de chant et improvisation vocale à Toulouse</title>
+  <title>Contact – Donner de la Voix | Cours de chant et improvisation vocale à Toulouse</title>
   <meta name="description" content="Contactez Donner de la Voix pour vos questions sur les cours de chant, les ateliers d'improvisation vocale et les circle songs à Toulouse.">
   <meta name="keywords" content="contact, Donner de la Voix, cours de chant Toulouse, improvisation vocale Toulouse, contact Jessalynn">
-  
-  <!-- Open Graph : Métadonnées pour le partage sur les réseaux sociaux -->
-  <meta property="og:title" content="Contact - Donner de la Voix | Cours de chant et improvisation vocale">
+  <meta property="og:title" content="Contact – Donner de la Voix | Cours de chant et improvisation vocale">
   <meta property="og:description" content="Contactez Donner de la Voix pour vos questions sur les cours de chant et les ateliers d'improvisation vocale à Toulouse.">
   <meta property="og:url" content="https://donnerdelavoix.fr/contact">
-  <meta property="og:site_name" content="Donner de la Voix - Impro vocale & Circlesongs - Cours de chant">
-  <meta property="og:locale" content="fr_FR">
   <meta property="og:type" content="website">
-  
-  <!-- Twitter Cards -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Contact - Donner de la Voix | Cours de chant et improvisation vocale">
-  <meta name="twitter:description" content="Contactez Donner de la Voix pour vos questions sur les cours de chant et les ateliers d'improvisation vocale à Toulouse.">
-  
-  <!-- URL canonique -->
   <link rel="canonical" href="https://donnerdelavoix.fr/contact">
-  
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="/assets/logo-ddlv.png">
-  
-  <!-- Google Fonts - Josefin Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Lien vers le fichier CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#5b2ab5",
+            "primary-light": "#7a6ac7",
+            "accent": "#cf3594",
+            "deep-bg": "#0d0218",
+          },
+          fontFamily: {
+            "display": ["'Josefin Sans'", "sans-serif"],
+            "sans": ["'Josefin Sans'", "sans-serif"]
+          },
+        },
+      },
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer components {
+      .glass-panel {
+        @apply backdrop-blur-[25px] bg-white/10 border border-white/20;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 0 2px 1px rgba(255, 255, 255, 0.15), 0 0 15px rgba(255, 255, 255, 0.05);
+      }
+      .hero-overlay > * { position: relative; z-index: 1; }
+      .hero-gradient-word {
+        @apply text-transparent bg-clip-text;
+        background-image: linear-gradient(to right, #b83d7a 0%, #9849a8 30%, #6b5fa8 65%, #4db8aa 100%);
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+        text-stroke: 1px rgba(255, 255, 255, 0.5);
+        text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+      }
+      .bg-blur-image { position: fixed; inset: 0; z-index: -3; background: url('/assets/bg.jpg') center center / cover no-repeat; }
+      .bg-textured-art {
+        background-color: rgba(30, 15, 50, 0.08);
+        background-image:
+          radial-gradient(ellipse 120% 100% at 0% 50%, rgba(255, 255, 255, 0.07) 0%, transparent 50%),
+          radial-gradient(circle at 10% 20%, rgba(91, 42, 181, 0.35) 0%, transparent 55%),
+          radial-gradient(circle at 90% 10%, rgba(207, 53, 148, 0.3) 0%, transparent 55%),
+          radial-gradient(circle at 50% 50%, rgba(122, 106, 199, 0.28) 0%, transparent 60%);
+        position: fixed; inset: 0; z-index: -2;
+      }
+      .blob { position: fixed; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.6; }
+      .nav-item { position: relative; }
+      .nav-item::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        display: block;
+        width: 0;
+        height: 2px;
+        background: #cf3594;
+        transition: width .3s;
+        box-shadow: 0 0 10px #cf3594;
+      }
+      .nav-item:hover::after { width: 100%; }
+      .glass-panel-rose {
+        @apply backdrop-blur-[25px];
+        background-image: linear-gradient(135deg, rgba(255, 252, 255, 0.28) 0%, rgba(255, 240, 248, 0.14) 45%, rgba(240, 235, 255, 0.22) 100%);
+        border: none;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.28), inset 0 0 2px 1px rgba(255, 250, 252, 0.2), 0 0 15px rgba(255, 245, 250, 0.04);
+      }
+      /* Formulaire contact – champs cohérents avec le design */
+      .contact-form .form-field {
+        @apply w-full rounded-xl border border-white/25 bg-white/10 px-4 py-3 text-white placeholder-white/50 focus:border-accent focus:bg-white/15 focus:ring-2 focus:ring-accent/30 focus:outline-none transition-all;
+      }
+      .contact-form .form-field::placeholder { color: rgba(255, 255, 255, 0.5); }
+      .contact-form textarea.form-field { min-height: 120px; resize: vertical; }
+      .contact-form .form-submit-btn {
+        @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm uppercase tracking-widest text-white bg-accent hover:bg-accent/90 border-0 cursor-pointer transition-all disabled:opacity-60 disabled:cursor-not-allowed;
+        box-shadow: 0 4px 14px rgba(207, 53, 148, 0.4);
+      }
+      .contact-form .form-submit-btn:hover:not(:disabled) { box-shadow: 0 6px 20px rgba(207, 53, 148, 0.5); }
+      /* Formulaire newsletter (même style que contact) */
+      .contact-page-newsletter .form-field {
+        @apply w-full rounded-xl border border-white/25 bg-white/10 px-4 py-3 text-white placeholder-white/50 focus:border-accent focus:bg-white/15 focus:ring-2 focus:ring-accent/30 focus:outline-none transition-all;
+      }
+      .contact-page-newsletter .form-field::placeholder { color: rgba(255, 255, 255, 0.5); }
+      .contact-page-newsletter .form-submit-btn {
+        @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm uppercase tracking-widest text-white bg-accent hover:bg-accent/90 border-0 cursor-pointer transition-all disabled:opacity-60 disabled:cursor-not-allowed;
+        box-shadow: 0 4px 14px rgba(207, 53, 148, 0.4);
+      }
+      .contact-page-newsletter .form-submit-btn:hover:not(:disabled) { box-shadow: 0 6px 20px rgba(207, 53, 148, 0.5); }
+    }
+  </style>
   <link rel="stylesheet" href="/styles.css">
-  
-  <!-- Calendly CSS -->
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-  
-  <!-- Lucide Icons -->
+  <style>
+    body.contact-page {
+      background: transparent !important;
+      color: #fff !important;
+      font-family: 'Josefin Sans', sans-serif !important;
+    }
+    body.contact-page::before,
+    body.contact-page::after { display: none !important; }
+  </style>
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="contact-page">
-  <!-- Skip link pour la navigation au clavier -->
-  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
-  
+<body class="font-display text-white relative contact-page min-h-screen bg-deep-bg">
+  <div class="bg-blur-image" aria-hidden="true"></div>
+  <div class="overlay-violet-gradient" aria-hidden="true"></div>
+
+  <div id="bubbles-deco" aria-hidden="true">
+    <span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span>
+    <span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span>
+    <span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span>
+  </div>
+
   <div id="site-header"></div>
   <script src="/js/init-header-nav.js"></script>
-  
-  <!-- Popup Calendly -->
-  <div id="calendly-popup" class="calendly-popup-container hidden">
-    <div class="calendly-popup-overlay" id="calendly-popup-overlay"></div>
-    <div class="calendly-popup-content-wrapper">
-      <button class="calendly-popup-close-btn" id="calendly-popup-close" aria-label="Fermer">×</button>
-      <div class="calendly-inline-widget" data-url="https://calendly.com/contactdonnerdelavoix/30min" style="min-width:320px;height:700px;"></div>
-    </div>
-  </div>
-  
-  <main id="main-content" role="main">
-    <article class="article-container">
-      <div class="article-layout">
-        <!-- Contenu principal -->
-        <div class="article-main">
-          <section class="article-section glass-section active-section">
-            <div class="article-content">
-              <h1>Contact</h1>
-              <p>Vous avez des questions sur les cours de chant, les stages & ateliers d'improvisation vocale ou les circle songs ? N'hésitez pas à me contacter, je serai ravie de vous répondre.</p>
-              
-              <form class="contact-form" action="javascript:void(0)" method="POST" aria-label="Formulaire de contact" novalidate style="text-align: center;">
-                <!-- Honeypot - champ caché pour piéger les bots -->
-                <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
-                
-                <div class="form-row">
-                  <div class="form-group">
-                    <input type="text" id="name" name="name" class="form-input" required aria-required="true" placeholder="Nom *" aria-label="Nom" minlength="2" maxlength="100">
-                  </div>
-                  
-                  <div class="form-group">
-                    <input type="email" id="email" name="email" class="form-input" required aria-required="true" placeholder="Email *" aria-label="Email" maxlength="254">
-                  </div>
-                </div>
-                
-                <div class="form-group">
-                  <input type="text" id="subject" name="subject" class="form-input" placeholder="Sujet" aria-label="Sujet" maxlength="200">
-                </div>
-                
-                <div class="form-group">
-                  <textarea id="message" name="message" class="form-textarea" rows="5" required aria-required="true" placeholder="Message *" aria-label="Message" minlength="10" maxlength="3000"></textarea>
-                </div>
-                
-                <button type="submit" class="form-submit">
-                  <i data-lucide="send" class="btn-icon"></i>
-                  Envoyer le message
-                </button>
-              </form>
+
+  <main class="relative" role="main">
+    <!-- Section 1 : Contact -->
+    <section class="hero-overlay relative min-h-screen flex items-center pt-20 sm:pt-24 pb-12 md:pb-24" aria-label="Contact" id="contact">
+      <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 md:gap-10 lg:gap-16">
+        <div class="flex flex-col gap-6 max-w-xl">
+          <h1 class="hero-title-mobile-sm text-[2.5rem] sm:text-[3.5rem] md:text-[5rem] lg:text-[6rem] font-bold tracking-tight text-white leading-tight">
+            <span class="hero-gradient-word">Contact</span>
+          </h1>
+          <p class="text-white/90 text-base sm:text-lg md:text-xl font-light leading-relaxed">
+            Vous avez des questions sur les cours de chant, les stages & ateliers d'improvisation vocale ou les circle songs ? N'hésitez pas à me contacter, je serai ravie de vous répondre.
+          </p>
+          <p class="text-white/80 text-sm md:text-base font-light">
+            Vous préférez recevoir les actualités par email ? <a href="#newsletter" class="text-white underline underline-offset-2 hover:text-accent transition-colors">S'abonner à la newsletter</a>.
+          </p>
+        </div>
+        <div class="w-full lg:flex-1 lg:min-w-0">
+          <form class="contact-form contact-form glass-panel-rose bento-tint-primary rounded-2xl p-6 md:p-8 flex flex-col gap-4 w-full relative overflow-hidden" action="javascript:void(0)" method="POST" aria-label="Formulaire de contact" novalidate>
+            <input type="text" name="website" class="honeypot absolute opacity-0 pointer-events-none h-0 w-0 overflow-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="contact-name" class="sr-only">Nom</label>
+                <input type="text" id="contact-name" name="name" class="form-field form-input" required aria-required="true" placeholder="Nom *" minlength="2" maxlength="100">
+              </div>
+              <div>
+                <label for="contact-email" class="sr-only">Email</label>
+                <input type="email" id="contact-email" name="email" class="form-field form-input" required aria-required="true" placeholder="Email *" maxlength="254">
+              </div>
             </div>
-          </section>
+            <div>
+              <label for="contact-subject" class="sr-only">Sujet</label>
+              <input type="text" id="contact-subject" name="subject" class="form-field form-input" placeholder="Sujet" maxlength="200">
+            </div>
+            <div>
+              <label for="contact-message" class="sr-only">Message</label>
+              <textarea id="contact-message" name="message" class="form-field form-textarea" rows="5" required aria-required="true" placeholder="Message *" minlength="10" maxlength="3000"></textarea>
+            </div>
+            <button type="submit" class="form-submit form-submit-btn mt-2">
+              <i data-lucide="send" class="w-4 h-4" aria-hidden="true"></i>
+              Envoyer le message
+            </button>
+          </form>
         </div>
       </div>
-    </article>
+      <div class="hero-logo-wrap">
+        <a href="/" class="flex items-center justify-center w-full max-w-[min(100vw,560px)] px-2 sm:px-4" aria-label="Donner de la Voix - Accueil">
+          <img src="/assets/logo-ddlv.png" alt="Donner de la Voix - Voix &amp; créativité" width="560" height="140"/>
+        </a>
+      </div>
+    </section>
+
+    <!-- Section 2 : Newsletter -->
+    <section class="hero-overlay relative flex items-center py-12 md:py-24 scroll-mt-24" aria-label="Newsletter" id="newsletter">
+      <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 md:gap-10 lg:gap-16">
+        <div class="flex flex-col gap-6 max-w-xl">
+          <h2 class="text-[2.5rem] sm:text-[3rem] md:text-[4rem] lg:text-[5rem] font-bold tracking-tight text-white leading-tight">
+            <span class="hero-gradient-word">Newsletter</span>
+          </h2>
+          <p class="text-white/90 text-base sm:text-lg md:text-xl font-light leading-relaxed">
+            Restez informé.e des prochains stages & ateliers, événements et actualités de Donner de la Voix. Abonnez-vous pour ne rien manquer !
+          </p>
+          <p class="text-white/70 text-sm md:text-base font-light">
+            Pour des raisons de sécurité, nous vous demanderons de confirmer votre adresse email après votre inscription.
+          </p>
+        </div>
+        <div class="w-full lg:flex-1 lg:min-w-0">
+          <form class="contact-page-newsletter glass-panel-rose bento-tint-accent rounded-2xl p-6 md:p-8 flex flex-col gap-4 w-full relative overflow-hidden" action="https://donnerdelavoix.us19.list-manage.com/subscribe/post?u=98a48e5d0af7d8386462b6124&amp;id=f6cad0bc4a&amp;f_id=00c961e7f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" aria-label="Inscription à la newsletter" novalidate>
+            <div aria-hidden="true" style="position: absolute; left: -5000px;">
+              <input type="text" name="b_98a48e5d0af7d8386462b6124_f6cad0bc4a" tabindex="-1" value="">
+            </div>
+            <div>
+              <label for="mce-EMAIL-contact" class="sr-only">Adresse email</label>
+              <input type="email" name="EMAIL" id="mce-EMAIL-contact" class="form-field" required aria-required="true" placeholder="Votre adresse email *" value="">
+            </div>
+            <button type="submit" name="subscribe" id="mc-embedded-subscribe-contact" class="form-submit-btn mt-0">
+              <i data-lucide="bell" class="w-4 h-4" aria-hidden="true"></i>
+              S'abonner
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
   </main>
-  
-  <!-- Configuration EmailJS -->
-  <!-- Config depuis variables d'env (Vercel build) puis secrets.local.js (local) -->
+
+  <div class="hidden lg:flex fixed right-8 top-1/2 -translate-y-1/2 z-50 flex-col gap-5">
+    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all" href="/contact" title="Contact"><svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>
+    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-accent transition-all" href="https://www.instagram.com/donnerdelavoixchant/" target="_blank" rel="noopener noreferrer" title="Instagram"><svg class="size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059 1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg></a>
+    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-primary transition-all" href="https://www.facebook.com/donnerdelavoix" target="_blank" rel="noopener noreferrer" title="Facebook"><svg class="size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg></a>
+  </div>
+  <div class="hidden lg:block fixed bottom-6 left-8 z-50 flex flex-col gap-2">
+    <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="/mentions-legales">Mentions Légales</a>
+    <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="#newsletter">Newsletter</a>
+  </div>
   <script src="/env-config.js"></script>
   <script src="/secrets.local.js"></script>
   <script src="/emailjs-config.js"></script>
-  
-  <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  
-  <!-- Script principal -->
   <script type="module" src="/js/main.js"></script>
-  
-  <!-- Script pour gérer l'envoi du formulaire via EmailJS avec protection anti-spam -->
   <script>
-    // Initialiser dès que le DOM est prêt
     document.addEventListener('DOMContentLoaded', function() {
-      // Récupérer le formulaire en premier
-      const contactForm = document.querySelector('.contact-form');
-      if (!contactForm) {
-        console.error('❌ Formulaire de contact non trouvé');
-        return;
-      }
-      
-      // Vérifier que la configuration EmailJS est disponible
-      let emailjsConfigured = false;
-      
-      // Vérifier que EMAILJS_CONFIG est défini
-      if (typeof window.EMAILJS_CONFIG === 'undefined') {
-        console.error('❌ EMAILJS_CONFIG n\'est pas défini. Vérifiez que emailjs-config.js est chargé.');
-      } else {
-        // Vérifier que les valeurs sont configurées et valides
-        const hasPublicKey = window.EMAILJS_CONFIG.PUBLIC_KEY && 
-                            window.EMAILJS_CONFIG.PUBLIC_KEY !== 'votre_public_key_emailjs' &&
-                            typeof window.EMAILJS_CONFIG.PUBLIC_KEY === 'string' &&
-                            window.EMAILJS_CONFIG.PUBLIC_KEY.trim() !== '';
-        const hasServiceId = window.EMAILJS_CONFIG.SERVICE_ID && 
-                            window.EMAILJS_CONFIG.SERVICE_ID !== 'votre_service_id_emailjs' &&
-                            typeof window.EMAILJS_CONFIG.SERVICE_ID === 'string' &&
-                            window.EMAILJS_CONFIG.SERVICE_ID.trim() !== '';
-        const hasTemplateId = window.EMAILJS_CONFIG.TEMPLATE_ID && 
-                             window.EMAILJS_CONFIG.TEMPLATE_ID !== 'votre_template_id_emailjs' &&
-                             typeof window.EMAILJS_CONFIG.TEMPLATE_ID === 'string' &&
-                             window.EMAILJS_CONFIG.TEMPLATE_ID.trim() !== '';
-        
-        if (hasPublicKey && hasServiceId && hasTemplateId) {
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+
+      var contactForm = document.querySelector('.contact-form');
+      if (!contactForm) return;
+
+      var emailjsConfigured = false;
+      if (typeof window.EMAILJS_CONFIG !== 'undefined') {
+        var hasPublicKey = window.EMAILJS_CONFIG.PUBLIC_KEY && window.EMAILJS_CONFIG.PUBLIC_KEY !== 'votre_public_key_emailjs' && typeof window.EMAILJS_CONFIG.PUBLIC_KEY === 'string' && window.EMAILJS_CONFIG.PUBLIC_KEY.trim() !== '';
+        var hasServiceId = window.EMAILJS_CONFIG.SERVICE_ID && window.EMAILJS_CONFIG.SERVICE_ID !== 'votre_service_id_emailjs' && typeof window.EMAILJS_CONFIG.SERVICE_ID === 'string' && window.EMAILJS_CONFIG.SERVICE_ID.trim() !== '';
+        var hasTemplateId = window.EMAILJS_CONFIG.TEMPLATE_ID && window.EMAILJS_CONFIG.TEMPLATE_ID !== 'votre_template_id_emailjs' && typeof window.EMAILJS_CONFIG.TEMPLATE_ID === 'string' && window.EMAILJS_CONFIG.TEMPLATE_ID.trim() !== '';
+        if (hasPublicKey && hasServiceId && hasTemplateId && typeof emailjs !== 'undefined') {
           emailjsConfigured = true;
-          // Initialiser EmailJS avec la Public Key
-          try {
-            if (typeof emailjs !== 'undefined') {
-              emailjs.init(window.EMAILJS_CONFIG.PUBLIC_KEY);
-            } else {
-              console.error('❌ emailjs n\'est pas défini. Vérifiez que le SDK EmailJS est chargé.');
-              emailjsConfigured = false;
-            }
-          } catch (error) {
-            console.error('❌ Erreur lors de l\'initialisation d\'EmailJS:', error);
-            emailjsConfigured = false;
-          }
-        } else {
-          console.warn('⚠️ EmailJS non configuré correctement.');
-          console.warn('PUBLIC_KEY:', hasPublicKey ? '✅' : '❌', window.EMAILJS_CONFIG.PUBLIC_KEY);
-          console.warn('SERVICE_ID:', hasServiceId ? '✅' : '❌', window.EMAILJS_CONFIG.SERVICE_ID);
-          console.warn('TEMPLATE_ID:', hasTemplateId ? '✅' : '❌', window.EMAILJS_CONFIG.TEMPLATE_ID);
+          try { emailjs.init(window.EMAILJS_CONFIG.PUBLIC_KEY); } catch (e) { emailjsConfigured = false; }
         }
       }
-      
-      // ============================================
-      // PROTECTION ANTI-SPAM
-      // ============================================
-      
-      // 1. Rate limiting - Limiter le nombre d'envois
-      const RATE_LIMIT_KEY = 'contact_form_submissions';
-      const MAX_SUBMISSIONS = 3; // Maximum d'envois
-      const TIME_WINDOW = 60 * 60 * 1000; // 1 heure en millisecondes
-      
+
+      var RATE_LIMIT_KEY = 'contact_form_submissions';
+      var MAX_SUBMISSIONS = 3;
+      var TIME_WINDOW = 60 * 60 * 1000;
       function checkRateLimit() {
-        const now = Date.now();
-        const submissions = JSON.parse(localStorage.getItem(RATE_LIMIT_KEY) || '[]');
-        
-        // Nettoyer les soumissions anciennes
-        const recentSubmissions = submissions.filter(time => now - time < TIME_WINDOW);
-        
-        if (recentSubmissions.length >= MAX_SUBMISSIONS) {
-          const timeLeft = Math.ceil((TIME_WINDOW - (now - recentSubmissions[0])) / 1000 / 60);
-          return {
-            allowed: false,
-            message: `Trop de tentatives. Veuillez réessayer dans ${timeLeft} minute${timeLeft > 1 ? 's' : ''}.`
-          };
+        var now = Date.now();
+        var submissions = JSON.parse(localStorage.getItem(RATE_LIMIT_KEY) || '[]');
+        var recent = submissions.filter(function(t) { return now - t < TIME_WINDOW; });
+        if (recent.length >= MAX_SUBMISSIONS) {
+          var timeLeft = Math.ceil((TIME_WINDOW - (now - recent[0])) / 1000 / 60);
+          return { allowed: false, message: 'Trop de tentatives. Veuillez réessayer dans ' + timeLeft + ' minute' + (timeLeft > 1 ? 's' : '') + '.' };
         }
-        
         return { allowed: true };
       }
-      
       function recordSubmission() {
-        const now = Date.now();
-        const submissions = JSON.parse(localStorage.getItem(RATE_LIMIT_KEY) || '[]');
-        submissions.push(now);
+        var submissions = JSON.parse(localStorage.getItem(RATE_LIMIT_KEY) || '[]');
+        submissions.push(Date.now());
         localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(submissions));
       }
-      
-      // 2. Enregistrer le temps de début de remplissage
-      let formStartTime = Date.now();
-      const MIN_FILL_TIME = 3000; // 3 secondes minimum pour remplir le formulaire
-      
-      contactForm.addEventListener('focusin', function() {
-        if (!formStartTime) {
-          formStartTime = Date.now();
-        }
-      }, true);
-      
-      // 3. Validation du temps de remplissage
-      function checkFillTime() {
-        const fillTime = Date.now() - formStartTime;
-        if (fillTime < MIN_FILL_TIME) {
-          console.warn('⚠️ Formulaire rempli trop rapidement (possible bot)');
-          return false;
-        }
-        return true;
+
+      var formStartTime = Date.now();
+      var MIN_FILL_TIME = 3000;
+      contactForm.addEventListener('focusin', function() { if (!formStartTime) formStartTime = Date.now(); }, true);
+      function checkFillTime() { return (Date.now() - formStartTime) >= MIN_FILL_TIME; }
+
+      function stripTags(str) {
+        if (typeof str !== 'string') return '';
+        return str.replace(/<[^>]*>/g, '');
       }
-      
-      // GESTIONNAIRE UNIQUE pour la soumission du formulaire
-      // Empêche TOUJOURS la soumission par défaut pour éviter l'erreur HTTP 405
+
       contactForm.addEventListener('submit', function(e) {
-        // EMPÊCHER TOUJOURS la soumission par défaut
         e.preventDefault();
         e.stopPropagation();
-        
-        // Vérifier si EmailJS est configuré
         if (!emailjsConfigured) {
-          alert('Erreur de configuration. Le formulaire n\'est pas configuré pour envoyer des emails. Veuillez contacter l\'administrateur du site.');
+          alert('Erreur de configuration. Le formulaire n\'est pas configuré pour envoyer des emails.');
           return;
         }
-        
-        // Vérification 1: Honeypot (champ caché)
-        const honeypot = this.querySelector('.honeypot');
+        var honeypot = this.querySelector('.honeypot');
         if (honeypot && honeypot.value !== '') {
-          console.warn('🚫 Spam détecté: honeypot rempli');
           alert('Erreur de validation. Veuillez réessayer.');
           return;
         }
-        
-        // Vérification 2: Rate limiting
-        const rateLimitCheck = checkRateLimit();
+        var rateLimitCheck = checkRateLimit();
         if (!rateLimitCheck.allowed) {
           alert(rateLimitCheck.message);
           return;
         }
-        
-        // Vérification 3: Temps de remplissage
         if (!checkFillTime()) {
           alert('Veuillez prendre le temps de remplir le formulaire correctement.');
           return;
         }
-        
-        // Vérification 4: Longueur minimale du message
-        const messageField = this.querySelector('[name="message"]');
+        var messageField = this.querySelector('[name="message"]');
         if (messageField && messageField.value.trim().length < 10) {
           alert('Le message doit contenir au moins 10 caractères.');
           return;
         }
-        
-        // Sanitisation : retirer les balises HTML des champs pour éviter l'injection dans le template email
-        function stripTags(str) {
-          if (typeof str !== 'string') return '';
-          return str.replace(/<[^>]*>/g, '');
-        }
-        const nameField = this.querySelector('[name="name"]');
-        const subjectField = this.querySelector('[name="subject"]');
+        var nameField = this.querySelector('[name="name"]');
+        var subjectField = this.querySelector('[name="subject"]');
         if (nameField) nameField.value = stripTags(nameField.value);
         if (subjectField) subjectField.value = stripTags(subjectField.value);
         if (messageField) messageField.value = stripTags(messageField.value);
-        
-        // Récupérer le bouton de soumission
-        const submitBtn = this.querySelector('.form-submit');
-        const originalText = submitBtn.textContent;
-        
-        // Désactiver le bouton pendant l'envoi
+
+        var submitBtn = this.querySelector('.form-submit');
+        var originalHtml = submitBtn.innerHTML;
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Envoi en cours...';
-        
-        // Envoyer l'email via EmailJS
-        emailjs.sendForm(
-          window.EMAILJS_CONFIG.SERVICE_ID,
-          window.EMAILJS_CONFIG.TEMPLATE_ID,
-          this
-        )
-        .then(function() {
-          // Succès
-          // Enregistrer la soumission pour le rate limiting
-          recordSubmission();
-          
-          submitBtn.textContent = 'Message envoyé !';
-          submitBtn.style.background = 'var(--color-accent)';
-          
-          // Réinitialiser le formulaire et le temps
-          contactForm.reset();
-          formStartTime = Date.now();
-          
-          // Réactiver le bouton après 3 secondes
-          setTimeout(() => {
+        submitBtn.innerHTML = '<span>Envoi en cours...</span>';
+
+        emailjs.sendForm(window.EMAILJS_CONFIG.SERVICE_ID, window.EMAILJS_CONFIG.TEMPLATE_ID, this)
+          .then(function() {
+            recordSubmission();
+            submitBtn.innerHTML = '<span>Message envoyé !</span>';
+            submitBtn.style.background = '#cf3594';
+            contactForm.reset();
+            formStartTime = Date.now();
+            setTimeout(function() {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = originalHtml;
+              submitBtn.style.background = '';
+              if (typeof lucide !== 'undefined') lucide.createIcons();
+            }, 3000);
+          }, function(err) {
+            console.error('Erreur EmailJS:', err);
+            alert('Erreur lors de l\'envoi du message. Veuillez réessayer.');
             submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
-            submitBtn.style.background = '';
-          }, 3000);
-        }, function(error) {
-          // Erreur
-          console.error('❌ Erreur EmailJS:', error);
-          alert('Erreur lors de l\'envoi du message. Veuillez réessayer.');
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalText;
-        });
+            submitBtn.innerHTML = originalHtml;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+          });
       }, { passive: false });
     });
   </script>
-  
-  <!-- Calendly Script -->
-  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
-  <script>
-    // Gestion de la popup Calendly
-    document.addEventListener('DOMContentLoaded', function() {
-      const trigger = document.getElementById('calendly-trigger');
-      const triggerSection = document.getElementById('calendly-trigger-section');
-      const popup = document.getElementById('calendly-popup');
-      const closeBtn = document.getElementById('calendly-popup-close');
-      const overlay = document.getElementById('calendly-popup-overlay');
-      
-      function openPopup() {
-        if (popup) {
-          popup.style.display = 'block';
-          document.body.style.overflow = 'hidden';
-        }
-      }
-      
-      function closePopup() {
-        if (popup) {
-          popup.style.display = 'none';
-          document.body.style.overflow = '';
-        }
-      }
-      
-      if (trigger) {
-        trigger.addEventListener('click', openPopup);
-      }
-      
-      if (triggerSection) {
-        triggerSection.addEventListener('click', openPopup);
-      }
-      
-      if (closeBtn) closeBtn.addEventListener('click', closePopup);
-      if (overlay) overlay.addEventListener('click', closePopup);
-      
-      // Fermer avec la touche Escape
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && popup && popup.style.display === 'block') {
-          closePopup();
-        }
-      });
-    });
-  </script>
-  
-  <!-- Initialiser Lucide Icons -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
-      }
-    });
-  </script>
-  <!-- Médaillons réseaux sociaux flottants -->
-  <aside class="social-medallions" aria-label="Réseaux sociaux et contact Donner de la Voix">
-    <a href="/contact" class="social-medallion social-medallion-mail" aria-label="Contact - envoyer un message">
-      <svg class="social-medallion-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-        <polyline points="22,6 12,13 2,6"></polyline>
-      </svg>
-    </a>
-    <a href="https://www.instagram.com/donnerdelavoixchant/" class="social-medallion social-medallion-insta" target="_blank" rel="noopener noreferrer" aria-label="Instagram Donner de la Voix">
-      <svg class="social-medallion-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
-      </svg>
-    </a>
-    <a href="https://www.facebook.com/donnerdelavoix" class="social-medallion social-medallion-fb" target="_blank" rel="noopener noreferrer" aria-label="Facebook Donner de la Voix">
-      <svg class="social-medallion-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-      </svg>
-    </a>
-  </aside>
   <div id="floating-rdv-container"></div>
   <script>
     (function() {
@@ -407,6 +344,27 @@
     })();
   </script>
   <script src="/js/init-floating-calendly.js"></script>
+  <script>
+    (function() {
+      var section = document.getElementById('newsletter');
+      if (!section) return;
+      var basePath = window.location.pathname.replace(/\/$/, '') || '/';
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          var hash = '#newsletter';
+          if (entry.isIntersecting) {
+            if (window.location.hash !== hash) {
+              history.replaceState(null, '', basePath + hash);
+            }
+          } else {
+            if (window.location.hash === hash && entry.boundingClientRect.top > 0) {
+              history.replaceState(null, '', basePath);
+            }
+          }
+        });
+      }, { rootMargin: '0px 0px -30% 0px', threshold: 0.1 });
+      observer.observe(section);
+    })();
+  </script>
 </body>
 </html>
-

@@ -10,21 +10,35 @@ const PORT = process.env.PORT || 3000;
 const ROOT = path.resolve(__dirname, '..');
 
 const REWRITES = {
+  // Routes principales (sans -new)
   '/impro-vocale': '/pages/impro-vocale.html',
-  '/impro-vocale-new': '/pages/impro-vocale-new.html',
   '/ateliers': '/pages/ateliers.html',
-  '/ateliers-new': '/pages/ateliers-new.html',
+  '/pages/ateliers': '/pages/ateliers.html',
+  '/pages/ateliers.html': '/pages/ateliers.html',
   '/cours-chant': '/pages/cours-chant.html',
-  '/cours-chant-new': '/pages/cours-chant-new.html',
   '/about': '/pages/about.html',
-  '/about-new': '/pages/about-new.html',
-  '/contact': '/pages/contact-new.html',
-  '/contact-new': '/pages/contact-new.html',
+  '/contact': '/pages/contact.html',
   '/newsletter': '/pages/newsletter.html',
   '/offre-entreprise': '/pages/offre-entreprise.html',
-  '/offre-entreprise-new': '/pages/offre-entreprise-new.html',
   '/mentions-legales': '/pages/mentions-legales.html',
-  '/espace-eleve-new': '/pages/espace-eleve-new.html',
+  '/espace-eleve': '/pages/espace-eleve.html',
+  // Anciennes URLs -new → même page (redirection douce en dev)
+  '/impro-vocale-new': '/pages/impro-vocale.html',
+  '/ateliers-new': '/pages/ateliers.html',
+  '/pages/ateliers-new.html': '/pages/ateliers.html',
+  '/cours-chant-new': '/pages/cours-chant.html',
+  '/pages/cours-chant-new.html': '/pages/cours-chant.html',
+  '/about-new': '/pages/about.html',
+  '/pages/about-new.html': '/pages/about.html',
+  '/contact-new': '/pages/contact.html',
+  '/pages/contact-new.html': '/pages/contact.html',
+  '/newsletter-new': '/pages/newsletter.html',
+  '/pages/newsletter-new.html': '/pages/newsletter.html',
+  '/offre-entreprise-new': '/pages/offre-entreprise.html',
+  '/pages/offre-entreprise-new.html': '/pages/offre-entreprise.html',
+  '/espace-eleve-new': '/pages/espace-eleve.html',
+  '/pages/espace-eleve-new.html': '/pages/espace-eleve.html',
+  '/pages/impro-vocale-new.html': '/pages/impro-vocale.html',
 };
 
 const MIME = {
@@ -44,8 +58,9 @@ const MIME = {
 };
 
 function getFilePath(urlPath) {
-  // Normaliser : enlever trailing slash et décoder l'URL
-  const normalized = (urlPath.replace(/\/$/, '') || '/').replace(/%2F/gi, '/');
+  // Normaliser : enlever trailing slash et décoder l'URL (sans le hash, le serveur ne le reçoit pas)
+  const withoutHash = urlPath.split('#')[0];
+  const normalized = (withoutHash.replace(/\/$/, '') || '/').replace(/%2F/gi, '/');
   let filePath = REWRITES[normalized] || normalized;
   if (filePath === '/') filePath = '/index.html';
   const segments = filePath.replace(/^\//, '').split('/');
@@ -59,7 +74,7 @@ function getMimeType(filePath) {
 
 const server = http.createServer((req, res) => {
   const urlPath = req.url.split('?')[0].replace(/\/$/, '') || '/';
-  const filePath = getFilePath(urlPath);
+  let filePath = getFilePath(urlPath);
 
   if (!fs.existsSync(filePath) || !fs.statSync(filePath).isFile()) {
     res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });

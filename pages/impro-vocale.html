@@ -1,554 +1,588 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html class="dark" lang="fr">
 <head>
-  <!-- Encodage des caractères et viewport -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <base href="/">
-  
-  <!-- 
-    BALISES SEO - Optimisées pour les mots-clés suivants :
-    - improvisation vocale, impro vocale, circle song, circlesong, circlesongs
-    - cours de chant, technique vocale, coach vocal, vocal painting
-    - Tous ces mots-clés avec "Toulouse" et "à Toulouse et ailleurs"
-    
-    Inclut : titre, description, mots-clés, Open Graph (Facebook/LinkedIn), Twitter Cards, URL canonique
-  -->
-  <title>Improvisation Vocale et Circlesongs à Toulouse | Coach Vocal - Donner de la Voix</title>
+  <title>Impro vocale – Circlesongs &amp; co-improvisation | Donner de la Voix</title>
   <meta name="description" content="Découvrez l'improvisation vocale à Toulouse : ateliers de circlesongs, co-improvisation, vocal painting. Coach vocal spécialisée en impro vocale. Cours de chant créatifs pour tous niveaux.">
-  <meta name="keywords" content="improvisation vocale, impro vocale, circlesongs, circle song, improvisation vocale toulouse, circlesongs toulouse, technique vocale, coach vocal, vocal painting, cours de chant toulouse, ateliers impro vocale, co-improvisation, chant en groupe, chant a capella, polyphonie improvisée">
-  
-  <!-- Open Graph : Métadonnées pour le partage sur les réseaux sociaux (Facebook, LinkedIn, etc.) -->
-  <meta property="og:title" content="Improvisation Vocale et Circlesongs à Toulouse | Coach Vocal">
+  <meta name="keywords" content="improvisation vocale, impro vocale, circlesongs, circle song, improvisation vocale toulouse, circlesongs toulouse, technique vocale, coach vocal, vocal painting, cours de chant toulouse, ateliers impro vocale, co-improvisation">
+  <meta property="og:title" content="Impro vocale – Donner de la Voix">
   <meta property="og:description" content="Ateliers d'improvisation vocale et circlesongs à Toulouse. Coach vocal spécialisée en impro vocale, vocal painting et technique vocale. Tous niveaux bienvenus.">
   <meta property="og:url" content="https://donnerdelavoix.fr/impro-vocale">
-  <meta property="og:site_name" content="Donner de la Voix - Improvisation vocale & Circlesongs à Toulouse">
-  <meta property="og:locale" content="fr_FR">
   <meta property="og:type" content="website">
-  
-  <!-- Twitter Cards : Métadonnées spécifiques pour Twitter lors du partage -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Improvisation Vocale et Circlesongs à Toulouse | Coach Vocal">
-  <meta name="twitter:description" content="Ateliers d'improvisation vocale et circlesongs à Toulouse. Coach vocal spécialisée en impro vocale, vocal painting et technique vocale.">
-  
-  <!-- URL canonique : Indique à Google quelle est la version principale de cette page (évite le contenu dupliqué) -->
   <link rel="canonical" href="https://donnerdelavoix.fr/impro-vocale">
-  
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="/assets/logo-ddlv.png">
-  
-  <!-- Google Fonts - Josefin Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Lien vers le fichier CSS qui contient tous les styles de la page -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#5b2ab5",
+            "primary-light": "#7a6ac7",
+            "accent": "#cf3594",
+            "deep-bg": "#0d0218",
+          },
+          fontFamily: {
+            "display": ["'Josefin Sans'", "sans-serif"],
+            "sans": ["'Josefin Sans'", "sans-serif"]
+          },
+        },
+      },
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer components {
+      .glass-panel {
+        @apply backdrop-blur-[25px] bg-white/10 border border-white/20;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 0 2px 1px rgba(255, 255, 255, 0.15), 0 0 15px rgba(255, 255, 255, 0.05);
+      }
+      .hero-overlay > * { position: relative; z-index: 1; }
+      .hero-cta-icon { font-size: 1.75rem; }
+      .hero-gradient-word {
+        @apply text-transparent bg-clip-text;
+        background-image: linear-gradient(to right, #b83d7a 0%, #9849a8 30%, #6b5fa8 65%, #4db8aa 100%);
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+        text-stroke: 1px rgba(255, 255, 255, 0.5);
+        text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+      }
+      .bg-blur-image { position: fixed; inset: 0; z-index: -3; background: url('/assets/bg.jpg') center center / cover no-repeat; }
+      .bg-textured-art {
+        background-color: rgba(30, 15, 50, 0.08);
+        background-image:
+          radial-gradient(ellipse 120% 100% at 0% 50%, rgba(255, 255, 255, 0.07) 0%, transparent 50%),
+          radial-gradient(circle at 10% 20%, rgba(91, 42, 181, 0.35) 0%, transparent 55%),
+          radial-gradient(circle at 90% 10%, rgba(207, 53, 148, 0.3) 0%, transparent 55%),
+          radial-gradient(circle at 50% 50%, rgba(122, 106, 199, 0.28) 0%, transparent 60%);
+        position: fixed; inset: 0; z-index: -2;
+      }
+      .blob { position: fixed; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.6; }
+      .nav-item { position: relative; }
+      .nav-item::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        display: block;
+        width: 0;
+        height: 2px;
+        background: #cf3594;
+        transition: width .3s;
+        box-shadow: 0 0 10px #cf3594;
+      }
+      .nav-item:hover::after { width: 100%; }
+      .article-content-box {
+        @apply rounded-2xl p-6 my-4 border;
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.15);
+      }
+      .article-content-box-accent {
+        border-color: rgba(207, 53, 148, 0.35);
+        background: rgba(207, 53, 148, 0.06);
+      }
+      .glass-panel-rose {
+        @apply backdrop-blur-[25px];
+        background-image: linear-gradient(135deg, rgba(255, 252, 255, 0.28) 0%, rgba(255, 240, 248, 0.14) 45%, rgba(240, 235, 255, 0.22) 100%);
+        border: none;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.28), inset 0 0 2px 1px rgba(255, 250, 252, 0.2), 0 0 15px rgba(255, 245, 250, 0.04);
+      }
+      .glass-panel-rose.bento-bg-blur {
+        background-image: linear-gradient(135deg, rgba(255, 252, 255, 0.06) 0%, rgba(255, 240, 248, 0.02) 45%, rgba(240, 235, 255, 0.04) 100%);
+      }
+      .bento-bg-blur::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        border-radius: inherit;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        filter: blur(10px);
+        opacity: 0.9;
+      }
+      .bento-bg-blur.bento-bg-0::before { background-image: url('/assets/bg.jpg'); }
+      .bento-bg-blur.bento-bg-1::before { background-image: url('/assets/bg1.jpg'); }
+      .bento-bg-blur.bento-bg-2::before { background-image: url('/assets/bg2.jpg'); }
+      .bento-bg-blur.bento-bg-3::before { background-image: url('/assets/bg3.jpg'); }
+      .bento-bg-blur.bento-bg-4::before { background-image: url('/assets/bg4.jpg'); }
+      .bento-bg-blur::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: inherit;
+        background: linear-gradient(135deg, rgba(91, 42, 181, 0.5) 0%, rgba(122, 106, 199, 0.35) 40%, rgba(207, 53, 148, 0.4) 100%);
+        pointer-events: none;
+      }
+      .bento-formats-zone {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: minmax(140px, auto);
+        gap: 1rem;
+      }
+      @media (min-width: 768px) {
+        .bento-formats-zone:not(.bento-formats-zone--content) { grid-template-rows: repeat(3, minmax(0, 1fr)); grid-auto-rows: unset; height: 100%; gap: 0.5rem; }
+        .bento-formats-zone.bento-formats-zone--content { gap: 1rem; grid-auto-rows: minmax(140px, auto); }
+      }
+      .bento-formats-zone a,
+      .bento-formats-zone > div {
+        transition: transform 0.25s ease-out;
+        min-height: 0;
+      }
+      /* Hover tilt : défini dans /styles.css */
+      .bento-icon-wrap { flex-shrink: 0; margin-bottom: 0.75rem; width: 100%; display: flex; justify-content: center; }
+      .bento-content-glass .bento-icon { width: 5.25rem; height: 5.25rem; color: #fff; }
+      .bento-content-glass p,
+      .bento-content-glass li { color: rgba(255, 255, 255, 0.92); line-height: 1.6; font-size: 1rem !important; }
+      .bento-content-glass h3 { color: rgba(255, 255, 255, 0.98); font-size: 22px; font-weight: 600; margin: 0 0 0.5rem 0; }
+      .bento-content-glass strong { color: rgba(255, 255, 255, 0.98); }
+      .bento-content-glass a:not(.btn-rdv) { color: #e090c0; text-decoration: underline; text-underline-offset: 2px; }
+      .bento-content-glass a:not(.btn-rdv):hover { color: #f0b0d0; }
+      .bento-content-glass .btn-rdv,
+      .impro-vocale-page .btn-rdv { text-decoration: none !important; color: #fff !important; }
+      .bento-content-glass .btn-rdv:hover,
+      .impro-vocale-page .btn-rdv:hover { color: #fff !important; text-decoration: none !important; }
+      .bento-glass-accent { border: 1px solid rgba(255, 255, 255, 0.2); background-image: linear-gradient(135deg, rgba(255, 240, 248, 0.2) 0%, rgba(240, 235, 255, 0.15) 100%); }
+      .bento-formats-zone .bento-f-1x1 { grid-column: span 1; grid-row: span 1; }
+      .bento-formats-zone .bento-f-2x1 { grid-column: span 2; grid-row: span 1; }
+      .bento-formats-zone .bento-f-1x2 { grid-column: span 1; grid-row: span 2; }
+      .bento-formats-zone .bento-f-2x2 { grid-column: span 2; grid-row: span 2; }
+      @media (max-width: 767px) {
+        .bento-formats-zone { grid-template-columns: 1fr; grid-auto-rows: minmax(120px, auto); }
+        .bento-formats-zone .bento-f-1x1,
+        .bento-formats-zone .bento-f-2x1,
+        .bento-formats-zone .bento-f-1x2,
+        .bento-formats-zone .bento-f-2x2 { grid-column: span 1; grid-row: span 1; }
+      }
+      /* Bento tints : opacités définies dans /styles.css (partagées avec ateliers) */
+      .bento-type-badge {
+        background: linear-gradient(135deg, rgba(91, 42, 181, 0.85) 0%, rgba(207, 53, 148, 0.85) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      }
+      .section-title-bentos {
+        font-size: 1.875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        margin-bottom: 1rem;
+        margin-top: 30px;
+        color: #fff;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+        flex-shrink: 0;
+      }
+      .bento-content-zone {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      @media (min-width: 768px) {
+        .bento-content-zone { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+      }
+      .bento-content-zone.bento-content-3 { grid-template-columns: 1fr; }
+      @media (min-width: 768px) {
+        .bento-content-zone.bento-content-3 { grid-template-columns: repeat(3, 1fr); }
+      }
+      .bento-content-card {
+        border-radius: 1rem;
+        padding: 1.5rem;
+        background: rgba(255,255,255,0.85);
+        border: 1px solid rgba(91,42,181,0.12);
+        box-shadow: 0 4px 20px rgba(91,42,181,0.06);
+      }
+      .bento-content-card-accent {
+        border-color: rgba(207,53,148,0.25);
+        background: rgba(255,255,255,0.9);
+      }
+    }
+  </style>
   <link rel="stylesheet" href="/styles.css">
-  
-  <!-- Calendly CSS -->
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-  
-  <!-- Lucide Icons -->
+  <style>
+    body.impro-vocale-page {
+      background: transparent !important;
+      color: #fff !important;
+      font-family: 'Josefin Sans', sans-serif !important;
+    }
+    body.impro-vocale-page::before,
+    body.impro-vocale-page::after { display: none !important; }
+    .impro-vocale-page .article-section {
+      margin-bottom: 3rem;
+      background: rgba(255,255,255,0.85) !important;
+      border: 1px solid rgba(91,42,181,0.12) !important;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(91,42,181,0.06) !important;
+      padding: 2rem 1.5rem !important;
+    }
+    .impro-vocale-page .article-content p,
+    .impro-vocale-page .article-content li { color: rgba(255,255,255,0.95); }
+    .impro-vocale-page .article-content h1 { color: #fff; font-size: 1.75rem; margin-bottom: 0.5rem; }
+    .impro-vocale-page .article-content h2 { color: #fff; font-size: 1.5rem; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+    .impro-vocale-page .article-content h3 { color: #fff; font-size: 1.25rem; margin-top: 1.25rem; margin-bottom: 0.5rem; }
+    .impro-vocale-page .article-content a { color: #cf3594; text-decoration: underline; }
+    .impro-vocale-page .article-content a:hover { color: #b82d7a; }
+    .impro-vocale-page .article-content ul { padding-left: 1.5rem; margin: 0.5rem 0 1rem 0; }
+    .impro-vocale-page .article-content-box { background: rgba(91,42,181,0.06) !important; border-color: rgba(91,42,181,0.2) !important; }
+    .impro-vocale-page .article-content-box-accent { background: rgba(207,53,148,0.06) !important; border-color: rgba(207,53,148,0.25) !important; }
+    .impro-vocale-page .bento-content-card p,
+    .impro-vocale-page .bento-content-card li { color: rgba(255,255,255,0.95); }
+    .impro-vocale-page .bento-content-card h3 { color: #fff; font-size: 1.25rem; margin-top: 0; margin-bottom: 0.5rem; }
+    .impro-vocale-page .bento-content-card a { color: #cf3594; text-decoration: underline; }
+    .impro-vocale-page .bento-content-card ul { padding-left: 1.5rem; margin: 0.5rem 0 0 0; }
+    .impro-vocale-page .article-section .section-title-bentos { color: #fff; text-shadow: none; }
+    .impro-vocale-page .faq-section-full { margin-top: 0; padding-top: 0; }
+    /* FAQ bento : grille de cartes (style bento comme formats) */
+    .faq-bento-zone {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    @media (min-width: 768px) {
+      .faq-bento-zone { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    }
+    .faq-bento-card {
+      border-radius: 1rem;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .faq-bento-card[class*="bento-tint-"]::after { border-radius: 1rem; }
+    .faq-bento-trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      text-align: left;
+      font-family: inherit;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: #fff;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      position: relative;
+      z-index: 1;
+    }
+    .faq-bento-trigger:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .faq-bento-card.is-open .faq-bento-trigger { background: rgba(255,255,255,0.08); }
+    .faq-bento-trigger .faq-bento-icon { flex-shrink: 0; transition: transform 0.25s ease; color: rgba(255,255,255,0.9); }
+    .faq-bento-card.is-open .faq-bento-icon { transform: rotate(180deg); }
+    .faq-bento-panel {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.35s ease;
+      position: relative;
+      z-index: 1;
+    }
+    .faq-bento-card.is-open .faq-bento-panel { max-height: 320px; }
+    .faq-bento-panel-inner {
+      padding: 0 1.25rem 1.25rem 1.25rem;
+      color: rgba(255,255,255,0.95);
+      font-size: 0.9375rem;
+      line-height: 1.65;
+    }
+    .faq-bento-panel-inner p { margin: 0 0 0.5rem 0; }
+    .faq-bento-panel-inner p:last-child { margin-bottom: 0; }
+    .faq-bento-panel-inner a { color: #cf3594; text-decoration: underline; }
+    .faq-bento-cta { grid-column: 1 / -1; }
+  </style>
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
-  <!-- Skip link pour la navigation au clavier -->
-  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
-  
+<body class="font-display text-white relative impro-vocale-page min-h-screen bg-deep-bg" id="impro-vocale-body">
+  <div class="bg-blur-image" aria-hidden="true"></div>
+  <div class="overlay-violet-gradient" aria-hidden="true"></div>
+
+  <div id="bubbles-deco" aria-hidden="true">
+    <span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span>
+    <span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span>
+    <span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span>
+  </div>
+
   <div id="site-header"></div>
   <script src="/js/init-header-nav.js"></script>
-  
-  <!-- Popup Calendly -->
-  <div id="calendly-popup" class="calendly-popup-container hidden">
-    <div class="calendly-popup-overlay" id="calendly-popup-overlay"></div>
-    <div class="calendly-popup-content-wrapper">
-      <button class="calendly-popup-close-btn" id="calendly-popup-close" aria-label="Fermer">×</button>
-      <div class="calendly-inline-widget" data-url="https://calendly.com/contactdonnerdelavoix/30min"></div>
-    </div>
-  </div>
-  
-  <main id="main-content" role="main">
-    <article class="article-container">
-      <div class="article-layout">
-        <!-- Sommaire latéral -->
-        <aside class="article-toc" aria-label="Sommaire de la page">
-          <p class="article-toc-title">L'impro vocale</p>
-          <div class="article-toc-dropdown">
-            <select class="article-toc-select" aria-label="Aller à la section">
-              <option value="">Aller à la section</option>
-              <option value="intro">Qu'est-ce que l'improvisation vocale ?</option>
-              <option value="co-improvisation">Co-improvisation et circlesongs</option>
-              <option value="ecoute-communication">Écoute et communication</option>
-              <option value="technique-vocale">Impro vocale et technique vocale</option>
-              <option value="qui-peut-pratiquer">Qui peut pratiquer ?</option>
-              <option value="bienfaits">Les bienfaits</option>
-              <option value="toulouse">Pratiquer à Toulouse</option>
-              <option value="faq">Questions fréquentes</option>
-            </select>
-          </div>
-          <nav class="article-toc-nav">
-            <a class="article-toc-link active" href="#intro" data-section="intro">Qu'est-ce que l'improvisation vocale ?</a>
-            <a class="article-toc-link" href="#co-improvisation" data-section="co-improvisation">Co-improvisation et circlesongs</a>
-            <a class="article-toc-link" href="#ecoute-communication" data-section="ecoute-communication">Écoute et communication</a>
-            <a class="article-toc-link" href="#technique-vocale" data-section="technique-vocale">Impro vocale et technique vocale</a>
-            <a class="article-toc-link" href="#qui-peut-pratiquer" data-section="qui-peut-pratiquer">Qui peut pratiquer ?</a>
-            <a class="article-toc-link" href="#bienfaits" data-section="bienfaits">Les bienfaits</a>
-            <a class="article-toc-link" href="#toulouse" data-section="toulouse">Pratiquer à Toulouse</a>
-            <a class="article-toc-link" href="#faq" data-section="faq">Questions fréquentes</a>
+
+  <main class="relative" role="main">
+    <section class="hero-overlay relative min-h-screen flex items-center pt-20 sm:pt-24 pb-12 md:pb-12" aria-label="Hero">
+      <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
+        <div class="flex flex-col items-start gap-6 sm:gap-10">
+          <h1 class="hero-title-mobile-sm text-[2.5rem] sm:text-[3.5rem] md:text-[5.8rem] lg:text-[7rem] font-bold tracking-tight text-white leading-tight">
+            <span class="block">Impro</span>
+            <span class="hero-gradient-word block">vocale</span>
+          </h1>
+          <nav class="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-3 w-full sm:w-auto" aria-label="Sommaire">
+            <a href="#intro" class="inline-flex items-center justify-center sm:justify-start px-4 py-3 sm:px-5 rounded-2xl font-semibold text-xs sm:text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Qu'est-ce que l'impro vocale ?</a>
+            <a href="#bienfaits" class="inline-flex items-center justify-center sm:justify-start px-4 py-3 sm:px-5 rounded-2xl font-semibold text-xs sm:text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Les bienfaits</a>
+            <a href="#toulouse" class="inline-flex items-center justify-center sm:justify-start px-4 py-3 sm:px-5 rounded-2xl font-semibold text-xs sm:text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Pratiquer à Toulouse</a>
+            <a href="#faq" class="inline-flex items-center justify-center sm:justify-start px-4 py-3 sm:px-5 rounded-2xl font-semibold text-xs sm:text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Questions fréquentes</a>
+            <a href="/ateliers" class="btn-rdv w-full sm:w-auto text-center">Stages &amp; ateliers</a>
           </nav>
-        </aside>
-
-        <!-- Contenu principal -->
-        <div class="article-main">
-          <!-- Section 1: Introduction -->
-          <section class="article-section glass-section" id="intro">
-            <div class="article-content">
-              <h1>L'improvisation vocale : créer sans prévoir</h1>
-              
-              <div class="highlight-box-center">
-                <p class="text-2xl m-0 leading-relaxed font-medium text-white">
-                  <strong>L'improvisation vocale</strong> est une pratique musicale où la voix devient un instrument de création spontanée. Ici, pas de partition à suivre, pas de texte à mémoriser, pas d'objectif de performance.
-                </p>
-              </div>
-              
-              <p class="text-lg leading-relaxed mb-1">La musique naît dans l'instant, à partir de l'écoute, de l'intuition et de ce qui se passe ici et maintenant. Chaque son, chaque silence, chaque rythme émerge du moment présent.</p>
-              
-              <p class="text-lg leading-relaxed mb-1">Souvent appelée <strong>impro vocale</strong>, cette pratique transforme la voix en terrain de jeu et d'exploration. Elle met la <strong>technique vocale</strong> au service de l'<strong>expression personnelle</strong>, sans contrainte ni jugement.</p>
-              
-              <div class="info-box-accent">
-                <p class="m-0 text-lg"><strong>Accessible à tous les niveaux</strong> – L'improvisation vocale s'adresse autant aux débutants qu'aux chanteurs expérimentés, aux musiciens, aux artistes ou simplement aux curieux de leur propre voix.</p>
-              </div>
-            </div>
-          </section>
-
-          <!-- Section 2: Co-improvisation et circlesongs -->
-          <section class="article-section glass-section" id="co-improvisation">
-            <div class="article-content">
-              <h2>Co-improvisation et circlesongs : improviser ensemble</h2>
-              
-              <p class="text-lg mb-2 section-intro">L'<strong>improvisation vocale</strong> collective se décline sous différentes formes, chacune offrant une expérience unique de création partagée.</p>
-              
-              <div class="grid-auto">
-                
-                <div class="highlight-box no-margin">
-                  <h3 class="text-primary mb-1 text-3xl text-center">La co-improvisation</h3>
-                  <p class="mb-1 leading-normal font-semibold text-white text-center">Construction collective horizontale</p>
-                  <p class="m-0 leading-normal">Dans la co-improvisation, chacun apporte sa pierre créative à l'édifice. Il n'y a pas de hiérarchie, pas de leader : les voix dialoguent, se répondent, s'entremêlent de manière horizontale.</p>
-                  <p class="list-text-italic">C'est une conversation musicale spontanée où l'écoute mutuelle guide les propositions.</p>
-                </div>
-                
-                <div class="highlight-box-accent no-margin">
-                  <h3 class="text-accent mb-1 text-3xl text-center">Le circlesong</h3>
-                  <p class="mb-1 leading-normal font-semibold text-white text-center">Structure guidée par un leader</p>
-                  <p class="m-0 leading-normal">Le <strong>circle song</strong> (ou <strong>circlesong</strong>) fonctionne différemment. Un ou plusieurs leaders distribuent des voix aux participants, chacun recevant un motif vocal spécifique : une mélodie, un rythme, une texture, un bourdon.</p>
-                  <p class="list-text-italic">Ces motifs s'assemblent pour créer une <strong>polyphonie improvisée</strong>, une forme de <strong>chant en groupe a capella</strong> accessible aux débutants.</p>
-                </div>
-              </div>
-              
-              <div class="info-box-purple">
-                <p class="m-0 text-lg">Ces deux approches enrichissent mutuellement la pratique de l'<strong>impro vocale</strong> et offrent des portes d'entrée variées vers l'improvisation collective.</p>
-              </div>
-            </div>
-          </section>
-
-          <!-- Section 3: Écoute et communication -->
-          <section class="article-section glass-section" id="ecoute-communication">
-            <div class="article-content">
-              <h2>L'écoute et la communication : le cœur de l'improvisation vocale</h2>
-              
-              <p class="text-xl mb-2 section-intro">Au cœur de l'<strong>improvisation vocale</strong> se trouve une compétence essentielle : <strong>l'écoute</strong>.</p>
-              
-              <div class="highlight-box">
-                <div class="flex-col gap-md">
-                  <div class="list-item-flex">
-                    <span class="bullet-accent">•</span>
-                    <p class="list-text"><strong>Écouter les autres</strong> – Percevoir ce que chacun apporte, sentir les espaces, les rythmes, les couleurs</p>
-                  </div>
-                  <div class="list-item-flex">
-                    <span class="bullet-accent">•</span>
-                    <p class="list-text"><strong>S'écouter soi-même</strong> – Sentir le moment où intervenir ou se taire, trouver sa place dans l'ensemble</p>
-                  </div>
-                  <div class="list-item-flex">
-                    <span class="bullet-accent">•</span>
-                    <p class="list-text"><strong>Percevoir l'espace sonore global</strong> – Comprendre la musique qui se crée collectivement</p>
-                  </div>
-                </div>
-              </div>
-              
-              <p class="text-lg leading-relaxed mb-1">La communication en <strong>impro vocale</strong> est à la fois verbale et non-verbale : regards, gestes, langage corporel, intentions partagées. Les improvisateurs développent une forme de télépathie musicale, une connexion qui se crée par la présence et l'attention mutuelle.</p>
-            </div>
-          </section>
-
-          <!-- Section 5: Technique vocale -->
-          <section class="article-section glass-section" id="technique-vocale">
-            <div class="article-content">
-              <h2>L'improvisation vocale au service de la technique vocale (et vice versa)</h2>
-              
-              <p class="text-xl mb-2 section-intro">L'<strong>improvisation vocale</strong> et la <strong>technique vocale</strong> entretiennent une relation symbiotique : elles s'enrichissent mutuellement dans un cercle vertueux.</p>
-              
-              <div class="grid-auto">
-                
-                <div class="technique-box-primary">
-                  <h3 class="text-primary box-title-center">Comment l'impro développe la technique</h3>
-                  <div class="technique-list">
-                    <div class="technique-item">
-                      <span class="technique-check-accent">✓</span>
-                      <span class="technique-text"><strong>La conscience du souffle</strong> – Gérer l'air de manière intuitive selon les besoins expressifs</span>
-                    </div>
-                    <div class="technique-item">
-                      <span class="technique-check-accent">✓</span>
-                      <span class="technique-text"><strong>Le placement vocal</strong> – Chercher la résonance qui sonne juste pour chaque son</span>
-                    </div>
-                    <div class="technique-item">
-                      <span class="technique-check-accent">✓</span>
-                      <span class="technique-text"><strong>L'exploration de la tessiture</strong> – Découvrir sa voix grave, médium, aiguë en jouant</span>
-                    </div>
-                    <div class="technique-item">
-                      <span class="technique-check-accent">✓</span>
-                      <span class="technique-text"><strong>La mobilité vocale</strong> – Passer d'un registre à l'autre, d'une couleur à une autre</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="technique-box-accent">
-                  <h3 class="text-accent box-title-center">Comment la technique libère l'impro</h3>
-                  <div class="technique-list">
-                    <div class="technique-item">
-                      <span class="technique-check-primary">✓</span>
-                      <span class="technique-text">Plus de possibilités expressives et de nuances</span>
-                    </div>
-                    <div class="technique-item">
-                      <span class="technique-check-primary">✓</span>
-                      <span class="technique-text">Une voix plus endurante et disponible</span>
-                    </div>
-                    <div class="technique-item">
-                      <span class="technique-check-primary">✓</span>
-                      <span class="technique-text">La sécurité nécessaire pour oser explorer</span>
-                    </div>
-                    <div class="technique-item">
-                      <span class="technique-check-primary">✓</span>
-                      <span class="technique-text">Le confort qui permet de se concentrer sur la créativité</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <p class="text-lg leading-relaxed my-2">Ainsi, l'<strong>impro vocale</strong> n'est pas opposée aux <strong>cours de chant</strong> plus traditionnels. Au contraire, ces approches se complètent idéalement : l'une nourrit la créativité et la spontanéité, l'autre affine la maîtrise et les outils techniques.</p>
-              
-              <div class="highlight-box-strong-center">
-                <p class="m-0 mb-1 text-xl font-semibold text-white">Vous souhaitez approfondir votre technique vocale tout en gardant cet esprit de liberté et d'exploration ?</p>
-                <a href="/cours-chant" class="rdv-btn">
-                  <i data-lucide="music" class="btn-icon"></i>
-                  Découvrir mes cours de chant
-                </a>
-              </div>
-            </div>
-          </section>
-
-          <!-- Section 6: Qui peut pratiquer -->
-          <section class="article-section glass-section" id="qui-peut-pratiquer">
-            <div class="article-content">
-              <h2>Une pratique accessible à toutes et tous</h2>
-              
-              <div class="highlight-box-simple">
-                <p class="text-3xl m-0 font-semibold text-white">
-                  <strong>Aucun prérequis n'est nécessaire</strong> pour <strong>COMMENCER</strong> l'<strong>impro vocale</strong>. Vraiment aucun.
-                </p>
-              </div>
-              
-              <p class="text-lg leading-relaxed mb-1">L'<strong>improvisation vocale</strong> est une pratique de <strong>chant en groupe</strong> où chaque voix trouve sa place. C'est aussi une forme de <strong>chant a capella</strong> sans accompagnement instrumental.</p>
-              
-              <div class="grid-auto-sm">
-                
-                <div class="info-box-white">
-                  <h3 class="text-primary mb-1 box-title-center-sm">Vous n'avez pas besoin de :</h3>
-                  <ul class="list-simple">
-                    <li>Savoir chanter "juste"</li>
-                    <li>Avoir déjà pris des <strong>cours de chant</strong></li>
-                    <li>Lire la musique ou connaître le solfège</li>
-                    <li>Avoir une "belle voix"</li>
-                    <li>Être musicien.ne</li>
-                  </ul>
-                </div>
-                
-                <div class="info-box-white-accent">
-                  <h3 class="text-accent mb-1 box-title-center-sm">L'impro vocale s'adresse à :</h3>
-                  <ul class="list-simple">
-                    <li><strong>Débutants absolus</strong> – Excellente porte d'entrée vers le monde vocal</li>
-                    <li><strong>Chanteurs expérimentés</strong> – Sortir des cadres et explorer autrement</li>
-                    <li><strong>Musiciens</strong> – Découvrir leur voix</li>
-                    <li><strong>Artistes et créatifs</strong> – Nouvelles formes d'expression</li>
-                    <li><strong>Curieux et curieuses</strong> – Explorer leur voix</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- Section 7: Les bienfaits -->
-          <section class="article-section glass-section" id="bienfaits">
-            <div class="article-content">
-              <h2>Pourquoi pratiquer l'improvisation vocale ?</h2>
-              
-              <p class="text-xl mb-2 section-intro">Au-delà du plaisir musical, l'<strong>improvisation vocale</strong> apporte de nombreux bienfaits, tant sur le plan artistique que personnel.</p>
-              
-              <div class="grid-auto-xs">
-                
-                <div class="highlight-box-small no-margin">
-                  <div class="icon-container">
-                    <i data-lucide="palette" class="icon-large"></i>
-                  </div>
-                  <h3 class="text-primary mb-1 box-title-center-sm">Créativité et spontanéité</h3>
-                  <p class="m-0 leading-normal">L'<strong>impro vocale</strong> réveille votre créativité naturelle. En acceptant de ne pas contrôler, vous découvrez des ressources insoupçonnées.</p>
-                </div>
-                
-                <div class="highlight-box-small no-margin">
-                  <div class="icon-container">
-                    <i data-lucide="trending-up" class="icon-large"></i>
-                  </div>
-                  <h3 class="text-primary mb-1 box-title-center-sm">Confiance en soi</h3>
-                  <p class="m-0 leading-normal">Dans un cadre bienveillant, vous apprenez à faire confiance à votre instinct vocal et vous osez davantage.</p>
-                </div>
-                
-                <div class="highlight-box-small no-margin">
-                  <div class="icon-container">
-                    <i data-lucide="wind" class="icon-large"></i>
-                  </div>
-                  <h3 class="text-primary mb-1 box-title-center-sm">Lâcher-prise</h3>
-                  <p class="m-0 leading-normal">Accepter l'imperfection, accueillir l'erreur comme une opportunité : autant d'apprentissages précieux.</p>
-                </div>
-                
-                <div class="highlight-box-small no-margin">
-                  <div class="icon-container">
-                    <i data-lucide="users" class="icon-large"></i>
-                  </div>
-                  <h3 class="text-primary mb-1 box-title-center-sm">Écoute et connexion</h3>
-                  <p class="m-0 leading-normal">Pratiquer les <strong>circlesongs</strong> développe une écoute fine et une capacité à collaborer et créer ensemble.</p>
-                </div>
-                
-                <div class="highlight-box-small no-margin">
-                  <div class="icon-container">
-                    <i data-lucide="eye" class="icon-large"></i>
-                  </div>
-                  <h3 class="text-primary mb-1 box-title-center-sm">Présence</h3>
-                  <p class="m-0 leading-normal">L'<strong>improvisation vocale</strong> vous ramène au moment présent. C'est une forme de méditation active.</p>
-                </div>
-                
-                <div class="highlight-box-small no-margin">
-                  <div class="icon-container">
-                    <i data-lucide="smile" class="icon-large"></i>
-                  </div>
-                  <h3 class="text-primary mb-1 box-title-center-sm">Plaisir et jeu</h3>
-                  <p class="m-0 leading-normal">Avant tout, l'<strong>impro vocale</strong> c'est du plaisir ! Un plaisir simple, essentiel, libérateur.</p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- Section 8: Toulouse -->
-          <section class="article-section glass-section" id="toulouse">
-            <div class="article-content">
-              <h2>Ateliers d'improvisation vocale et circlesongs à Toulouse</h2>
-              
-              <p class="text-xl mb-2 section-intro">Vous souhaitez découvrir l'<strong>improvisation vocale à Toulouse</strong> ? Je propose des stages et ateliers réguliers d'<strong>impro vocale</strong> et de <strong>circlesongs</strong> dans une ambiance bienveillante et créative.</p>
-              
-              <div class="grid-auto">
-                
-                <div class="highlight-box no-margin">
-                  <h3 class="text-primary mb-1 text-3xl text-center">Ma philosophie</h3>
-                  <p class="mb-1 font-semibold text-white text-center box-subtitle-center">En tant que <strong>coach vocal</strong> spécialisée en improvisation, je crée des espaces où :</p>
-                  <div class="technique-list">
-                    <div class="technique-item">
-                      <span class="technique-check-accent">✓</span>
-                      <span class="technique-text">Chaque voix est accueillie telle qu'elle est</span>
-                    </div>
-                    <div class="technique-item">
-                      <span class="technique-check-accent">✓</span>
-                      <span class="technique-text">L'exploration prime sur la performance</span>
-                    </div>
-                    <div class="technique-item">
-                      <span class="technique-check-accent">✓</span>
-                      <span class="technique-text">Le plaisir et le jeu sont au cœur de la pratique</span>
-                    </div>
-                    <div class="technique-item">
-                      <span class="technique-check-accent">✓</span>
-                      <span class="technique-text">La bienveillance et l'écoute guident nos créations</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="highlight-box-accent no-margin">
-                  <h3 class="text-accent mb-1 text-3xl text-center">Stages & ateliers</h3>
-                  <p class="mb-1 font-semibold text-white text-center box-subtitle-center">Lors de mes <strong>stages et ateliers d'improvisation vocale à Toulouse</strong>, nous explorons :</p>
-                  <div class="technique-list">
-                    <div class="technique-item">
-                      <span class="technique-check-primary">✓</span>
-                      <span class="technique-text">Les <strong>circlesongs</strong> : <strong>polyphonies improvisées</strong> guidées, une forme de <strong>chant en groupe a capella</strong></span>
-                    </div>
-                    <div class="technique-item">
-                      <span class="technique-check-primary">✓</span>
-                      <span class="technique-text">La co-improvisation libre : dialogues vocaux spontanés</span>
-                    </div>
-                    <div class="technique-item">
-                      <span class="technique-check-primary">✓</span>
-                      <span class="technique-text">Le <strong>vocal painting</strong> : communication gestuelle</span>
-                    </div>
-                    <div class="technique-item">
-                      <span class="technique-check-primary">✓</span>
-                      <span class="technique-text">L'exploration vocale : sons, textures, rythmes, silences</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="info-box-purple">
-                <p class="m-0 text-lg">Que vous soyez débutant.e complet.e, que vous suiviez déjà des <strong>cours de chant à Toulouse</strong> ou ailleurs, ou que vous soyez musicien.ne expérimenté.e, vous trouverez votre place dans ces stages et ateliers.</p>
-              </div>
-              
-              <div class="highlight-box-strong-center highlight-box-large highlight-box-mt">
-                <h3 class="text-primary mb-1 text-4xl">Rejoignez les stages & ateliers d'impro vocale à Toulouse</h3>
-                <p class="mb-2 text-xl">Découvrez le calendrier des prochains stages et ateliers de <strong>circlesongs</strong> et d'<strong>improvisation vocale</strong>.</p>
-                <div class="btn-flex-container">
-                  <a href="/ateliers" class="rdv-btn">
-                    <i data-lucide="calendar" class="btn-icon"></i>
-                    Voir les stages & ateliers
-                  </a>
-                  <a href="/contact" class="rdv-btn">
-                    <i data-lucide="mail" class="btn-icon"></i>
-                    Me contacter
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- Section 9: FAQ -->
-          <section class="article-section glass-section" id="faq">
-            <div class="article-content">
-              <h2>Questions fréquentes sur l'improvisation vocale</h2>
-              
-              <p class="faq-text-intro">Vous avez des questions ? Voici les réponses aux interrogations les plus courantes !</p>
-              
-              <div class="faq-list">
-                <div class="highlight-box-left">
-                  <h3 class="text-primary faq-title">
-                    Faut-il savoir chanter pour faire de l'improvisation vocale ?
-                  </h3>
-                  <p class="faq-text"><strong>Non, aucun prérequis n'est nécessaire.</strong> L'<strong>impro vocale</strong> est accessible à tous, que vous ayez déjà pris des <strong>cours de chant</strong> ou non. C'est même une excellente porte d'entrée pour découvrir sa voix sans pression ni jugement.</p>
-                </div>
-
-                <div class="highlight-box-left-accent">
-                  <h3 class="text-accent faq-title"> Quelle est la différence entre circle song et circlesong ?
-                  </h3>
-                  <p class="faq-text">C'est la même chose ! Les deux orthographes sont utilisées. Un <strong>circle song</strong> (ou <strong>circlesong</strong>) est une forme d'<strong>improvisation vocale</strong> collective où un leader distribue des motifs vocaux aux participants pour créer une <strong>polyphonie improvisée</strong>, une pratique de <strong>chant en groupe a capella</strong>.</p>
-                </div>
-
-                <div class="highlight-box-left">
-                  <h3 class="text-primary faq-title">
-                    C'est quoi le vocal painting ?
-                  </h3>
-                  <p class="faq-text">Le <strong>vocal painting</strong> est un langage gestuel qui permet à un chef ou <strong>coach vocal</strong> de guider un groupe en improvisation. C'est un outil de communication qui facilite la création collective en temps réel sans figer la spontanéité.</p>
-                </div>
-
-                <div class="highlight-box-left-accent">
-                  <h3 class="text-accent faq-title"> Peut-on pratiquer l'improvisation vocale seul.e ?
-                  </h3>
-                  <p class="faq-text">Oui, mais la magie de l'<strong>impro vocale</strong> se révèle surtout en groupe ! Les <strong>circlesongs</strong> et la co-improvisation créent une dynamique collective unique où les voix se nourrissent mutuellement. Cela dit, s'entraîner seul.e est aussi très enrichissant pour explorer sa voix.</p>
-                </div>
-
-                <div class="highlight-box-left">
-                  <h3 class="text-primary faq-title-flex">
-                    L'improvisation vocale remplace-t-elle les cours de chant traditionnels ?
-                  </h3>
-                  <p class="faq-text">Pas nécessairement. L'<strong>impro vocale</strong> et la <strong>technique vocale</strong> s'enrichissent mutuellement. Beaucoup de pratiquants combinent les deux approches : les <strong>cours de chant</strong> pour développer la technique, et l'<strong>improvisation vocale</strong> pour nourrir la créativité et la spontanéité.</p>
-                </div>
-
-                <div class="highlight-box-left-accent">
-                  <h3 class="text-accent faq-title"> Où pratiquer l'improvisation vocale à Toulouse ?
-                  </h3>
-                  <p class="faq-text">Je propose des <strong>stages et ateliers réguliers d'improvisation vocale et de circlesongs à Toulouse</strong>, accessibles à tous les niveaux. Vous pouvez <a href="/ateliers" class="text-link">consulter le calendrier des stages et ateliers</a> ou <a href="/contact" class="text-link">me contacter</a> pour plus d'informations. Je propose également des <strong>cours de chant à Toulouse</strong> intégrant l'improvisation.</p>
-                </div>
-              </div>
-              
-              <div class="highlight-box-simple-dashed">
-                <h3 class="text-primary mb-1 text-4xl">💬 Une autre question ?</h3>
-                <p class="mb-1 text-lg">Je me tiens à votre disposition pour toute information supplémentaire 🙂</p>
-                <a href="/contact" class="rdv-btn">
-                  <i data-lucide="mail" class="btn-icon"></i>
-                  Contactez-moi
-                </a>
-              </div>
-            </div>
-          </section>
         </div>
+        <p class="text-white/90 text-base sm:text-lg md:text-xl font-light leading-relaxed max-w-[36.4rem] md:max-w-[31.2rem]">
+          L'<strong>improvisation vocale</strong> est une pratique musicale où la voix devient un instrument de création spontanée. Pas de partition, pas de texte à mémoriser : la musique naît dans l'instant, à partir de l'écoute et de l'intuition.
+        </p>
       </div>
-    </article>
+      <div class="hero-logo-wrap">
+        <a href="/" class="flex items-center justify-center w-full max-w-[min(100vw,560px)] px-2 sm:px-4" aria-label="Donner de la Voix - Accueil">
+          <img src="/assets/logo-ddlv.png" alt="Donner de la Voix - Voix &amp; créativité" width="560" height="140"/>
+        </a>
+      </div>
+    </section>
+
+    <div class="px-4 md:px-8 max-w-7xl mx-auto pb-24">
+      <!-- Section 1 : Qu'est-ce que l'impro vocale ? -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="intro">
+        <h2 class="section-title-bentos scroll-mt-28" style="text-shadow: 0 2px 10px rgba(0,0,0,0.35);">Qu'est-ce que l'impro vocale ?</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-2x2 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-3 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="mic" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="text-lg font-medium m-0"><strong>L'improvisation vocale</strong> est une pratique musicale où la voix devient un instrument de création spontanée. Ici, pas de partition à suivre, pas de texte à mémoriser, pas d'objectif de performance.</p>
+              <p class="m-0 mt-2">La musique naît dans l'instant, à partir de l'écoute, de l'intuition et de ce qui se passe ici et maintenant. Chaque son, chaque silence, chaque rythme émerge du moment présent.</p>
+            </div>
+            <div class="bento-f-1x2 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="users" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="m-0"><strong>Accessible à tous les niveaux</strong> – L'improvisation vocale s'adresse autant aux débutants qu'aux chanteurs expérimentés, aux musiciens, aux artistes ou simplement aux curieux de leur propre voix.</p>
+              <p class="text-base font-semibold m-0 mt-auto"><strong>Aucun prérequis n'est nécessaire</strong> pour commencer l'<strong>impro vocale</strong>.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="circle-dot" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Co-improvisation et circlesongs</h3>
+              <p class="mb-0 text-sm">L'<strong>improvisation vocale</strong> collective se décline sous différentes formes. Dans la <strong>co-improvisation</strong>, les voix dialoguent de manière horizontale, sans leader.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="ear" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>L'écoute et la communication</h3>
+              <p class="mb-0 text-sm">Au cœur de l'impro se trouve <strong>l'écoute</strong> : écouter les autres, s'écouter soi-même, percevoir l'espace sonore global.</p>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="music-2" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Technique vocale et impro</h3>
+              <p class="mb-3 text-sm">L'impro développe la conscience du souffle, le placement vocal, l'exploration de la tessiture ; la technique, en retour, libère plus de possibilités expressives. L'<strong>impro vocale</strong> et les <strong>cours de chant</strong> se complètent idéalement.</p>
+              <a href="/cours-chant" class="btn-rdv mt-auto">Découvrir mes cours de chant</a>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="layers" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="mb-0 text-sm">Le <strong>circle song</strong> (ou <strong>circlesong</strong>) : un leader distribue des motifs vocaux ; ces motifs s'assemblent en une <strong>polyphonie improvisée</strong>, une forme de <strong>chant en groupe a capella</strong> accessible aux débutants.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2 : Les bienfaits de l'impro vocale -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="bienfaits">
+        <h2 class="section-title-bentos scroll-mt-28" style="text-shadow: 0 2px 10px rgba(0,0,0,0.35);">Les bienfaits de l'impro vocale</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="heart" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="text-base m-0">Au-delà du plaisir musical, l'<strong>improvisation vocale</strong> apporte de nombreux bienfaits, tant sur le plan artistique que personnel.</p>
+            </div>
+            <div class="bento-f-1x2 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="sparkles" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Créativité et spontanéité</h3>
+              <p class="m-0 text-sm">L'<strong>impro vocale</strong> réveille votre créativité naturelle. En acceptant de ne pas contrôler, vous découvrez des ressources insoupçonnées.</p>
+              <h3 class="mt-4">Confiance en soi</h3>
+              <p class="m-0 text-sm">Dans un cadre bienveillant, vous apprenez à faire confiance à votre instinct vocal et vous osez davantage.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="wind" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Lâcher-prise</h3>
+              <p class="m-0 text-sm">Accepter l'imperfection, accueillir l'erreur comme une opportunité : autant d'apprentissages précieux.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="link" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Écoute et connexion</h3>
+              <p class="m-0 text-sm">Pratiquer les <strong>circlesongs</strong> développe une écoute fine et une capacité à collaborer et créer ensemble.</p>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="sun" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Présence</h3>
+              <p class="m-0 text-sm">L'<strong>improvisation vocale</strong> vous ramène au moment présent. C'est une forme de méditation active.</p>
+              <h3>Plaisir et jeu</h3>
+              <p class="m-0 text-sm">Avant tout, l'<strong>impro vocale</strong> c'est du plaisir ! Un plaisir simple, essentiel, libérateur.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3 : Pratiquer à Toulouse -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="toulouse">
+        <h2 class="section-title-bentos scroll-mt-28" style="text-shadow: 0 2px 10px rgba(0,0,0,0.35);">Pratiquer à Toulouse</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="map-pin" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="text-base m-0">Vous souhaitez découvrir l'<strong>improvisation vocale à Toulouse</strong> ? Je propose des stages et ateliers réguliers d'<strong>impro vocale</strong> et de <strong>circlesongs</strong> dans une ambiance bienveillante et créative.</p>
+            </div>
+            <div class="bento-f-1x2 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="compass" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Ma philosophie</h3>
+              <p class="font-semibold mb-2 text-sm">En tant que <strong>coach vocal</strong> spécialisée en improvisation, je crée des espaces où :</p>
+              <ul class="text-sm mb-0 list-disc pl-4 space-y-1">
+                <li>Chaque voix est accueillie telle qu'elle est</li>
+                <li>L'exploration prime sur la performance</li>
+                <li>Le plaisir et le jeu sont au cœur de la pratique</li>
+                <li>La bienveillance et l'écoute guident nos créations</li>
+              </ul>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="calendar-days" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Stages &amp; ateliers</h3>
+              <p class="font-semibold mb-2 text-sm">Lors de mes <strong>stages et ateliers d'improvisation vocale à Toulouse</strong>, nous explorons :</p>
+              <ul class="text-sm mb-0 list-disc pl-4 space-y-1">
+                <li>Les <strong>circlesongs</strong> : <strong>polyphonies improvisées</strong> guidées</li>
+                <li>La co-improvisation libre : dialogues vocaux spontanés</li>
+                <li>Le <strong>vocal painting</strong> : communication gestuelle</li>
+                <li>L'exploration vocale : sons, textures, rythmes, silences</li>
+              </ul>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="users" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="m-0 text-sm">Que vous soyez débutant.e complet.e, que vous suiviez déjà des <strong>cours de chant à Toulouse</strong> ou ailleurs, ou que vous soyez musicien.ne expérimenté.e, vous trouverez votre place dans ces stages et ateliers.</p>
+            </div>
+            <div class="bento-f-2x2 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-4 relative overflow-hidden bento-content-glass text-center items-center justify-center">
+              <div class="bento-icon-wrap"><i data-lucide="mic-2" class="bento-icon" aria-hidden="true"></i></div>
+              <h3 class="mt-0 text-lg">Rejoignez les stages &amp; ateliers d'impro vocale à Toulouse</h3>
+              <p class="mb-0 text-sm">Découvrez le calendrier des prochains stages et ateliers de <strong>circlesongs</strong> et d'<strong>improvisation vocale</strong>.</p>
+              <div class="flex flex-wrap gap-4 justify-center">
+                <a href="/ateliers" class="btn-rdv">Voir les stages &amp; ateliers</a>
+                <a href="/contact" class="btn-rdv">Me contacter</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4 : FAQ bento -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28 faq-section-full" id="faq">
+        <h2 class="section-title-bentos scroll-mt-28" style="text-shadow: 0 2px 10px rgba(0,0,0,0.35);">Questions fréquentes sur l'improvisation vocale</h2>
+        <p class="mb-6 text-white/90 text-sm">Cliquez sur une question pour afficher la réponse.</p>
+        <div class="faq-bento-zone">
+          <div class="faq-bento-card glass-panel-rose bento-tint-primary rounded-2xl relative overflow-hidden" role="listitem">
+            <button type="button" class="faq-bento-trigger" aria-expanded="false" aria-controls="faq-bento-panel-1" id="faq-bento-trigger-1">
+              <span>Faut-il savoir chanter pour faire de l'improvisation vocale ?</span>
+              <span class="faq-bento-icon material-symbols-outlined" aria-hidden="true">expand_more</span>
+            </button>
+            <div class="faq-bento-panel" id="faq-bento-panel-1" role="region" aria-labelledby="faq-bento-trigger-1">
+              <div class="faq-bento-panel-inner">
+                <p><strong>Non, aucun prérequis n'est nécessaire.</strong> L'<strong>impro vocale</strong> est accessible à tous, que vous ayez déjà pris des <strong>cours de chant</strong> ou non. C'est même une excellente porte d'entrée pour découvrir sa voix sans pression ni jugement.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-bento-card glass-panel-rose bento-tint-primary-light rounded-2xl relative overflow-hidden" role="listitem">
+            <button type="button" class="faq-bento-trigger" aria-expanded="false" aria-controls="faq-bento-panel-2" id="faq-bento-trigger-2">
+              <span>Quelle est la différence entre circle song et circlesong ?</span>
+              <span class="faq-bento-icon material-symbols-outlined" aria-hidden="true">expand_more</span>
+            </button>
+            <div class="faq-bento-panel" id="faq-bento-panel-2" role="region" aria-labelledby="faq-bento-trigger-2">
+              <div class="faq-bento-panel-inner">
+                <p>C'est la même chose ! Les deux orthographes sont utilisées. Un <strong>circle song</strong> (ou <strong>circlesong</strong>) est une forme d'<strong>improvisation vocale</strong> collective où un leader distribue des motifs vocaux aux participants pour créer une <strong>polyphonie improvisée</strong>.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-bento-card glass-panel-rose bento-tint-accent rounded-2xl relative overflow-hidden" role="listitem">
+            <button type="button" class="faq-bento-trigger" aria-expanded="false" aria-controls="faq-bento-panel-3" id="faq-bento-trigger-3">
+              <span>C'est quoi le vocal painting ?</span>
+              <span class="faq-bento-icon material-symbols-outlined" aria-hidden="true">expand_more</span>
+            </button>
+            <div class="faq-bento-panel" id="faq-bento-panel-3" role="region" aria-labelledby="faq-bento-trigger-3">
+              <div class="faq-bento-panel-inner">
+                <p>Le <strong>vocal painting</strong> est un langage gestuel qui permet à un chef ou <strong>coach vocal</strong> de guider un groupe en improvisation. C'est un outil de communication qui facilite la création collective en temps réel sans figer la spontanéité.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-bento-card glass-panel-rose bento-tint-teal rounded-2xl relative overflow-hidden" role="listitem">
+            <button type="button" class="faq-bento-trigger" aria-expanded="false" aria-controls="faq-bento-panel-4" id="faq-bento-trigger-4">
+              <span>Peut-on pratiquer l'improvisation vocale seul.e ?</span>
+              <span class="faq-bento-icon material-symbols-outlined" aria-hidden="true">expand_more</span>
+            </button>
+            <div class="faq-bento-panel" id="faq-bento-panel-4" role="region" aria-labelledby="faq-bento-trigger-4">
+              <div class="faq-bento-panel-inner">
+                <p>Oui, mais la magie de l'<strong>impro vocale</strong> se révèle surtout en groupe ! Les <strong>circlesongs</strong> et la co-improvisation créent une dynamique collective unique. Cela dit, s'entraîner seul.e est aussi très enrichissant pour explorer sa voix.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-bento-card glass-panel-rose bento-tint-mix rounded-2xl relative overflow-hidden" role="listitem">
+            <button type="button" class="faq-bento-trigger" aria-expanded="false" aria-controls="faq-bento-panel-5" id="faq-bento-trigger-5">
+              <span>L'improvisation vocale remplace-t-elle les cours de chant traditionnels ?</span>
+              <span class="faq-bento-icon material-symbols-outlined" aria-hidden="true">expand_more</span>
+            </button>
+            <div class="faq-bento-panel" id="faq-bento-panel-5" role="region" aria-labelledby="faq-bento-trigger-5">
+              <div class="faq-bento-panel-inner">
+                <p>Pas nécessairement. L'<strong>impro vocale</strong> et la <strong>technique vocale</strong> s'enrichissent mutuellement. Beaucoup de pratiquants combinent les deux approches : les <strong>cours de chant</strong> pour développer la technique, et l'<strong>improvisation vocale</strong> pour nourrir la créativité et la spontanéité.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-bento-card glass-panel-rose bento-tint-accent rounded-2xl relative overflow-hidden" role="listitem">
+            <button type="button" class="faq-bento-trigger" aria-expanded="false" aria-controls="faq-bento-panel-6" id="faq-bento-trigger-6">
+              <span>Où pratiquer l'improvisation vocale à Toulouse ?</span>
+              <span class="faq-bento-icon material-symbols-outlined" aria-hidden="true">expand_more</span>
+            </button>
+            <div class="faq-bento-panel" id="faq-bento-panel-6" role="region" aria-labelledby="faq-bento-trigger-6">
+              <div class="faq-bento-panel-inner">
+                <p>Je propose des <strong>stages et ateliers réguliers d'improvisation vocale et de circlesongs à Toulouse</strong>, accessibles à tous les niveaux. Vous pouvez <a href="/ateliers">consulter le calendrier des stages et ateliers</a> ou <a href="/contact">me contacter</a> pour plus d'informations. Je propose également des <strong>cours de chant à Toulouse</strong> intégrant l'improvisation.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-bento-cta glass-panel-rose bento-tint-mix rounded-2xl p-6 text-center bento-content-glass relative overflow-hidden">
+            <div class="bento-icon-wrap flex justify-center"><i data-lucide="help-circle" class="bento-icon" aria-hidden="true"></i></div>
+            <h3 class="mt-0 text-lg font-semibold text-white">Une autre question ?</h3>
+            <p class="mb-4 text-sm text-white/90">Je me tiens à votre disposition pour toute information supplémentaire.</p>
+            <a href="/contact" class="btn-rdv">Contactez-moi</a>
+            <p class="mt-4 text-sm text-white/80">Pour les prochains ateliers et actualités : <a href="/contact#newsletter" class="text-white underline underline-offset-2 hover:text-accent transition-colors">s'abonner à la newsletter</a>.</p>
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
+
+  <div class="hidden lg:flex fixed right-8 top-1/2 -translate-y-1/2 z-50 flex-col gap-5">
+    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all" href="/contact" title="Contact"><svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>
+    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-accent transition-all" href="https://www.instagram.com/donnerdelavoixchant/" target="_blank" rel="noopener noreferrer" title="Instagram"><svg class="size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059 1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg></a>
+    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-primary transition-all" href="https://www.facebook.com/donnerdelavoix" target="_blank" rel="noopener noreferrer" title="Facebook"><svg class="size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg></a>
+  </div>
+  <div class="hidden lg:block fixed bottom-6 left-8 z-50 flex flex-col gap-2">
+    <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="/mentions-legales">Mentions Légales</a>
+    <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="/contact#newsletter">Newsletter</a>
+  </div>
   <script type="module" src="/js/main.js"></script>
-  
-  <!-- Calendly Script -->
-  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
   <script>
-    // Gestion de la popup Calendly
     document.addEventListener('DOMContentLoaded', function() {
-      const trigger = document.getElementById('calendly-trigger');
-      const popup = document.getElementById('calendly-popup');
-      const closeBtn = document.getElementById('calendly-popup-close');
-      const overlay = document.getElementById('calendly-popup-overlay');
-      
-      if (trigger && popup) {
-        trigger.addEventListener('click', function() {
-          popup.classList.remove('hidden');
-          document.body.classList.add('no-scroll');
-        });
-        
-        function closePopup() {
-          popup.classList.add('hidden');
-          document.body.classList.remove('no-scroll');
-        }
-        
-        if (closeBtn) closeBtn.addEventListener('click', closePopup);
-        if (overlay) overlay.addEventListener('click', closePopup);
-        
-        // Fermer avec la touche Escape
-        document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape' && !popup.classList.contains('hidden')) {
-            closePopup();
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+      function smoothScrollTo(id) {
+        var el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+          var href = a.getAttribute('href');
+          if (href && href.length > 1) {
+            e.preventDefault();
+            smoothScrollTo(href.slice(1));
           }
         });
-      }
+      });
+
+      document.querySelectorAll('.faq-bento-trigger').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var card = btn.closest('.faq-bento-card');
+          var isOpen = card.classList.contains('is-open');
+          card.classList.toggle('is-open', !isOpen);
+          btn.setAttribute('aria-expanded', !isOpen);
+        });
+      });
     });
   </script>
-  
-  <!-- Initialiser Lucide Icons -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
-      }
-    });
-  </script>
-  <!-- Médaillons réseaux sociaux flottants -->
-  <aside class="social-medallions" aria-label="Réseaux sociaux et contact Donner de la Voix">
-    <a href="/contact" class="social-medallion social-medallion-mail" aria-label="Contact - envoyer un message">
-      <svg class="social-medallion-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-        <polyline points="22,6 12,13 2,6"></polyline>
-      </svg>
-    </a>
-    <a href="https://www.instagram.com/donnerdelavoixchant/" class="social-medallion social-medallion-insta" target="_blank" rel="noopener noreferrer" aria-label="Instagram Donner de la Voix">
-      <svg class="social-medallion-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
-      </svg>
-    </a>
-    <a href="https://www.facebook.com/donnerdelavoix" class="social-medallion social-medallion-fb" target="_blank" rel="noopener noreferrer" aria-label="Facebook Donner de la Voix">
-      <svg class="social-medallion-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-      </svg>
-    </a>
-  </aside>
   <div id="floating-rdv-container"></div>
   <script>
     (function() {
@@ -562,4 +596,3 @@
   <script src="/js/init-floating-calendly.js"></script>
 </body>
 </html>
-

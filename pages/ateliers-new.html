@@ -111,256 +111,6 @@
       }
       .glass-violet-glow { @apply border-[#7a6ac7]/40; box-shadow: 0 0 20px rgba(91,42,181,0.2), inset 0 0 20px rgba(122,106,199,0.1); }
       .glass-rose-glow { @apply border-[#cf3594]/40; box-shadow: 0 0 20px rgba(207,53,148,0.2), inset 0 0 20px rgba(207,53,148,0.1); }
-      /* --- Volet droit détail format atelier (slide-in panel) --- */
-      .atelier-modal-overlay {
-        position: fixed;
-        inset: 0;
-        z-index: 100;
-        background: rgba(45, 25, 75, 0.4);
-        -webkit-backdrop-filter: blur(8px);
-        backdrop-filter: blur(8px);
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-      }
-      .atelier-modal-overlay.is-open {
-        opacity: 1;
-        visibility: visible;
-      }
-      .atelier-modal-box {
-        position: fixed !important;
-        top: 0;
-        right: 0;
-        left: auto;
-        width: 40%;
-        min-width: 18rem;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        border-radius: 1.25rem 0 0 1.25rem;
-        background: linear-gradient(165deg, rgba(55, 35, 85, 0.97) 0%, rgba(45, 28, 72, 0.98) 100%);
-        -webkit-backdrop-filter: blur(24px);
-        backdrop-filter: blur(24px);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-right: none;
-        box-shadow:
-          -8px 0 32px rgba(0, 0, 0, 0.4),
-          0 0 0 1px rgba(91, 42, 181, 0.12) inset;
-        transform: translateX(100%);
-        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 101;
-      }
-      .atelier-modal-overlay.is-open .atelier-modal-box {
-        transform: translateX(0);
-      }
-      .atelier-modal-box::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        border-radius: 1.25rem 0 0 0;
-        background: linear-gradient(90deg, #5b2ab5 0%, #7a6ac7 40%, #cf3594 100%);
-        pointer-events: none;
-      }
-      .atelier-modal-close {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        z-index: 10;
-        width: 2.75rem;
-        height: 2.75rem;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: rgba(255, 255, 255, 0.9);
-        background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        cursor: pointer;
-        transition: color 0.2s, background 0.2s, border-color 0.2s, transform 0.2s;
-      }
-      .atelier-modal-close:hover {
-        color: #fff;
-        background: rgba(207, 53, 148, 0.35);
-        border-color: rgba(207, 53, 148, 0.5);
-        transform: scale(1.08);
-      }
-      .atelier-modal-close:focus-visible {
-        outline: 2px solid #cf3594;
-        outline-offset: 2px;
-      }
-      .atelier-modal-content {
-        flex: 1;
-        overflow-y: auto;
-        padding: 2.5rem 1.5rem 2rem 1.75rem;
-        scrollbar-width: thin;
-        scrollbar-color: rgba(207, 53, 148, 0.5) rgba(255, 255, 255, 0.04);
-      }
-      .atelier-modal-content::-webkit-scrollbar { width: 8px; }
-      .atelier-modal-content::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.04);
-        border-radius: 4px;
-      }
-      .atelier-modal-content::-webkit-scrollbar-thumb {
-        background: rgba(207, 53, 148, 0.45);
-        border-radius: 4px;
-      }
-      .atelier-modal-content::-webkit-scrollbar-thumb:hover {
-        background: rgba(207, 53, 148, 0.65);
-      }
-      .atelier-modal-content .article-content {
-        padding: 0;
-      }
-      .atelier-modal-content .article-content h2:first-child,
-      .atelier-modal-content .article-content h2:first-of-type {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #fff;
-        margin: 0 0 0.25rem 0;
-        padding-right: 3rem;
-        letter-spacing: 0.02em;
-        text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
-      }
-      .atelier-modal-content .article-content h2:not(:first-child):not(:first-of-type) {
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: rgba(255, 255, 255, 0.95);
-        margin-top: 1.5rem;
-        margin-bottom: 0.5rem;
-      }
-      .atelier-modal-content .article-content h3 {
-        font-size: 1.125rem;
-        font-weight: 600;
-        color: #e8e0fa;
-        margin-top: 1.25rem;
-        margin-bottom: 0.5rem;
-      }
-      .atelier-modal-content .article-content h4 {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #e0d8f5;
-        margin-bottom: 0.35rem;
-      }
-      .atelier-modal-content .article-content p,
-      .atelier-modal-content .article-content li {
-        color: rgba(255, 255, 255, 0.88);
-        line-height: 1.65;
-        font-size: 0.9375rem;
-      }
-      .atelier-modal-content .article-content .article-subtitle,
-      .atelier-modal-content .article-content p.article-subtitle {
-        color: rgba(255, 255, 255, 0.7);
-        font-size: 1rem;
-        margin-bottom: 1rem;
-      }
-      .atelier-modal-content .article-content a {
-        color: #e090c0;
-        text-decoration: underline;
-        text-underline-offset: 2px;
-      }
-      .atelier-modal-content .article-content a:hover {
-        color: #f0b0d0;
-      }
-      .atelier-modal-content .article-content strong {
-        color: rgba(255, 255, 255, 0.95);
-      }
-      .atelier-modal-content .article-content small {
-        color: rgba(255, 255, 255, 0.7);
-      }
-      .atelier-modal-content .article-content img.article-image {
-        width: 100%;
-        max-width: 100%;
-        height: auto;
-        border-radius: 1rem;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        margin: 1rem 0 1.25rem 0;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-      }
-      .atelier-modal-content .article-content div[style*="background"] {
-        background: rgba(255, 255, 255, 0.06) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 0.75rem;
-        padding: 1rem 1.25rem;
-        margin: 1rem 0;
-      }
-      .atelier-modal-content .article-content div[style*="border-left"] {
-        border-left: 4px solid #7a6ac7;
-      }
-      .atelier-modal-content .article-content .highlight-box-small,
-      .atelier-modal-content .article-content .highlight-box-dashed,
-      .atelier-modal-content .article-content .highlight-box-white-transparent,
-      .atelier-modal-content .article-content .highlight-box-dashed-accent,
-      .atelier-modal-content .article-content .glass-panel,
-      .atelier-modal-content .article-content .glass-premium {
-        background: rgba(255, 255, 255, 0.06) !important;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 0.75rem;
-        padding: 1rem 1.25rem;
-        margin: 1rem 0;
-      }
-      .atelier-modal-content .article-content span[style*="background: var"] {
-        background: rgba(91, 42, 181, 0.5) !important;
-        color: #fff !important;
-        padding: 0.25rem 0.75rem !important;
-        border-radius: 9999px !important;
-        font-size: 0.8125rem !important;
-        font-weight: 600 !important;
-        border: none !important;
-      }
-      .atelier-modal-content .article-content button.atelier-see-workshops-btn,
-      .atelier-modal-content .article-content a.rdv-btn,
-      .atelier-modal-content .article-content .rdv-btn,
-      .atelier-modal-content .article-content a[href="/contact"] {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        padding: 0.75rem 2rem;
-        font-size: 0.75rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.2em;
-        color: #fff;
-        background: rgba(207, 53, 148, 0.6);
-        border: 1px solid rgba(207, 53, 148, 0.7);
-        border-radius: 1rem;
-        box-shadow: 0 4px 20px rgba(207, 53, 148, 0.3);
-        text-decoration: none;
-        cursor: pointer;
-        transition: all 0.2s ease;
-      }
-      .atelier-modal-content .article-content button.atelier-see-workshops-btn:hover,
-      .atelier-modal-content .article-content a.rdv-btn:hover,
-      .atelier-modal-content .article-content .rdv-btn:hover,
-      .atelier-modal-content .article-content a[href="/contact"]:hover {
-        background: rgba(207, 53, 148, 0.8);
-        color: #fff;
-      }
-      .atelier-modal-content .article-content ul {
-        padding-left: 1.5rem;
-        margin: 0.5rem 0 1rem 0;
-      }
-      .atelier-modal-external {
-        padding: 2.5rem 1.5rem;
-        text-align: center;
-      }
-      .atelier-modal-external h3 {
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: #fff;
-        margin-bottom: 0.5rem;
-      }
-      .atelier-modal-external p {
-        color: rgba(255, 255, 255, 0.85);
-        margin-bottom: 1.5rem;
-      }
-      .atelier-modal-external a {
-        color: #e090c0;
-        text-decoration: underline;
-      }
       .hero-overlay > * { position: relative; z-index: 1; }
       .hero-cta-icon {
         font-size: 1.75rem;
@@ -892,6 +642,343 @@
       </div>
     </section>
 
+    <!-- Panneau formats (ouvert au clic sur un format, style verre dépoli) -->
+    <div id="formats-d-ateliers" class="formats-panel" aria-hidden="true">
+      <button type="button" class="formats-panel-close" aria-label="Fermer le panneau">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+      <div class="max-w-3xl mx-auto px-4 md:px-8 pt-12 pb-8">
+        <section id="ateliers-focus" class="article-section rounded-xl p-6 md:p-8 mb-6">
+          <div class="article-content">
+            <div class="format-badges flex flex-wrap gap-2 mb-4">
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-[#5b2ab5]/60">TARIF LIBRE</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-[#7a6ac7]/60">CIRCLESONGS</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">PETIT GROUPE</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">TOULOUSE</span>
+            </div>
+            <h2>Atelier – Focus</h2>
+            <p class="text-lg font-medium mb-4">Improvisation vocale mensuelle</p>
+            <p>Un atelier mensuel d'improvisation vocale à Toulouse, tous les deuxièmes mardis du mois. Plongez dans l'univers des circlesongs et de la co-improvisation dans une ambiance chaleureuse et ludique.</p>
+            <p>L'impro vocale mois après mois : chaque séance explore un ou deux aspects spécifiques du chant improvisé pour enrichir votre pratique et développer votre créativité vocale.</p>
+            <h3>Au programme</h3>
+            <p>À chaque atelier d'improvisation vocale, nous explorons 1 à 2 thématiques parmi :</p>
+            <ul>
+              <li><strong>Musicalité</strong> : cohésion, harmonie, rythmique, polyphonie dans les circlesongs</li>
+              <li><strong>Expression</strong> : présence, créativité, connexion au groupe</li>
+              <li><strong>Jeu vocal</strong> : textures sonores, exploration de timbres, contrastes dynamiques</li>
+              <li><strong>Écoute active</strong> : interaction, complémentarité</li>
+              <li><strong>Solo et collectif</strong> : trouver sa place, oser, soutenir</li>
+            </ul>
+            <p>Et bien d'autres aspects pour varier les approches et s'amuser ensemble !</p>
+            <h3>L'esprit des ateliers d'impro vocale</h3>
+            <ul>
+              <li>✓ <strong>Cadre bienveillant</strong> – Exploration sans jugement, où chaque voix a sa place</li>
+              <li>✓ <strong>Approche ludique</strong> – Le plaisir avant la performance</li>
+              <li>✓ <strong>Liberté d'expérimentation</strong> – Un espace pour tester, se tromper, progresser</li>
+              <li>✓ <strong>Petit groupe</strong> – Max. 10 personnes pour favoriser l'écoute et la connexion</li>
+            </ul>
+            <h3>Prérequis</h3>
+            <p>Pour profiter pleinement de cet atelier d'improvisation vocale, il est nécessaire de savoir tenir une pulsation stable et de pouvoir reproduire une mélodie donnée à l'identique.</p>
+            <div class="highlight-box-small rounded-xl p-4 my-4 border border-white/20 bg-white/10">
+              <h3 class="mt-0">Informations pratiques</h3>
+              <dl class="grid gap-2">
+                <div><dt class="font-semibold">Quand ?</dt><dd>Tous les 2èmes mardis du mois</dd></div>
+                <div><dt class="font-semibold">Durée</dt><dd>3 heures (19h – 22h)</dd></div>
+                <div><dt class="font-semibold">Où ?</dt><dd>Quartier Minimes, Toulouse</dd></div>
+                <div><dt class="font-semibold">Groupe</dt><dd>Max. 10 personnes</dd></div>
+              </dl>
+            </div>
+            <div class="highlight-box-small rounded-xl p-4 my-4 border border-white/20 bg-white/10">
+              <h3 class="mt-0">Tarif libre et conscient</h3>
+              <p>Choisissez le montant selon vos moyens et la valeur que vous donnez à l'atelier</p>
+              <ul>
+                <li><strong>15 €</strong> — Tarif minimum pour rendre l'atelier viable</li>
+                <li><strong>20 € RECOMMANDÉ</strong> — Couvre mieux les frais et le temps de préparation</li>
+                <li><strong>25 €+</strong> — Soutien pour développer de nouvelles propositions</li>
+              </ul>
+            </div>
+            <h3>Inscriptions</h3>
+            <p>L'inscription se fait via la billetterie en ligne : <a href="https://www.billetweb.fr/pro/donnerdelavoix" target="_blank" rel="noopener noreferrer">billetterie BilletWeb</a>, mais le paiement a lieu sur place.</p>
+            <p><strong>Important :</strong> En cas d'annulation, merci de prévenir le plus tôt possible pour permettre à d'autres de participer. Pour assurer le bon déroulement des sessions, les inscriptions répétées suivies d'annulations pourront être refusées.</p>
+            <p class="mt-6"><strong>Prêt.e à rejoindre l'aventure ?</strong><br>Il me tarde de chanter avec vous !</p>
+            <p><a href="#prochaines-dates" class="formats-panel-cta-link">Voir les prochaines dates</a> | <a href="/contact-new" class="formats-panel-cta-link">Une question ?</a></p>
+          </div>
+        </section>
+
+        <section id="art-circle-songs" class="article-section rounded-xl p-6 md:p-8 mb-6">
+          <div class="article-content">
+            <div class="format-badges flex flex-wrap gap-2 mb-4">
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-[#5b2ab5]/60">TARIF LIBRE</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-[#7a6ac7]/60">CIRCLESONGS</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">FORMATION</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">TOULOUSE</span>
+            </div>
+            <h2>Stage – L'art des circle songs</h2>
+            <p class="text-lg font-medium mb-4">Journée immersive de circlesongs</p>
+            <p>Une journée immersive d'improvisation vocale à Toulouse pour maîtriser l'art des circlesongs. Les circlesongs sont une pratique de chant en groupe a capella où nous créons ensemble des polyphonies improvisées guidées par un.e conducteur.rice. Le circlesong est un chant a cappella entièrement improvisé : un.e conducteur.rice guide le groupe en attribuant spontanément des éléments mélodiques, harmoniques et rythmiques pour créer un arrangement musical spontané.</p>
+            <p>Cette pratique d'improvisation vocale permet de s'initier au chant polyphonique, de développer l'écoute, le sens du rythme et l'oreille musicale dans un cadre collectif et bienveillant.</p>
+            <h3>Objectifs de la journée</h3>
+            <ul>
+              <li><strong>Créer des circlesongs de A à Z</strong> – Apprendre à construire et guider une improvisation vocale collective</li>
+              <li><strong>Développer votre assurance</strong> – Gagner en confiance dans votre créativité et votre direction</li>
+              <li><strong>Affiner votre écoute</strong> – Développer votre perception harmonique et rythmique</li>
+              <li><strong>Explorer les gestes de direction</strong> – Découvrir les langages gestuels en improvisation vocale, inspirés du vocal painting</li>
+              <li><strong>Se faire plaisir !</strong> – Partager la joie du chant improvisé en groupe</li>
+            </ul>
+            <p><strong>👥 Pour qui ?</strong> Ouvert à tous.tes – 10 participant.es maximum</p>
+            <div class="highlight-box-small rounded-xl p-4 my-4 border border-white/20 bg-white/10">
+              <h3 class="mt-0">Informations pratiques</h3>
+              <dl class="grid gap-2">
+                <div><dt class="font-semibold">Format</dt><dd>Journée complète</dd></div>
+                <div><dt class="font-semibold">Horaires</dt><dd>10h – 18h</dd></div>
+                <div><dt class="font-semibold">Où ?</dt><dd>Lieu communiqué à l'inscription (généralement Atelier des Chalets, Toulouse)</dd></div>
+                <div><dt class="font-semibold">Groupe</dt><dd>Max. 10 personnes</dd></div>
+              </dl>
+            </div>
+            <div class="highlight-box-small rounded-xl p-4 my-4 border border-white/20 bg-white/10">
+              <h3 class="mt-0">Tarif libre et conscient</h3>
+              <p>Choisissez le montant selon vos moyens et la valeur que vous donnez à cet atelier de circlesongs</p>
+              <ul>
+                <li><strong>50 €</strong> — Couvre préparation, administration et communication</li>
+                <li><strong>70 € RECOMMANDÉ</strong> — Tarif de base pour rendre l'atelier viable</li>
+                <li><strong>80 €+</strong> — Meilleure rémunération et couverture des frais</li>
+              </ul>
+            </div>
+            <h3>Inscriptions</h3>
+            <p>L'inscription se fait via la billetterie en ligne : <a href="https://www.billetweb.fr/pro/donnerdelavoix" target="_blank" rel="noopener noreferrer">billetterie BilletWeb</a>, mais le paiement a lieu sur place.</p>
+            <p><strong>Important :</strong> En cas d'annulation, merci de prévenir le plus tôt possible. Les inscriptions répétées suivies d'annulations pourront être refusées.</p>
+            <p><a href="#prochaines-dates" class="formats-panel-cta-link">Voir les prochaines dates</a> | <a href="/contact-new" class="formats-panel-cta-link">Une question ?</a></p>
+          </div>
+        </section>
+
+        <section id="stage-circlesong" class="article-section rounded-xl p-6 md:p-8 mb-6">
+          <div class="article-content">
+            <div class="format-badges flex flex-wrap gap-2 mb-4">
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-[#7a6ac7]/60">CIRCLESONGS</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">STAGE 5 JOURS</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">TOULOUSE</span>
+            </div>
+            <h2>Stage – Circlesong immersif</h2>
+            <p class="text-lg font-medium mb-4">5 jours d'immersion dans l'improvisation vocale collective</p>
+            <h3>Qu'est-ce que le Circlesong ?</h3>
+            <p>Le circlesong est une pratique d'improvisation vocale collective. Les participants, disposés en cercle, créent ensemble une musique spontanée guidée par un chef de chœur improvisé. Chacun contribue avec sa voix en proposant des mélodies, des rythmes ou des harmonies qui s'entremêlent pour former une pièce musicale unique à chaque fois. C'est une expérience d'écoute, d'interaction et de créativité partagée.</p>
+            <p>5 jours pour explorer l'art de l'improvisation vocale collective : rejoignez-nous pour un stage intensif où votre voix deviendra l'instrument d'une création collective unique et spontanée.</p>
+            <h3>Objectifs du stage</h3>
+            <p>Gagner en confiance • Solidifier sa pratique • Lâcher prise • S'amuser • Développer sa créativité</p>
+            <div class="highlight-box-small rounded-xl p-4 my-4 border border-white/20 bg-white/10">
+              <h3 class="mt-0">📅 Format &amp; Durée</h3>
+              <dl class="grid gap-2">
+                <div><dt class="font-semibold">Format</dt><dd>5 jours consécutifs</dd></div>
+                <div><dt class="font-semibold">Horaires</dt><dd>9h30 – 17h chaque jour</dd></div>
+                <div><dt class="font-semibold">Lieu</dt><dd>Toulouse (adresse communiquée à l'inscription)</dd></div>
+                <div><dt class="font-semibold">Groupe</dt><dd>Places limitées à 12 personnes</dd></div>
+              </dl>
+            </div>
+            <h3>🎵 Programme détaillé</h3>
+            <ul>
+              <li><strong>Jour 1 – Les bases du Circlesong</strong><br>Poser les fondations : prendre sa place dans le cercle, oser proposer des idées vocales, lâcher le mental pour se connecter au groupe.</li>
+              <li><strong>Jour 2 – Approfondir les bases</strong><br>Affiner la technique : structurer les différentes voix, suivre et répondre aux indications du chef de chœur.</li>
+              <li><strong>Jour 3 – Les débuts et les fins</strong><br>Focus sur les moments clés : démarrer un circlesong, sentir le bon moment pour conclure.</li>
+              <li><strong>Jour 4 – Structurer un circlesong</strong><br>Composer en temps réel : créer des pauses, faire évoluer l'énergie et les ambiances.</li>
+              <li><strong>Jour 5 – Circlesong devant un public</strong><br>Mise en pratique : représentation publique en soirée.</li>
+            </ul>
+            <p><strong>🎭 Représentation publique</strong> – Le stage se conclut par une représentation publique en soirée.</p>
+            <p><strong>👥 À qui s'adresse ce stage ?</strong> Débutants et curieux bienvenus. Prérequis : Savoir reproduire une mélodie donnée en respectant tonalité et rythmique. Places limitées à 12 personnes.</p>
+            <p><strong>🎤 Pédagogue :</strong> Jessalynn – Professeur de chant et pédagogue en improvisation vocale • <a href="https://www.donnerdelavoix.fr" target="_blank" rel="noopener noreferrer">www.donnerdelavoix.fr</a></p>
+            <div class="highlight-box-small rounded-xl p-4 my-4 border border-white/20 bg-white/10">
+              <h3 class="mt-0">💰 Tarifs</h3>
+              <p><strong>320 €</strong> (paiement en plusieurs fois possible)</p>
+            </div>
+            <p><strong>✉️ Inscriptions &amp; informations :</strong> contact@donnerdelavoix.fr ou <a href="/contact-new" class="formats-panel-cta-link">contact</a>.</p>
+            <p><a href="#prochaines-dates" class="formats-panel-cta-link">Voir les prochaines dates</a> | <a href="/contact-new" class="formats-panel-cta-link">Une question ?</a></p>
+          </div>
+        </section>
+
+        <section id="chant-pour-tous" class="article-section rounded-xl p-6 md:p-8 mb-6">
+          <div class="article-content">
+            <div class="format-badges flex flex-wrap gap-2 mb-4">
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-[#4db8aa]/60">GRATUIT</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-[#7a6ac7]/60">CIRCLESONGS</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">TOUS NIVEAUX</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">TOULOUSE</span>
+            </div>
+            <h2>Évènement – Chant pour tous</h2>
+            <p class="text-lg font-medium mb-4">Atelier découverte gratuit</p>
+            <p>Chant pour tous est un atelier gratuit d'improvisation vocale à Toulouse, ouvert à toutes et tous. Un atelier de chant en groupe accessible à tous, où nous explorons le chant a capella et l'improvisation vocale collective. Une belle occasion de découvrir l'impro vocale et les circlesongs dans un cadre accessible et bienveillant, sans aucun engagement financier.</p>
+            <p>Parfait pour une première approche du chant improvisé, cet atelier vous permet de tester cette pratique et de voir si elle vous correspond.</p>
+            <h3>🎯 Ce que vous allez découvrir</h3>
+            <ul>
+              <li><strong>🎵 Découvrir l'improvisation vocale</strong> – Explorer cette pratique dans un cadre convivial et bienveillant, sans prérequis musicaux.</li>
+              <li><strong>🗣️ Expérimenter votre voix</strong> – Explorer votre voix dans un cadre collectif, participer à des jeux d'improvisation vocale.</li>
+              <li><strong>🔄 Créer des circle songs</strong> – Participer à la création de circlesongs envoûtants.</li>
+              <li><strong>🤝 Rencontrer une communauté</strong> – Faire connaissance avec d'autres personnes intéressées par la voix et le chant à Toulouse.</li>
+            </ul>
+            <p><strong>👥 Pour qui ?</strong> Débutants complets, curieux et curieuses, chanteurs et chanteuses, toute personne attirée par la voix – sans prérequis musicaux.</p>
+            <div class="highlight-box-small rounded-xl p-4 my-4 border border-white/20 bg-white/10">
+              <h3 class="mt-0">📋 Informations pratiques</h3>
+              <dl class="grid gap-2">
+                <div><dt class="font-semibold">Durée</dt><dd>Environ 2 heures</dd></div>
+                <div><dt class="font-semibold">Où ?</dt><dd>Atelier des Chalets, 23 Rue Edouard Dulaurier, Toulouse</dd></div>
+                <div><dt class="font-semibold">Tarif</dt><dd>GRATUIT</dd></div>
+                <div><dt class="font-semibold">Groupe</dt><dd>Ouvert à tous</dd></div>
+                <div><dt class="font-semibold">Animation</dt><dd>Jessalynn</dd></div>
+              </dl>
+            </div>
+            <p><a href="#prochaines-dates" class="formats-panel-cta-link">Voir les prochaines dates</a> | <a href="/contact-new" class="formats-panel-cta-link">Une question ?</a></p>
+          </div>
+        </section>
+
+        <section id="circlesong-poesie" class="article-section rounded-xl p-6 md:p-8 mb-6">
+          <div class="article-content">
+            <div class="format-badges flex flex-wrap gap-2 mb-4">
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-[#5b2ab5]/60">TARIF LIBRE</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-[#7a6ac7]/60">CIRCLESONGS</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-[#cf3594]/50">POÉSIE</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">IMMERSIF</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">TOULOUSE</span>
+            </div>
+            <h2>Stage – Circlesong poésie voix mots</h2>
+            <p class="text-lg font-medium mb-4">Journée immersive d'exploration vocale et poétique</p>
+            <p>Une journée immersive d'improvisation vocale à Toulouse pour explorer la rencontre entre circlesongs, poésie et création spontanée. Cet atelier propose d'explorer les mots et la poésie en tant que matière et source d'inspiration pour la création d'œuvres improvisées : circlesong, co-impro et autres formes d'improvisation vocale a cappella.</p>
+            <p>Jeux d'écriture, poésie spontanée et créations vocales collectives se répondent pour relier voix, mots et imagination.</p>
+            <h3>Au programme</h3>
+            <ul>
+              <li>Jeux d'écriture créative – Explorer le langage comme source d'inspiration musicale</li>
+              <li>Poésie spontanée – Laisser émerger les mots dans l'instant présent</li>
+              <li>Circlesongs texturés – Intégrer les mots aux créations vocales improvisées</li>
+              <li>Co-improvisation verbale et vocale – Dialoguer entre parole et chant</li>
+              <li>Créations collectives – Tisser ensemble voix, mots et imagination</li>
+            </ul>
+            <h3>✅ Prérequis</h3>
+            <p>Tenir une pulsation stable ; pouvoir reproduire un motif mélodique avec justesse. En cas de doute, me contacter en amont.</p>
+            <div class="highlight-box-small rounded-xl p-4 my-4 border border-white/20 bg-white/10">
+              <h3 class="mt-0">Informations pratiques</h3>
+              <dl class="grid gap-2">
+                <div><dt class="font-semibold">Format</dt><dd>Journée complète</dd></div>
+                <div><dt class="font-semibold">Horaires</dt><dd>9h30 – 19h (pause déjeuner 1h30)</dd></div>
+                <div><dt class="font-semibold">Où ?</dt><dd>Lieu communiqué à l'inscription (généralement Atelier des Chalets, Toulouse)</dd></div>
+                <div><dt class="font-semibold">Groupe</dt><dd>Max. 8 personnes</dd></div>
+              </dl>
+            </div>
+            <h3>Inscriptions</h3>
+            <p>L'inscription se fait via la <a href="https://www.billetweb.fr/pro/donnerdelavoix" target="_blank" rel="noopener noreferrer">billetterie BilletWeb</a>, paiement sur place. En cas d'annulation, prévenir le plus tôt possible.</p>
+            <div class="highlight-box-small rounded-xl p-4 my-4 border border-white/20 bg-white/10">
+              <h3 class="mt-0">Tarif libre et conscient</h3>
+              <ul>
+                <li><strong>50 €</strong> — Couvre préparation et communication</li>
+                <li><strong>70 € RECOMMANDÉ</strong> — Tarif de base viable</li>
+                <li><strong>80 €+</strong> — Meilleure rémunération</li>
+              </ul>
+            </div>
+            <p><a href="#prochaines-dates" class="formats-panel-cta-link">Voir les prochaines dates</a> | <a href="/contact-new" class="formats-panel-cta-link">Une question ?</a></p>
+          </div>
+        </section>
+
+        <section id="circlesong-gestuelle" class="article-section rounded-xl p-6 md:p-8 mb-6">
+          <div class="article-content">
+            <div class="format-badges flex flex-wrap gap-2 mb-4">
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-[#7a6ac7]/60">CIRCLESONGS</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">FORMATION</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">TOULOUSE</span>
+            </div>
+            <h2>Stage – Circlesong gestuelle</h2>
+            <p class="text-lg font-medium mb-4">Journée immersive de gestuelle vocale</p>
+            <p>Un atelier d'une journée pour celles et ceux qui pratiquent déjà l'impro vocale et qui ont envie d'aller plus loin dans le jeu collectif. Comment se comprendre sans parler ? Comment se coordonner, lancer une idée, transformer une impro, jouer ensemble avec plus de fluidité ?</p>
+            <p>Tout au long de la journée, les participant·es exploreront une boîte à outils gestuelle au service des circle songs et de l'impro vocale en groupe : lancer / arrêter / contrôler des boucles, faire évoluer une improvisation, guider l'énergie, créer des séquences, demander des modifications, faire évoluer la texture et l'intention musicale.</p>
+            <p>L'objectif : donner des repères clairs, ludiques et concrets pour mieux s'écouter, se coordonner en temps réel, gagner en aisance et en liberté dans le chant collectif. Inspiré du Rythme Signé et du Vocal Painting.</p>
+            <p><strong>👥 Atelier co-animé par</strong> Jessalynn Choby – Donner de la Voix (<a href="https://www.donnerdelavoix.fr" target="_blank" rel="noopener noreferrer">www.donnerdelavoix.fr</a>) et Marc Charton – Ghost Note (<a href="https://ghost-note.carrd.co/" target="_blank" rel="noopener noreferrer">ghost-note.carrd.co</a>).</p>
+            <p><strong>Prérequis :</strong> Pratiquer déjà l'impro vocale et souhaiter aller plus loin dans le jeu collectif.</p>
+            <div class="highlight-box-small rounded-xl p-4 my-4 border border-white/20 bg-white/10">
+              <h3 class="mt-0">Informations pratiques</h3>
+              <dl class="grid gap-2">
+                <div><dt class="font-semibold">Format</dt><dd>Journée complète</dd></div>
+                <div><dt class="font-semibold">Horaires</dt><dd>10h – 19h</dd></div>
+                <div><dt class="font-semibold">Où ?</dt><dd>Toulouse Minimes (adresse communiquée après l'inscription)</dd></div>
+              </dl>
+            </div>
+            <div class="highlight-box-small rounded-xl p-4 my-4 border border-white/20 bg-white/10">
+              <h3 class="mt-0">💸 Tarif</h3>
+              <p><strong>40 €</strong> – Règlement sur place</p>
+            </div>
+            <p><strong>Inscriptions :</strong> <a href="https://www.billetweb.fr/circlesong-la-gestuelle" target="_blank" rel="noopener noreferrer">billetweb.fr/circlesong-la-gestuelle</a>. En cas d'annulation, prévenir le plus tôt possible.</p>
+            <p><a href="#prochaines-dates" class="formats-panel-cta-link">Voir les prochaines dates</a> | <a href="/contact-new" class="formats-panel-cta-link">Une question ?</a></p>
+          </div>
+        </section>
+
+        <section id="flashmob-improvise" class="article-section rounded-xl p-6 md:p-8 mb-6">
+          <div class="article-content">
+            <div class="format-badges flex flex-wrap gap-2 mb-4">
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-[#4db8aa]/60">GRATUIT</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-[#7a6ac7]/60">CIRCLESONGS</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">PERFORMANCE</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">TOUS NIVEAUX</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">TOULOUSE</span>
+            </div>
+            <h2>Évènement – Flashmob improvisé</h2>
+            <p class="text-lg font-medium mb-4">Performance vocale dans les rues de Toulouse</p>
+            <p>Le flashmob improvisé est une expérience collective unique qui combine l'improvisation vocale, la performance publique et la création spontanée dans l'espace urbain de Toulouse. Vivez un moment poétique et spontané dans les rues toulousaines, guidé.e par des facilitateur.ices. Des petits groupes créeront des circlesongs éphémères dans différents lieux de la ville.</p>
+            <h3>🎯 Ce que vous allez vivre</h3>
+            <ul>
+              <li><strong>🎭 Création vocale collective en public</strong> – Sortir l'improvisation vocale des espaces habituels et la partager avec un public plus large.</li>
+              <li><strong>🏙️ Impro vocale dans l'espace urbain</strong> – Découvrir comment la voix résonne dans différents contextes à Toulouse.</li>
+              <li><strong>✨ Expérience artistique partagée</strong> – Participer à une aventure collective où la musique naît de l'instant.</li>
+            </ul>
+            <h3>🗓️ Programme de la journée</h3>
+            <p><strong>Matin</strong> — Répétition et préparation : échauffement vocal, découverte des circlesongs, organisation.</p>
+            <p><strong>Après-midi</strong> — Flashmob dans les rues de Toulouse : créations vocales improvisées, partage avec les passants.</p>
+            <p><strong>👥 Pour qui ?</strong> Ouvert à tous, aucune expérience requise. Il suffit d'aimer chanter et de se laisser porter par l'expérience collective.</p>
+            <div class="highlight-box-small rounded-xl p-4 my-4 border border-white/20 bg-white/10">
+              <h3 class="mt-0">📋 Informations pratiques</h3>
+              <dl class="grid gap-2">
+                <div><dt class="font-semibold">Durée</dt><dd>Journée complète</dd></div>
+                <div><dt class="font-semibold">Où ?</dt><dd>Divers lieux dans Toulouse</dd></div>
+                <div><dt class="font-semibold">Tarif</dt><dd>GRATUIT</dd></div>
+                <div><dt class="font-semibold">Animation</dt><dd>Facilitateur.ices impro vocale</dd></div>
+              </dl>
+            </div>
+            <p><a href="#prochaines-dates" class="formats-panel-cta-link">Voir les prochaines dates</a> | <a href="/contact-new" class="formats-panel-cta-link">Une question ?</a></p>
+          </div>
+        </section>
+
+        <section id="coaching-personnalise" class="article-section rounded-xl p-6 md:p-8 mb-6">
+          <div class="article-content">
+            <div class="format-badges flex flex-wrap gap-2 mb-4">
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">PERSONNALISÉ</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-[#7a6ac7]/60">IMPRO VOCALE</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-[#cf3594]/50">COURS DE CHANT</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">TOUS NIVEAUX</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">TOULOUSE</span>
+            </div>
+            <h2>Stage – Coaching personnalisé</h2>
+            <p class="text-lg font-medium mb-4">Accompagnement sur mesure</p>
+            <p>Le coaching personnalisé vous offre un accompagnement sur mesure adapté à vos besoins spécifiques en improvisation vocale et circlesongs. Une journée intensive à Toulouse pour approfondir un ou deux aspects précis de votre pratique du circlesong, autant en tant que conducteur.rice qu'en tant que choriste.</p>
+            <h3>🎯 Comment ça marche ?</h3>
+            <p>À l'inscription, vous m'indiquez un ou deux aspects que vous souhaitez travailler, par exemple : Direction, Clarté, Solidité, Harmonie, Structure. Lors de la journée, vous aurez deux passages longs (un le matin, un l'après-midi) pour travailler ces aspects. Le reste du temps, vous participez en tant que choriste aux passages des autres.</p>
+            <p><strong>⚡ Une journée intensive</strong> – Soyez prêt.e à vous investir pleinement, à donner et recevoir du feedback, et à explorer en profondeur !</p>
+            <p><strong>👥 Pour qui ?</strong> Personnes ayant un objectif précis à approfondir (ce n'est pas un atelier de découverte généraliste). Petit groupe, feedback constructif, exploration en confiance.</p>
+            <div class="highlight-box-small rounded-xl p-4 my-4 border border-white/20 bg-white/10">
+              <h3 class="mt-0">Informations pratiques</h3>
+              <dl class="grid gap-2">
+                <div><dt class="font-semibold">Format</dt><dd>Journée intensive</dd></div>
+                <div><dt class="font-semibold">Où ?</dt><dd>Lieu communiqué à l'inscription (généralement Atelier des Chalets, Toulouse)</dd></div>
+                <div><dt class="font-semibold">Format</dt><dd>Petit groupe</dd></div>
+              </dl>
+            </div>
+            <div class="highlight-box-small rounded-xl p-4 my-4 border border-white/20 bg-white/10">
+              <h3 class="mt-0">Tarif libre et conscient</h3>
+              <ul>
+                <li><strong>50 €</strong> — Couvre préparation et communication</li>
+                <li><strong>70 € RECOMMANDÉ</strong> — Tarif de base viable</li>
+                <li><strong>80 €+</strong> — Meilleure rémunération</li>
+              </ul>
+            </div>
+            <p><strong>Inscriptions :</strong> <a href="https://www.billetweb.fr/pro/donnerdelavoix" target="_blank" rel="noopener noreferrer">billetterie BilletWeb</a>, paiement sur place. En cas d'annulation, prévenir le plus tôt possible.</p>
+            <p><a href="#prochaines-dates" class="formats-panel-cta-link">Voir les prochaines dates</a> | <a href="/contact-new" class="formats-panel-cta-link">Une question ?</a></p>
+          </div>
+        </section>
+      </div>
+    </div>
+
     <h2 id="prochaines-dates" class="section-title-bentos scroll-mt-28">Les prochaines dates</h2>
     <div class="flex flex-wrap items-center gap-4 mb-4">
       <div class="view-toggle" role="group" aria-label="Choisir la vue">
@@ -950,14 +1037,6 @@
     <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="/mentions-legales">Mentions Légales</a>
     <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="/contact-new#newsletter">Newsletter</a>
   </div>
-  <!-- Popup atelier -->
-  <div class="atelier-modal-overlay" id="atelier-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="atelier-modal-title">
-    <div class="atelier-modal-box">
-      <button type="button" class="atelier-modal-close" id="atelier-modal-close" aria-label="Fermer"><span class="material-symbols-outlined text-xl">close</span></button>
-      <div class="atelier-modal-content" id="atelier-modal-content"></div>
-    </div>
-  </div>
-
   <script src="/env-config.js"></script>
   <script src="/secrets.local.js"></script>
   <script src="/billetweb-config.js"></script>
@@ -979,62 +1058,47 @@
         a.addEventListener('click', function(e) { e.preventDefault(); smoothScrollTo('formats-bentos'); });
       });
 
-      var modal = document.getElementById('atelier-modal');
-      var modalContent = document.getElementById('atelier-modal-content');
-      var modalClose = document.getElementById('atelier-modal-close');
-      function openAtelierModal() { modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; }
-      function closeAtelierModal() { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; modalContent.innerHTML = ''; }
-      modalClose.addEventListener('click', closeAtelierModal);
-      modal.addEventListener('click', function(e) { if (e.target === modal) closeAtelierModal(); });
-      document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeAtelierModal(); });
-      modalContent.addEventListener('click', function(e) {
-        var link = e.target.closest('a[href="#calendrier"]');
-        var btn = e.target.closest('.atelier-see-workshops-btn[data-section="calendrier"]');
-        if (link || btn) { e.preventDefault(); closeAtelierModal(); setTimeout(function() { smoothScrollTo('calendrier'); }, 300); }
-      });
-
-      function showAtelierInModal(id) {
-        var article = document.getElementById(id);
-        if (article) {
-          var content = article.querySelector('.article-content');
-          if (content) { modalContent.innerHTML = ''; modalContent.appendChild(content.cloneNode(true)); openAtelierModal(); return true; }
+      // Clic sur un format : ouvrir le panneau verre dépoli et afficher la section
+      var formatsPanel = document.getElementById('formats-d-ateliers');
+      var openFormatsPanel = function(sectionId) {
+        if (!formatsPanel) return;
+        formatsPanel.style.display = 'block';
+        formatsPanel.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('formats-panel-open');
+        document.documentElement.classList.add('formats-panel-open');
+        var target = sectionId ? document.getElementById(sectionId) : null;
+        if (target && formatsPanel.contains(target)) {
+          setTimeout(function() { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
         }
-        return false;
-      }
-      function loadAtelierFromPage(hashId, onDone) {
-        modalContent.innerHTML = '<div class="atelier-modal-external py-12"><p class="text-white/90">Chargement…</p></div>';
-        openAtelierModal();
-        fetch('/ateliers').then(function(r) { return r.text(); }).then(function(html) {
-          var parser = new DOMParser();
-          var doc = parser.parseFromString(html, 'text/html');
-          var section = doc.getElementById(hashId);
-          if (section) {
-            var content = section.querySelector('.article-content');
-            if (content) {
-              modalContent.innerHTML = '';
-              modalContent.appendChild(content.cloneNode(true));
-              onDone();
-              return;
-            }
-          }
-          modalContent.innerHTML = '<div class="atelier-modal-external"><p class="text-white/90">Contenu non disponible.</p><a href="/ateliers#' + hashId + '" class="text-accent underline">Voir sur la page ateliers</a></div>';
-        }).catch(function() {
-          modalContent.innerHTML = '<div class="atelier-modal-external"><p class="text-white/90">Impossible de charger le contenu.</p><a href="/ateliers#' + hashId + '" class="btn-rdv">Voir la fiche sur la page ateliers</a></div>';
-        });
-      }
-
-      document.querySelectorAll('.bento-formats-zone a[href^="#"], .bento-formats-zone a[href^="/ateliers"]').forEach(function(a) {
+      };
+      var closeFormatsPanel = function() {
+        if (!formatsPanel) return;
+        formatsPanel.style.display = 'none';
+        formatsPanel.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('formats-panel-open');
+        document.documentElement.classList.remove('formats-panel-open');
+      };
+      document.querySelectorAll('.bento-formats-zone a[href*="#"]').forEach(function(a) {
         a.addEventListener('click', function(e) {
           e.preventDefault();
           var href = a.getAttribute('href') || '';
-          if (href.indexOf('#') === -1) return;
-          var hash = href.indexOf('#') >= 0 ? href.split('#')[1] : '';
-          if (!hash) return;
-          if (showAtelierInModal(hash)) return;
-          if (href.indexOf('/ateliers') === 0) {
-            loadAtelierFromPage(hash, function() {});
-          }
+          var hash = href.indexOf('#') >= 0 ? href.split('#')[1].split('?')[0] : '';
+          openFormatsPanel(hash || null);
         });
+      });
+      var closeBtn = document.querySelector('#formats-d-ateliers .formats-panel-close');
+      if (closeBtn) closeBtn.addEventListener('click', function() { closeFormatsPanel(); });
+      document.getElementById('formats-d-ateliers')?.addEventListener('click', function(e) {
+        var link = e.target.closest('a.formats-panel-cta-link');
+        if (!link) return;
+        var href = link.getAttribute('href') || '';
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          closeFormatsPanel();
+          var id = href.slice(1);
+          var el = document.getElementById(id);
+          if (el) setTimeout(function() { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150);
+        }
       });
     });
   </script>

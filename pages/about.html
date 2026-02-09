@@ -1,330 +1,427 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html class="dark" lang="fr">
 <head>
-  <!-- Encodage des caractères et viewport -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <base href="/">
-  
-  <!-- 
-    BALISES SEO - Optimisées pour les mots-clés suivants :
-    - Donner de la Voix, coach vocal, cours de chant, improvisation vocale
-    - Jessalynn, pédagogie vocale, chant Toulouse
-  -->
-  <title>Jessalynn | Professeur de Chant Certifié & Coach Vocal Toulouse | Chant Voix et Corps</title>
-  <meta name="description" content="Rencontrez Jessalynn, professeur de chant certifié à Toulouse depuis 10 ans. Formée à l'approche Chant Voix et Corps d'Emmanuelle Trinquesse. Spécialisée en improvisation vocale, circlesongs et technique vocale. Plus de 300 élèves accompagnés.">
-  <meta name="keywords" content="professeur de chant certifié Toulouse, coach vocal Toulouse, Chant Voix et Corps Toulouse, Emmanuelle Trinquesse, improvisation vocale Toulouse, circlesongs Toulouse, cours de chant Toulouse, technique vocale, Le Cercle en Chanté, Chant Pur Tous, prof de chant formé, enseignement vocal Toulouse">
-  
-  <!-- Open Graph -->
-  <meta property="og:title" content="Jessalynn | Professeur de Chant Certifié & Coach Vocal Toulouse">
-  <meta property="og:description" content="Rencontrez Jessalynn, professeur de chant certifié à Toulouse depuis 10 ans. Formée à l'approche Chant Voix et Corps d'Emmanuelle Trinquesse. Plus de 300 élèves accompagnés.">
+  <title>Jessalynn | Professeur de Chant Certifié &amp; Coach Vocal Toulouse | Donner de la Voix</title>
+  <meta name="description" content="Rencontrez Jessalynn, professeur de chant certifié à Toulouse depuis 10 ans. Formée à l'approche Chant Voix et Corps d'Emmanuelle Trinquesse. Spécialisée en improvisation vocale, circlesongs et technique vocale.">
+  <meta name="keywords" content="professeur de chant certifié Toulouse, coach vocal Toulouse, Chant Voix et Corps Toulouse, improvisation vocale Toulouse, circlesongs Toulouse, cours de chant Toulouse, Jessalynn">
+  <meta property="og:title" content="Jessalynn | Professeur de Chant Certifié &amp; Coach Vocal Toulouse">
+  <meta property="og:description" content="Rencontrez Jessalynn, professeur de chant certifié à Toulouse. Formée Chant Voix et Corps, Improvie. Improvisation vocale et circlesongs.">
   <meta property="og:url" content="https://donnerdelavoix.fr/about">
-  <meta property="og:site_name" content="Donner de la Voix - Impro vocale & Circlesongs - Cours de chant">
-  <meta property="og:locale" content="fr_FR">
   <meta property="og:type" content="website">
-  
-  <!-- Twitter Cards -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Jessalynn | Professeur de Chant Certifié & Coach Vocal Toulouse">
-  <meta name="twitter:description" content="Rencontrez Jessalynn, professeur de chant certifié à Toulouse depuis 10 ans. Formée à l'approche Chant Voix et Corps. Plus de 300 élèves accompagnés.">
-  
-  <!-- URL canonique -->
   <link rel="canonical" href="https://donnerdelavoix.fr/about">
-  
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="/assets/logo-ddlv.png">
-  
-  <!-- Google Fonts - Josefin Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Lien vers le fichier CSS -->
-  <link rel="stylesheet" href="/styles.css">
-  
-  <!-- Styles pour les cards interactives -->
-  <style>
-    .approach-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 40px rgba(91, 42, 181, 0.15) !important;
-      border-color: var(--color-primary) !important;
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#5b2ab5",
+            "primary-light": "#7a6ac7",
+            "accent": "#cf3594",
+            "deep-bg": "#0d0218",
+          },
+          fontFamily: {
+            "display": ["'Josefin Sans'", "sans-serif"],
+            "sans": ["'Josefin Sans'", "sans-serif"]
+          },
+        },
+      },
     }
-    
-    .cta-card:hover {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 20px 60px rgba(91, 42, 181, 0.2) !important;
-    }
-    
-    .cta-card:hover h3 {
-      transform: translateX(5px);
-    }
-    
-    #rdv-card:hover {
-      border-color: var(--color-primary) !important;
-    }
-    
-    #rdv-card:hover button {
-      background: var(--color-accent) !important;
-      transform: scale(1.05);
-    }
-    
-    @media (max-width: 768px) {
-      .work-approach-grid,
-      .cta-cards-grid {
-        grid-template-columns: 1fr !important;
+  </script>
+  <style type="text/tailwindcss">
+    @layer components {
+      .glass-panel {
+        @apply backdrop-blur-[25px] bg-white/10 border border-white/20;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 0 2px 1px rgba(255, 255, 255, 0.15), 0 0 15px rgba(255, 255, 255, 0.05);
+      }
+      .hero-overlay > * { position: relative; z-index: 1; }
+      .hero-cta-icon { font-size: 1.75rem; }
+      .hero-gradient-word {
+        @apply text-transparent bg-clip-text;
+        background-image: linear-gradient(to right, #b83d7a 0%, #9849a8 30%, #6b5fa8 65%, #4db8aa 100%);
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+        text-stroke: 1px rgba(255, 255, 255, 0.5);
+        text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+      }
+      .bg-blur-image { position: fixed; inset: 0; z-index: -3; background: url('/assets/bg.jpg') center center / cover no-repeat; }
+      .bg-textured-art {
+        background-color: rgba(30, 15, 50, 0.08);
+        background-image:
+          radial-gradient(ellipse 120% 100% at 0% 50%, rgba(255, 255, 255, 0.07) 0%, transparent 50%),
+          radial-gradient(circle at 10% 20%, rgba(91, 42, 181, 0.35) 0%, transparent 55%),
+          radial-gradient(circle at 90% 10%, rgba(207, 53, 148, 0.3) 0%, transparent 55%),
+          radial-gradient(circle at 50% 50%, rgba(122, 106, 199, 0.28) 0%, transparent 60%);
+        position: fixed; inset: 0; z-index: -2;
+      }
+      .blob { position: fixed; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.6; }
+      .nav-item { position: relative; }
+      .nav-item::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        display: block;
+        width: 0;
+        height: 2px;
+        background: #cf3594;
+        transition: width .3s;
+        box-shadow: 0 0 10px #cf3594;
+      }
+      .nav-item:hover::after { width: 100%; }
+      .glass-panel-rose {
+        @apply backdrop-blur-[25px];
+        background-image: linear-gradient(135deg, rgba(255, 252, 255, 0.28) 0%, rgba(255, 240, 248, 0.14) 45%, rgba(240, 235, 255, 0.22) 100%);
+        border: none;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.28), inset 0 0 2px 1px rgba(255, 250, 252, 0.2), 0 0 15px rgba(255, 245, 250, 0.04);
+      }
+      .glass-panel-rose.bento-bg-blur {
+        background-image: linear-gradient(135deg, rgba(255, 252, 255, 0.06) 0%, rgba(255, 240, 248, 0.02) 45%, rgba(240, 235, 255, 0.04) 100%);
+      }
+      .bento-bg-blur::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        border-radius: inherit;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        filter: blur(10px);
+        opacity: 0.9;
+      }
+      .bento-bg-blur.bento-bg-0::before { background-image: url('/assets/bg.jpg'); }
+      .bento-bg-blur.bento-bg-jessalynn::before { background-image: url('/assets/jessalynn-2.jpg'); }
+      .bento-bg-blur.bento-bg-jessalynn-2::before { background-image: url('/assets/jessalynn-3.jpg'); }
+      .bento-bg-blur::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: inherit;
+        background: linear-gradient(135deg, rgba(91, 42, 181, 0.5) 0%, rgba(122, 106, 199, 0.35) 40%, rgba(207, 53, 148, 0.4) 100%);
+        pointer-events: none;
+      }
+      .bento-formats-zone {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: minmax(140px, auto);
+        gap: 1rem;
+      }
+      @media (min-width: 768px) {
+        .bento-formats-zone:not(.bento-formats-zone--content) { grid-template-rows: repeat(3, minmax(0, 1fr)); grid-auto-rows: unset; height: 100%; gap: 0.5rem; }
+        .bento-formats-zone.bento-formats-zone--content { gap: 1rem; grid-auto-rows: minmax(140px, auto); }
+      }
+      .bento-formats-zone a,
+      .bento-formats-zone > div {
+        transition: transform 0.25s ease-out;
+        min-height: 0;
+      }
+      .bento-icon-wrap { flex-shrink: 0; margin-bottom: 0.75rem; width: 100%; display: flex; justify-content: center; }
+      .bento-content-glass .bento-icon { width: 5.25rem; height: 5.25rem; color: #fff; }
+      .bento-content-glass p,
+      .bento-content-glass li { color: rgba(255, 255, 255, 0.92); line-height: 1.6; font-size: 1rem !important; }
+      .bento-content-glass h3 { color: rgba(255, 255, 255, 0.98); font-size: 22px; font-weight: 600; margin: 0 0 0.5rem 0; }
+      .bento-content-glass strong { color: rgba(255, 255, 255, 0.98); }
+      .bento-content-glass a:not(.btn-rdv) { color: #e090c0; text-decoration: underline; text-underline-offset: 2px; }
+      .bento-content-glass a:not(.btn-rdv):hover { color: #f0b0d0; }
+      .bento-content-glass .btn-rdv,
+      .about-page .btn-rdv { text-decoration: none !important; color: #fff !important; }
+      .bento-content-glass .btn-rdv:hover,
+      .about-page .btn-rdv:hover { color: #fff !important; text-decoration: none !important; }
+      .bento-formats-zone .bento-f-1x1 { grid-column: span 1; grid-row: span 1; }
+      .bento-formats-zone .bento-f-2x1 { grid-column: span 2; grid-row: span 1; }
+      .bento-formats-zone .bento-f-1x2 { grid-column: span 1; grid-row: span 2; }
+      .bento-formats-zone .bento-f-2x2 { grid-column: span 2; grid-row: span 2; }
+      @media (max-width: 767px) {
+        .bento-formats-zone { grid-template-columns: 1fr; grid-auto-rows: minmax(120px, auto); }
+        .bento-formats-zone .bento-f-1x1,
+        .bento-formats-zone .bento-f-2x1,
+        .bento-formats-zone .bento-f-1x2,
+        .bento-formats-zone .bento-f-2x2 { grid-column: span 1; grid-row: span 1; }
+      }
+      .section-title-bentos {
+        font-size: 1.875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        margin-bottom: 1rem;
+        margin-top: 30px;
+        color: #fff;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+        flex-shrink: 0;
       }
     }
   </style>
-  
-  <!-- Calendly CSS -->
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-  
-  <!-- Lucide Icons -->
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    body.about-page {
+      background: transparent !important;
+      color: #fff !important;
+      font-family: 'Josefin Sans', sans-serif !important;
+    }
+    body.about-page::before,
+    body.about-page::after { display: none !important; }
+    .about-page .article-section {
+      margin-bottom: 3rem;
+      background: rgba(255,255,255,0.85) !important;
+      border: 1px solid rgba(91,42,181,0.12) !important;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(91,42,181,0.06) !important;
+      padding: 2rem 1.5rem !important;
+    }
+    .about-page .bento-content-card p,
+    .about-page .bento-content-card li { color: rgba(255,255,255,0.95); }
+    .about-page .bento-content-card h3 { color: #fff; font-size: 1.25rem; margin-top: 0; margin-bottom: 0.5rem; }
+    .about-page .bento-content-card a { color: #cf3594; text-decoration: underline; }
+    .about-page .article-section .section-title-bentos { color: #fff; text-shadow: none; }
+    /* Layout varié : grille 3 colonnes pour "Comment je travaille" */
+    .bento-about-approach {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    @media (min-width: 768px) {
+      .bento-about-approach {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 1rem;
+      }
+      .bento-about-approach .bento-approach-span { grid-column: 1 / -1; }
+    }
+    /* CTA zone : 3 colonnes égales */
+    .bento-about-cta {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    @media (min-width: 768px) {
+      .bento-about-cta { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
-  <!-- Skip link pour la navigation au clavier -->
-  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
-  
+<body class="font-display text-white relative about-page min-h-screen bg-deep-bg" id="about-body">
+  <div class="bg-blur-image" aria-hidden="true"></div>
+  <div class="overlay-violet-gradient" aria-hidden="true"></div>
+
+  <div id="bubbles-deco" aria-hidden="true">
+    <span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span>
+    <span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span>
+    <span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span><span class="bubble-deco"></span>
+  </div>
+
   <div id="site-header"></div>
   <script src="/js/init-header-nav.js"></script>
-  
-  <!-- Popup Calendly -->
-  <div id="calendly-popup" class="calendly-popup-container hidden">
-    <div class="calendly-popup-overlay" id="calendly-popup-overlay"></div>
-    <div class="calendly-popup-content-wrapper">
-      <button class="calendly-popup-close-btn" id="calendly-popup-close" aria-label="Fermer">×</button>
-      <div class="calendly-inline-widget" data-url="https://calendly.com/contactdonnerdelavoix/30min" style="min-width:320px;height:700px;"></div>
-    </div>
-  </div>
-  
-  <main id="main-content" role="main">
-    <article class="article-container">
-      <div class="article-layout">
-        <!-- Sommaire latéral -->
-        <aside class="article-toc" aria-label="Sommaire de la page">
-          <p class="article-toc-title">À propos</p>
-          <div class="article-toc-dropdown">
-            <select class="article-toc-select" aria-label="Aller à la section">
-              <option value="">Aller à la section</option>
-              <option value="intro">Qui je suis</option>
-              <option value="comment-tout-a-commence">Comment tout a commencé</option>
-              <option value="comment-je-travaille">Comment je travaille</option>
-              <option value="aujourdhui">Aujourd'hui</option>
-              <option value="rencontrer">Envie de faire connaissance ?</option>
-            </select>
-          </div>
-          <nav class="article-toc-nav">
-            <a class="article-toc-link active" href="#intro" data-section="intro">Qui je suis</a>
-            <a class="article-toc-link" href="#comment-tout-a-commence" data-section="comment-tout-a-commence">Comment tout a commencé</a>
-            <a class="article-toc-link" href="#comment-je-travaille" data-section="comment-je-travaille">Comment je travaille</a>
-            <a class="article-toc-link" href="#aujourdhui" data-section="aujourdhui">Aujourd'hui</a>
-            <a class="article-toc-link" href="#rencontrer" data-section="rencontrer">Envie de faire connaissance ?</a>
+
+  <main class="relative" role="main">
+    <section class="hero-overlay relative min-h-screen flex items-center pt-20 sm:pt-24 pb-12 md:pb-12" aria-label="Hero">
+      <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
+        <div class="flex flex-col items-start gap-6 sm:gap-10">
+          <h1 class="hero-title-mobile-sm text-[2.5rem] sm:text-[3.5rem] md:text-[5.8rem] lg:text-[7rem] font-bold tracking-tight text-white leading-tight">
+            <span class="hero-gradient-word block">Donner de la voix</span>
+          </h1>
+          <nav class="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-3 w-full sm:w-auto" aria-label="Sommaire">
+            <a href="#intro" class="inline-flex items-center justify-center sm:justify-start px-4 py-3 sm:px-5 rounded-2xl font-semibold text-xs sm:text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Qui je suis</a>
+            <a href="#comment-tout-a-commence" class="inline-flex items-center justify-center sm:justify-start px-4 py-3 sm:px-5 rounded-2xl font-semibold text-xs sm:text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Comment tout a commencé</a>
+            <a href="#comment-je-travaille" class="inline-flex items-center justify-center sm:justify-start px-4 py-3 sm:px-5 rounded-2xl font-semibold text-xs sm:text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Comment je travaille</a>
+            <a href="#aujourdhui" class="inline-flex items-center justify-center sm:justify-start px-4 py-3 sm:px-5 rounded-2xl font-semibold text-xs sm:text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Aujourd'hui</a>
+            <a href="#rencontrer" class="inline-flex items-center justify-center sm:justify-start px-4 py-3 sm:px-5 rounded-2xl font-semibold text-xs sm:text-sm uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all">Nous rencontrer</a>
           </nav>
-        </aside>
-
-        <!-- Contenu principal -->
-        <div class="article-main">
-          <!-- Section Intro -->
-          <section class="article-section glass-section" id="intro">
-            <div class="article-content">
-              <h1>Salut, moi c'est Jessalynn</h1>
-              
-              <img src="/assets/jessalynn-2.jpg" alt="Jessalynn, professeur de chant et coach vocal à Toulouse" class="article-image" style="width: 60%; max-width: 500px; margin: 2rem auto; display: block;">
-              
-              <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">Je suis professeur de chant et coach vocal à Toulouse. Mais avant tout, je suis quelqu'un qui aime la voix sous toutes ses formes—et surtout, je kiffe voir les gens découvrir la leur.</p>
-            </div>
-          </section>
-
-          <!-- Section Comment tout a commencé -->
-          <section class="article-section glass-section" id="comment-tout-a-commence">
-            <div class="article-content">
-              <h2>Comment tout a commencé</h2>
-              
-              <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">En <strong>2014</strong>, à Lyon, je cherchais des gens qui chantaient ensemble en inventant de la musique. Je ne savais rien de l'impro vocale, je demandais timidement autour de moi. On m'a parlé de <strong>Chant Pour Tous</strong>, un mouvement d'ateliers gratuits autour du chant improvisé.</p>
-              
-              <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;"><strong>Grosse claque.</strong></p>
-              
-              <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">Une passion était née. Mais transmettre ? J'en étais très loin.</p>
-              
-              <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">En <strong>2016</strong>, tout a changé quand j'ai commencé <a href="https://gaelaubrit.com/improvie-cetait-quoi/" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary); text-decoration: underline; font-weight: 600;"><strong>Improvie</strong></a>, une formation avec <strong>Gaël Aubrit</strong>, un pédagogue en impro vocale. Cette formation m'a révolutionnée. Cette formation m'a donné envie de transmettre, de partager cette pratique. J'ai enchaîné avec la formation <strong>Chant Voix & Corps</strong> d'<strong>Emmanuelle Trinquesse</strong>—pas pour devenir rigide, mais pour avoir les outils nécessaires pour vraiment libérer les voix.</p>
-            </div>
-          </section>
-
-          <!-- Section Comment je travaille -->
-          <section class="article-section glass-section" id="comment-je-travaille">
-            <div class="article-content">
-              <h2>Comment je travaille</h2>
-              
-              <div class="work-approach-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin: 3rem 0;">
-                
-                <div class="approach-card" style="background: white; padding: 2rem; border-radius: 20px; border: 2px solid rgba(91, 42, 181, 0.1); box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: all 0.3s ease; cursor: pointer; position: relative; overflow: hidden;">
-                  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--color-primary), var(--color-accent));"></div>
-                  <div style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.8;">🧘</div>
-                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.25rem; font-weight: 600;">Corps et humain au centre</h3>
-                  <p style="margin: 0; line-height: 1.7; color: #555;">Pas la technique isolée, pas la performance. Le corps dans sa globalité—posture, respiration, émotion, présence. C'est de là que vient la voix.</p>
-                </div>
-                
-                <div class="approach-card" style="background: white; padding: 2rem; border-radius: 20px; border: 2px solid rgba(91, 42, 181, 0.1); box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: all 0.3s ease; cursor: pointer; position: relative; overflow: hidden;">
-                  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--color-accent), var(--color-primary));"></div>
-                  <div style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.8;">🎨</div>
-                  <h3 style="color: var(--color-accent); margin-bottom: 1rem; font-size: 1.25rem; font-weight: 600;">Créativité comme outil</h3>
-                  <p style="margin: 0; line-height: 1.7; color: #555;">L'improvisation vocale n'est pas un "plus"—c'est comme ça qu'on apprend. On joue, on explore, on se trompe, on recommence. Zéro pression.</p>
-                </div>
-                
-                <div class="approach-card" style="background: white; padding: 2rem; border-radius: 20px; border: 2px solid rgba(91, 42, 181, 0.1); box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: all 0.3s ease; cursor: pointer; position: relative; overflow: hidden;">
-                  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--color-primary), var(--color-accent));"></div>
-                  <div style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.8;">✨</div>
-                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.25rem; font-weight: 600;">Chaque voix est unique</h3>
-                  <p style="margin: 0; line-height: 1.7; color: #555;">Je ne cherche pas à vous faire rentrer dans un moule. Mon boulot c'est de vous aider à trouver votre voix, celle qui vous ressemble vraiment—en utilisant les outils techniques pour structurer tout ça.</p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- Section Aujourd'hui -->
-          <section class="article-section glass-section" id="aujourdhui">
-            <div class="article-content">
-              <h2>Aujourd'hui</h2>
-              
-              <img src="/assets/jessalynn-3.jpg" alt="Jessalynn aujourd'hui" class="article-image" style="width: 70%; max-width: 600px; margin: 2rem auto; display: block;">
-              
-              <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">Je propose des cours individuels et des stages & ateliers collectifs de circlesongs et improvisation vocale à Toulouse.</p>
-              
-              <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">Je crois aussi que l'improvisation vocale a sa place dans le monde de l'entreprise. C'est un formidable outil pour libérer la créativité, casser les rigidités, créer de la connexion entre les gens. Pas du team-building cliché—quelque chose de vraiment transformateur.</p>
-              
-              <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">Je suis engagée auprès de <strong>Chant Pour Tous</strong> depuis <strong>2019</strong>, et auprès du <a href="https://www.lecercleenchante.com" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary); text-decoration: underline; font-weight: 600;"><strong>Cercle Enchanté</strong></a>, une plateforme pour le développement de la pratique de l'improvisation vocale et corporelle.</p>
-              
-              <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">Quand je ne chante pas, j'écris. Les mots et la voix, c'est la même quête : donner forme à ce qui nous traverse. Vous pouvez suivre mes réflexions et créations sur <a href="https://www.des-mots-silencieux.fr" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary); text-decoration: underline; font-weight: 600;">des-mots-silencieux.fr</a></p>
-            </div>
-          </section>
-
-          <!-- Section CTA Final -->
-          <section class="article-section glass-section" id="rencontrer">
-            <div class="article-content">
-              <h2>Envie de faire connaissance ?</h2>
-              
-              <div class="cta-cards-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 3rem 0;">
-                
-                <a href="cours-chant.html" class="cta-card" style="display: block; background: linear-gradient(135deg, rgba(91, 42, 181, 0.1), rgba(254, 102, 195, 0.1)); padding: 2.5rem; border-radius: 24px; border: 3px solid var(--color-primary); text-decoration: none; transition: all 0.3s ease; position: relative; overflow: hidden;">
-                  <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(91, 42, 181, 0.1), transparent); border-radius: 50%;"></div>
-                  <div style="font-size: 3.5rem; margin-bottom: 1rem; position: relative; z-index: 1;">🎤</div>
-                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.4rem; font-weight: 600; position: relative; z-index: 1; transition: transform 0.3s ease;">Voir les cours de chant</h3>
-                  <p style="margin: 0; line-height: 1.7; color: #555; position: relative; z-index: 1;">Cours individuels et collectifs à Toulouse. Premier cours avec 30 min offertes.</p>
-                  <div style="margin-top: 1.5rem; color: var(--color-primary); font-weight: 600; position: relative; z-index: 1; display: flex; align-items: center; gap: 0.5rem;">
-                    Découvrir <span style="font-size: 1.2rem;">→</span>
-                  </div>
-                </a>
-                
-                <a href="/ateliers" class="cta-card" style="display: block; background: linear-gradient(135deg, rgba(254, 102, 195, 0.1), rgba(91, 42, 181, 0.1)); padding: 2.5rem; border-radius: 24px; border: 3px solid var(--color-accent); text-decoration: none; transition: all 0.3s ease; position: relative; overflow: hidden;">
-                  <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(254, 102, 195, 0.1), transparent); border-radius: 50%;"></div>
-                  <div style="font-size: 3.5rem; margin-bottom: 1rem; position: relative; z-index: 1;">🎵</div>
-                  <h3 style="color: var(--color-accent); margin-bottom: 1rem; font-size: 1.4rem; font-weight: 600; position: relative; z-index: 1; transition: transform 0.3s ease;">Découvrir les stages & ateliers</h3>
-                  <p style="margin: 0; line-height: 1.7; color: #555; position: relative; z-index: 1;">Stages et ateliers de circlesongs et improvisation vocale.</p>
-                  <div style="margin-top: 1.5rem; color: var(--color-accent); font-weight: 600; position: relative; z-index: 1; display: flex; align-items: center; gap: 0.5rem;">
-                    Voir les stages & ateliers <span style="font-size: 1.2rem;">→</span>
-                  </div>
-                </a>
-                
-                <div class="cta-card" id="rdv-card" style="background: rgba(212, 197, 255, 0.2); padding: 2.5rem; border-radius: 24px; border: 3px solid var(--color-primary-light); transition: all 0.3s ease; position: relative; overflow: hidden; cursor: pointer;">
-                  <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(212, 197, 255, 0.2), transparent); border-radius: 50%;"></div>
-                  <div style="font-size: 3.5rem; margin-bottom: 1rem; position: relative; z-index: 1;">💬</div>
-                  <h3 style="color: var(--color-primary); margin-bottom: 1rem; font-size: 1.4rem; font-weight: 600; position: relative; z-index: 1; transition: transform 0.3s ease;">Prendre rendez-vous</h3>
-                  <p style="margin: 0; line-height: 1.7; color: #555; margin-bottom: 1.5rem; position: relative; z-index: 1;">On peut aussi juste échanger.</p>
-                  <button id="calendly-trigger-about" class="rdv-btn" aria-label="Prendre rendez-vous" style="font-size: 1rem; padding: 0.875rem 2rem; position: relative; z-index: 1;">
-                    <i data-lucide="calendar-check" class="btn-icon"></i>
-                    Prendre RDV
-                  </button>
-                </div>
-              </div>
-            </div>
-          </section>
         </div>
+        <p class="text-white/90 text-base sm:text-lg md:text-xl font-light leading-relaxed max-w-[36.4rem] md:max-w-[31.2rem]">
+          Je suis <strong>professeur de chant et coach vocal à Toulouse</strong>. Avant tout, quelqu'un qui aime la voix sous toutes ses formes—et qui kiffe voir les gens découvrir la leur.
+        </p>
       </div>
-    </article>
+      <div class="hero-logo-wrap">
+        <a href="/" class="flex items-center justify-center w-full max-w-[min(100vw,560px)] px-2 sm:px-4" aria-label="Donner de la Voix - Accueil">
+          <img src="/assets/logo-ddlv.png" alt="Donner de la Voix - Voix &amp; créativité" width="560" height="140"/>
+        </a>
+      </div>
+    </section>
+
+    <div class="px-4 md:px-8 max-w-7xl mx-auto pb-24">
+      <!-- Section 1 : Qui je suis — layout 2x2 photo + 1x2 + 1x1 -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="intro">
+        <h2 class="section-title-bentos scroll-mt-28">Qui je suis</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-2x2 glass-panel-rose bento-bg-blur bento-bg-jessalynn bento-tint-primary p-6 rounded-2xl flex flex-col justify-end relative overflow-hidden bento-content-glass min-h-[280px]">
+              <h3 class="text-2xl font-bold mt-auto mb-2">Salut, moi c'est Jessalynn</h3>
+              <p class="m-0 text-base">Je suis professeur de chant et coach vocal à Toulouse. Mais avant tout, je suis quelqu'un qui aime la voix sous toutes ses formes—et surtout, je kiffe voir les gens découvrir la leur.</p>
+            </div>
+            <div class="bento-f-1x2 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="heart" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="m-0 text-sm">Transmettre cette passion, accompagner chaque voix dans sa singularité : c'est ce qui me motive au quotidien.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose rounded-2xl overflow-hidden p-0 h-full min-h-[160px] border border-white/20">
+              <img src="/assets/jessalynn-1.jpg" alt="Jessalynn, professeure de chant et coach vocal" class="w-full h-full object-cover" loading="lazy"/>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass items-center justify-center text-center">
+              <div class="bento-icon-wrap"><i data-lucide="mic" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="m-0 text-sm font-semibold">Voix, chant, impro, circlesongs</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2 : Comment tout a commencé — timeline asymétrique 2x1, 1x2, 1x1, 2x1 -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="comment-tout-a-commence">
+        <h2 class="section-title-bentos scroll-mt-28">Comment tout a commencé</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="calendar" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>2014, Lyon</h3>
+              <p class="m-0 text-sm">Je cherchais des gens qui chantaient ensemble en inventant de la musique. Je ne savais rien de l'impro vocale, je demandais timidement autour de moi. On m'a parlé de <strong>Chant Pour Tous</strong>, un mouvement d'ateliers gratuits autour du chant improvisé.</p>
+            </div>
+            <div class="bento-f-1x2 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="sparkles" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="font-semibold m-0">Grosse claque.</p>
+              <p class="m-0 text-sm">Une passion était née. Mais transmettre ? J'en étais très loin.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose rounded-2xl overflow-hidden p-0 h-full min-h-[160px] border border-white/20">
+              <img src="/assets/jessalynn-3.jpg" alt="Jessalynn en atelier" class="w-full h-full object-cover" loading="lazy"/>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass justify-center text-center">
+              <p class="m-0 text-sm">Tout a changé en <strong>2016</strong>.</p>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="graduation-cap" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Improvie &amp; Chant Voix et Corps</h3>
+              <p class="m-0 text-sm">J'ai commencé <a href="https://gaelaubrit.com/improvie-cetait-quoi/" target="_blank" rel="noopener noreferrer"><strong>Improvie</strong></a>, une formation avec <strong>Gaël Aubrit</strong>, pédagogue en impro vocale. Cette formation m'a révolutionnée et m'a donné envie de transmettre. J'ai enchaîné avec la formation <strong>Chant Voix &amp; Corps</strong> d'<strong>Emmanuelle Trinquesse</strong>—pas pour devenir rigide, mais pour avoir les outils nécessaires pour vraiment libérer les voix.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3 : Comment je travaille — 3 piliers en 1x1 + 1x1 + 1x1, puis bandeau 2x1 -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="comment-je-travaille">
+        <h2 class="section-title-bentos scroll-mt-28">Comment je travaille</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="user" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Corps et humain au centre</h3>
+              <p class="m-0 text-sm">Pas la technique isolée, pas la performance. Le corps dans sa globalité—posture, respiration, émotion, présence. C'est de là que vient la voix.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="palette" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Créativité comme outil</h3>
+              <p class="m-0 text-sm">L'improvisation vocale n'est pas un « plus »—c'est comme ça qu'on apprend. On joue, on explore, on se trompe, on recommence. Zéro pression.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="music" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Chaque voix est unique</h3>
+              <p class="m-0 text-sm">Je ne cherche pas à vous faire rentrer dans un moule. Mon boulot c'est de vous aider à trouver votre voix, celle qui vous ressemble vraiment—en utilisant les outils techniques pour structurer tout ça.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose rounded-2xl overflow-hidden p-0 h-full min-h-[160px] border border-white/20">
+              <img src="/assets/jessalynn-2.jpg" alt="Jessalynn, coach vocal" class="w-full h-full object-cover" loading="lazy"/>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="target" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="m-0 text-sm">Trois piliers indissociables : le corps, la créativité et la singularité de chaque voix. C'est cette approche qui guide mes cours et mes ateliers.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4 : Aujourd'hui — 2x1, 1x2, 1x1, 2x1 (variation) -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="aujourdhui">
+        <h2 class="section-title-bentos scroll-mt-28">Aujourd'hui</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="book-open" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Cours &amp; ateliers à Toulouse</h3>
+              <p class="m-0 text-sm">Je propose des cours individuels et des stages &amp; ateliers collectifs de circlesongs et improvisation vocale à Toulouse.</p>
+            </div>
+            <div class="bento-f-1x2 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass bento-bg-blur bento-bg-jessalynn-2">
+              <div class="bento-icon-wrap"><i data-lucide="briefcase" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Impro en entreprise</h3>
+              <p class="m-0 text-sm">Je crois que l'improvisation vocale a sa place dans le monde de l'entreprise : libérer la créativité, casser les rigidités, créer de la connexion. Pas du team-building cliché—quelque chose de vraiment transformateur.</p>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose rounded-2xl overflow-hidden p-0 h-full min-h-[160px] border border-white/20">
+              <img src="/assets/jessalynn-1.jpg" alt="Jessalynn" class="w-full h-full object-cover" loading="lazy"/>
+            </div>
+            <div class="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="users" class="bento-icon" aria-hidden="true"></i></div>
+              <p class="m-0 text-sm">Engagée auprès de <strong>Chant Pour Tous</strong> depuis <strong>2019</strong>, et du <a href="https://www.lecercleenchante.com" target="_blank" rel="noopener noreferrer"><strong>Cercle Enchanté</strong></a>, plateforme pour le développement de l'improvisation vocale et corporelle.</p>
+            </div>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="pen-line" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Écriture &amp; voix</h3>
+              <p class="m-0 text-sm">Quand je ne chante pas, j'écris. Les mots et la voix, c'est la même quête : donner forme à ce qui nous traverse. Vous pouvez suivre mes réflexions et créations sur <a href="https://www.des-mots-silencieux.fr" target="_blank" rel="noopener noreferrer">des-mots-silencieux.fr</a>.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5 : Envie de faire connaissance ? — 3 CTA en 2x1 -->
+      <section class="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="rencontrer">
+        <h2 class="section-title-bentos scroll-mt-28">Envie de faire connaissance ?</h2>
+        <div class="bento-formats-zone-wrapper">
+          <div class="bento-formats-zone bento-formats-zone--content">
+            <a href="/cours-chant" class="bento-f-2x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass group">
+              <div class="bento-icon-wrap"><i data-lucide="mic-2" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Voir les cours de chant</h3>
+              <p class="m-0 text-sm">Cours individuels et collectifs à Toulouse. Premier cours avec 30 min offertes.</p>
+              <span class="btn-rdv mt-auto inline-flex items-center gap-2">Découvrir <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+            </a>
+            <a href="/ateliers" class="bento-f-2x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass group">
+              <div class="bento-icon-wrap"><i data-lucide="calendar-days" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Stages &amp; ateliers</h3>
+              <p class="m-0 text-sm">Stages et ateliers de circlesongs et improvisation vocale.</p>
+              <span class="btn-rdv mt-auto inline-flex items-center gap-2">Voir les stages &amp; ateliers <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+            </a>
+            <div class="bento-f-2x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div class="bento-icon-wrap"><i data-lucide="message-circle" class="bento-icon" aria-hidden="true"></i></div>
+              <h3>Prendre rendez-vous</h3>
+              <p class="m-0 text-sm mb-3">On peut aussi juste échanger.</p>
+              <a href="/contact" class="btn-rdv mt-auto inline-block w-fit">Me contacter</a>
+            </div>
+          </div>
+        </div>
+        <p class="mt-6 text-center text-white/80 text-sm">Recevez les actualités : <a href="/contact#newsletter" class="text-white underline underline-offset-2 hover:text-accent transition-colors">s'abonner à la newsletter</a>.</p>
+      </section>
+    </div>
   </main>
+
+  <div class="hidden lg:flex fixed right-8 top-1/2 -translate-y-1/2 z-50 flex-col gap-5">
+    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all" href="/contact" title="Contact"><svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>
+    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-accent transition-all" href="https://www.instagram.com/donnerdelavoixchant/" target="_blank" rel="noopener noreferrer" title="Instagram"><svg class="size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059 1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg></a>
+    <a class="size-16 glass-panel rounded-full flex items-center justify-center text-white hover:bg-primary transition-all" href="https://www.facebook.com/donnerdelavoix" target="_blank" rel="noopener noreferrer" title="Facebook"><svg class="size-7" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg></a>
+  </div>
+  <div class="hidden lg:block fixed bottom-6 left-8 z-50 flex flex-col gap-2">
+    <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="/mentions-legales">Mentions Légales</a>
+    <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="/contact#newsletter">Newsletter</a>
+  </div>
   <script type="module" src="/js/main.js"></script>
-  
-  <!-- Calendly Script -->
-  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
   <script>
-    // Gestion de la popup Calendly
     document.addEventListener('DOMContentLoaded', function() {
-      const trigger = document.getElementById('calendly-trigger');
-      const triggerAbout = document.getElementById('calendly-trigger-about');
-      const popup = document.getElementById('calendly-popup');
-      const closeBtn = document.getElementById('calendly-popup-close');
-      const overlay = document.getElementById('calendly-popup-overlay');
-      
-      function openPopup() {
-        if (popup) {
-          popup.style.display = 'block';
-          document.body.style.overflow = 'hidden';
-        }
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+      function smoothScrollTo(id) {
+        var el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-        
-        function closePopup() {
-        if (popup) {
-          popup.style.display = 'none';
-          document.body.style.overflow = '';
-        }
-      }
-      
-      if (trigger) trigger.addEventListener('click', openPopup);
-      if (triggerAbout) triggerAbout.addEventListener('click', openPopup);
-        
-        if (closeBtn) closeBtn.addEventListener('click', closePopup);
-        if (overlay) overlay.addEventListener('click', closePopup);
-        
-        // Fermer avec la touche Escape
-        document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && popup && popup.style.display === 'block') {
-            closePopup();
+      document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+          var href = a.getAttribute('href');
+          if (href && href.length > 1) {
+            e.preventDefault();
+            smoothScrollTo(href.slice(1));
           }
-        });
-    });
-  </script>
-  
-  <!-- Initialiser Lucide Icons -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
-      }
-      
-      // Animations pour les cards d'approche
-      const approachCards = document.querySelectorAll('.approach-card');
-      approachCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-          this.style.transform = 'translateY(-8px)';
-        });
-        card.addEventListener('mouseleave', function() {
-          this.style.transform = 'translateY(0)';
         });
       });
     });
   </script>
-  <!-- Médaillons réseaux sociaux flottants -->
-  <aside class="social-medallions" aria-label="Réseaux sociaux et contact Donner de la Voix">
-    <a href="/contact" class="social-medallion social-medallion-mail" aria-label="Contact - envoyer un message">
-      <svg class="social-medallion-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-        <polyline points="22,6 12,13 2,6"></polyline>
-      </svg>
-    </a>
-    <a href="https://www.instagram.com/donnerdelavoixchant/" class="social-medallion social-medallion-insta" target="_blank" rel="noopener noreferrer" aria-label="Instagram Donner de la Voix">
-      <svg class="social-medallion-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
-      </svg>
-    </a>
-    <a href="https://www.facebook.com/donnerdelavoix" class="social-medallion social-medallion-fb" target="_blank" rel="noopener noreferrer" aria-label="Facebook Donner de la Voix">
-      <svg class="social-medallion-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-      </svg>
-    </a>
-  </aside>
   <div id="floating-rdv-container"></div>
   <script>
     (function() {
@@ -338,4 +435,3 @@
   <script src="/js/init-floating-calendly.js"></script>
 </body>
 </html>
-

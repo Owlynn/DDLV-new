@@ -45,10 +45,10 @@ function setActiveToc(sectionId) {
 export function initSectionNavigation() {
   const tocLinks = document.querySelectorAll('.article-toc-link');
   const sections = document.querySelectorAll('.article-section');
-
-  if (tocLinks.length === 0) return;
-
   const tocSelect = document.querySelector('.article-toc-select');
+
+  if (tocLinks.length === 0 && !tocSelect) return;
+
   const calendrierSection = document.getElementById('calendrier');
   const formatsSection = document.getElementById('formats-d-ateliers');
   if (tocSelect) {
@@ -61,8 +61,11 @@ export function initSectionNavigation() {
         if (formatsSection && calendrierSection && formatsSection.contains(targetSection)) {
           calendrierSection.style.display = 'none';
           formatsSection.style.display = 'block';
-          document.documentElement.classList.add('formats-panel-open');
           document.body.classList.add('formats-panel-open');
+          document.documentElement.classList.add('formats-panel-open');
+        } else if (calendrierSection && targetSection?.id === 'calendrier') {
+          document.body.classList.remove('formats-panel-open');
+          document.documentElement.classList.remove('formats-panel-open');
         }
         scrollToSection(targetSection);
         setActiveToc(sectionId);
@@ -155,60 +158,20 @@ export function initSectionToggle() {
   const tocLinks = document.querySelectorAll('.article-toc-link[data-section]');
   const tocButtons = document.querySelectorAll('.article-toc-button[data-section]');
   
-  // Si on n'est pas sur la page ateliers, ne rien faire
-  if (!calendrierSection || !formatsSection) return;
+  if (!calendrierSection) return;
   
-  // Fonction pour réinitialiser l'observer quand on affiche formats-d-ateliers
-  function reinitObserver() {
-    // Récupérer l'observer existant ou en créer un nouveau
-    const sections = document.querySelectorAll('#formats-d-ateliers .article-section');
-    const observerOptions = {
-      root: null,
-      rootMargin: '-20% 0px -60% 0px',
-      threshold: 0
-    };
-    
-    const observer = new IntersectionObserver(function(entries) {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const sectionId = entry.target.id;
-          if (sectionId) {
-            // Mettre à jour le lien actif dans le TOC
-            const allTocLinks = document.querySelectorAll('.article-toc-link');
-            allTocLinks.forEach(link => {
-              link.classList.remove('active');
-              const linkHref = link.getAttribute('href');
-              if (linkHref && linkHref.startsWith('#') && linkHref.substring(1) === sectionId) {
-                link.classList.add('active');
-              }
-            });
-          }
-        }
-      });
-    }, observerOptions);
-    
-    // Observer toutes les sections d'ateliers
-    sections.forEach(section => {
-      if (section.id) {
-        observer.observe(section);
-      }
-    });
-  }
-  
-  // Fonction pour afficher une section et masquer l'autre
+  // Fonction pour afficher une section (formats = panneau verre dépoli, calendrier = vue liste)
   function showSection(sectionName) {
     if (sectionName === 'calendrier') {
       calendrierSection.style.display = 'block';
-      formatsSection.style.display = 'none';
-      document.documentElement.classList.remove('formats-panel-open');
+      if (formatsSection) formatsSection.style.display = 'none';
       document.body.classList.remove('formats-panel-open');
-    } else if (sectionName === 'formats-d-ateliers') {
+      document.documentElement.classList.remove('formats-panel-open');
+    } else if (formatsSection && sectionName === 'formats-d-ateliers') {
       calendrierSection.style.display = 'none';
       formatsSection.style.display = 'block';
-      document.documentElement.classList.add('formats-panel-open');
       document.body.classList.add('formats-panel-open');
-      // Réinitialiser l'observer quand on affiche la section formats
-      setTimeout(reinitObserver, 100);
+      document.documentElement.classList.add('formats-panel-open');
     }
   }
   
@@ -248,7 +211,7 @@ export function initSectionToggle() {
       const sectionName = this.getAttribute('data-section');
       setActiveToc(sectionName);
       showSection(sectionName);
-      if (sectionName === 'formats-d-ateliers') {
+      if (formatsSection && sectionName === 'formats-d-ateliers') {
         const targetId = this.getAttribute('href');
         if (targetId && targetId.startsWith('#')) {
           const targetElement = document.getElementById(targetId.substring(1));
