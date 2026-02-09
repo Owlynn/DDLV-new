@@ -115,6 +115,9 @@
                 height: 14rem;
                 min-height: 14rem;
             }
+            @media (max-width: 639px) {
+                .hero-rotating-track { height: 11rem; min-height: 11rem; }
+            }
             @media (max-width: 1023px) {
                 .hero-rotating-wrap { width: 90vw; max-width: 90vw; box-sizing: border-box; padding: 0 0.5rem; }
             }
@@ -473,15 +476,15 @@
     <div class="flex-1 min-h-0 flex items-center justify-center">
     <div class="hero-content-inner max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-0 items-center justify-items-center lg:justify-items-stretch min-h-0 lg:overflow-x-clip px-2 sm:px-4">
       <!-- Colonne gauche : titre défilant (centré, 70% largeur sur mobile/tablette) -->
-      <div class="lg:col-span-1 flex flex-col gap-6 items-center justify-center lg:items-start lg:justify-start lg:pl-8 lg:pr-4 xl:pl-12 xl:pr-8 min-w-0 w-full max-w-[100vw]">
+      <div class="lg:col-span-1 flex flex-col gap-4 sm:gap-6 items-center justify-center lg:items-start lg:justify-start lg:pl-8 lg:pr-4 xl:pl-12 xl:pr-8 min-w-0 w-full max-w-[100vw]">
           <div class="hero-rotating-track hero-rotating-wrap relative w-full text-center lg:text-left mx-auto lg:mx-0" aria-live="polite">
-            <h1 class="hero-rotating-title font-bold leading-tight tracking-tighter text-white drop-shadow-2xl h-full min-h-[14rem] sm:min-h-[17rem] lg:min-h-[20rem] xl:min-h-[24rem] relative block">
+            <h1 class="hero-rotating-title font-bold leading-tight tracking-tighter text-white drop-shadow-2xl h-full min-h-[11rem] sm:min-h-[17rem] lg:min-h-[20rem] xl:min-h-[24rem] relative block">
               <div id="hero-slide-1" class="hero-rotating-slide slide-in absolute left-0 right-0 top-0"></div>
               <div id="hero-slide-2" class="hero-rotating-slide slide-wait absolute left-0 right-0 top-0"></div>
             </h1>
           </div>
           <!-- Liste bentos mobile/tablette (glassmorphism, sous le titre) -->
-          <nav class="lg:hidden w-full hero-bento-list mt-4 sm:mt-6" aria-label="Navigation offres">
+          <nav class="lg:hidden w-full hero-bento-list mt-2 sm:mt-6" aria-label="Navigation offres">
             <ul class="hero-bento-list-inner flex flex-col gap-2 sm:gap-3 list-none p-0 m-0">
               <li>
                 <a href="/impro-vocale-new" class="hero-bento-list-item glass-panel-rose flex items-center gap-3 sm:gap-4 w-full rounded-xl px-4 py-3 sm:px-5 sm:py-4 text-white no-underline transition-all hover:bg-white/15 border border-white/20">
