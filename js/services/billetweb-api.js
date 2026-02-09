@@ -155,7 +155,7 @@ export async function fetchBilletWebWorkshops() {
     const hasUserIdAndKey = BILLETWEB_CONFIG && BILLETWEB_CONFIG.userId && BILLETWEB_CONFIG.apiKey;
     const isLocalhost = typeof window !== 'undefined' && /localhost|127\.0\.0\.1/.test(window.location.hostname);
     const useProxy = BILLETWEB_CONFIG && BILLETWEB_CONFIG.proxyUrl && BILLETWEB_CONFIG.proxyUrl.trim() !== '' && !isLocalhost;
-    (function(pl){fetch('http://127.0.0.1:7242/ingest/48ad0c73-d731-4873-aa3b-f049104867e7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(pl)}).catch(()=>{});if(typeof window!=='undefined'){window.__debugLogs.push(pl);try{localStorage.setItem('__debugLogs',JSON.stringify(window.__debugLogs));}catch(e){}}})({location:'billetweb-api.js:fetchBilletWebWorkshops',message:'config and branch',data:{hasCredentials:!!hasUserIdAndKey,useProxy,isLocalhost,hostname:typeof window!=='undefined'?window.location.hostname:''},timestamp:Date.now(),hypothesisId:'H1_H2'});
+    (function(pl){if(typeof window!=='undefined'&&window.__debugLogs){window.__debugLogs.push(pl);try{localStorage.setItem('__debugLogs',JSON.stringify(window.__debugLogs));}catch(e){}}})({location:'billetweb-api.js:fetchBilletWebWorkshops',message:'config and branch',data:{hasCredentials:!!hasUserIdAndKey,useProxy,isLocalhost,hostname:typeof window!=='undefined'?window.location.hostname:''},timestamp:Date.now(),hypothesisId:'H1_H2'});
     // #endregion
     // Vérifier que la configuration est disponible
     if (typeof BILLETWEB_CONFIG === 'undefined') {
@@ -170,7 +170,7 @@ export async function fetchBilletWebWorkshops() {
     // Vérifier le cache d'abord (ignorer un cache vide pour permettre un nouveau fetch)
     const cachedData = getCachedWorkshops();
     // #region agent log
-    (function(pl){fetch('http://127.0.0.1:7242/ingest/48ad0c73-d731-4873-aa3b-f049104867e7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(pl)}).catch(()=>{});if(typeof window!=='undefined'){window.__debugLogs.push(pl);try{localStorage.setItem('__debugLogs',JSON.stringify(window.__debugLogs));}catch(e){}}})({location:'billetweb-api.js:cache',message:'cache check',data:{cacheHit:!!cachedData,cachedLength:cachedData?cachedData.length:0},timestamp:Date.now(),hypothesisId:'H3'});
+    (function(pl){if(typeof window!=='undefined'&&window.__debugLogs){window.__debugLogs.push(pl);try{localStorage.setItem('__debugLogs',JSON.stringify(window.__debugLogs));}catch(e){}}})({location:'billetweb-api.js:cache',message:'cache check',data:{cacheHit:!!cachedData,cachedLength:cachedData?cachedData.length:0},timestamp:Date.now(),hypothesisId:'H3'});
     // #endregion
     if (cachedData && cachedData.length > 0) {
       const withImages = convertImageUrls(cachedData);
@@ -205,7 +205,7 @@ export async function fetchBilletWebWorkshops() {
     }
 
     // #region agent log
-    (function(pl){fetch('http://127.0.0.1:7242/ingest/48ad0c73-d731-4873-aa3b-f049104867e7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(pl)}).catch(()=>{});if(typeof window!=='undefined'){window.__debugLogs.push(pl);try{localStorage.setItem('__debugLogs',JSON.stringify(window.__debugLogs));}catch(e){}}})({location:'billetweb-api.js:beforeFetch',message:'request target',data:{useProxy,urlFirst50:typeof apiUrl==='string'?apiUrl.substring(0,50):''},timestamp:Date.now(),hypothesisId:'H2'});
+    (function(pl){if(typeof window!=='undefined'&&window.__debugLogs){window.__debugLogs.push(pl);try{localStorage.setItem('__debugLogs',JSON.stringify(window.__debugLogs));}catch(e){}}})({location:'billetweb-api.js:beforeFetch',message:'request target',data:{useProxy,urlFirst50:typeof apiUrl==='string'?apiUrl.substring(0,50):''},timestamp:Date.now(),hypothesisId:'H2'});
     // #endregion
     const response = await fetch(apiUrl, { headers, cache: 'no-store' });
 
@@ -217,11 +217,11 @@ export async function fetchBilletWebWorkshops() {
     // #region agent log
     const rawKeys = data && typeof data === 'object' && !Array.isArray(data) ? Object.keys(data) : [];
     const rawEventsCount = Array.isArray(data) ? data.length : (data && (data.events || data.data || data.event || []).length);
-    (function(pl){fetch('http://127.0.0.1:7242/ingest/48ad0c73-d731-4873-aa3b-f049104867e7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(pl)}).catch(()=>{});if(typeof window!=='undefined'){window.__debugLogs.push(pl);try{localStorage.setItem('__debugLogs',JSON.stringify(window.__debugLogs));}catch(e){}}})({location:'billetweb-api.js:afterFetch',message:'response shape',data:{responseOk:response.ok,dataKeys:rawKeys,rawEventsCount,isArray:Array.isArray(data)},timestamp:Date.now(),hypothesisId:'H4'});
+    (function(pl){if(typeof window!=='undefined'&&window.__debugLogs){window.__debugLogs.push(pl);try{localStorage.setItem('__debugLogs',JSON.stringify(window.__debugLogs));}catch(e){}}})({location:'billetweb-api.js:afterFetch',message:'response shape',data:{responseOk:response.ok,dataKeys:rawKeys,rawEventsCount,isArray:Array.isArray(data)},timestamp:Date.now(),hypothesisId:'H4'});
     // #endregion
     let transformedData = transformBilletWebData(data);
     // #region agent log
-    (function(pl){fetch('http://127.0.0.1:7242/ingest/48ad0c73-d731-4873-aa3b-f049104867e7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(pl)}).catch(()=>{});if(typeof window!=='undefined'){window.__debugLogs.push(pl);try{localStorage.setItem('__debugLogs',JSON.stringify(window.__debugLogs));}catch(e){}}})({location:'billetweb-api.js:afterTransform',message:'transformed count',data:{transformedLength:transformedData.length,sampleDates:transformedData.slice(0,3).map(w=>w.date)},timestamp:Date.now(),hypothesisId:'H4_H5'});
+    (function(pl){if(typeof window!=='undefined'&&window.__debugLogs){window.__debugLogs.push(pl);try{localStorage.setItem('__debugLogs',JSON.stringify(window.__debugLogs));}catch(e){}}})({location:'billetweb-api.js:afterTransform',message:'transformed count',data:{transformedLength:transformedData.length,sampleDates:transformedData.slice(0,3).map(w=>w.date)},timestamp:Date.now(),hypothesisId:'H4_H5'});
     // #endregion
     // Convertir les URLs d'images au format correct (même si elles viennent de l'API)
     transformedData = convertImageUrls(transformedData);
