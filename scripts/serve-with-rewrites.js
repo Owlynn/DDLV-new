@@ -87,10 +87,4 @@ const server = http.createServer((req, res) => {
   res.end(content);
 });
 
-server.listen(PORT, () => {
-  console.log('Serveur de dev avec rewrites : http://localhost:' + PORT);
-  console.log('  / → index.html');
-  Object.entries(REWRITES).forEach(([route, file]) => {
-    console.log('  ' + route + ' → ' + file);
-  });
-});
+server.listen(PORT, () => {});

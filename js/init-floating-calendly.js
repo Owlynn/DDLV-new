@@ -3,13 +3,13 @@
  * sinon ouvre Calendly dans un nouvel onglet.
  */
 (function() {
-  var CALENDLY_URL = 'https://calendly.com/contactdonnerdelavoix/30min';
+  const CALENDLY_URL = 'https://calendly.com/contactdonnerdelavoix/30min';
 
   document.addEventListener('click', function(e) {
     if (!e.target.closest('#calendly-trigger-rdv')) return;
     e.preventDefault();
 
-    var popup = document.getElementById('calendly-popup') || document.getElementById('calendly-popup-home');
+    const popup = document.getElementById('calendly-popup') || document.getElementById('calendly-popup-home');
     if (popup) {
       popup.style.display = popup.id === 'calendly-popup-home' ? 'flex' : 'block';
       popup.setAttribute('aria-hidden', 'false');

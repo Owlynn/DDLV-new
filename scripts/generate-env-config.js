@@ -51,7 +51,6 @@ const content = `// Généré au build - ne pas modifier à la main
 
 const outPath = path.join(__dirname, '..', 'env-config.js');
 fs.writeFileSync(outPath, content, 'utf8');
-console.log('✅ env-config.js généré');
 if (!env.EMAILJS_PUBLIC_KEY && !env.BILLETWEB_USER_ID) {
   console.warn('⚠️ Aucune variable EMAILJS_* ou BILLETWEB_* trouvée (normal en local)');
 }
