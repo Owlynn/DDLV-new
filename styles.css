@@ -31,6 +31,10 @@
   --transition-base: 0.3s ease;
   --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --shadow-md: 0 4px 16px rgba(91, 42, 181, 0.12), 0 2px 8px rgba(91, 42, 181, 0.08);
+
+  /* Taille de base des paragraphes et textes de corps (bentos, articles, partout) */
+  --text-body: 1.125rem;   /* 18px – paragraphes généraux */
+  --text-hero-intro: 1.25rem;  /* 20px – texte d’intro dans les hero */
 }
 
 /* Reset & base */
@@ -60,9 +64,9 @@ body.no-scroll, html.no-scroll {
   height: 100%;
 }
 
-/* Tous les paragraphes (pas les titres) à 16px sur tout le site */
+/* Tous les paragraphes (pas les titres) – taille lisible sur tout le site */
 p {
-  font-size: 16px !important;
+  font-size: var(--text-body) !important;
 }
 
 /* Overlay violet/rose désactivé sur toutes les pages (image de fond et blobs restent visibles) */
@@ -313,8 +317,9 @@ header nav.glass-panel-rose,
   }
 }
 
-/* Paragraphes du hero : font-weight plus élevé sur toutes les pages */
+/* Paragraphes du hero : intro plus lisible (taille + poids) */
 .hero-overlay p {
+  font-size: var(--text-hero-intro) !important;
   font-weight: 500;
 }
 
@@ -779,7 +784,7 @@ button.rdv-btn:hover {
 
 .article-content p,
 .article-content li {
-  font-size: 16px;
+  font-size: var(--text-body);
   line-height: 1.9;
 }
 
@@ -1060,7 +1065,7 @@ body.formats-panel-open #formats-d-ateliers {
 #formats-d-ateliers .article-content p,
 #formats-d-ateliers .article-content li {
   color: rgba(255, 255, 255, 0.9) !important;
-  font-size: 16px !important;
+  font-size: var(--text-body) !important;
 }
 
 #formats-d-ateliers .article-content small {
