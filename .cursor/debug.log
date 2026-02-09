@@ -1,0 +1,9 @@
+{"location":"billetweb-api.js:fetchBilletWebWorkshops","message":"config and branch","data":{"hasUserIdAndKey":"17a1a7fcd3bdc5e0056e5c841cba0089","useProxy":false,"isLocalhost":true,"hostname":"localhost"},"timestamp":1770647945520,"hypothesisId":"H1_H2"}
+{"location":"billetweb-api.js:cache","message":"cache check","data":{"cacheHit":true,"cachedLength":0},"timestamp":1770647945521,"hypothesisId":"H3"}
+{"location":"billetweb-api.js:fetchBilletWebWorkshops","message":"config and branch","data":{"hasUserIdAndKey":"17a1a7fcd3bdc5e0056e5c841cba0089","useProxy":false,"isLocalhost":true,"hostname":"localhost"},"timestamp":1770648058895,"hypothesisId":"H1_H2"}
+{"location":"billetweb-api.js:cache","message":"cache check","data":{"cacheHit":true,"cachedLength":0},"timestamp":1770648058896,"hypothesisId":"H3"}
+{"location":"billetweb-api.js:fetchBilletWebWorkshops","message":"config and branch","data":{"hasCredentials":true,"useProxy":false,"isLocalhost":true,"hostname":"localhost"},"timestamp":1770648276190,"hypothesisId":"H1_H2"}
+{"location":"billetweb-api.js:beforeFetch","message":"request target","data":{"useProxy":false,"urlFirst50":"https://www.billetweb.fr/api/events?user=73590&key"},"timestamp":1770648276191,"hypothesisId":"H2"}
+{"location":"billetweb-api.js:cache","message":"cache check","data":{"cacheHit":true,"cachedLength":0},"timestamp":1770648276190,"hypothesisId":"H3"}
+{"location":"billetweb-api.js:afterFetch","message":"response shape","data":{"responseOk":true,"dataKeys":[],"rawEventsCount":36,"isArray":true},"timestamp":1770648276569,"hypothesisId":"H4"}
+{"location":"billetweb-api.js:afterTransform","message":"transformed count","data":{"transformedLength":12,"sampleDates":["2026-02-10","2026-02-13","2026-02-14"]},"timestamp":1770648276571,"hypothesisId":"H4_H5"}

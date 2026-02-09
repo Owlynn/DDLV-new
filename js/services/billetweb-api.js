@@ -15,6 +15,11 @@ function transformBilletWebData(apiData) {
   if (!Array.isArray(events)) {
     return [];
   }
+  // #region agent log
+  const today = new Date(); today.setHours(0,0,0,0);
+  const withDate = events.map(e => (e.start || e.start_date || e.date || null)).filter(Boolean);
+  (function(pl){if(typeof window!=='undefined'&&window.__debugLogs){window.__debugLogs.push(pl);try{localStorage.setItem('__debugLogs',JSON.stringify(window.__debugLogs));}catch(e){}}})({location:'billetweb-api.js:transformBilletWebData',message:'events before filter',data:{eventsLength:events.length,withDateCount:withDate.length,sampleStart:withDate[0]},timestamp:Date.now(),hypothesisId:'H4_H5'});
+  // #endregion
 
   const defaultImage = 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=80';
 
@@ -141,23 +146,33 @@ function convertLinksToEventPage(workshops) {
  * @returns {Promise<Array>} Liste des événements/ateliers
  */
 export async function fetchBilletWebWorkshops() {
+  // #region agent log
+  if (typeof window !== 'undefined') window.__debugLogs = [];
+  // #endregion
   try {
+    // #region agent log
+    const hasAuthorization = BILLETWEB_CONFIG && BILLETWEB_CONFIG.authorization && BILLETWEB_CONFIG.authorization !== null;
+    const hasUserIdAndKey = BILLETWEB_CONFIG && BILLETWEB_CONFIG.userId && BILLETWEB_CONFIG.apiKey;
+    const isLocalhost = typeof window !== 'undefined' && /localhost|127\.0\.0\.1/.test(window.location.hostname);
+    const useProxy = BILLETWEB_CONFIG && BILLETWEB_CONFIG.proxyUrl && BILLETWEB_CONFIG.proxyUrl.trim() !== '' && !isLocalhost;
+    (function(pl){fetch('http://127.0.0.1:7242/ingest/48ad0c73-d731-4873-aa3b-f049104867e7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(pl)}).catch(()=>{});if(typeof window!=='undefined'){window.__debugLogs.push(pl);try{localStorage.setItem('__debugLogs',JSON.stringify(window.__debugLogs));}catch(e){}}})({location:'billetweb-api.js:fetchBilletWebWorkshops',message:'config and branch',data:{hasCredentials:!!hasUserIdAndKey,useProxy,isLocalhost,hostname:typeof window!=='undefined'?window.location.hostname:''},timestamp:Date.now(),hypothesisId:'H1_H2'});
+    // #endregion
     // Vérifier que la configuration est disponible
     if (typeof BILLETWEB_CONFIG === 'undefined') {
       throw new Error('BILLETWEB_CONFIG n\'est pas défini');
     }
     
     // Vérifier que les identifiants sont configurés
-    const hasAuthorization = BILLETWEB_CONFIG.authorization && BILLETWEB_CONFIG.authorization !== null;
-    const hasUserIdAndKey = BILLETWEB_CONFIG.userId && BILLETWEB_CONFIG.apiKey;
-    
-    if (!hasAuthorization && !hasUserIdAndKey) {
-      throw new Error('Les identifiants BilletWeb ne sont pas configurés. Vérifiez que secrets.local.js contient BILLETWEB.USER_ID et BILLETWEB.API_KEY');
+    if (!useProxy && !hasAuthorization && !hasUserIdAndKey) {
+      throw new Error('Configuration BilletWeb manquante (proxy ou identifiants).');
     }
     
-    // Vérifier le cache d'abord
+    // Vérifier le cache d'abord (ignorer un cache vide pour permettre un nouveau fetch)
     const cachedData = getCachedWorkshops();
-    if (cachedData) {
+    // #region agent log
+    (function(pl){fetch('http://127.0.0.1:7242/ingest/48ad0c73-d731-4873-aa3b-f049104867e7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(pl)}).catch(()=>{});if(typeof window!=='undefined'){window.__debugLogs.push(pl);try{localStorage.setItem('__debugLogs',JSON.stringify(window.__debugLogs));}catch(e){}}})({location:'billetweb-api.js:cache',message:'cache check',data:{cacheHit:!!cachedData,cachedLength:cachedData?cachedData.length:0},timestamp:Date.now(),hypothesisId:'H3'});
+    // #endregion
+    if (cachedData && cachedData.length > 0) {
       const withImages = convertImageUrls(cachedData);
       return convertLinksToEventPage(withImages);
     }
@@ -166,62 +181,57 @@ export async function fetchBilletWebWorkshops() {
     // Documentation: https://www.billetweb.fr/bo/api.php?key=2
     // Endpoint: GET /api/events
     // Exemple: https://www.billetweb.fr/api/events?user=1&key=xxx&version=1&past=1
-    let apiUrl = `${BILLETWEB_CONFIG.baseUrl}/events`;
-    const params = new URLSearchParams();
-    
-    // Préparer les headers pour la requête
+    let apiUrl;
     const headers = {};
 
-    // Authentification : utiliser paramètres URL (évite les problèmes CORS)
-    // IMPORTANT: L'authentification via header Authorization déclenche une requête preflight CORS
-    // que l'API BilletWeb ne supporte pas depuis le navigateur. On utilise donc les paramètres URL.
-    // Selon la doc BilletWeb: user=[user]&key=[key]&version=1
-    if (hasUserIdAndKey) {
-      params.append('user', BILLETWEB_CONFIG.userId);
-      params.append('key', BILLETWEB_CONFIG.apiKey);
-      params.append('version', BILLETWEB_CONFIG.version || '1');
-    } else if (hasAuthorization) {
-      headers['Authorization'] = BILLETWEB_CONFIG.authorization;
-      params.append('version', BILLETWEB_CONFIG.version || '1');
+    if (useProxy) {
+      apiUrl = BILLETWEB_CONFIG.proxyUrl;
+    } else {
+      let baseUrl = `${BILLETWEB_CONFIG.baseUrl}/events`;
+      const params = new URLSearchParams();
+      if (hasUserIdAndKey) {
+        params.append('user', BILLETWEB_CONFIG.userId);
+        params.append('key', BILLETWEB_CONFIG.apiKey);
+        params.append('version', BILLETWEB_CONFIG.version || '1');
+      } else if (hasAuthorization) {
+        headers['Authorization'] = BILLETWEB_CONFIG.authorization;
+        params.append('version', BILLETWEB_CONFIG.version || '1');
+      }
+      params.append('past', '1');
+      params.append('online', '1');
+      params.append('description', '1');
+      if (BILLETWEB_CONFIG.eventId) params.append('event', BILLETWEB_CONFIG.eventId);
+      apiUrl = `${baseUrl}?${params.toString()}`;
     }
 
-    // Paramètres optionnels selon la documentation BilletWeb :
-    // - past: inclure les événements passés (1 ou 0, 0 par défaut)
-    // - online: inclure uniquement les événements publiés (1 ou 0, 0 par défaut)
-    // - description: inclure la description (1 ou 0, 0 par défaut)
-    params.append('past', '1'); // Inclure les événements passés pour tester
-    params.append('online', '1'); // Seulement les événements publiés
-    params.append('description', '1'); // Inclure la description
+    // #region agent log
+    (function(pl){fetch('http://127.0.0.1:7242/ingest/48ad0c73-d731-4873-aa3b-f049104867e7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(pl)}).catch(()=>{});if(typeof window!=='undefined'){window.__debugLogs.push(pl);try{localStorage.setItem('__debugLogs',JSON.stringify(window.__debugLogs));}catch(e){}}})({location:'billetweb-api.js:beforeFetch',message:'request target',data:{useProxy,urlFirst50:typeof apiUrl==='string'?apiUrl.substring(0,50):''},timestamp:Date.now(),hypothesisId:'H2'});
+    // #endregion
+    const response = await fetch(apiUrl, { headers, cache: 'no-store' });
 
-    // Ajouter l'ID d'événement si spécifié
-    if (BILLETWEB_CONFIG.eventId) {
-      params.append('event', BILLETWEB_CONFIG.eventId);
-    }
-
-    apiUrl += `?${params.toString()}`;
-
-    const response = await fetch(apiUrl, {
-      headers: headers,
-      cache: 'no-store'
-    });
-    
     if (!response.ok) {
-      const errorText = await response.text();
-      // Ne pas exposer le détail de la réponse API à l'utilisateur (fuite d'info)
       throw new Error('Impossible de charger les ateliers. Veuillez réessayer plus tard.');
     }
 
     const data = await response.json();
-    
+    // #region agent log
+    const rawKeys = data && typeof data === 'object' && !Array.isArray(data) ? Object.keys(data) : [];
+    const rawEventsCount = Array.isArray(data) ? data.length : (data && (data.events || data.data || data.event || []).length);
+    (function(pl){fetch('http://127.0.0.1:7242/ingest/48ad0c73-d731-4873-aa3b-f049104867e7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(pl)}).catch(()=>{});if(typeof window!=='undefined'){window.__debugLogs.push(pl);try{localStorage.setItem('__debugLogs',JSON.stringify(window.__debugLogs));}catch(e){}}})({location:'billetweb-api.js:afterFetch',message:'response shape',data:{responseOk:response.ok,dataKeys:rawKeys,rawEventsCount,isArray:Array.isArray(data)},timestamp:Date.now(),hypothesisId:'H4'});
+    // #endregion
     let transformedData = transformBilletWebData(data);
-    
+    // #region agent log
+    (function(pl){fetch('http://127.0.0.1:7242/ingest/48ad0c73-d731-4873-aa3b-f049104867e7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(pl)}).catch(()=>{});if(typeof window!=='undefined'){window.__debugLogs.push(pl);try{localStorage.setItem('__debugLogs',JSON.stringify(window.__debugLogs));}catch(e){}}})({location:'billetweb-api.js:afterTransform',message:'transformed count',data:{transformedLength:transformedData.length,sampleDates:transformedData.slice(0,3).map(w=>w.date)},timestamp:Date.now(),hypothesisId:'H4_H5'});
+    // #endregion
     // Convertir les URLs d'images au format correct (même si elles viennent de l'API)
     transformedData = convertImageUrls(transformedData);
     // Liens déjà au format page atelier dans transformBilletWebData
     
-    // Mettre en cache
-    setCachedWorkshops(transformedData);
-    
+    // Mettre en cache uniquement si on a des ateliers (éviter de figer "aucun atelier")
+    if (transformedData.length > 0) {
+      setCachedWorkshops(transformedData);
+    }
+
     return transformedData;
   } catch (error) {
     // Message générique pour l'utilisateur ; ne pas réexposer les détails techniques
