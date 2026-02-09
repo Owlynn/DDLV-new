@@ -70,6 +70,11 @@ body.no-scroll, html.no-scroll {
   height: 100%;
 }
 
+/* Tous les paragraphes (pas les titres) à 16px sur tout le site */
+p {
+  font-size: 16px !important;
+}
+
 /* Overlay violet/rose désactivé sur toutes les pages (image de fond et blobs restent visibles) */
 .bg-textured-art {
   display: none !important;
@@ -915,6 +920,15 @@ button.rdv-btn:hover {
 }
 
 /* Panneau à droite : on ne bloque pas le scroll de la page (moitié gauche reste scrollable) */
+body.formats-panel-open::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 99998;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: none;
+}
 
 #formats-d-ateliers .formats-panel-close {
   position: fixed;
@@ -1056,6 +1070,7 @@ body.formats-panel-open #formats-d-ateliers {
 #formats-d-ateliers .article-content p,
 #formats-d-ateliers .article-content li {
   color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 16px !important;
 }
 
 #formats-d-ateliers .article-content small {
