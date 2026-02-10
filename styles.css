@@ -1102,6 +1102,7 @@ body.formats-panel-open #formats-d-ateliers {
 #formats-d-ateliers .format-panel-visual--circlesong-gestuelle::after { background-image: url('/assets/bg3.jpg'); }
 #formats-d-ateliers .format-panel-visual--flashmob::after { background-image: url('/assets/bg1.jpg'); }
 #formats-d-ateliers .format-panel-visual--coaching::after { background-image: url('/assets/circlesongcoachingpersonnalise.png'); }
+#formats-d-ateliers .format-panel-visual--chorale-improvisee::after { background-image: url('/assets/bg3.jpg'); }
 #formats-d-ateliers .format-panel-illustration {
   position: absolute;
   inset: 0;
@@ -1161,7 +1162,7 @@ body.formats-panel-open #formats-d-ateliers {
 
 #formats-d-ateliers .article-content p,
 #formats-d-ateliers .article-content li {
-  color: rgba(255, 255, 255, 0.9) !important;
+  color: #2d1a5c !important;
   font-size: var(--text-body) !important;
 }
 

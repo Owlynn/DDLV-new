@@ -654,6 +654,13 @@
             <p class="text-base text-white/90 leading-snug font-light">Journée sur mesure.</p>
           </div>
         </button>
+        <button type="button" class="bento-format-open bento-f-2x1 glass-panel-rose bento-tint-primary group p-6 rounded-2xl relative overflow-hidden" data-format-section="chorale-improvisee" aria-label="Ouvrir La chorale improvisée">
+          <span class="bento-type-badge absolute top-3 right-3 text-[10px] uppercase tracking-widest font-semibold text-white rounded-full px-2.5 py-1">Atelier</span>
+          <div class="bento-format-text">
+            <h3 class="text-xl font-bold text-white mb-1 uppercase tracking-tight">La chorale improvisée</h3>
+            <p class="text-base text-white/90 leading-snug font-light">Direction de chœur improvisé &amp; circlesongs.</p>
+          </div>
+        </button>
       </div>
       </div>
     </section>
@@ -1024,6 +1031,49 @@
             <p><a href="#prochaines-dates" class="formats-panel-cta-link">Voir les prochaines dates</a> | <a href="/contact" class="formats-panel-cta-link">Une question ?</a></p>
           </div>
         </section>
+
+        <section id="chorale-improvisee" class="article-section rounded-xl p-6 md:p-8 mb-6">
+          <div class="article-content">
+            <div class="format-badges flex flex-wrap gap-2 mb-4">
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-[#7a6ac7]/60">CIRCLESONGS</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">DIRECTION</span>
+              <span class="badge px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-semibold bg-white/15">TOULOUSE</span>
+            </div>
+            <div class="format-panel-visual format-panel-visual--chorale-improvisee">
+              <div class="format-panel-illustration">
+                <span class="format-panel-illustration-title">La chorale improvisée</span>
+                <span class="format-panel-illustration-subtitle">Direction de chœur improvisé &amp; circlesongs</span>
+              </div>
+            </div>
+            <p>Un atelier de 3 heures pour pratiquer la direction de chœur improvisé et les circlesongs. Vous vous inscrivez soit en <strong>choriste</strong> (15 €), soit en <strong>chef de chœur</strong> (20 €). Chaque séance alterne temps de démonstration, explication des principes et mises en pratique par les chefs de chœur.</p>
+            <h3>Principe</h3>
+            <p>À chaque séance, je présente des <strong>principes de direction de chœur improvisé</strong> et des <strong>techniques de circlesong</strong>, que j'explique et que je mets en œuvre devant le groupe. Ensuite, les <strong>chefs de chœur</strong> prennent ma place et appliquent ces outils avec la chorale. Chaque chef dispose de <strong>20 minutes</strong> : une partie pour tester la technique ou le principe du jour, l'autre libre, selon son envie.</p>
+            <h3>Pour qui ?</h3>
+            <ul>
+              <li><strong>Choristes</strong> — Chanter en circlesong et soutenir les chefs dans un cadre bienveillant.</li>
+              <li><strong>Chefs de chœur</strong> — Diriger un cercle vocal, s'entraîner à la direction improvisée et expérimenter en direct.</li>
+            </ul>
+            <div class="highlight-box-small rounded-xl p-4 my-4 border border-white/20 bg-white/10">
+              <h3 class="mt-0">Informations pratiques</h3>
+              <dl class="grid gap-2">
+                <div><dt class="font-semibold">Durée</dt><dd>3 heures</dd></div>
+                <div><dt class="font-semibold">Où ?</dt><dd>Lieu annoncé à l'inscription (Toulouse)</dd></div>
+                <div><dt class="font-semibold">Chefs de chœur</dt><dd>5 maximum</dd></div>
+                <div><dt class="font-semibold">Choristes</dt><dd>Selon la jauge de la salle</dd></div>
+              </dl>
+            </div>
+            <div class="highlight-box-small rounded-xl p-4 my-4 border border-white/20 bg-white/10">
+              <h3 class="mt-0">Tarifs</h3>
+              <ul>
+                <li><strong>Choriste</strong> — 15 €</li>
+                <li><strong>Chef de chœur</strong> — 20 €</li>
+              </ul>
+            </div>
+            <h3>Inscriptions</h3>
+            <p>L'inscription se fait via la billetterie en ligne : <a href="https://www.billetweb.fr/pro/donnerdelavoix" target="_blank" rel="noopener noreferrer">billetterie BilletWeb</a>, paiement sur place. En cas d'annulation, merci de prévenir le plus tôt possible.</p>
+            <p><a href="#prochaines-dates" class="formats-panel-cta-link">Voir les prochaines dates</a> | <a href="/contact" class="formats-panel-cta-link">Une question ?</a></p>
+          </div>
+        </section>
       </div>
     </div>
 
@@ -1107,7 +1157,7 @@
 
       // Panneau formats : s'assurer qu'il existe et qu'il s'affiche au clic
       var formatsPanel = document.getElementById('formats-d-ateliers');
-      var formatSectionIds = ['ateliers-focus', 'art-circle-songs', 'stage-circlesong', 'chant-pour-tous', 'circlesong-poesie', 'circlesong-gestuelle', 'flashmob-improvise', 'coaching-personnalise'];
+      var formatSectionIds = ['ateliers-focus', 'art-circle-songs', 'stage-circlesong', 'chant-pour-tous', 'circlesong-poesie', 'circlesong-gestuelle', 'flashmob-improvise', 'coaching-personnalise', 'chorale-improvisee'];
       var openFormatsPanel = function(sectionId) {
         var panel = document.getElementById('formats-d-ateliers');
         if (!panel) return;
