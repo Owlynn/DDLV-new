@@ -500,6 +500,86 @@ button.rdv-btn:hover {
   }
 }
 
+/* Popup Calendly – module réutilisable (glassmorphism, pleine page) */
+#calendly-popup,
+#calendly-popup-home {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  align-items: stretch;
+  justify-content: stretch;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+#calendly-popup .calendly-popup-overlay,
+#calendly-popup-home .calendly-popup-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 2, 24, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+#calendly-popup .calendly-popup-content-wrapper,
+#calendly-popup-home .calendly-popup-content-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  overflow: hidden;
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow:
+    0 8px 32px 0 rgba(0, 0, 0, 0.35),
+    inset 0 0 2px 1px rgba(255, 255, 255, 0.2),
+    0 0 30px rgba(91, 42, 181, 0.15);
+}
+#calendly-popup .calendly-popup-close-btn,
+#calendly-popup-home .calendly-popup-close-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 10002;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s;
+}
+#calendly-popup .calendly-popup-close-btn:hover,
+#calendly-popup-home .calendly-popup-close-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+#calendly-popup .calendly-inline-widget,
+#calendly-popup-home .calendly-inline-widget {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+}
+#calendly-popup .calendly-inline-widget iframe,
+#calendly-popup-home .calendly-inline-widget iframe {
+  width: 100% !important;
+  height: 100% !important;
+}
+
 /* ============================================
    VIEW TOGGLE (Ateliers-new : cartes / calendrier)
    ============================================ */
