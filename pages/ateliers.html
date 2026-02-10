@@ -665,6 +665,8 @@
       </div>
     </section>
 
+    <!-- Overlay flouté entre le fond et le panneau (affiché à l'ouverture du panneau) -->
+    <div id="formats-panel-overlay" class="formats-panel-overlay" aria-hidden="true" style="display:none;"></div>
     <!-- Panneau formats (ouvert au clic sur un format, style verre dépoli) -->
     <div id="formats-d-ateliers" class="formats-panel" aria-hidden="true" style="display:none;">
       <button type="button" class="formats-panel-close" aria-label="Fermer le panneau">
@@ -1160,9 +1162,14 @@
       // Panneau formats : s'assurer qu'il existe et qu'il s'affiche au clic
       var formatsPanel = document.getElementById('formats-d-ateliers');
       var formatSectionIds = ['ateliers-focus', 'art-circle-songs', 'stage-circlesong', 'chant-pour-tous', 'circlesong-poesie', 'circlesong-gestuelle', 'flashmob-improvise', 'coaching-personnalise', 'chorale-improvisee'];
+      var overlay = document.getElementById('formats-panel-overlay');
       var openFormatsPanel = function(sectionId) {
         var panel = document.getElementById('formats-d-ateliers');
         if (!panel) return;
+        if (overlay) {
+          overlay.style.display = 'block';
+          overlay.setAttribute('aria-hidden', 'false');
+        }
         panel.setAttribute('aria-hidden', 'false');
         panel.style.cssText = 'display:block !important; position:fixed !important; top:0 !important; right:0 !important; width:50% !important; min-width:320px !important; height:100vh !important; left:auto !important; bottom:auto !important; z-index:99999 !important; overflow-y:auto !important; overflow-x:hidden !important; background:rgba(255,255,255,0.45) !important; backdrop-filter:blur(60px) !important; -webkit-backdrop-filter:blur(60px) !important; border-left:1px solid rgba(255,255,255,0.2) !important; padding-top:5rem !important; padding-bottom:2rem !important; padding-left:1.5rem !important; padding-right:1.5rem !important;';
         document.body.classList.add('formats-panel-open');
@@ -1180,6 +1187,10 @@
       var closeFormatsPanel = function() {
         var panel = document.getElementById('formats-d-ateliers');
         if (!panel) return;
+        if (overlay) {
+          overlay.style.display = 'none';
+          overlay.setAttribute('aria-hidden', 'true');
+        }
         panel.setAttribute('aria-hidden', 'true');
         panel.style.cssText = 'display:none !important;';
         document.body.classList.remove('formats-panel-open');
@@ -1210,6 +1221,7 @@
       }, false);
       var closeBtn = document.querySelector('#formats-d-ateliers .formats-panel-close');
       if (closeBtn) closeBtn.addEventListener('click', function() { closeFormatsPanel(); });
+      if (overlay) overlay.addEventListener('click', function() { closeFormatsPanel(); });
       document.getElementById('formats-d-ateliers')?.addEventListener('click', function(e) {
         var link = e.target.closest('a.formats-panel-cta-link');
         if (!link) return;

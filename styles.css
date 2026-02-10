@@ -1011,14 +1011,18 @@ button.rdv-btn:hover {
   display: none;
 }
 
-/* Panneau à droite : on ne bloque pas le scroll de la page (moitié gauche reste scrollable) */
-body.formats-panel-open::before {
-  content: '';
+/* Overlay entre le fond et le panneau : flou + léger assombrissement (élément DOM) */
+.formats-panel-overlay {
   position: fixed;
   inset: 0;
   z-index: 99998;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(13, 2, 24, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  cursor: pointer;
+  pointer-events: auto;
+}
+.formats-panel-overlay[aria-hidden="true"] {
   pointer-events: none;
 }
 
