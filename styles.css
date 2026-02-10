@@ -33,8 +33,12 @@
   --shadow-md: 0 4px 16px rgba(91, 42, 181, 0.12), 0 2px 8px rgba(91, 42, 181, 0.08);
 
   /* Taille de base des paragraphes et textes de corps (bentos, articles, partout) */
-  --text-body: 1.125rem;   /* 18px – paragraphes généraux */
-  --text-hero-intro: 1.25rem;  /* 20px – texte d’intro dans les hero */
+  --text-body: 1rem;
+  --text-hero-intro: 1.125rem;  /* 20px – texte d’intro dans les hero */
+}
+
+:root {
+  --text-bento: 1rem;
 }
 
 /* Reset & base */
@@ -196,6 +200,19 @@ main img,
   max-width: 100%;
   height: auto;
   object-fit: contain;
+}
+
+/* Paragraphes et listes dans les bentos : taille lisible (override Tailwind text-sm) */
+.bento-content-glass p,
+.bento-content-glass li,
+.bento-content-glass ul,
+.bento-zone .bento-small p,
+.bento-zone .bento-large p,
+.bento-zone .bento-small li,
+.bento-zone .bento-large li,
+[class*="bento-tint-"] p,
+[class*="bento-tint-"] li {
+  font-size: var(--text-bento) !important;
 }
 
 /* ============================================
