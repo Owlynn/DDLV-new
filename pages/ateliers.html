@@ -1171,6 +1171,8 @@
         });
         if (sectionId) {
           panel.scrollTop = 0;
+          var url = window.location.pathname + (window.location.search || '') + '#' + sectionId;
+          history.pushState(null, '', url);
         }
       };
       var closeFormatsPanel = function() {
@@ -1180,12 +1182,23 @@
         panel.style.cssText = 'display:none !important;';
         document.body.classList.remove('formats-panel-open');
         document.documentElement.classList.remove('formats-panel-open');
+        var url = window.location.pathname + (window.location.search || '');
+        if (window.location.hash) history.replaceState(null, '', url);
       };
-      // Ouvrir le panneau au chargement si l'URL contient un hash de format
+      // Ouvrir le panneau au chargement si l'URL contient un hash de format (lien partagé)
       var initialHash = window.location.hash.replace(/^#/, '');
       if (initialHash && formatSectionIds.indexOf(initialHash) !== -1) {
         openFormatsPanel(initialHash);
       }
+      // Bouton retour du navigateur : fermer le panneau si on revient à une URL sans hash format
+      window.addEventListener('popstate', function() {
+        var hash = window.location.hash.replace(/^#/, '');
+        if (formatsPanel && document.body.classList.contains('formats-panel-open') && formatSectionIds.indexOf(hash) === -1) {
+          closeFormatsPanel();
+        } else if (hash && formatSectionIds.indexOf(hash) !== -1) {
+          openFormatsPanel(hash);
+        }
+      });
       // Clic sur un bouton format : ouvrir le panneau (boutons = aucune navigation)
       document.addEventListener('click', function(e) {
         var btn = e.target.closest('button.bento-format-open');
