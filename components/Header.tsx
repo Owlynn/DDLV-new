@@ -68,7 +68,7 @@ export default function Header() {
               {/* Sous-menu mobile */}
               {openAbout && (
                 <div className="lg:hidden pl-4 flex flex-col gap-1 mt-1">
-                  <Link href="/about" className="text-white/90 text-lg font-medium tracking-widest uppercase py-3 px-4 rounded-xl hover:bg-white/10 transition-colors" onClick={closeAll}>À propos</Link>
+                  <Link href="/about" className="text-white/90 text-lg font-medium tracking-widest uppercase py-3 px-4 rounded-xl hover:bg-white/10 transition-colors" onClick={closeAll}>La pédagogue</Link>
                   <Link href="/mentions-legales" className="text-white/90 text-lg font-medium tracking-widest uppercase py-3 px-4 rounded-xl hover:bg-white/10 transition-colors" onClick={closeAll}>Mentions légales</Link>
                 </div>
               )}
@@ -76,7 +76,7 @@ export default function Header() {
               {/* Sous-menu desktop */}
               {openAbout && (
                 <div className="hidden lg:flex flex-col absolute top-full left-1/2 -translate-x-1/2 mt-3 glass-panel-rose rounded-xl py-2 min-w-[200px] z-50">
-                  <Link href="/about" className="px-5 py-3 text-white text-xs font-medium tracking-widest uppercase hover:bg-white/10 transition-colors" onClick={closeAll}>À propos</Link>
+                  <Link href="/about" className="px-5 py-3 text-white text-xs font-medium tracking-widest uppercase hover:bg-white/10 transition-colors" onClick={closeAll}>La pédagogue</Link>
                   <Link href="/mentions-legales" className="px-5 py-3 text-white text-xs font-medium tracking-widest uppercase hover:bg-white/10 transition-colors" onClick={closeAll}>Mentions légales</Link>
                 </div>
               )}

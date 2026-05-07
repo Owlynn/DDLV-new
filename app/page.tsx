@@ -105,7 +105,7 @@ export default function HomePage() {
         .hero-rotating-slide.no-transition { transition: none; }
         .hero-rotating-slide--smaller { font-size: 0.88em; }
         .bento-column-pull { width: 100%; min-height: 0; display: flex; align-items: center; justify-content: flex-start; padding: 2rem 0; }
-        .bento-zone { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; column-gap: 1.5rem; row-gap: 0.75rem; width: 100%; max-width: 520px; min-height: 0; box-sizing: border-box; overflow: visible; }
+        .bento-zone { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; column-gap: 1.25rem; row-gap: 0.6rem; width: 100%; max-width: 416px; min-height: 0; box-sizing: border-box; overflow: visible; }
         .bento-hex-cell { min-height: 0; display: flex; align-items: center; justify-content: center; }
         .bento-hex-cell:nth-child(3), .bento-hex-cell:nth-child(4) { transform: translateX(35%); }
         .bento-drift { width: 100%; height: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; }
@@ -115,7 +115,7 @@ export default function HomePage() {
         .bento-hex-cell:nth-child(4) .bento-drift { animation: bento-bubble-float-4 18s ease-in-out infinite -4s; }
         .bento-hex-cell .bento-small { display: block; position: relative; width: 100%; padding-bottom: 100%; height: 0; border-radius: 50%; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease, border-color 0.4s ease; box-shadow: 0 8px 32px 0 rgba(0,0,0,0.28), inset 0 0 2px 1px rgba(255,250,252,0.2), 0 0 15px rgba(255,245,250,0.04); }
         .bento-hex-cell .bento-small:hover, .bento-hex-cell .bento-small:focus-visible { transform: translateY(-6px) scale(1.08); box-shadow: 0 12px 40px rgba(0,0,0,0.35), inset 0 0 2px 1px rgba(255,250,252,0.25), 0 0 28px rgba(207,53,148,0.2); border-color: rgba(255,240,245,0.45); }
-        .bento-hex-cell .bento-small .bento-hex-inner { position: absolute; inset: 0; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; align-items: center; justify-content: center; text-align: center; }
+        .bento-hex-cell .bento-small .bento-hex-inner { position: absolute; inset: 0; padding: 0.75rem; display: flex; flex-direction: column; gap: 0.35rem; align-items: center; justify-content: center; text-align: center; }
         @keyframes bento-bubble-float { 0%, 100% { transform: translate(0,0) scale(1); } 25% { transform: translate(4%,-5%) scale(1.02); } 50% { transform: translate(-2%,6%) scale(0.99); } 75% { transform: translate(3%,2%) scale(1.02); } }
         @keyframes bento-bubble-float-2 { 0%, 100% { transform: translate(0,0) scale(1); } 33% { transform: translate(-3%,-6%) scale(1.02); } 66% { transform: translate(5%,4%) scale(0.99); } }
         @keyframes bento-bubble-float-3 { 0%, 100% { transform: translate(0,0) scale(1); } 25% { transform: translate(-4%,-5%) scale(0.99); } 50% { transform: translate(2%,2%) scale(1.02); } 75% { transform: translate(-2%,6%) scale(1.01); } }
@@ -173,10 +173,10 @@ export default function HomePage() {
                     <div className="bento-drift">
                       <Link href={item.href} className={`bento-small glass-panel-rose ${item.tint} group relative overflow-hidden`}>
                         <span className="bento-hex-inner">
-                          <span className="size-12 rounded-lg bg-white/5 inline-flex items-center justify-center text-white border border-white/20 group-hover:bg-primary/30 transition-colors shrink-0">
-                            <span className="material-symbols-outlined text-3xl">{item.icon}</span>
+                          <span className="size-9 rounded-lg bg-white/5 inline-flex items-center justify-center text-white border border-white/20 group-hover:bg-primary/30 transition-colors shrink-0">
+                            <span className="material-symbols-outlined text-xl">{item.icon}</span>
                           </span>
-                          <h3 className="text-xl font-bold text-white uppercase tracking-tight">{item.label}</h3>
+                          <h3 className="text-sm font-bold text-white uppercase tracking-tight">{item.label}</h3>
                         </span>
                       </Link>
                     </div>
