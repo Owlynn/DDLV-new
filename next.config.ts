@@ -4,6 +4,11 @@ import path from 'path'
 const nextConfig: NextConfig = {
   output: 'standalone',
   outputFileTracingRoot: path.join(__dirname),
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'www.billetweb.fr' },
+    ],
+  },
 }
 
 export default nextConfig
