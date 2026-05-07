@@ -173,9 +173,8 @@ export default function WorkshopsSection({ workshops }: { workshops: Workshop[] 
                 </div>
               </div>
 
-              {/* Contenu : titre + heure + lieu uniquement */}
-              <div className="p-4 flex flex-col gap-1.5 flex-1 transition-[filter] duration-300 group-hover:blur-[3px]">
-                <h3 className="text-sm font-bold text-white leading-tight">{w.title}</h3>
+              {/* Contenu : heure + lieu uniquement (titre déjà dans le gradient) */}
+              <div className="p-4 flex flex-col gap-1.5 transition-[filter] duration-300 group-hover:blur-[3px]">
                 <p className="text-white/80 text-xs flex items-center gap-1">
                   <Calendar className="w-3.5 h-3.5 shrink-0" />
                   {w.dateDisplay} · {w.time}
@@ -192,7 +191,7 @@ export default function WorkshopsSection({ workshops }: { workshops: Workshop[] 
                 style={{ background: 'rgba(13,2,24,0.75)' }}
               >
                 <span className="font-semibold text-sm uppercase tracking-widest text-white px-5 py-2 rounded-full" style={{ border: '2px solid rgba(255,255,255,0.5)' }}>
-                  Voir &amp; s&apos;inscrire
+                  Infos &amp; Inscriptions
                 </span>
               </div>
             </a>

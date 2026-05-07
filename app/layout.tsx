@@ -36,9 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           ))}
         </div>
         <Header />
-        <div className="flex-1 min-h-0 flex flex-col w-full max-w-7xl mx-auto">
-          {children}
-        </div>
+        {children}
         <FloatingRdv />
       </body>
     </html>

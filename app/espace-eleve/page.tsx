@@ -14,20 +14,20 @@ export default function EspaceElevePage() {
   return (
     <main className="flex-1 overflow-y-auto relative" role="main">
       <section className="hero-overlay relative h-screen overflow-hidden flex items-center pt-20 sm:pt-24 pb-12" aria-label="Hero">
-        <div className="w-full max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
+        <div className="w-full max-w-5xl mx-auto px-4 md:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
           <div className="flex flex-col items-start gap-6 sm:gap-10">
-            <h1 className="text-[2.5rem] sm:text-[3.5rem] md:text-[5.8rem] lg:text-[7rem] font-bold tracking-tight text-white leading-tight">
+            <h1 className="text-[2rem] sm:text-[2.8rem] md:text-[4.6rem] lg:text-[5.6rem] font-bold tracking-tight text-white leading-tight">
               <span className="block">Espace</span>
               <span className="hero-gradient-word block">élève</span>
             </h1>
           </div>
-          <p className="text-white/90 text-base sm:text-lg md:text-xl font-light leading-relaxed max-w-[36.4rem] md:max-w-[31.2rem]">
+          <p className="text-white/90 text-lg sm:text-xl md:text-2xl font-medium leading-relaxed max-w-[36.4rem] md:max-w-[31.2rem]">
             Bienvenue dans votre espace dédié. Retrouvez ici les ressources pédagogiques, exercices et informations utiles pour progresser entre les cours.
           </p>
         </div>
       </section>
 
-      <div className="px-4 md:px-8 max-w-7xl mx-auto pb-24">
+      <div className="px-4 md:px-8 max-w-5xl mx-auto pb-24">
         <div className="bento-formats-zone bento-formats-zone--content">
           <div className="bento-f-2x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-3 relative overflow-hidden bento-content-glass">
             <div className="bento-icon-wrap"><BookOpen className="bento-icon" /></div>

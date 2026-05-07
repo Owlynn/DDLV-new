@@ -70,9 +70,9 @@ export default function ImproVocalePage() {
   return (
     <main className="flex-1 overflow-y-auto relative" role="main">
       <section className="hero-overlay relative h-screen overflow-hidden flex items-center pt-20 sm:pt-24 pb-12 md:pb-12" aria-label="Hero">
-        <div className="w-full max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
+        <div className="w-full max-w-5xl mx-auto px-4 md:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
           <div className="flex flex-col items-start gap-6 sm:gap-10">
-            <h1 className="text-[2.5rem] sm:text-[3.5rem] md:text-[5.8rem] lg:text-[7rem] font-bold tracking-tight text-white leading-tight">
+            <h1 className="text-[2rem] sm:text-[2.8rem] md:text-[4.6rem] lg:text-[5.6rem] font-bold tracking-tight text-white leading-tight">
               <span className="block">Impro</span>
               <span className="hero-gradient-word block">vocale</span>
             </h1>
@@ -90,13 +90,13 @@ export default function ImproVocalePage() {
               <Link href="/ateliers" className="btn-rdv w-full sm:w-auto text-center">Stages &amp; ateliers</Link>
             </nav>
           </div>
-          <p className="text-white/90 text-base sm:text-lg md:text-xl font-light leading-relaxed max-w-[36.4rem] md:max-w-[31.2rem]">
+          <p className="text-white/90 text-lg sm:text-xl md:text-2xl font-medium leading-relaxed max-w-[36.4rem] md:max-w-[31.2rem]">
             L&apos;<strong>improvisation vocale</strong> est une pratique musicale où la voix devient un instrument de création spontanée. Pas de partition, pas de texte à mémoriser : la musique naît dans l&apos;instant, à partir de l&apos;écoute et de l&apos;intuition.
           </p>
         </div>
       </section>
 
-      <div className="px-4 md:px-8 max-w-7xl mx-auto pb-24">
+      <div className="px-4 md:px-8 max-w-5xl mx-auto pb-24">
         <section className="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="intro">
           <h2 className="section-title-bentos">Qu&apos;est-ce que l&apos;impro vocale ?</h2>
           <div className="bento-formats-zone bento-formats-zone--content">

@@ -19,7 +19,7 @@ export default function WorkshopImage({
   return (
     <>
       <div className="absolute inset-0" style={{ background: GRADIENT }} />
-      <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.28)' }} />
+      <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.48)' }} />
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 gap-1.5">
         <span className="font-bold text-xs sm:text-sm uppercase tracking-widest text-white leading-tight drop-shadow">
           {title}
