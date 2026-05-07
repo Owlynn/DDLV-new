@@ -1,9 +1,7 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import SocialBar from '@/components/SocialBar'
 import AteliersFormatPanel from '@/components/AteliersFormatPanel'
-import WorkshopImage from '@/components/WorkshopImage'
-import { Calendar, MapPin, ArrowRight, Info } from 'lucide-react'
+import WorkshopsSection from '@/components/WorkshopsSection'
 
 export const metadata: Metadata = {
   title: 'Stages & Ateliers | Circlesongs & Improvisation Vocale | Toulouse',
@@ -152,59 +150,7 @@ export default async function AteliersPage() {
         {/* Prochains ateliers */}
         <section className="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="prochains">
           <h2 className="section-title-bentos">Prochaines dates</h2>
-
-          {workshops.length === 0 ? (
-            <div className="glass-panel-rose bento-tint-primary rounded-2xl p-8 text-center bento-content-glass relative overflow-hidden">
-              <div className="bento-icon-wrap justify-center"><Info className="bento-icon" /></div>
-              <h3 className="text-xl font-bold text-white mb-2">Aucun atelier programmé pour l&apos;instant</h3>
-              <p className="text-white/90 mb-4">De nouveaux ateliers sont régulièrement organisés. Inscrivez-vous à la newsletter pour ne rien manquer !</p>
-              <div className="flex flex-wrap gap-3 justify-center">
-                <Link href="/contact#newsletter" className="btn-rdv">S&apos;abonner à la newsletter</Link>
-                <Link href="/contact" className="btn-rdv">Me contacter</Link>
-              </div>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {workshops.map((w) => (
-                <a
-                  key={w.id}
-                  href={w.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="glass-panel-rose bento-tint-primary rounded-2xl flex flex-col relative overflow-hidden bento-content-glass transition-all hover:-translate-y-1"
-                >
-                  {/* Visuel avec médaillon date */}
-                  <div className="relative w-full aspect-[16/10] overflow-hidden flex-shrink-0 bg-gradient-to-br from-primary/50 to-accent/40">
-                    <WorkshopImage src={w.image} alt={w.title} />
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#5b2ab5]/50 to-[#cf3594]/40 pointer-events-none" />
-                    {/* Médaillon date */}
-                    <div className="absolute top-3 left-3 w-14 h-14 rounded-full flex flex-col items-center justify-center text-white" style={{ background: 'linear-gradient(135deg, rgba(91,42,181,0.95) 0%, rgba(207,53,148,0.95) 100%)', border: '2px solid rgba(255,255,255,0.4)', boxShadow: '0 4px 12px rgba(0,0,0,0.35)' }}>
-                      <span className="text-base font-bold leading-none">{w.day}</span>
-                      <span className="text-xs font-semibold leading-none mt-0.5">{w.month}</span>
-                    </div>
-                  </div>
-
-                  <div className="p-5 flex flex-col gap-2 flex-1">
-                    <h3 className="text-base font-bold text-white leading-tight">{w.title}</h3>
-                    <p className="text-white/80 text-sm flex items-center gap-1">
-                      <Calendar className="w-4 h-4 shrink-0" />
-                      {w.dateDisplay} · {w.time}
-                    </p>
-                    <p className="text-white/80 text-sm flex items-center gap-1">
-                      <MapPin className="w-4 h-4 shrink-0" />
-                      {w.location}
-                    </p>
-                    {w.description && (
-                      <p className="text-white/90 text-sm mt-1 line-clamp-2">{w.description}</p>
-                    )}
-                    <span className="btn-rdv mt-auto inline-flex items-center gap-1 text-xs">
-                      Voir &amp; s&apos;inscrire <ArrowRight className="w-3 h-3" />
-                    </span>
-                  </div>
-                </a>
-              ))}
-            </div>
-          )}
+          <WorkshopsSection workshops={workshops} />
         </section>
       </div>
 
