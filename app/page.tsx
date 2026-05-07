@@ -5,6 +5,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import SocialBar from '@/components/SocialBar'
+import PhotoBubblesLayer from '@/components/PhotoBubblesLayer'
 
 const phrases = [
   { html: '<span class="hero-line-1"><span class="text-white">Les</span></span><span class="hero-line-2"><span class="hero-gradient-word hero-rotating-slide--smaller">Circlesongs</span></span>', smaller: true },
@@ -75,6 +76,8 @@ export default function HomePage() {
   }, [])
 
   return (
+    <>
+    <PhotoBubblesLayer />
     <main className="flex-1 min-h-0 flex flex-col pl-3 sm:pl-6 md:pl-8 pr-3 sm:pr-6 md:pr-4 lg:pr-4 py-6 sm:py-10 overflow-hidden relative z-10">
       <style>{`
         .hero-rotating-track { overflow: hidden; height: 14rem; min-height: 14rem; }
@@ -196,5 +199,6 @@ export default function HomePage() {
 
       <SocialBar />
     </main>
+    </>
   )
 }
