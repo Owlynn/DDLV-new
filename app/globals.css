@@ -167,7 +167,7 @@ p {
 .hero-logo-wrap a { pointer-events: auto; }
 .hero-logo-wrap img {
   width: 100%;
-  max-width: min(85vw, 560px);
+  max-width: min(75vw, 360px);
   height: auto;
   object-fit: contain;
   object-position: center;

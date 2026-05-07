@@ -118,15 +118,17 @@ function PhotoBubble({
 }
 
 export default function PhotoBubblesLayer() {
-  const [bubbles, setBubbles] = useState<Bubble[]>(() => {
+  const [bubbles, setBubbles] = useState<Bubble[]>([])
+
+  useEffect(() => {
     const result: Bubble[] = []
     for (let i = 0; i < 5; i++) {
       const usedImages = result.map(b => b.src)
       const existing = result.map(b => ({ x: b.x, y: b.y, size: b.size }))
       result.push({ ...makeBubble(usedImages, existing), enterDelay: i * 700 })
     }
-    return result
-  })
+    setBubbles(result)
+  }, [])
 
   const onDone = useCallback((id: number) => {
     setBubbles(prev => {

@@ -130,7 +130,7 @@ export default function HomePage() {
         }
       `}</style>
 
-      <div className="flex-1 min-h-0 flex items-center justify-center">
+      <div className="flex-1 min-h-0 flex items-center justify-center max-h-[80vh]">
         <div className="hero-content-inner max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-0 items-center justify-items-center lg:justify-items-stretch min-h-0 px-2 sm:px-4">
           <div className="lg:col-span-1 flex flex-col gap-4 sm:gap-6 items-center justify-center lg:items-start lg:justify-start lg:pl-8 lg:pr-4 xl:pl-12 xl:pr-8 min-w-0 w-full max-w-[100vw]">
             <div className="hero-rotating-track hero-rotating-wrap relative w-full text-center lg:text-left mx-auto lg:mx-0" aria-live="polite">
@@ -193,7 +193,7 @@ export default function HomePage() {
 
       <div className="hero-logo-wrap">
         <Link href="/" className="flex items-center justify-center w-full max-w-[min(100vw,560px)] px-2 sm:px-4" aria-label="Donner de la Voix - Accueil">
-          <Image src="/assets/logo-ddlv.png" alt="Donner de la Voix - Voix & créativité" width={560} height={140} />
+          <Image src="/assets/logo-ddlv.png" alt="Donner de la Voix - Voix & créativité" width={360} height={90} />
         </Link>
       </div>
 
