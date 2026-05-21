@@ -128,7 +128,7 @@
           </p>
         </div>
         <div class="w-full lg:flex-1 lg:min-w-0 lg:max-w-md">
-          <form class="espace-eleve-form glass-panel-rose bento-tint-primary rounded-2xl p-6 md:p-8 flex flex-col gap-4 w-full relative overflow-hidden" action="javascript:void(0)" method="POST" aria-label="Connexion à l'espace élève" id="espace-eleve-login">
+          <form class="espace-eleve-form glass-panel-rose bento-tint-primary rounded-2xl p-6 md:p-8 flex flex-col gap-4 w-full relative overflow-hidden" action="#" method="POST" aria-label="Connexion à l'espace élève" id="espace-eleve-login">
             <div>
               <label for="eleve-email" class="sr-only">Email</label>
               <input type="email" id="eleve-email" name="email" class="form-field" required aria-required="true" placeholder="Email *" autocomplete="email" maxlength="254">
@@ -137,6 +137,7 @@
               <label for="eleve-password" class="sr-only">Mot de passe</label>
               <input type="password" id="eleve-password" name="password" class="form-field" required aria-required="true" placeholder="Mot de passe *" autocomplete="current-password">
             </div>
+            <p id="login-error" class="text-sm text-center" style="display:none;color:#f87171;"></p>
             <button type="submit" class="form-submit-btn mt-2">
               <span class="material-symbols-outlined text-xl">login</span>
               Se connecter
@@ -160,20 +161,52 @@
   <div class="hidden lg:block fixed bottom-6 left-8 z-50 flex flex-col gap-2">
     <a class="text-[10px] text-white/30 hover:text-white/90 uppercase tracking-widest font-medium" href="/mentions-legales">Mentions Légales</a>
   </div>
+  <script src="/supabase-config.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var form = document.getElementById('espace-eleve-login');
-      if (!form) return;
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        // Placeholder : à brancher sur votre backend d'authentification
-        var email = form.querySelector('[name="email"]').value.trim();
-        var password = form.querySelector('[name="password"]').value;
-        if (!email || !password) {
-          alert('Veuillez remplir l\'email et le mot de passe.');
+    // Bloque immédiatement la soumission du formulaire (avant le chargement de Supabase)
+    var _form = document.getElementById('espace-eleve-login');
+    var _errorEl = document.getElementById('login-error');
+    var _submitBtn = _form.querySelector('[type="submit"]');
+    var _sbReady = false;
+
+    function _showError(msg) { _errorEl.textContent = msg; _errorEl.style.display = 'block'; }
+
+    _form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (!_sbReady) {
+        _showError('Chargement en cours, réessayez dans un instant.');
+        return;
+      }
+    });
+  </script>
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+    var sbClient = createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.key);
+
+    function showError(msg) { _errorEl.textContent = msg; _errorEl.style.display = 'block'; }
+    function clearError() { _errorEl.textContent = ''; _errorEl.style.display = 'none'; }
+
+    // Rediriger si déjà connecté
+    sbClient.auth.getSession().then(function(res) {
+      if (res.data.session) { window.location.href = '/admin'; return; }
+      // Supabase prêt : activer le vrai handler
+      _sbReady = true;
+      _form.addEventListener('submit', async function(e) {
+        clearError();
+        var email = _form.querySelector('[name="email"]').value.trim();
+        var password = _form.querySelector('[name="password"]').value;
+        if (!email || !password) { showError('Veuillez remplir l\'email et le mot de passe.'); return; }
+
+        _submitBtn.disabled = true;
+        const { error } = await sbClient.auth.signInWithPassword({ email, password });
+        if (error) {
+          console.error('[Supabase auth]', error);
+          showError(error.message);
+          _submitBtn.disabled = false;
           return;
         }
-        alert('Connexion en cours de configuration. Cette page sera reliée à votre système d\'authentification.');
+        window.location.href = '/admin';
       });
     });
   </script>

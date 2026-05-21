@@ -4,7 +4,12 @@
       "PowerShell(claude doctor *)",
       "PowerShell(Move-Item *)",
       "PowerShell(New-Item *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\cassi\\\\Documents\\\\dev\\\\Vibe coding\\\\DDLV-new\" -Recurse -Force)",
+      "Bash(Select-Object FullName)",
+      "PowerShell(head *)",
+      "Bash(npm install *)",
+      "Bash(npx tsc *)"
     ]
   }
 }

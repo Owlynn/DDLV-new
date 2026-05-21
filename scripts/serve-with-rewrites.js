@@ -22,6 +22,7 @@ const REWRITES = {
   '/offre-entreprise': '/pages/offre-entreprise.html',
   '/mentions-legales': '/pages/mentions-legales.html',
   '/espace-eleve': '/pages/espace-eleve.html',
+  '/admin': '/pages/admin.html',
   // Anciennes URLs -new → même page (redirection douce en dev)
   '/impro-vocale-new': '/pages/impro-vocale.html',
   '/ateliers-new': '/pages/ateliers.html',
