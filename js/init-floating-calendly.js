@@ -79,7 +79,7 @@
   }
 
   document.addEventListener('click', function(e) {
-    if (!e.target.closest('#calendly-trigger-rdv')) return;
+    if (!e.target.closest('#calendly-trigger-rdv, [data-open-rdv]')) return;
     e.preventDefault();
     ensurePopupAndOpen();
   });
