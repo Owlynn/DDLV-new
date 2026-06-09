@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /espace-eleve
+Disallow: /admin
+
+Sitemap: https://donnerdelavoix.fr/sitemap.xml
