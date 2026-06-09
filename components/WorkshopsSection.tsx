@@ -163,7 +163,6 @@ export default function WorkshopsSection({ workshops }: { workshops: Workshop[] 
                   src={w.image}
                   alt={w.title}
                   title={w.title}
-                  dateDisplay={`${w.dateDisplay} · ${w.location}`}
                 />
                 {/* Médaillon date */}
                 <div className="absolute top-3 left-3 w-14 h-14 rounded-full flex flex-col items-center justify-center text-white z-10"
@@ -173,14 +172,15 @@ export default function WorkshopsSection({ workshops }: { workshops: Workshop[] 
                 </div>
               </div>
 
-              {/* Contenu : heure + lieu uniquement (titre déjà dans le gradient) */}
-              <div className="p-4 flex flex-col gap-1.5 transition-[filter] duration-300 group-hover:blur-[3px]">
-                <p className="text-white/80 text-xs flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5 shrink-0" />
-                  {w.dateDisplay} · {w.time}
+              {/* Contenu */}
+              <div className="p-4 flex flex-col gap-1 transition-[filter] duration-300 group-hover:blur-[3px]">
+                <p className="text-white/90 text-xs flex items-center gap-1.5 font-medium">
+                  <Calendar className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                  {w.dateDisplay}
                 </p>
-                <p className="text-white/80 text-xs flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5 shrink-0" />
+                <p className="text-white/70 text-xs pl-5">{w.time}</p>
+                <p className="text-white/70 text-xs flex items-center gap-1.5 mt-0.5">
+                  <MapPin className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                   {w.location}
                 </p>
               </div>

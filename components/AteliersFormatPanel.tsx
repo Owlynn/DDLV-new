@@ -3,25 +3,29 @@
 import { useState } from 'react'
 import Link from 'next/link'
 
-type Format = {
-  id: string
-  label: string
-  subtitle: string
-  badge: string
-  tint: string
-  size: string
-}
+type BentoItem =
+  | { kind: 'format'; id: string; label: string; subtitle: string; badge: string; tint: string; size: string }
+  | { kind: 'photo';  id: string; src: string;   alt: string;                                   size: string }
 
-const FORMATS: Format[] = [
-  { id: 'ateliers-focus',      label: 'Atelier Focus',           subtitle: 'Impro mensuelle, circlesongs.',              badge: 'Atelier',    tint: 'bento-tint-mix',          size: 'bento-f-2x1' },
-  { id: 'art-circle-songs',    label: 'Stage Journée · Circlesongs : les clés pour oser', subtitle: '6 juin 2025 · Toulouse.', badge: 'Stage', tint: 'bento-tint-primary',      size: 'bento-f-1x1' },
-  { id: 'stage-circlesong',    label: 'Circlesong immersif',     subtitle: '5 jours d\'immersion.',                     badge: 'Stage',      tint: 'bento-tint-accent',       size: 'bento-f-1x1' },
-  { id: 'chant-pour-tous',     label: 'Chant pour tous',         subtitle: 'Découverte gratuite.',                      badge: 'Évènement',  tint: 'bento-tint-teal',         size: 'bento-f-2x1' },
-  { id: 'circlesong-poesie',   label: 'Circlesong poésie',       subtitle: 'Voix, mots & impro.',                       badge: 'Stage',      tint: 'bento-tint-primary-light',size: 'bento-f-2x1' },
-  { id: 'circlesong-gestuelle',label: 'Circlesong gestuelle',    subtitle: 'Direction & gestes.',                       badge: 'Stage',      tint: 'bento-tint-mix',          size: 'bento-f-1x1' },
-  { id: 'flashmob-improvise',  label: 'Flashmob improvisé',      subtitle: 'Performance dans la rue.',                  badge: 'Évènement',  tint: 'bento-tint-accent',       size: 'bento-f-2x1' },
-  { id: 'coaching-personnalise',label: 'Coaching personnalisé',  subtitle: 'Journée sur mesure.',                       badge: 'Stage',      tint: 'bento-tint-teal',         size: 'bento-f-1x1' },
-  { id: 'chorale-improvisee',  label: 'La chorale improvisée',   subtitle: 'Direction de chœur improvisé & circlesongs.',badge: 'Atelier',   tint: 'bento-tint-primary',      size: 'bento-f-2x1' },
+// Ordre pensé pour que chaque rangée = 4 colonnes exactement :
+// Row 1 : AF(2) + Stage(1) + Immersif(1) = 4
+// Row 2 : Chant(2) + Photo jessalynn-2(2) = 4
+// Row 3 : Poésie(2) + Gestuelle(1) + Photo jessalynn-3(1) = 4
+// Row 4 : Flashmob(2) + Coaching(1) + Photo atelier-4(1) = 4
+// Row 5 : Chorale(2)
+const ITEMS: BentoItem[] = [
+  { kind: 'format', id: 'ateliers-focus',       label: 'Atelier Focus',           subtitle: 'Impro mensuelle, circlesongs.',               badge: 'Atelier',   tint: 'bento-tint-mix',          size: 'bento-f-2x1' },
+  { kind: 'format', id: 'art-circle-songs',     label: 'Stage Journée · Circlesongs : les clés pour oser', subtitle: '6 juin 2025 · Toulouse.', badge: 'Stage', tint: 'bento-tint-primary', size: 'bento-f-1x1' },
+  { kind: 'format', id: 'stage-circlesong',     label: 'Circlesong immersif',     subtitle: '5 jours d\'immersion.',                      badge: 'Stage',     tint: 'bento-tint-accent',       size: 'bento-f-1x1' },
+  { kind: 'format', id: 'chant-pour-tous',      label: 'Chant pour tous',         subtitle: 'Découverte gratuite.',                       badge: 'Évènement', tint: 'bento-tint-teal',         size: 'bento-f-2x1' },
+  { kind: 'photo',  id: 'photo-1', src: '/assets/atelier%20(6).jpg', alt: 'Grand groupe en improvisation vocale',                                          size: 'bento-f-2x1' },
+  { kind: 'format', id: 'circlesong-poesie',    label: 'Circlesong poésie',       subtitle: 'Voix, mots & impro.',                        badge: 'Stage',     tint: 'bento-tint-primary-light',size: 'bento-f-2x1' },
+  { kind: 'format', id: 'circlesong-gestuelle', label: 'Circlesong gestuelle',    subtitle: 'Direction & gestes.',                        badge: 'Stage',     tint: 'bento-tint-mix',          size: 'bento-f-1x1' },
+  { kind: 'photo',  id: 'photo-2', src: '/assets/improvocale.png',  alt: 'Cercle d\'improvisation vocale vu du dessus',                                    size: 'bento-f-1x1' },
+  { kind: 'format', id: 'flashmob-improvise',   label: 'Flashmob improvisé',      subtitle: 'Performance dans la rue.',                   badge: 'Évènement', tint: 'bento-tint-accent',       size: 'bento-f-2x1' },
+  { kind: 'format', id: 'coaching-personnalise',label: 'Coaching personnalisé',   subtitle: 'Journée sur mesure.',                        badge: 'Stage',     tint: 'bento-tint-teal',         size: 'bento-f-1x1' },
+  { kind: 'photo',  id: 'photo-3', src: '/assets/atelier%20(4).jpg', alt: 'Cercle vocal en plein air',                                                       size: 'bento-f-1x1' },
+  { kind: 'format', id: 'chorale-improvisee',   label: 'La chorale improvisée',   subtitle: 'Direction de chœur improvisé & circlesongs.',badge: 'Atelier',   tint: 'bento-tint-primary',      size: 'bento-f-2x1' },
 ]
 
 function Badge({ label }: { label: string }) {
@@ -45,6 +49,8 @@ const PANEL_CONTENT: Record<string, React.ReactNode> = {
       </div>
       <p>Un atelier mensuel d&apos;improvisation vocale à Toulouse, tous les deuxièmes mardis du mois. Plongez dans l&apos;univers des circlesongs et de la co-improvisation dans une ambiance chaleureuse et ludique.</p>
       <p>L&apos;impro vocale mois après mois : chaque séance explore un ou deux aspects spécifiques du chant improvisé pour enrichir votre pratique et développer votre créativité vocale.</p>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/assets/atelier%20(9).jpg" alt="Atelier d'improvisation vocale à Toulouse" className="w-full rounded-xl object-cover my-3" style={{ maxHeight: '220px' }} loading="lazy" />
       <h3 className="font-bold text-white mt-4 mb-2">Au programme</h3>
       <p>À chaque atelier, nous explorons 1 à 2 thématiques parmi :</p>
       <ul className="list-disc list-inside space-y-1 text-white/90">
@@ -104,6 +110,8 @@ const PANEL_CONTENT: Record<string, React.ReactNode> = {
         <Badge label="Circlesongs" /><Badge label="Stage 5 jours" /><Badge label="Toulouse" />
       </div>
       <p>5 jours pour explorer l&apos;art de l&apos;improvisation vocale collective. Le circlesong est une pratique d&apos;improvisation vocale collective où les participants créent ensemble une musique spontanée guidée par un chef de chœur improvisé.</p>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/assets/atelier%20(7).jpg" alt="Participants du stage circlesong immersif à Toulouse" className="w-full rounded-xl object-cover my-3" style={{ maxHeight: '220px' }} loading="lazy" />
       <h3 className="font-bold text-white mt-4 mb-2">Objectifs</h3>
       <p className="text-white/90">Gagner en confiance · Solidifier sa pratique · Lâcher prise · Développer sa créativité</p>
       <h3 className="font-bold text-white mt-4 mb-2">Programme</h3>
@@ -131,6 +139,8 @@ const PANEL_CONTENT: Record<string, React.ReactNode> = {
         <Badge label="Gratuit" /><Badge label="Circlesongs" /><Badge label="Tous niveaux" /><Badge label="Toulouse" />
       </div>
       <p>Chant pour tous est un atelier gratuit d&apos;improvisation vocale à Toulouse, ouvert à toutes et tous. Une belle occasion de découvrir l&apos;impro vocale et les circlesongs dans un cadre accessible et bienveillant, sans aucun engagement financier.</p>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/assets/atelier%20(1).jpeg" alt="Atelier Chant pour tous à Toulouse" className="w-full rounded-xl object-cover my-3" style={{ maxHeight: '220px' }} loading="lazy" />
       <h3 className="font-bold text-white mt-4 mb-2">Ce que vous allez découvrir</h3>
       <ul className="list-disc list-inside space-y-1 text-white/90">
         <li>Découvrir l&apos;improvisation vocale dans un cadre convivial</li>
@@ -203,6 +213,8 @@ const PANEL_CONTENT: Record<string, React.ReactNode> = {
         <Badge label="Gratuit" /><Badge label="Circlesongs" /><Badge label="Performance" /><Badge label="Tous niveaux" />
       </div>
       <p>Une expérience collective unique dans les rues de Toulouse : on chante ensemble sans partition, en chorale improvisée. Des chefs de chœur lancent des propositions vocales, le groupe les reprend et crée ainsi une musique spontanée. Pas besoin de savoir lire la musique.</p>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/assets/atelier%20(5).jpg" alt="Flashmob improvisé — cercle vocal en plein air" className="w-full rounded-xl object-cover my-3" style={{ maxHeight: '220px' }} loading="lazy" />
       <h3 className="font-bold text-white mt-4 mb-2">Programme de la journée</h3>
       <ul className="list-none space-y-2 text-white/90">
         <li><strong>Répétition</strong> — Échauffement vocal, découverte du principe</li>
@@ -249,6 +261,8 @@ const PANEL_CONTENT: Record<string, React.ReactNode> = {
         <Badge label="Circlesongs" /><Badge label="Direction" /><Badge label="Toulouse" />
       </div>
       <p>Un atelier de 3 heures pour pratiquer la direction de chœur improvisé et les circlesongs. Vous vous inscrivez soit en <strong>choriste</strong> (15 €), soit en <strong>chef de chœur</strong> (20 €). Chaque séance alterne démonstrations, explications et mises en pratique.</p>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/assets/atelier%20(8).jpg" alt="La chorale improvisée en cercle vocal" className="w-full rounded-xl object-cover my-3" style={{ maxHeight: '220px' }} loading="lazy" />
       <h3 className="font-bold text-white mt-4 mb-2">Pour qui ?</h3>
       <ul className="list-disc list-inside space-y-1 text-white/90">
         <li><strong>Choristes</strong> — Chanter en circlesong dans un cadre bienveillant</li>
@@ -274,27 +288,34 @@ const PANEL_CONTENT: Record<string, React.ReactNode> = {
 
 export default function AteliersFormatPanel() {
   const [open, setOpen] = useState<string | null>(null)
-  const current = open ? FORMATS.find(f => f.id === open) : null
+  const current = open ? (ITEMS.find(i => i.kind === 'format' && i.id === open) as Extract<BentoItem, { kind: 'format' }> | undefined) : undefined
 
   return (
     <>
       <div className="bento-formats-zone bento-formats-zone--content">
-        {FORMATS.map(f => (
-          <button
-            key={f.id}
-            type="button"
-            onClick={() => setOpen(f.id)}
-            className={`${f.size} glass-panel-rose ${f.tint} group p-6 rounded-2xl relative overflow-hidden text-left transition-all hover:-translate-y-1 cursor-pointer border-0`}
-          >
-            <span className="bento-type-badge absolute top-3 right-3 text-[10px] uppercase tracking-widest font-semibold text-white rounded-full px-2.5 py-1">
-              {f.badge}
-            </span>
-            <div className="pr-16">
-              <h3 className="text-lg font-bold text-white mb-1 uppercase tracking-tight">{f.label}</h3>
-              <p className="text-sm text-white/90 leading-snug font-light">{f.subtitle}</p>
+        {ITEMS.map(item =>
+          item.kind === 'photo' ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <div key={item.id} className={`${item.size} rounded-2xl overflow-hidden`}>
+              <img src={item.src} alt={item.alt} className="w-full h-full object-cover" loading="lazy" />
             </div>
-          </button>
-        ))}
+          ) : (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => setOpen(item.id)}
+              className={`${item.size} glass-panel-rose ${item.tint} group p-6 rounded-2xl relative overflow-hidden text-left transition-all hover:-translate-y-1 cursor-pointer border-0`}
+            >
+              <span className="bento-type-badge absolute top-3 right-3 text-[10px] uppercase tracking-widest font-semibold text-white rounded-full px-2.5 py-1">
+                {item.badge}
+              </span>
+              <div className="pr-16">
+                <h3 className="text-lg font-bold text-white mb-1 uppercase tracking-tight">{item.label}</h3>
+                <p className="text-sm text-white/90 leading-snug font-light">{item.subtitle}</p>
+              </div>
+            </button>
+          )
+        )}
       </div>
 
       {/* Overlay */}

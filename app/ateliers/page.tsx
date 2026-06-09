@@ -147,6 +147,18 @@ export default async function AteliersPage() {
           <AteliersFormatPanel />
         </section>
 
+        {/* Galerie photos */}
+        <div className="grid grid-cols-3 gap-3 mb-12 md:mb-16">
+          {[
+            { src: '/assets/atelier%20(1).jpeg', alt: 'Atelier d\'improvisation vocale à Toulouse' },
+            { src: '/assets/atelier%20(5).jpg',  alt: 'Cercle vocal en plein air' },
+            { src: '/assets/atelier%20(2).jpeg', alt: 'Groupe en circlesong' },
+          ].map(({ src, alt }) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img key={src} src={src} alt={alt} className="w-full h-40 md:h-52 object-cover rounded-2xl" loading="lazy" />
+          ))}
+        </div>
+
         {/* Prochains ateliers */}
         <section className="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="prochains">
           <h2 className="section-title-bentos">Prochaines dates</h2>
