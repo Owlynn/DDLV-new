@@ -29,8 +29,10 @@ No test runner is configured.
 - `app/newsletter/page.tsx` — newsletter
 - `app/about/page.tsx` — about
 - `app/offre-entreprise/page.tsx` — offre entreprise
-- `app/espace-eleve/page.tsx` — espace élève
-- `app/admin/page.tsx` — admin
+- `app/espace-eleve/page.tsx` — espace élève (connexion + mot de passe oublié)
+- `app/reset-password/page.tsx` — définir un nouveau mot de passe (lien reçu par email : reset ou invitation)
+- `app/admin/page.tsx` — admin (dashboard, blog, gestion des élèves, candidatures Formation Focus)
+- `app/formation-focus/page.tsx` — page de la formation longue "Formation Focus" (co-improvisation vocale & circlesong)
 - `app/mentions-legales/page.tsx` — mentions légales
 - `app/layout.tsx` — root layout (header, footer, global styles)
 
@@ -46,6 +48,14 @@ No test runner is configured.
 ### Backend / API
 
 - `api/billetweb.js` — Vercel serverless function, proxy to BilletWeb API. Reads `BILLETWEB_USER_ID`, `BILLETWEB_API_KEY` from environment variables. The API key must never be exposed client-side.
+- `app/api/admin/users/route.ts`, `app/api/admin/users/[id]/route.ts` — Next.js Route Handlers wrapping the Supabase Admin API (list/invite/delete auth users, for the "Élèves" tab in `/admin`). Use `lib/supabase-admin.ts` (server-only client built with `SUPABASE_SECRET_KEY`) — never import it from a `'use client'` file. Every handler verifies the caller's Supabase session via the `Authorization: Bearer <access_token>` header before touching the Admin API; there is no separate admin role, so any authenticated `/espace-eleve` account can manage students (accounts are only created by invite, no public signup).
+- `app/api/admin/formation-focus-candidatures/route.ts` — Route Handler proxying the Tally API (`GET /forms/{formId}/submissions`) to list responses to the Formation Focus application form ([tally.so/r/2EydxM](https://tally.so/r/2EydxM), linked from `/formation-focus`), for the "Candidatures Formation Focus" tab in `/admin`. Reads `TALLY_API_KEY` (server-only). Same `requireUser` session check as the users routes.
+
+### Auth (Supabase)
+
+- `lib/supabase-client.ts` — browser client (publishable key, safe to expose).
+- Login (`/espace-eleve`) is email/password only — no signup form. Accounts are created by an admin inviting a student from `/admin` → Élèves, which sends a Supabase invite email.
+- Both the "forgot password" email and the invite email redirect to `/reset-password`, which detects the recovery/invite session Supabase establishes on load and lets the user set a password via `updateUser`.
 
 ### Styles
 
@@ -64,7 +74,7 @@ All static files live in `public/`. Images are at `public/assets/` and served at
 
 ### Configuration & secrets
 
-- `.env.local` — local secrets (not committed). Required vars: `BILLETWEB_USER_ID`, `BILLETWEB_API_KEY`, `EMAILJS_PUBLIC_KEY`, `EMAILJS_SERVICE_ID`, `EMAILJS_TEMPLATE_ID`.
+- `.env.local` — local secrets (not committed). Required vars: `BILLETWEB_USER_ID`, `BILLETWEB_API_KEY`, `EMAILJS_PUBLIC_KEY`, `EMAILJS_SERVICE_ID`, `EMAILJS_TEMPLATE_ID`, `SUPABASE_SECRET_KEY` (Supabase Admin API), `TALLY_API_KEY` (Tally API, personal access token from tally.so → Settings → API Access) — server-only, never expose client-side; must also be set in Vercel project env vars.
 
 ### Deployment
 

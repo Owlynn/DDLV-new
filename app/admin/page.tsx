@@ -6,9 +6,29 @@ import { supabase } from '@/lib/supabase-client'
 import PostEditor, { type Post } from '@/components/admin/PostEditor'
 import type { User } from '@supabase/supabase-js'
 
-type View = 'dashboard' | 'blog' | 'editor'
+type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'formation-focus'
 
 interface Stats { published: number; drafts: number }
+
+interface Student {
+  id: string
+  email: string | null
+  created_at: string
+  last_sign_in_at: string | null
+  confirmed_at: string | null
+}
+
+interface CandidatureAnswer {
+  label: string
+  value: string
+}
+
+interface Candidature {
+  id: string
+  submittedAt: string
+  isCompleted: boolean
+  answers: CandidatureAnswer[]
+}
 
 export default function AdminPage() {
   const router = useRouter()
@@ -21,6 +41,14 @@ export default function AdminPage() {
   const [stats, setStats] = useState<Stats>({ published: 0, drafts: 0 })
   const [posts, setPosts] = useState<Post[]>([])
   const [postsLoading, setPostsLoading] = useState(false)
+
+  const [students, setStudents] = useState<Student[]>([])
+  const [studentsLoading, setStudentsLoading] = useState(false)
+  const [studentsError, setStudentsError] = useState('')
+
+  const [candidatures, setCandidatures] = useState<Candidature[]>([])
+  const [candidaturesLoading, setCandidaturesLoading] = useState(false)
+  const [candidaturesError, setCandidaturesError] = useState('')
 
   /* ── Auth ── */
   useEffect(() => {
@@ -62,10 +90,70 @@ export default function AdminPage() {
     loadStats()
   }
 
+  async function authHeader() {
+    const { data: { session } } = await supabase.auth.getSession()
+    return { Authorization: `Bearer ${session?.access_token ?? ''}` }
+  }
+
+  async function loadStudents() {
+    setStudentsLoading(true)
+    setStudentsError('')
+    try {
+      const res = await fetch('/api/admin/users', { headers: await authHeader() })
+      const body = await res.json()
+      if (!res.ok) throw new Error(body.error ?? 'Erreur inconnue')
+      setStudents(body.users)
+    } catch (e) {
+      setStudentsError(e instanceof Error ? e.message : 'Erreur inconnue')
+    }
+    setStudentsLoading(false)
+  }
+
+  async function inviteStudent(email: string) {
+    const res = await fetch('/api/admin/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...(await authHeader()) },
+      body: JSON.stringify({ email }),
+    })
+    const body = await res.json()
+    if (!res.ok) throw new Error(body.error ?? 'Erreur inconnue')
+    loadStudents()
+  }
+
+  async function deleteStudent(id: string) {
+    if (!window.confirm('Révoquer l\'accès de cet élève ?')) return
+    const res = await fetch(`/api/admin/users/${id}`, { method: 'DELETE', headers: await authHeader() })
+    if (res.ok) setStudents(s => s.filter(st => st.id !== id))
+  }
+
+  async function loadCandidatures() {
+    setCandidaturesLoading(true)
+    setCandidaturesError('')
+    try {
+      const res = await fetch('/api/admin/formation-focus-candidatures', { headers: await authHeader() })
+      const body = await res.json()
+      if (!res.ok) throw new Error(body.error ?? 'Erreur inconnue')
+      setCandidatures(body.submissions)
+    } catch (e) {
+      setCandidaturesError(e instanceof Error ? e.message : 'Erreur inconnue')
+    }
+    setCandidaturesLoading(false)
+  }
+
   /* ── Navigation ── */
   function goToBlog() {
     setView('blog')
     loadPosts()
+  }
+
+  function goToStudents() {
+    setView('students')
+    loadStudents()
+  }
+
+  function goToCandidatures() {
+    setView('formation-focus')
+    loadCandidatures()
   }
 
   function openEditor(post: Post | null) {
@@ -79,8 +167,10 @@ export default function AdminPage() {
   }
 
   /* ── Sidebar nav ── */
-  function handleNav(target: 'dashboard' | 'blog') {
+  function handleNav(target: 'dashboard' | 'blog' | 'students' | 'formation-focus') {
     if (target === 'blog') { goToBlog(); return }
+    if (target === 'students') { goToStudents(); return }
+    if (target === 'formation-focus') { goToCandidatures(); return }
     setView('dashboard')
   }
 
@@ -95,6 +185,8 @@ export default function AdminPage() {
   const topbarTitle =
     view === 'dashboard' ? 'Dashboard'
     : view === 'blog' ? 'Blog'
+    : view === 'students' ? 'Élèves'
+    : view === 'formation-focus' ? 'Candidatures Formation Focus'
     : editingPost?.id ? "Modifier l'article"
     : 'Nouvel article'
 
@@ -118,12 +210,14 @@ export default function AdminPage() {
         </div>
 
         <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', flex: 1 }}>
-          {(['dashboard', 'blog'] as const).map(p => {
+          {(['dashboard', 'blog', 'students', 'formation-focus'] as const).map(p => {
             const active = sidebarActive === p
+            const icon = p === 'dashboard' ? 'dashboard' : p === 'blog' ? 'article' : p === 'students' ? 'group' : 'assignment_turned_in'
+            const label = p === 'dashboard' ? 'Dashboard' : p === 'blog' ? 'Blog' : p === 'students' ? 'Élèves' : 'Candidatures Formation Focus'
             return (
               <button key={p} onClick={() => handleNav(p)} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', width: '100%', padding: '0.75rem 1rem', borderRadius: '0.75rem', border: 'none', background: active ? 'rgba(207,53,148,0.12)' : 'transparent', boxShadow: active ? 'inset 0 0 0 1px rgba(207,53,148,0.25)' : 'none', color: active ? '#cf3594' : 'rgba(255,255,255,0.6)', fontSize: '0.875rem', fontWeight: 500, letterSpacing: '0.02em', cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s', fontFamily: 'inherit' }}>
-                <span className="material-symbols-outlined" style={{ fontSize: 19, flexShrink: 0 }}>{p === 'dashboard' ? 'dashboard' : 'article'}</span>
-                {p === 'dashboard' ? 'Dashboard' : 'Blog'}
+                <span className="material-symbols-outlined" style={{ fontSize: 19, flexShrink: 0 }}>{icon}</span>
+                {label}
               </button>
             )
           })}
@@ -156,6 +250,12 @@ export default function AdminPage() {
           )}
           {view === 'blog' && (
             <BlogList posts={posts} loading={postsLoading} onNew={() => openEditor(null)} onEdit={openEditor} onDelete={deletePost} />
+          )}
+          {view === 'students' && (
+            <StudentsList students={students} loading={studentsLoading} error={studentsError} onInvite={inviteStudent} onDelete={deleteStudent} />
+          )}
+          {view === 'formation-focus' && (
+            <CandidaturesList candidatures={candidatures} loading={candidaturesLoading} error={candidaturesError} onRefresh={loadCandidatures} />
           )}
           {view === 'editor' && (
             <PostEditor post={editingPost} onBack={goToBlog} onSaved={onSaved} />
@@ -266,6 +366,175 @@ function PostRow({ post, onEdit, onDelete }: { post: Post; onEdit: (p: Post) => 
       <button onClick={() => post.id && onDelete(post.id)} title="Supprimer" style={{ display: 'flex', padding: '0.3rem', border: 'none', background: 'transparent', color: 'rgba(248,113,113,0.5)', cursor: 'pointer', borderRadius: '0.5rem', flexShrink: 0 }}>
         <span className="material-symbols-outlined" style={{ fontSize: 18 }}>delete</span>
       </button>
+    </div>
+  )
+}
+
+/* ── Élèves ────────────────────────────────────────── */
+
+function StudentsList({ students, loading, error, onInvite, onDelete }: {
+  students: Student[]
+  loading: boolean
+  error: string
+  onInvite: (email: string) => Promise<void>
+  onDelete: (id: string) => void
+}) {
+  const [email, setEmail] = useState('')
+  const [inviting, setInviting] = useState(false)
+  const [inviteError, setInviteError] = useState('')
+  const [inviteSuccess, setInviteSuccess] = useState('')
+
+  async function handleInvite(e: React.FormEvent) {
+    e.preventDefault()
+    setInviteError('')
+    setInviteSuccess('')
+    if (!email.trim()) return
+    setInviting(true)
+    try {
+      await onInvite(email.trim())
+      setInviteSuccess(`Invitation envoyée à ${email.trim()}.`)
+      setEmail('')
+    } catch (err) {
+      setInviteError(err instanceof Error ? err.message : 'Erreur inconnue')
+    }
+    setInviting(false)
+  }
+
+  return (
+    <div>
+      <div style={{ marginBottom: '2rem' }}>
+        <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#fff', marginBottom: '0.3rem' }}>Élèves</h2>
+        <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.85rem' }}>Invitez des élèves à créer leur compte. Ils ne peuvent pas s'inscrire seuls.</p>
+      </div>
+
+      <form onSubmit={handleInvite} style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '1rem', maxWidth: 520 }}>
+        <input
+          type="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          placeholder="Email de l'élève"
+          required
+          style={{ flex: 1, minWidth: 220, fontSize: '0.85rem', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.75rem', color: '#fff', padding: '0.625rem 1rem', outline: 'none', fontFamily: 'inherit' }}
+        />
+        <button type="submit" disabled={inviting} style={btnAccent}>
+          <span className="material-symbols-outlined" style={{ fontSize: 17 }}>send</span>
+          {inviting ? 'Envoi…' : 'Inviter'}
+        </button>
+      </form>
+      {inviteError && <p style={{ color: '#f87171', fontSize: '0.85rem', marginBottom: '1rem' }}>{inviteError}</p>}
+      {inviteSuccess && <p style={{ color: '#4db8aa', fontSize: '0.85rem', marginBottom: '1rem' }}>{inviteSuccess}</p>}
+
+      {loading ? (
+        <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.85rem' }}>Chargement…</p>
+      ) : error ? (
+        <p style={{ color: '#f87171', fontSize: '0.85rem' }}>{error}</p>
+      ) : students.length === 0 ? (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '4rem 2rem', textAlign: 'center', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1rem' }}>
+          <span className="material-symbols-outlined" style={{ fontSize: '3rem', color: 'rgba(255,255,255,0.18)', marginBottom: '1rem' }}>group</span>
+          <p style={{ color: 'rgba(255,255,255,0.35)' }}>Aucun élève invité pour le moment.</p>
+        </div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          {students.map(s => (
+            <StudentRow key={s.id} student={s} onDelete={onDelete} />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function StudentRow({ student, onDelete }: { student: Student; onDelete: (id: string) => void }) {
+  const date = new Date(student.created_at).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' })
+  const active = !!student.confirmed_at
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.875rem 1.25rem', borderRadius: '0.875rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
+      <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'rgba(255,255,255,0.3)', flexShrink: 0 }}>person</span>
+      <span style={{ flex: 1, fontSize: '0.9rem', fontWeight: 500, color: 'rgba(255,255,255,0.85)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{student.email}</span>
+      <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '0.15rem 0.6rem', borderRadius: 999, fontWeight: 600, flexShrink: 0, background: active ? 'rgba(77,184,170,0.2)' : 'rgba(255,255,255,0.1)', color: active ? '#4db8aa' : 'rgba(255,255,255,0.4)' }}>
+        {active ? 'Actif' : 'Invitation en attente'}
+      </span>
+      <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.3)', whiteSpace: 'nowrap', flexShrink: 0 }}>{date}</span>
+      <button onClick={() => onDelete(student.id)} title="Révoquer l'accès" style={{ display: 'flex', padding: '0.3rem', border: 'none', background: 'transparent', color: 'rgba(248,113,113,0.5)', cursor: 'pointer', borderRadius: '0.5rem', flexShrink: 0 }}>
+        <span className="material-symbols-outlined" style={{ fontSize: 18 }}>delete</span>
+      </button>
+    </div>
+  )
+}
+
+/* ── Candidatures Formation Focus ──────────────────── */
+
+function CandidaturesList({ candidatures, loading, error, onRefresh }: {
+  candidatures: Candidature[]
+  loading: boolean
+  error: string
+  onRefresh: () => void
+}) {
+  return (
+    <div>
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
+        <div>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#fff', marginBottom: '0.3rem' }}>Candidatures Formation Focus</h2>
+          <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.85rem' }}>Réponses au formulaire de candidature (via Tally).</p>
+        </div>
+        <button onClick={onRefresh} style={btnGhostLink}>
+          <span className="material-symbols-outlined" style={{ fontSize: 17 }}>refresh</span>
+          Actualiser
+        </button>
+      </div>
+
+      {loading ? (
+        <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.85rem' }}>Chargement…</p>
+      ) : error ? (
+        <p style={{ color: '#f87171', fontSize: '0.85rem' }}>{error}</p>
+      ) : candidatures.length === 0 ? (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '4rem 2rem', textAlign: 'center', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1rem' }}>
+          <span className="material-symbols-outlined" style={{ fontSize: '3rem', color: 'rgba(255,255,255,0.18)', marginBottom: '1rem' }}>assignment_turned_in</span>
+          <p style={{ color: 'rgba(255,255,255,0.35)' }}>Aucune candidature reçue pour le moment.</p>
+        </div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          {candidatures.map(c => (
+            <CandidatureRow key={c.id} candidature={c} />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function CandidatureRow({ candidature }: { candidature: Candidature }) {
+  const [open, setOpen] = useState(false)
+  const date = new Date(candidature.submittedAt).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+  const nameGuess = candidature.answers.find(a => /nom|pr[ée]nom|name/i.test(a.label))?.value
+
+  return (
+    <div style={{ borderRadius: '0.875rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', overflow: 'hidden' }}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        style={{ display: 'flex', alignItems: 'center', gap: '1rem', width: '100%', padding: '0.875rem 1.25rem', border: 'none', background: 'transparent', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit' }}
+      >
+        <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'rgba(255,255,255,0.3)', flexShrink: 0 }}>person</span>
+        <span style={{ flex: 1, fontSize: '0.9rem', fontWeight: 500, color: 'rgba(255,255,255,0.85)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          {nameGuess || `Candidature ${candidature.id.slice(0, 8)}`}
+        </span>
+        <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '0.15rem 0.6rem', borderRadius: 999, fontWeight: 600, flexShrink: 0, background: candidature.isCompleted ? 'rgba(77,184,170,0.2)' : 'rgba(255,255,255,0.1)', color: candidature.isCompleted ? '#4db8aa' : 'rgba(255,255,255,0.4)' }}>
+          {candidature.isCompleted ? 'Complète' : 'Partielle'}
+        </span>
+        <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.3)', whiteSpace: 'nowrap', flexShrink: 0 }}>{date}</span>
+        <span className="material-symbols-outlined" style={{ fontSize: 20, color: 'rgba(255,255,255,0.35)', flexShrink: 0, transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 0.15s' }}>expand_more</span>
+      </button>
+
+      {open && (
+        <div style={{ padding: '0 1.25rem 1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          {candidature.answers.map((a, i) => (
+            <div key={i} style={{ paddingTop: '0.75rem', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.35)', marginBottom: '0.3rem' }}>{a.label}</div>
+              <div style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.85)', whiteSpace: 'pre-wrap' }}>{a.value || '—'}</div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

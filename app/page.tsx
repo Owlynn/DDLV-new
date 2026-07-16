@@ -147,6 +147,7 @@ export default function HomePage() {
                   { href: '/impro-vocale', icon: 'lyrics', label: "L'impro vocale" },
                   { href: '/ateliers', icon: 'calendar_month', label: 'Stages & Ateliers' },
                   { href: '/cours-chant', icon: 'mic_external_on', label: 'Cours de chant' },
+                  { href: '/formation-focus', icon: 'auto_awesome', label: 'Formation Focus' },
                   { href: '/offre-entreprise', icon: 'corporate_fare', label: 'Offre entreprise' },
                 ].map((item) => (
                   <li key={item.href}>
@@ -171,6 +172,7 @@ export default function HomePage() {
                   { href: '/impro-vocale', icon: 'lyrics', label: "L'impro vocale", tint: 'bento-tint-mix' },
                   { href: '/ateliers', icon: 'calendar_month', label: 'Stages & Ateliers', tint: 'bento-tint-primary' },
                   { href: '/cours-chant', icon: 'mic_external_on', label: 'Cours de chant', tint: 'bento-tint-primary-light' },
+                  { href: '/formation-focus', icon: 'auto_awesome', label: 'Formation Focus', tint: 'bento-tint-teal' },
                   { href: '/offre-entreprise', icon: 'corporate_fare', label: 'Offre entreprise', tint: 'bento-tint-accent' },
                 ].map((item) => (
                   <div key={item.href} className="bento-hex-cell">
