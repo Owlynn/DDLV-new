@@ -17,6 +17,14 @@ npm run lint         # Lint
 
 No test runner is configured.
 
+## TODO (prochaine session)
+
+- **Dashboard élève** — page dédiée pour les comptes élèves (distincte de `/admin`). Implique de distinguer l'accès : `/admin` ne doit être accessible qu'aux comptes admin (via l'étiquette "Admin" de `student_tags`), les autres comptes authentifiés doivent être redirigés vers le dashboard élève.
+- **Gérer les autorisations d'accès aux pages en fonction des tags** — logique de garde générale basée sur `student_tags` (pas seulement admin/élève : potentiellement restreindre l'accès à certaines pages selon Cours/Formation/Ateliers aussi).
+- **Vérifier que l'invitation élève fonctionne** de bout en bout en conditions réelles (un vrai élève reçoit l'email Resend, clique le lien, arrive sur `/reset-password`, définit son mot de passe, accède à son espace).
+- **Formulaire infos élève** — permettre à l'élève de renseigner nom, prénom, adresse et numéro de téléphone (probablement une nouvelle table Postgres liée à `auth.users.id`, sur le même modèle que `student_tags`).
+- **Créer le blog** — page(s) publique(s) affichant les articles publiés depuis la table `posts` (aujourd'hui seul `/admin` → Blog permet de les créer/éditer, rien ne les affiche encore sur le site).
+
 ## Architecture
 
 ### Page structure (App Router)
@@ -56,6 +64,7 @@ No test runner is configured.
 - `lib/supabase-client.ts` — browser client (publishable key, safe to expose).
 - Login (`/espace-eleve`) is email/password only — no signup form. Accounts are created by an admin inviting a student from `/admin` → Élèves, which sends a Supabase invite email.
 - Both the "forgot password" email and the invite email redirect to `/reset-password`, which detects the recovery/invite session Supabase establishes on load and lets the user set a password via `updateUser`.
+- `public.student_tags` (Postgres table, RLS: any `authenticated` user can select/insert/update — see `grant select, insert, update on public.student_tags to authenticated;`) — `user_id uuid` (FK to `auth.users`, `on delete cascade`) + `tags text[]`. Queried directly client-side (like `posts`, no API route needed). Tag definitions (key/label/color) live in `lib/student-tags.ts` — add a new tag there and it appears automatically as a toggle pill in `/admin` → Élèves.
 
 ### Styles
 

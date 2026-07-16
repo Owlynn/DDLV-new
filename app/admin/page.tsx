@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase-client'
 import PostEditor, { type Post } from '@/components/admin/PostEditor'
 import type { User } from '@supabase/supabase-js'
+import { STUDENT_TAGS, type StudentTagKey } from '@/lib/student-tags'
 
 type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'formation-focus'
 
@@ -16,6 +17,7 @@ interface Student {
   created_at: string
   last_sign_in_at: string | null
   confirmed_at: string | null
+  tags: StudentTagKey[]
 }
 
 interface CandidatureAnswer {
@@ -99,14 +101,28 @@ export default function AdminPage() {
     setStudentsLoading(true)
     setStudentsError('')
     try {
-      const res = await fetch('/api/admin/users', { headers: await authHeader() })
+      const [res, tagsRes] = await Promise.all([
+        fetch('/api/admin/users', { headers: await authHeader() }),
+        supabase.from('student_tags').select('user_id, tags'),
+      ])
       const body = await res.json()
       if (!res.ok) throw new Error(body.error ?? 'Erreur inconnue')
-      setStudents(body.users)
+      const tagMap = new Map((tagsRes.data ?? []).map(r => [r.user_id as string, (r.tags ?? []) as StudentTagKey[]]))
+      setStudents(body.users.map((u: Omit<Student, 'tags'>) => ({ ...u, tags: tagMap.get(u.id) ?? [] })))
     } catch (e) {
       setStudentsError(e instanceof Error ? e.message : 'Erreur inconnue')
     }
     setStudentsLoading(false)
+  }
+
+  async function toggleStudentTag(studentId: string, tagKey: StudentTagKey) {
+    const student = students.find(s => s.id === studentId)
+    if (!student) return
+    const newTags = student.tags.includes(tagKey)
+      ? student.tags.filter(t => t !== tagKey)
+      : [...student.tags, tagKey]
+    setStudents(s => s.map(st => st.id === studentId ? { ...st, tags: newTags } : st))
+    await supabase.from('student_tags').upsert({ user_id: studentId, tags: newTags, updated_at: new Date().toISOString() })
   }
 
   async function inviteStudent(email: string) {
@@ -252,7 +268,7 @@ export default function AdminPage() {
             <BlogList posts={posts} loading={postsLoading} onNew={() => openEditor(null)} onEdit={openEditor} onDelete={deletePost} />
           )}
           {view === 'students' && (
-            <StudentsList students={students} loading={studentsLoading} error={studentsError} onInvite={inviteStudent} onDelete={deleteStudent} />
+            <StudentsList students={students} loading={studentsLoading} error={studentsError} onInvite={inviteStudent} onDelete={deleteStudent} onToggleTag={toggleStudentTag} />
           )}
           {view === 'formation-focus' && (
             <CandidaturesList candidatures={candidatures} loading={candidaturesLoading} error={candidaturesError} onRefresh={loadCandidatures} />
@@ -372,12 +388,13 @@ function PostRow({ post, onEdit, onDelete }: { post: Post; onEdit: (p: Post) => 
 
 /* ── Élèves ────────────────────────────────────────── */
 
-function StudentsList({ students, loading, error, onInvite, onDelete }: {
+function StudentsList({ students, loading, error, onInvite, onDelete, onToggleTag }: {
   students: Student[]
   loading: boolean
   error: string
   onInvite: (email: string) => Promise<void>
   onDelete: (id: string) => void
+  onToggleTag: (studentId: string, tagKey: StudentTagKey) => void
 }) {
   const [email, setEmail] = useState('')
   const [inviting, setInviting] = useState(false)
@@ -436,7 +453,7 @@ function StudentsList({ students, loading, error, onInvite, onDelete }: {
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
           {students.map(s => (
-            <StudentRow key={s.id} student={s} onDelete={onDelete} />
+            <StudentRow key={s.id} student={s} onDelete={onDelete} onToggleTag={onToggleTag} />
           ))}
         </div>
       )}
@@ -444,13 +461,41 @@ function StudentsList({ students, loading, error, onInvite, onDelete }: {
   )
 }
 
-function StudentRow({ student, onDelete }: { student: Student; onDelete: (id: string) => void }) {
+function StudentRow({ student, onDelete, onToggleTag }: {
+  student: Student
+  onDelete: (id: string) => void
+  onToggleTag: (studentId: string, tagKey: StudentTagKey) => void
+}) {
   const date = new Date(student.created_at).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' })
   const active = !!student.confirmed_at
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.875rem 1.25rem', borderRadius: '0.875rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.875rem 1.25rem', borderRadius: '0.875rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', flexWrap: 'wrap' }}>
       <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'rgba(255,255,255,0.3)', flexShrink: 0 }}>person</span>
-      <span style={{ flex: 1, fontSize: '0.9rem', fontWeight: 500, color: 'rgba(255,255,255,0.85)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{student.email}</span>
+      <span style={{ flex: 1, minWidth: 140, fontSize: '0.9rem', fontWeight: 500, color: 'rgba(255,255,255,0.85)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{student.email}</span>
+
+      <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap' }}>
+        {STUDENT_TAGS.map(tag => {
+          const on = student.tags.includes(tag.key)
+          return (
+            <button
+              key={tag.key}
+              onClick={() => onToggleTag(student.id, tag.key)}
+              title={on ? `Retirer l'étiquette ${tag.label}` : `Ajouter l'étiquette ${tag.label}`}
+              style={{
+                fontSize: '0.62rem', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600,
+                padding: '0.2rem 0.55rem', borderRadius: 999, cursor: 'pointer', fontFamily: 'inherit',
+                border: on ? `1px solid ${tag.color}` : '1px solid rgba(255,255,255,0.15)',
+                background: on ? `${tag.color}26` : 'transparent',
+                color: on ? tag.color : 'rgba(255,255,255,0.3)',
+                transition: 'all 0.15s',
+              }}
+            >
+              {tag.label}
+            </button>
+          )
+        })}
+      </div>
+
       <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '0.15rem 0.6rem', borderRadius: 999, fontWeight: 600, flexShrink: 0, background: active ? 'rgba(77,184,170,0.2)' : 'rgba(255,255,255,0.1)', color: active ? '#4db8aa' : 'rgba(255,255,255,0.4)' }}>
         {active ? 'Actif' : 'Invitation en attente'}
       </span>

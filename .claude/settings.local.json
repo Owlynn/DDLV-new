@@ -11,7 +11,10 @@
       "Bash(npm install *)",
       "Bash(npx tsc *)",
       "Bash(curl -s \"http://localhost:3000/ateliers\")",
-      "Bash(node *)"
+      "Bash(node *)",
+      "Bash(node test-students.js)",
+      "Bash(node _test-reset-tags.cjs)",
+      "Bash(node test-tags-careful.js)"
     ]
   }
 }
