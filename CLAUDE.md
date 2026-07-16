@@ -24,6 +24,9 @@ No test runner is configured.
 - **Vérifier que l'invitation élève fonctionne** de bout en bout en conditions réelles (un vrai élève reçoit l'email Resend, clique le lien, arrive sur `/reset-password`, définit son mot de passe, accède à son espace).
 - **Formulaire infos élève** — permettre à l'élève de renseigner nom, prénom, adresse et numéro de téléphone (probablement une nouvelle table Postgres liée à `auth.users.id`, sur le même modèle que `student_tags`).
 - **Créer le blog** — page(s) publique(s) affichant les articles publiés depuis la table `posts` (aujourd'hui seul `/admin` → Blog permet de les créer/éditer, rien ne les affiche encore sur le site).
+- **Créer une base de données avec les exercices** — probablement une nouvelle table Postgres + interface admin pour les gérer (nature exacte des exercices à préciser).
+- **Récupérer la liste des ateliers sur BilletWeb** — via `api/billetweb.js` (déjà utilisé par `WorkshopsSection.tsx`), à afficher/gérer quelque part dans `/admin` ou le dashboard élève.
+- **Prévoir une fonction d'import des élèves par CSV** — alternative à l'invitation unitaire dans `/admin` → Élèves, pour inviter plusieurs élèves d'un coup.
 
 ## Architecture
 
