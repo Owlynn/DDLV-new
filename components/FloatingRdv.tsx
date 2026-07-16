@@ -7,7 +7,7 @@ export default function FloatingRdv() {
       onClick={(e) => {
         e.preventDefault()
         if (typeof window !== 'undefined' && (window as any).Calendly) {
-          (window as any).Calendly.initPopupWidget({ url: 'https://calendly.com/donnerdelavoix' })
+          (window as any).Calendly.initPopupWidget({ url: 'https://calendly.com/contactdonnerdelavoix/30min' })
         }
       }}
       className="floating-rdv-btn"
