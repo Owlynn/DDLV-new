@@ -14,7 +14,9 @@
       "Bash(node *)",
       "Bash(node test-students.js)",
       "Bash(node _test-reset-tags.cjs)",
-      "Bash(node test-tags-careful.js)"
+      "Bash(node test-tags-careful.js)",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(rm -rf .next)"
     ]
   }
 }

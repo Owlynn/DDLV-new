@@ -64,60 +64,78 @@ export default function CoursChantPage() {
       <div className="px-4 md:px-8 max-w-5xl mx-auto pb-24">
         <section className="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="pour-qui">
           <h2 className="section-title-bentos">Pour qui sont les cours de chant ?</h2>
-          <div className="bento-formats-zone bento-formats-zone--content">
-            <div className="bento-f-2x2 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-3 relative overflow-hidden bento-content-glass">
-              <div className="bento-icon-wrap"><Users className="bento-icon" /></div>
-              <p className="text-lg font-medium m-0">Les <strong>cours de chant à Toulouse</strong> s&apos;adressent à tous, <strong>sans limite d&apos;âge ou de niveau</strong>.</p>
-              <p className="m-0 mt-2">Chaque voix est unique, et mon rôle de <strong>coach vocal</strong> est de vous accompagner là où vous en êtes.</p>
+          <div className="bento-formats-zone bento-formats-zone--content" style={{ display: 'flex', flexDirection: 'column' }}>
+            <div className="glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-row items-center gap-4 relative overflow-hidden bento-content-glass">
+              <div className="bento-icon-wrap" style={{ width: 'auto', marginBottom: 0 }}><Users className="bento-icon" style={{ width: '4rem', height: '4rem' }} /></div>
+              <div className="flex flex-col gap-2 flex-1 min-w-0">
+                <p className="text-lg font-medium m-0">Les <strong>cours de chant à Toulouse</strong> s&apos;adressent à tous, <strong>sans limite d&apos;âge ou de niveau</strong>.</p>
+                <p className="m-0">Chaque voix est unique, et mon rôle de <strong>coach vocal</strong> est de vous accompagner là où vous en êtes.</p>
+              </div>
             </div>
-            <div className="bento-f-1x2 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
-              <div className="bento-icon-wrap"><Mic className="bento-icon" /></div>
-              <h3>Débutants</h3>
-              <p className="m-0 text-sm">Découvrir sa voix, apprendre les bases, gagner en confiance.</p>
-              <h3 className="mt-4">Chanteurs confirmés</h3>
-              <p className="m-0 text-sm">Perfectionner sa technique, élargir sa tessiture.</p>
+            <div className="glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-row-reverse items-center gap-4 relative overflow-hidden bento-content-glass">
+              <div className="bento-icon-wrap" style={{ width: 'auto', marginBottom: 0 }}><Mic className="bento-icon" style={{ width: '4rem', height: '4rem' }} /></div>
+              <div className="flex flex-col gap-2 flex-1 min-w-0">
+                <h3>Débutants</h3>
+                <p className="m-0 text-sm">Découvrir sa voix, apprendre les bases, gagner en confiance.</p>
+                <h3 className="mt-2">Chanteurs confirmés</h3>
+                <p className="m-0 text-sm">Perfectionner sa technique, élargir sa tessiture.</p>
+              </div>
             </div>
-            <div className="bento-f-1x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
-              <div className="bento-icon-wrap"><Briefcase className="bento-icon" /></div>
-              <h3>Professions vocales</h3>
-              <p className="mb-0 text-sm">Enseignants, comédiens : préserver et optimiser sa voix professionnelle.</p>
+            <div className="glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-row items-center gap-4 relative overflow-hidden bento-content-glass">
+              <div className="bento-icon-wrap" style={{ width: 'auto', marginBottom: 0 }}><Briefcase className="bento-icon" style={{ width: '4rem', height: '4rem' }} /></div>
+              <div className="flex flex-col gap-2 flex-1 min-w-0">
+                <h3>Professions vocales</h3>
+                <p className="mb-0 text-sm">Enseignants, comédiens : préserver et optimiser sa voix professionnelle.</p>
+              </div>
             </div>
-            <div className="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
-              <div className="bento-icon-wrap"><Music className="bento-icon" /></div>
-              <h3>Musiciens</h3>
-              <p className="mb-0 text-sm">Travailler le <strong>chant</strong> en parallèle de votre instrument.</p>
+            <div className="glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-row-reverse items-center gap-4 relative overflow-hidden bento-content-glass">
+              <div className="bento-icon-wrap" style={{ width: 'auto', marginBottom: 0 }}><Music className="bento-icon" style={{ width: '4rem', height: '4rem' }} /></div>
+              <div className="flex flex-col gap-2 flex-1 min-w-0">
+                <h3>Musiciens</h3>
+                <p className="mb-0 text-sm">Travailler le <strong>chant</strong> en parallèle de votre instrument.</p>
+              </div>
             </div>
-            <div className="bento-f-2x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
-              <div className="bento-icon-wrap"><Sparkles className="bento-icon" /></div>
-              <p className="m-0 text-sm">Tous niveaux bienvenus ! Mon rôle est de vous accompagner avec vos objectifs propres.</p>
-              <Link href="/contact" className="btn-rdv mt-auto">Prendre RDV pour un cours d&apos;essai</Link>
+            <div className="glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-row items-center gap-4 relative overflow-hidden bento-content-glass">
+              <div className="bento-icon-wrap" style={{ width: 'auto', marginBottom: 0 }}><Sparkles className="bento-icon" style={{ width: '4rem', height: '4rem' }} /></div>
+              <div className="flex flex-col gap-2 flex-1 min-w-0">
+                <p className="m-0 text-sm">Tous niveaux bienvenus ! Mon rôle est de vous accompagner avec vos objectifs propres.</p>
+                <Link href="/contact" className="btn-rdv self-start">Prendre RDV pour un cours d&apos;essai</Link>
+              </div>
             </div>
           </div>
         </section>
 
         <section className="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="approche">
           <h2 className="section-title-bentos">Mon approche pédagogique</h2>
-          <div className="bento-formats-zone bento-formats-zone--content">
-            <div className="bento-f-2x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
-              <div className="bento-icon-wrap"><Heart className="bento-icon" /></div>
-              <p className="text-base m-0">Une approche centrée sur <strong>l&apos;écoute</strong>, la <strong>bienveillance</strong> et l&apos;<strong>adaptation à votre singularité</strong>.</p>
+          <div className="bento-formats-zone bento-formats-zone--content" style={{ display: 'flex', flexDirection: 'column' }}>
+            <div className="glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-row items-center gap-4 relative overflow-hidden bento-content-glass">
+              <div className="bento-icon-wrap" style={{ width: 'auto', marginBottom: 0 }}><Heart className="bento-icon" style={{ width: '4rem', height: '4rem' }} /></div>
+              <div className="flex flex-col gap-2 flex-1 min-w-0">
+                <p className="text-base m-0">Une approche centrée sur <strong>l&apos;écoute</strong>, la <strong>bienveillance</strong> et l&apos;<strong>adaptation à votre singularité</strong>.</p>
+              </div>
             </div>
-            <div className="bento-f-1x2 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
-              <div className="bento-icon-wrap"><Award className="bento-icon" /></div>
-              <h3>Formation certifiée</h3>
-              <p className="m-0 text-sm">Formée à l&apos;<strong>approche Chant Voix et Corps</strong> d&apos;Emmanuelle Trinquesse, méthode scientifique et globale de la technique vocale reconnue en France.</p>
-              <h3 className="mt-4">Ce qui me différencie</h3>
-              <p className="m-0 text-sm"><strong>Approche holistique</strong> – Corps, voix et émotion sont liés. <strong>Bienveillance</strong> – Pas de jugement. <strong>Technique adaptative</strong> – Chaque voix est unique.</p>
+            <div className="glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-row-reverse items-center gap-4 relative overflow-hidden bento-content-glass">
+              <div className="bento-icon-wrap" style={{ width: 'auto', marginBottom: 0 }}><Award className="bento-icon" style={{ width: '4rem', height: '4rem' }} /></div>
+              <div className="flex flex-col gap-2 flex-1 min-w-0">
+                <h3>Formation certifiée</h3>
+                <p className="m-0 text-sm">Formée à l&apos;<strong>approche Chant Voix et Corps</strong> d&apos;Emmanuelle Trinquesse, méthode scientifique et globale de la technique vocale reconnue en France.</p>
+                <h3 className="mt-2">Ce qui me différencie</h3>
+                <p className="m-0 text-sm"><strong>Approche holistique</strong> – Corps, voix et émotion sont liés. <strong>Bienveillance</strong> – Pas de jugement. <strong>Technique adaptative</strong> – Chaque voix est unique.</p>
+              </div>
             </div>
-            <div className="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
-              <div className="bento-icon-wrap"><Target className="bento-icon" /></div>
-              <h3>Cadre sécurisant</h3>
-              <p className="mb-0 text-sm">Progression à votre rythme. Pas de jugement.</p>
+            <div className="glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-row items-center gap-4 relative overflow-hidden bento-content-glass">
+              <div className="bento-icon-wrap" style={{ width: 'auto', marginBottom: 0 }}><Target className="bento-icon" style={{ width: '4rem', height: '4rem' }} /></div>
+              <div className="flex flex-col gap-2 flex-1 min-w-0">
+                <h3>Cadre sécurisant</h3>
+                <p className="mb-0 text-sm">Progression à votre rythme. Pas de jugement.</p>
+              </div>
             </div>
-            <div className="bento-f-2x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
-              <div className="bento-icon-wrap"><Layers className="bento-icon" /></div>
-              <p className="m-0 text-sm">Ma méthode s&apos;adapte à <strong>vos</strong> besoins, pas l&apos;inverse.</p>
-              <Link href="/impro-vocale" className="btn-rdv mt-auto">Découvrir l&apos;impro vocale</Link>
+            <div className="glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-row-reverse items-center gap-4 relative overflow-hidden bento-content-glass">
+              <div className="bento-icon-wrap" style={{ width: 'auto', marginBottom: 0 }}><Layers className="bento-icon" style={{ width: '4rem', height: '4rem' }} /></div>
+              <div className="flex flex-col gap-2 flex-1 min-w-0">
+                <p className="m-0 text-sm">Ma méthode s&apos;adapte à <strong>vos</strong> besoins, pas l&apos;inverse.</p>
+                <Link href="/impro-vocale" className="btn-rdv self-start">Découvrir l&apos;impro vocale</Link>
+              </div>
             </div>
           </div>
         </section>
@@ -159,23 +177,25 @@ export default function CoursChantPage() {
 
         <section className="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="tarifs">
           <h2 className="section-title-bentos">Tarifs</h2>
-          <div className="bento-formats-zone bento-formats-zone--content">
-            <div className="bento-f-1x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
-              <div className="bento-icon-wrap"><Clock className="bento-icon" /></div>
-              <h3>Cours d&apos;une heure</h3>
-              <p className="m-0 text-sm"><strong>60 €</strong> – Coaching personnalisé.</p>
+          <div className="flex flex-col gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass transition-transform duration-300 ease-out hover:-translate-y-1 hover:rotate-1">
+                <div className="bento-icon-wrap"><Clock className="bento-icon" /></div>
+                <h3>Cours d&apos;une heure</h3>
+                <p className="m-0 text-sm"><strong>60 €</strong> – Coaching personnalisé.</p>
+              </div>
+              <div className="glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass transition-transform duration-300 ease-out hover:-translate-y-1 hover:rotate-1">
+                <div className="bento-icon-wrap"><Timer className="bento-icon" /></div>
+                <h3>Cours 1h30</h3>
+                <p className="m-0 text-sm"><strong>75 €</strong> – Séance plus longue pour approfondir.</p>
+              </div>
+              <div className="glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass transition-transform duration-300 ease-out hover:-translate-y-1 hover:rotate-1">
+                <div className="bento-icon-wrap"><Package className="bento-icon" /></div>
+                <h3>Pack 4 cours</h3>
+                <p className="m-0 text-sm"><strong>200 €</strong> le pack de 4 cours d&apos;une heure – soit 50 € le cours, à utiliser sous 2 mois.</p>
+              </div>
             </div>
-            <div className="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
-              <div className="bento-icon-wrap"><Timer className="bento-icon" /></div>
-              <h3>Cours 1h30</h3>
-              <p className="m-0 text-sm"><strong>75 €</strong> – Séance plus longue pour approfondir.</p>
-            </div>
-            <div className="bento-f-2x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
-              <div className="bento-icon-wrap"><Package className="bento-icon" /></div>
-              <h3>Pack 4 cours</h3>
-              <p className="m-0 text-sm"><strong>200 €</strong> le pack de 4 cours d&apos;une heure – soit 50 € le cours, à utiliser sous 2 mois.</p>
-            </div>
-            <div className="bento-f-2x1 glass-panel-rose bento-tint-mix p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+            <div className="glass-panel-rose bento-tint-mix p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass transition-transform duration-300 ease-out hover:-translate-y-1 hover:rotate-1">
               <div className="bento-icon-wrap"><CreditCard className="bento-icon" /></div>
               <h3>Modalités de règlement</h3>
               <p className="m-0 text-sm">CB, virement, PayPal, espèces. <strong>Tout cours non annulé au moins 24 h à l&apos;avance est dû.</strong></p>
@@ -187,7 +207,7 @@ export default function CoursChantPage() {
         <section className="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="faq">
           <h2 className="section-title-bentos">Questions fréquentes sur les cours de chant</h2>
           <p className="mb-6 text-white/90 text-sm">Cliquez sur une question pour afficher la réponse.</p>
-          <div className="faq-bento-zone">
+          <div className="faq-bento-zone" style={{ display: 'flex', flexDirection: 'column' }}>
             {faqItems.map((item) => <FaqCard key={item.id} item={item} />)}
             <div className="faq-bento-cta glass-panel-rose bento-tint-mix rounded-2xl p-6 text-center bento-content-glass relative overflow-hidden">
               <div className="bento-icon-wrap flex justify-center"><HelpCircle className="bento-icon" /></div>
