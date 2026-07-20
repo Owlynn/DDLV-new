@@ -274,7 +274,10 @@ main img, .article-content img, .bento-content-glass img { max-width: 100%; heig
     transition: all 0.2s ease;
     text-decoration: none;
     cursor: pointer;
-    white-space: nowrap;
+    white-space: normal;
+    text-align: center;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   .btn-rdv:hover { background: rgba(207,53,148,0.8); color: #fff; }
 
