@@ -25,7 +25,7 @@ No test runner is configured.
 - **Formulaire infos élève** — permettre à l'élève de renseigner nom, prénom, adresse et numéro de téléphone (probablement une nouvelle table Postgres liée à `auth.users.id`, sur le même modèle que `student_tags`).
 - **Créer le blog** — page(s) publique(s) affichant les articles publiés depuis la table `posts` (aujourd'hui seul `/admin` → Blog permet de les créer/éditer, rien ne les affiche encore sur le site).
 - **Créer une base de données avec les exercices** — probablement une nouvelle table Postgres + interface admin pour les gérer (nature exacte des exercices à préciser).
-- **Récupérer la liste des ateliers sur BilletWeb** — via `api/billetweb.js` (déjà utilisé par `WorkshopsSection.tsx`), à afficher/gérer quelque part dans `/admin` ou le dashboard élève.
+- **Récupérer la liste des ateliers sur BilletWeb** — via `app/api/billetweb/route.ts` (déjà utilisé par `app/ateliers/page.tsx`), à afficher/gérer quelque part dans `/admin` ou le dashboard élève.
 - **Prévoir une fonction d'import des élèves par CSV** — alternative à l'invitation unitaire dans `/admin` → Élèves, pour inviter plusieurs élèves d'un coup.
 
 ## Architecture
@@ -58,7 +58,7 @@ No test runner is configured.
 
 ### Backend / API
 
-- `api/billetweb.js` — Vercel serverless function, proxy to BilletWeb API. Reads `BILLETWEB_USER_ID`, `BILLETWEB_API_KEY` from environment variables. The API key must never be exposed client-side.
+- `app/api/billetweb/route.ts` — Next.js Route Handler, proxy to BilletWeb API. Reads `BILLETWEB_USER_ID`, `BILLETWEB_API_KEY` from environment variables. The API key must never be exposed client-side. (A legacy duplicate used to live at the repo-root `api/billetweb.js` — that top-level `/api` directory alongside Next.js App Router API routes caused Vercel to misroute all `/api/*` traffic through it in production; it has been removed.)
 - `app/api/admin/users/route.ts`, `app/api/admin/users/[id]/route.ts` — Next.js Route Handlers wrapping the Supabase Admin API (list/invite/delete auth users, for the "Élèves" tab in `/admin`). Use `lib/supabase-admin.ts` (server-only client built with `SUPABASE_SECRET_KEY`) — never import it from a `'use client'` file. Every handler verifies the caller's Supabase session via the `Authorization: Bearer <access_token>` header before touching the Admin API; there is no separate admin role, so any authenticated `/espace-eleve` account can manage students (accounts are only created by invite, no public signup).
 - `app/api/admin/formation-focus-candidatures/route.ts` — Route Handler proxying the Tally API (`GET /forms/{formId}/submissions`) to list responses to the Formation Focus application form ([tally.so/r/2EydxM](https://tally.so/r/2EydxM), linked from `/formation-focus`), for the "Candidatures Formation Focus" tab in `/admin`. Reads `TALLY_API_KEY` (server-only). Same `requireUser` session check as the users routes.
 

@@ -108,7 +108,7 @@ export default function AdminPage() {
       const body = await res.json()
       if (!res.ok) throw new Error(body.error ?? 'Erreur inconnue')
       const tagMap = new Map((tagsRes.data ?? []).map(r => [r.user_id as string, (r.tags ?? []) as StudentTagKey[]]))
-      setStudents(body.users.map((u: Omit<Student, 'tags'>) => ({ ...u, tags: tagMap.get(u.id) ?? [] })))
+      setStudents((body.users ?? []).map((u: Omit<Student, 'tags'>) => ({ ...u, tags: tagMap.get(u.id) ?? [] })))
     } catch (e) {
       setStudentsError(e instanceof Error ? e.message : 'Erreur inconnue')
     }
@@ -149,7 +149,7 @@ export default function AdminPage() {
       const res = await fetch('/api/admin/formation-focus-candidatures', { headers: await authHeader() })
       const body = await res.json()
       if (!res.ok) throw new Error(body.error ?? 'Erreur inconnue')
-      setCandidatures(body.submissions)
+      setCandidatures(body.submissions ?? [])
     } catch (e) {
       setCandidaturesError(e instanceof Error ? e.message : 'Erreur inconnue')
     }
