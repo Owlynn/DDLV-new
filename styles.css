@@ -1249,3 +1249,14 @@ body.formats-panel-open #formats-d-ateliers {
   color: rgba(255, 255, 255, 0.9) !important;
   border-bottom-color: rgba(255, 255, 255, 0.2) !important;
 }
+
+/* Widget Avis Google (SociableKit) : sur mobile le widget impose sa propre hauteur
+   et prend tout l'écran ; on le contraint dans une zone défilable sans le masquer */
+@media (max-width: 767px) {
+  .avis-widget-wrapper {
+    max-height: 420px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 1rem;
+  }
+}

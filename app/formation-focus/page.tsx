@@ -453,10 +453,7 @@ export default function FormationFocusPage() {
                 <ExternalLink className="size-4" aria-hidden="true" />
                 Remplir le formulaire de candidature
               </a>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl font-semibold text-xs uppercase tracking-widest border border-white/30 bg-white/10 hover:bg-white/20 text-white transition-all"
-              >
+              <Link href="/contact" className="btn-rdv inline-flex items-center gap-2">
                 <Mail className="size-4" aria-hidden="true" />
                 Une question ? Me contacter
               </Link>
@@ -466,7 +463,9 @@ export default function FormationFocusPage() {
 
         <section className="mb-4 scroll-mt-28">
           <h2 className="section-title-bentos">Avis</h2>
-          <div className="sk-ww-google-reviews" data-embed-id="25582122" suppressHydrationWarning />
+          <div className="avis-widget-wrapper">
+            <div className="sk-ww-google-reviews" data-embed-id="25582122" suppressHydrationWarning />
+          </div>
           <Script src="https://widgets.sociablekit.com/google-reviews/widget.js" strategy="lazyOnload" />
         </section>
       </div>
