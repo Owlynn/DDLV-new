@@ -115,7 +115,21 @@ export default function Header() {
               )}
             </div>
 
-            <Link className="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/espace-eleve" onClick={closeAll}>Espace élève</Link>
+            <Link
+              className="nav-item relative group text-white flex items-center py-4 px-4 lg:p-1 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent text-xl lg:text-sm"
+              href="/espace-eleve"
+              onClick={closeAll}
+              aria-label="Espace élève"
+            >
+              <span className="material-symbols-outlined text-3xl lg:text-2xl mr-4 lg:mr-0" aria-hidden="true">account_circle</span>
+              <span className="lg:hidden font-medium tracking-widest uppercase">Espace élève</span>
+              <span
+                role="tooltip"
+                className="hidden lg:block absolute top-full left-1/2 -translate-x-1/2 mt-3 whitespace-nowrap px-3 py-1.5 rounded-lg nav-dropdown-panel text-xs normal-case tracking-normal font-normal opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 pointer-events-none z-50"
+              >
+                Espace élève
+              </span>
+            </Link>
           </nav>
           <Link
             href="/contact"
