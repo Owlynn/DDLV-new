@@ -14,6 +14,8 @@ export interface Post {
   slug: string
   content: string
   status: 'draft' | 'published'
+  cover_image?: string | null
+  published_at?: string | null
   created_at?: string
 }
 
@@ -34,13 +36,24 @@ function slugify(text: string) {
     .replace(/^-|-$/g, '')
 }
 
+/** Convertit une date ISO (ou rien = maintenant) en valeur pour <input type="datetime-local"> (heure locale du navigateur) */
+function toLocalInputValue(iso?: string | null): string {
+  const d = iso ? new Date(iso) : new Date()
+  const pad = (n: number) => String(n).padStart(2, '0')
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`
+}
+
 export default function PostEditor({ post, onBack, onSaved }: Props) {
   const [title, setTitle] = useState(post?.title ?? '')
   const [slug, setSlug] = useState(post?.slug ?? '')
   const [status, setStatus] = useState<'draft' | 'published'>(post?.status ?? 'draft')
+  const [publishedAt, setPublishedAt] = useState(toLocalInputValue(post?.published_at))
+  const [coverImage, setCoverImage] = useState<string | null>(post?.cover_image ?? null)
+  const [uploadingCover, setUploadingCover] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const [slugManual, setSlugManual] = useState(!!post?.id)
+  const isScheduled = status === 'published' && new Date(publishedAt).getTime() > Date.now()
 
   const editor = useEditor({
     extensions: [
@@ -57,6 +70,18 @@ export default function PostEditor({ post, onBack, onSaved }: Props) {
     if (!slugManual) setSlug(slugify(title))
   }, [title, slugManual])
 
+  async function handleCoverUpload(file: File) {
+    setError('')
+    setUploadingCover(true)
+    const ext = file.name.split('.').pop()
+    const path = `${crypto.randomUUID()}.${ext}`
+    const { error: uploadErr } = await supabase.storage.from('blog-covers').upload(path, file, { upsert: true })
+    if (uploadErr) { setError(uploadErr.message); setUploadingCover(false); return }
+    const { data } = supabase.storage.from('blog-covers').getPublicUrl(path)
+    setCoverImage(data.publicUrl)
+    setUploadingCover(false)
+  }
+
   async function handleSave() {
     if (!title.trim()) { setError('Le titre est requis.'); return }
     if (!slug.trim()) { setError('Le slug est requis.'); return }
@@ -68,6 +93,8 @@ export default function PostEditor({ post, onBack, onSaved }: Props) {
       slug: slug.trim(),
       content: editor?.getHTML() ?? '',
       status,
+      cover_image: coverImage,
+      published_at: new Date(publishedAt).toISOString(),
       updated_at: new Date().toISOString(),
     }
 
@@ -94,16 +121,23 @@ export default function PostEditor({ post, onBack, onSaved }: Props) {
         </h2>
 
         {/* Statut */}
-        <div style={{ display: 'flex', borderRadius: '0.75rem', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.15)' }}>
-          {(['draft', 'published'] as const).map(s => (
-            <button
-              key={s}
-              onClick={() => setStatus(s)}
-              style={{ padding: '0.5rem 1rem', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', background: status === s ? (s === 'published' ? 'rgba(77,184,170,0.25)' : 'rgba(255,255,255,0.12)') : 'transparent', color: status === s ? (s === 'published' ? '#4db8aa' : '#fff') : 'rgba(255,255,255,0.4)' }}
-            >
-              {s === 'draft' ? 'Brouillon' : 'Publié'}
-            </button>
-          ))}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+          {isScheduled && (
+            <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600, padding: '0.3rem 0.6rem', borderRadius: 999, background: 'rgba(240,168,48,0.2)', color: '#f0a830' }}>
+              Programmé
+            </span>
+          )}
+          <div style={{ display: 'flex', borderRadius: '0.75rem', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.15)' }}>
+            {(['draft', 'published'] as const).map(s => (
+              <button
+                key={s}
+                onClick={() => setStatus(s)}
+                style={{ padding: '0.5rem 1rem', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', background: status === s ? (s === 'published' ? 'rgba(77,184,170,0.25)' : 'rgba(255,255,255,0.12)') : 'transparent', color: status === s ? (s === 'published' ? '#4db8aa' : '#fff') : 'rgba(255,255,255,0.4)' }}
+              >
+                {s === 'draft' ? 'Brouillon' : 'Publié'}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Sauvegarder */}
@@ -114,6 +148,48 @@ export default function PostEditor({ post, onBack, onSaved }: Props) {
       </div>
 
       {error && <p style={{ color: '#f87171', fontSize: '0.85rem', marginBottom: '1rem' }}>{error}</p>}
+
+      {/* ── Date de publication ── */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+        <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)', flexShrink: 0 }}>Date de publication :</span>
+        <input
+          type="datetime-local"
+          value={publishedAt}
+          onChange={e => setPublishedAt(e.target.value)}
+          style={{ fontSize: '0.75rem', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '0.5rem', color: 'rgba(255,255,255,0.8)', padding: '0.3rem 0.6rem', outline: 'none', fontFamily: 'inherit', colorScheme: 'dark' }}
+        />
+        {isScheduled && (
+          <span style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)' }}>
+            L&apos;article passera en ligne automatiquement à cette date.
+          </span>
+        )}
+      </div>
+
+      {/* ── Image de couverture ── */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
+        {coverImage && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={coverImage} alt="Couverture de l'article" className="object-cover" style={{ width: 120, height: 72, borderRadius: '0.625rem', border: '1px solid rgba(255,255,255,0.15)' }} />
+        )}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+          <label style={{ ...btnGhost, display: 'inline-flex', width: 'fit-content' }}>
+            <span className="material-symbols-outlined" style={{ fontSize: 16 }}>image</span>
+            {uploadingCover ? 'Envoi…' : coverImage ? "Changer l'image de couverture" : "Ajouter une image de couverture"}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={e => { const f = e.target.files?.[0]; if (f) handleCoverUpload(f) }}
+              disabled={uploadingCover}
+              style={{ display: 'none' }}
+            />
+          </label>
+          {coverImage && (
+            <button onClick={() => setCoverImage(null)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', fontSize: '0.7rem', cursor: 'pointer', textAlign: 'left', padding: 0, fontFamily: 'inherit' }}>
+              Retirer l&apos;image
+            </button>
+          )}
+        </div>
+      </div>
 
       {/* ── Titre ── */}
       <input

@@ -79,7 +79,7 @@ export default function AdminPage() {
     try {
       const { data } = await supabase
         .from('posts')
-        .select('id, title, slug, content, status, created_at')
+        .select('id, title, slug, content, status, cover_image, published_at, created_at')
         .order('created_at', { ascending: false })
       setPosts(data ?? [])
     } catch {}
@@ -399,12 +399,23 @@ function BlogList({ posts, loading, onNew, onEdit, onDelete }: {
 }
 
 function PostRow({ post, onEdit, onDelete }: { post: Post; onEdit: (p: Post) => void; onDelete: (id: string) => void }) {
-  const date = new Date(post.created_at!).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' })
+  const date = new Date(post.published_at ?? post.created_at!).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' })
   const isPublished = post.status === 'published'
+  const isScheduled = isPublished && !!post.published_at && new Date(post.published_at).getTime() > Date.now()
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.875rem 1.25rem', borderRadius: '0.875rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', flexWrap: 'wrap' }}>
-      <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'rgba(255,255,255,0.3)', flexShrink: 0 }}>article</span>
+      {post.cover_image ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={post.cover_image} alt="" className="object-cover" style={{ width: 40, height: 40, borderRadius: '0.5rem', flexShrink: 0 }} />
+      ) : (
+        <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'rgba(255,255,255,0.3)', flexShrink: 0 }}>article</span>
+      )}
       <span style={{ flex: 1, minWidth: 140, fontSize: '0.9rem', fontWeight: 500, color: 'rgba(255,255,255,0.85)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{post.title}</span>
+      {isScheduled && (
+        <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '0.15rem 0.6rem', borderRadius: 999, fontWeight: 600, flexShrink: 0, background: 'rgba(240,168,48,0.2)', color: '#f0a830' }}>
+          Programmé
+        </span>
+      )}
       <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '0.15rem 0.6rem', borderRadius: 999, fontWeight: 600, flexShrink: 0, background: isPublished ? 'rgba(77,184,170,0.2)' : 'rgba(255,255,255,0.1)', color: isPublished ? '#4db8aa' : 'rgba(255,255,255,0.4)' }}>
         {isPublished ? 'Publié' : 'Brouillon'}
       </span>

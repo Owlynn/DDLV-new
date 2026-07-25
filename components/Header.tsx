@@ -84,6 +84,7 @@ export default function Header() {
               )}
             </div>
             <Link className="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/formation-focus" onClick={closeAll}>Formation Focus</Link>
+            <Link className="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/blog" onClick={closeAll}>Blog</Link>
             <Link className="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/offre-entreprise" onClick={closeAll}>Entreprise</Link>
 
             {/* À propos avec sous-menu */}
