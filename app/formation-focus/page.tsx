@@ -229,7 +229,9 @@ export default function FormationFocusPage() {
       <section className="hero-overlay relative min-h-screen overflow-hidden flex items-center pt-28 sm:pt-32 pb-12" aria-label="Hero">
         <div className="w-full max-w-4xl mx-auto px-4 md:px-8 flex flex-col items-start gap-6 sm:gap-8">
           <p className="text-white/80 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] m-0">
-            Formation co-improvisation et circlesong · Octobre 2026 → Juin 2027
+            Formation co-improvisation et circlesong
+            <br />
+            Octobre 2026 → Juin 2027
           </p>
           <h1 className="text-[2rem] sm:text-[2.6rem] md:text-[3.6rem] font-bold tracking-tight text-white leading-tight m-0">
             <span className="hero-gradient-word block">Formation Focus</span>
@@ -257,7 +259,7 @@ export default function FormationFocusPage() {
       <div className="px-4 md:px-8 max-w-5xl mx-auto pb-24">
         <section className="mb-12 md:mb-16 scroll-mt-28">
           <p className="text-white/90 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto text-center">
-            Chanter en improvisation, ce n&apos;est pas qu&apos;une question de technique. C&apos;est apprendre à s&apos;écouter, à écouter les autres, et à trouver sa place dans un collectif qui invente la musique en temps réel. Cette formation avance sur quatre piliers complémentaires, du premier mercredi jusqu&apos;au spectacle final.
+            Chanter en improvisation, ce n&apos;est pas qu&apos;une question de technique. C&apos;est apprendre à s&apos;écouter, à écouter les autres, et à trouver sa place dans un collectif dans un cadre de cocréation. Cette formation avance sur cinq piliers complémentaires, du premier mercredi jusqu&apos;au spectacle final.
           </p>
         </section>
 
@@ -280,7 +282,7 @@ export default function FormationFocusPage() {
 
         <section className="formats-bentos-section mb-12 md:mb-16 scroll-mt-28">
           <h2 className="section-title-bentos">Le rythme de l&apos;année</h2>
-          <p className="text-white/80 text-sm mb-4">Un format pensé pour avancer en continu, sans rythme épuisant.</p>
+          <p className="text-white/80 text-sm mb-4">Un format pensé pour avancer en continu.</p>
           <div className="bento-formats-zone bento-formats-zone--content">
             {rythme.map((r) => {
               const Icon = r.icon
@@ -335,6 +337,7 @@ export default function FormationFocusPage() {
         <section className="mb-12 md:mb-16 scroll-mt-28">
           <h2 className="section-title-bentos">À qui s&apos;adresse cette formation</h2>
           <p className="text-white/80 text-sm mb-4">Elle s&apos;adresse à toutes les personnes qui aiment chanter, qui ont déjà pratiqué au moins une fois la co-improvisation ou le circlesong, et qui cherchent à gagner en confiance et en technique au sein d&apos;un groupe fixe.</p>
+          <p className="text-white/80 text-sm mb-4">Pour garantir une progression collective, quelques prérequis sont nécessaires pour rejoindre cette formation :</p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {prerequis.map((item, i) => (
               <div key={item.text} className={`glass-panel-rose ${prerequisTints[i % prerequisTints.length]} p-6 rounded-2xl flex flex-col items-center gap-2 text-center relative overflow-hidden bento-content-glass`}>

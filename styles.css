@@ -193,10 +193,10 @@ main .max-w-6xl {
   min-width: 0;
 }
 /* Éviter le débordement des images et médias dans le contenu */
-main img,
-.article-content img,
-.bento-content-glass img,
-.bento-formats-zone img {
+main img:not(.object-cover),
+.article-content img:not(.object-cover),
+.bento-content-glass img:not(.object-cover),
+.bento-formats-zone img:not(.object-cover) {
   max-width: 100%;
   height: auto;
   object-fit: contain;
@@ -276,6 +276,17 @@ main img,
 }
 .nav-item--btn:hover .nav-item-inner::after {
   width: 100%;
+}
+
+/* Sous-menus déroulants de la nav (À propos, Cours et ateliers) : fond bien plus opaque que la barre pour rester lisible par-dessus le contenu de page */
+.nav-dropdown-panel {
+  background-color: rgba(13, 2, 24, 0.95);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 240, 245, 0.28);
+  box-shadow:
+    0 8px 32px 0 rgba(0, 0, 0, 0.45),
+    inset 0 0 2px 1px rgba(255, 250, 252, 0.15);
 }
 
 /* Barre de nav : même fond que la page d'accueil (moins opaque) sur toutes les pages – priorité sur les surcharges des pages internes */

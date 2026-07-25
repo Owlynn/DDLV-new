@@ -7,19 +7,24 @@ import Image from 'next/image'
 export default function Header() {
   const [open, setOpen] = useState(false)
   const [openAbout, setOpenAbout] = useState(false)
+  const [openCoursAteliers, setOpenCoursAteliers] = useState(false)
   const aboutRef = useRef<HTMLDivElement>(null)
+  const coursAteliersRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (aboutRef.current && !aboutRef.current.contains(e.target as Node)) {
         setOpenAbout(false)
       }
+      if (coursAteliersRef.current && !coursAteliersRef.current.contains(e.target as Node)) {
+        setOpenCoursAteliers(false)
+      }
     }
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  const closeAll = () => { setOpen(false); setOpenAbout(false) }
+  const closeAll = () => { setOpen(false); setOpenAbout(false); setOpenCoursAteliers(false) }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 pl-3 sm:pl-6 md:pl-8 pr-3 sm:pr-6 md:pr-4 py-3 md:py-4">
@@ -49,9 +54,35 @@ export default function Header() {
               <span className="material-symbols-outlined text-3xl lg:text-2xl mr-4 lg:mr-0">home</span>
               <span className="lg:hidden font-medium tracking-widest uppercase">Accueil</span>
             </Link>
-            <Link className="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/impro-vocale" onClick={closeAll}>L&apos;impro vocale</Link>
-            <Link className="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/ateliers" onClick={closeAll}>Ateliers</Link>
-            <Link className="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/cours-chant" onClick={closeAll}>Cours</Link>
+            {/* Cours et ateliers avec sous-menu */}
+            <div className="relative" ref={coursAteliersRef}>
+              <button
+                type="button"
+                onClick={() => setOpenCoursAteliers(!openCoursAteliers)}
+                className="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent w-full flex items-center justify-between lg:justify-start lg:gap-1"
+              >
+                <span>Cours et ateliers</span>
+                <span className={`material-symbols-outlined text-base transition-transform duration-200 ${openCoursAteliers ? 'rotate-180' : ''}`} aria-hidden="true">expand_more</span>
+              </button>
+
+              {/* Sous-menu mobile */}
+              {openCoursAteliers && (
+                <div className="lg:hidden nav-dropdown-panel rounded-xl p-2 flex flex-col gap-1 mt-1">
+                  <Link href="/cours-chant" className="text-white/90 text-lg font-medium tracking-widest uppercase py-3 px-4 rounded-xl hover:bg-white/10 transition-colors" onClick={closeAll}>Cours de chant et technique vocale</Link>
+                  <Link href="/ateliers" className="text-white/90 text-lg font-medium tracking-widest uppercase py-3 px-4 rounded-xl hover:bg-white/10 transition-colors" onClick={closeAll}>Stages &amp; ateliers</Link>
+                  <Link href="/impro-vocale" className="text-white/90 text-lg font-medium tracking-widest uppercase py-3 px-4 rounded-xl hover:bg-white/10 transition-colors" onClick={closeAll}>Qu&apos;est-ce que l&apos;impro vocale</Link>
+                </div>
+              )}
+
+              {/* Sous-menu desktop */}
+              {openCoursAteliers && (
+                <div className="hidden lg:flex flex-col absolute top-full left-1/2 -translate-x-1/2 mt-3 nav-dropdown-panel rounded-xl py-2 min-w-[260px] z-50">
+                  <Link href="/cours-chant" className="px-5 py-3 text-white text-xs font-medium tracking-widest uppercase hover:bg-white/10 transition-colors" onClick={closeAll}>Cours de chant et technique vocale</Link>
+                  <Link href="/ateliers" className="px-5 py-3 text-white text-xs font-medium tracking-widest uppercase hover:bg-white/10 transition-colors" onClick={closeAll}>Stages &amp; ateliers</Link>
+                  <Link href="/impro-vocale" className="px-5 py-3 text-white text-xs font-medium tracking-widest uppercase hover:bg-white/10 transition-colors" onClick={closeAll}>Qu&apos;est-ce que l&apos;impro vocale</Link>
+                </div>
+              )}
+            </div>
             <Link className="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/formation-focus" onClick={closeAll}>Formation Focus</Link>
             <Link className="nav-item text-white text-xl lg:text-sm font-medium transition-colors tracking-widest uppercase py-4 px-4 lg:p-0 rounded-xl lg:rounded-none hover:bg-white/10 lg:hover:bg-transparent" href="/offre-entreprise" onClick={closeAll}>Entreprise</Link>
 
@@ -68,7 +99,7 @@ export default function Header() {
 
               {/* Sous-menu mobile */}
               {openAbout && (
-                <div className="lg:hidden pl-4 flex flex-col gap-1 mt-1">
+                <div className="lg:hidden nav-dropdown-panel rounded-xl p-2 flex flex-col gap-1 mt-1">
                   <Link href="/about" className="text-white/90 text-lg font-medium tracking-widest uppercase py-3 px-4 rounded-xl hover:bg-white/10 transition-colors" onClick={closeAll}>La pédagogue</Link>
                   <Link href="/mentions-legales" className="text-white/90 text-lg font-medium tracking-widest uppercase py-3 px-4 rounded-xl hover:bg-white/10 transition-colors" onClick={closeAll}>Mentions légales</Link>
                 </div>
@@ -76,7 +107,7 @@ export default function Header() {
 
               {/* Sous-menu desktop */}
               {openAbout && (
-                <div className="hidden lg:flex flex-col absolute top-full left-1/2 -translate-x-1/2 mt-3 glass-panel-rose rounded-xl py-2 min-w-[200px] z-50">
+                <div className="hidden lg:flex flex-col absolute top-full left-1/2 -translate-x-1/2 mt-3 nav-dropdown-panel rounded-xl py-2 min-w-[200px] z-50">
                   <Link href="/about" className="px-5 py-3 text-white text-xs font-medium tracking-widest uppercase hover:bg-white/10 transition-colors" onClick={closeAll}>La pédagogue</Link>
                   <Link href="/mentions-legales" className="px-5 py-3 text-white text-xs font-medium tracking-widest uppercase hover:bg-white/10 transition-colors" onClick={closeAll}>Mentions légales</Link>
                 </div>
