@@ -39,6 +39,7 @@ export default function AdminPage() {
 
   const [view, setView] = useState<View>('dashboard')
   const [editingPost, setEditingPost] = useState<Post | null>(null)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const [stats, setStats] = useState<Stats>({ published: 0, drafts: 0 })
   const [posts, setPosts] = useState<Post[]>([])
@@ -184,6 +185,7 @@ export default function AdminPage() {
 
   /* ── Sidebar nav ── */
   function handleNav(target: 'dashboard' | 'blog' | 'students' | 'formation-focus') {
+    setSidebarOpen(false)
     if (target === 'blog') { goToBlog(); return }
     if (target === 'students') { goToStudents(); return }
     if (target === 'formation-focus') { goToCandidatures(); return }
@@ -217,12 +219,33 @@ export default function AdminPage() {
       {/* Gradient */}
       <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 55% 65% at 10% 15%, rgba(91,42,181,0.22) 0%, transparent 60%), radial-gradient(ellipse 50% 60% at 90% 85%, rgba(207,53,148,0.13) 0%, transparent 55%)' }} />
 
-      {/* ── Sidebar ── */}
-      <aside style={{ width: 260, flexShrink: 0, height: '100vh', display: 'flex', flexDirection: 'column', padding: '1.5rem 1rem', position: 'relative', zIndex: 1, background: 'linear-gradient(160deg, rgba(255,252,255,0.12) 0%, rgba(255,240,248,0.06) 50%, rgba(240,235,255,0.10) 100%)', backdropFilter: 'blur(24px)', borderRight: '1px solid rgba(255,255,255,0.09)' }}>
+      {/* ── Sidebar overlay (mobile) ── */}
+      {sidebarOpen && (
+        <div
+          onClick={() => setSidebarOpen(false)}
+          aria-hidden="true"
+          className="fixed inset-0 z-40 bg-black/60 md:hidden"
+        />
+      )}
 
-        <div style={{ padding: '0.25rem 0.5rem', marginBottom: '2rem' }}>
-          <div style={{ fontSize: '1.3rem', fontWeight: 700, letterSpacing: '-0.02em', color: '#cf3594', lineHeight: 1 }}>DDLV</div>
-          <div style={{ fontSize: '0.6rem', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.28)', marginTop: '0.2rem' }}>Administration</div>
+      {/* ── Sidebar ── */}
+      <aside
+        className={`fixed md:relative inset-y-0 md:inset-auto left-0 z-50 md:z-[1] w-[260px] max-w-[80vw] transition-transform duration-300 ease-in-out md:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        style={{ flexShrink: 0, height: '100vh', display: 'flex', flexDirection: 'column', padding: '1.5rem 1rem', background: 'linear-gradient(160deg, rgba(255,252,255,0.12) 0%, rgba(255,240,248,0.06) 50%, rgba(240,235,255,0.10) 100%)', backdropFilter: 'blur(24px)', borderRight: '1px solid rgba(255,255,255,0.09)' }}
+      >
+
+        <div style={{ padding: '0.25rem 0.5rem', marginBottom: '2rem', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+          <div>
+            <div style={{ fontSize: '1.3rem', fontWeight: 700, letterSpacing: '-0.02em', color: '#cf3594', lineHeight: 1 }}>DDLV</div>
+            <div style={{ fontSize: '0.6rem', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.28)', marginTop: '0.2rem' }}>Administration</div>
+          </div>
+          <button
+            onClick={() => setSidebarOpen(false)}
+            aria-label="Fermer le menu"
+            className="md:hidden inline-flex p-1 border-0 bg-transparent text-white/50 cursor-pointer"
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: 22 }}>close</span>
+          </button>
         </div>
 
         <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', flex: 1 }}>
@@ -256,11 +279,21 @@ export default function AdminPage() {
 
       {/* ── Main ── */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden', position: 'relative', zIndex: 1 }}>
-        <div style={{ padding: '0.875rem 2rem', borderBottom: '1px solid rgba(255,255,255,0.07)', backdropFilter: 'blur(20px)', background: 'rgba(13,2,24,0.65)', flexShrink: 0 }}>
+        <div
+          className="flex items-center gap-3 px-4 py-3.5 md:px-8"
+          style={{ borderBottom: '1px solid rgba(255,255,255,0.07)', backdropFilter: 'blur(20px)', background: 'rgba(13,2,24,0.65)', flexShrink: 0 }}
+        >
+          <button
+            onClick={() => setSidebarOpen(true)}
+            aria-label="Ouvrir le menu"
+            className="md:hidden inline-flex -ml-1 p-1 border-0 bg-transparent text-white/70 cursor-pointer"
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: 22 }}>menu</span>
+          </button>
           <h1 style={{ fontSize: '1rem', fontWeight: 600, letterSpacing: '0.03em', color: 'rgba(255,255,255,0.9)', margin: 0 }}>{topbarTitle}</h1>
         </div>
 
-        <div style={{ flex: 1, overflow: 'auto', padding: '2rem' }}>
+        <div className="p-4 md:p-8" style={{ flex: 1, overflow: 'auto' }}>
           {view === 'dashboard' && (
             <Dashboard stats={stats} onNewPost={() => openEditor(null)} />
           )}
@@ -369,9 +402,9 @@ function PostRow({ post, onEdit, onDelete }: { post: Post; onEdit: (p: Post) => 
   const date = new Date(post.created_at!).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' })
   const isPublished = post.status === 'published'
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.875rem 1.25rem', borderRadius: '0.875rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.875rem 1.25rem', borderRadius: '0.875rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', flexWrap: 'wrap' }}>
       <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'rgba(255,255,255,0.3)', flexShrink: 0 }}>article</span>
-      <span style={{ flex: 1, fontSize: '0.9rem', fontWeight: 500, color: 'rgba(255,255,255,0.85)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{post.title}</span>
+      <span style={{ flex: 1, minWidth: 140, fontSize: '0.9rem', fontWeight: 500, color: 'rgba(255,255,255,0.85)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{post.title}</span>
       <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '0.15rem 0.6rem', borderRadius: 999, fontWeight: 600, flexShrink: 0, background: isPublished ? 'rgba(77,184,170,0.2)' : 'rgba(255,255,255,0.1)', color: isPublished ? '#4db8aa' : 'rgba(255,255,255,0.4)' }}>
         {isPublished ? 'Publié' : 'Brouillon'}
       </span>
@@ -557,10 +590,10 @@ function CandidatureRow({ candidature }: { candidature: Candidature }) {
     <div style={{ borderRadius: '0.875rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', overflow: 'hidden' }}>
       <button
         onClick={() => setOpen(o => !o)}
-        style={{ display: 'flex', alignItems: 'center', gap: '1rem', width: '100%', padding: '0.875rem 1.25rem', border: 'none', background: 'transparent', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit' }}
+        style={{ display: 'flex', alignItems: 'center', gap: '1rem', width: '100%', padding: '0.875rem 1.25rem', border: 'none', background: 'transparent', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit', flexWrap: 'wrap' }}
       >
         <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'rgba(255,255,255,0.3)', flexShrink: 0 }}>person</span>
-        <span style={{ flex: 1, fontSize: '0.9rem', fontWeight: 500, color: 'rgba(255,255,255,0.85)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        <span style={{ flex: 1, minWidth: 140, fontSize: '0.9rem', fontWeight: 500, color: 'rgba(255,255,255,0.85)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
           {nameGuess || `Candidature ${candidature.id.slice(0, 8)}`}
         </span>
         <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '0.15rem 0.6rem', borderRadius: 999, fontWeight: 600, flexShrink: 0, background: candidature.isCompleted ? 'rgba(77,184,170,0.2)' : 'rgba(255,255,255,0.1)', color: candidature.isCompleted ? '#4db8aa' : 'rgba(255,255,255,0.4)' }}>
