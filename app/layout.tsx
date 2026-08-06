@@ -11,7 +11,6 @@ export const metadata: Metadata = {
     template: '%s | Donner de la Voix',
   },
   description: 'Circle song et circlesongs à Toulouse : ateliers d\'improvisation vocale, technique vocale, coach vocal. Donner de la Voix.',
-  icons: { icon: '/assets/logo-ddlv.png' },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
