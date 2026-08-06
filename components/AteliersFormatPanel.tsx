@@ -304,12 +304,12 @@ export default function AteliersFormatPanel() {
               key={item.id}
               type="button"
               onClick={() => setOpen(item.id)}
-              className={`${item.size} glass-panel-rose ${item.tint} group p-6 rounded-2xl relative overflow-hidden text-left transition-all hover:-translate-y-1 cursor-pointer border-0`}
+              className={`${item.size} glass-panel-rose ${item.tint} group p-5 sm:p-6 rounded-2xl relative overflow-hidden text-left transition-all hover:-translate-y-1 cursor-pointer border-0`}
             >
               <span className="bento-type-badge absolute top-3 right-3 text-[10px] uppercase tracking-widest font-semibold text-white rounded-full px-2.5 py-1">
                 {item.badge}
               </span>
-              <div className="pr-16">
+              <div className="pr-14 sm:pr-16">
                 <h3 className="text-lg font-bold text-white mb-1 uppercase tracking-tight">{item.label}</h3>
                 <p className="text-sm text-white/90 leading-snug font-light">{item.subtitle}</p>
               </div>
