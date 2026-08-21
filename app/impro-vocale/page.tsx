@@ -1,11 +1,21 @@
-'use client'
-
-import { useState } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
 import SocialBar from '@/components/SocialBar'
+import FaqCard from '@/components/FaqCard'
+import { stripHtml } from '@/lib/text'
 import { Mic, Users, CircleDot, Ear, Music2, Layers, Heart, Sparkles, Wind, Link as LinkIcon, Sun, MapPin, Compass, CalendarDays, MicVocal, HelpCircle } from 'lucide-react'
+
+const title = 'Impro Vocale | Circlesongs & Co-improvisation | Toulouse'
+const description = "Découvrez l'improvisation vocale et les circlesongs à Toulouse : stages et ateliers réguliers, vocal painting, co-improvisation. Accessible à tous, aucun prérequis."
+const url = 'https://donnerdelavoix.fr/impro-vocale'
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: { canonical: url },
+  openGraph: { title, description, url },
+  twitter: { title, description },
+}
 
 const faqItems = [
   {
@@ -46,29 +56,26 @@ const faqItems = [
   },
 ]
 
-function FaqCard({ item }: { item: typeof faqItems[0] }) {
-  const [open, setOpen] = useState(false)
-  return (
-    <div className={`faq-bento-card glass-panel-rose ${item.tint} rounded-2xl relative overflow-hidden`} role="listitem">
-      <button
-        type="button"
-        className="faq-bento-trigger"
-        aria-expanded={open}
-        onClick={() => setOpen(!open)}
-      >
-        <span>{item.question}</span>
-        <span className={`faq-bento-icon material-symbols-outlined ${open ? 'rotate-180' : ''} transition-transform duration-250`} aria-hidden="true">expand_more</span>
-      </button>
-      <div className={`faq-bento-panel ${open ? 'is-open' : ''}`} style={{ maxHeight: open ? '320px' : '0' }}>
-        <div className="faq-bento-panel-inner" dangerouslySetInnerHTML={{ __html: item.answer }} />
-      </div>
-    </div>
-  )
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: stripHtml(item.answer),
+    },
+  })),
 }
 
 export default function ImproVocalePage() {
   return (
     <main className="flex-1 overflow-y-auto relative" role="main">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <section className="hero-overlay relative h-screen overflow-hidden flex items-center pt-20 sm:pt-24 pb-12 md:pb-12" aria-label="Hero">
         <div className="w-full max-w-5xl mx-auto px-4 md:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
           <div className="flex flex-col items-start gap-6 sm:gap-10">

@@ -4,10 +4,16 @@ import BlogGrid from '@/components/BlogGrid'
 import { supabase } from '@/lib/supabase-client'
 import type { BlogPost } from '@/lib/blog'
 
+const title = 'Blog | Donner de la Voix'
+const description = 'Articles sur le chant, l\'improvisation vocale et les circlesongs, par Donner de la Voix à Toulouse.'
+const url = 'https://donnerdelavoix.fr/blog'
+
 export const metadata: Metadata = {
-  title: 'Blog | Donner de la Voix',
-  description: 'Articles sur le chant, l\'improvisation vocale et les circlesongs, par Donner de la Voix à Toulouse.',
-  alternates: { canonical: 'https://donnerdelavoix.fr/blog' },
+  title,
+  description,
+  alternates: { canonical: url },
+  openGraph: { title, description, url },
+  twitter: { title, description },
 }
 
 export const revalidate = 300

@@ -4,10 +4,16 @@ import Image from 'next/image'
 import SocialBar from '@/components/SocialBar'
 import { Users, Sparkles, Mic2, Briefcase, Target, Heart, ArrowRight, Calendar, MessageCircle, Building2 } from 'lucide-react'
 
+const title = 'Offres Entreprise | Cours de chant & Impro CE | Team building vocal'
+const description = 'Cours de chant et d\'improvisation vocale pour entreprises et comités d\'entreprise. Team building vocal, ice breaker pour séminaires à Toulouse et ailleurs.'
+const url = 'https://donnerdelavoix.fr/offre-entreprise'
+
 export const metadata: Metadata = {
-  title: 'Offres Entreprise | Cours de chant & Impro CE | Team building vocal',
-  description: 'Cours de chant et d\'improvisation vocale pour entreprises et comités d\'entreprise. Team building vocal, ice breaker pour séminaires à Toulouse et ailleurs.',
-  alternates: { canonical: 'https://donnerdelavoix.fr/offre-entreprise' },
+  title,
+  description,
+  alternates: { canonical: url },
+  openGraph: { title, description, url },
+  twitter: { title, description },
 }
 
 export default function OffreEntreprisePage() {

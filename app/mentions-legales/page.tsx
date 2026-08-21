@@ -2,10 +2,16 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import SocialBar from '@/components/SocialBar'
 
+const title = 'Mentions légales | Donner de la Voix'
+const description = 'Mentions légales du site Donner de la Voix - Éditeur, hébergeur, données personnelles et propriété intellectuelle.'
+const url = 'https://donnerdelavoix.fr/mentions-legales'
+
 export const metadata: Metadata = {
-  title: 'Mentions légales | Donner de la Voix',
-  description: 'Mentions légales du site Donner de la Voix - Éditeur, hébergeur, données personnelles et propriété intellectuelle.',
-  alternates: { canonical: 'https://donnerdelavoix.fr/mentions-legales' },
+  title,
+  description,
+  alternates: { canonical: url },
+  openGraph: { title, description, url },
+  twitter: { title, description },
 }
 
 export default function MentionsLegalesPage() {

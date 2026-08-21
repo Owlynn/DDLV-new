@@ -40,7 +40,7 @@ export default function BlogGrid({ posts }: { posts: BlogPost[] }) {
           >
             {post.cover_image && (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={post.cover_image} alt="" className="w-full h-32 object-cover" loading="lazy" />
+              <img src={post.cover_image} alt={post.title} className="w-full h-32 object-cover" loading="lazy" />
             )}
             <div className="p-5 flex flex-col gap-2 flex-1">
               <p className="text-white/60 text-xs uppercase tracking-widest font-semibold m-0">{formatDateFr(post.published_at)}</p>

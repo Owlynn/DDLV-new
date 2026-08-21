@@ -2,10 +2,16 @@ import type { Metadata } from 'next'
 import { Bell } from 'lucide-react'
 import SocialBar from '@/components/SocialBar'
 
+const title = 'Newsletter – Restez informé.e des ateliers et événements'
+const description = 'Abonnez-vous à la newsletter de Donner de la Voix pour recevoir les prochains stages et ateliers d\'improvisation vocale et circlesongs à Toulouse.'
+const url = 'https://donnerdelavoix.fr/newsletter'
+
 export const metadata: Metadata = {
-  title: 'Newsletter – Restez informé.e des ateliers et événements',
-  description: 'Abonnez-vous à la newsletter de Donner de la Voix pour recevoir les prochains stages et ateliers d\'improvisation vocale et circlesongs à Toulouse.',
-  alternates: { canonical: 'https://donnerdelavoix.fr/newsletter' },
+  title,
+  description,
+  alternates: { canonical: url },
+  openGraph: { title, description, url },
+  twitter: { title, description },
 }
 
 export default function NewsletterPage() {

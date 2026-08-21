@@ -1,39 +1,51 @@
-'use client'
-
-import { useState } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
 import SocialBar from '@/components/SocialBar'
+import FaqCard from '@/components/FaqCard'
+import { stripHtml } from '@/lib/text'
 import { Users, Mic, Briefcase, Music, Sparkles, Heart, Award, Target, Layers, Music2, Volume2, Wind, Activity, Smile, Sun, ListOrdered, MessageCircle, Shield, AlertTriangle, CheckCircle, Info, MapPin, User, Sliders, CalendarDays, Clock, Timer, Package, CreditCard, HelpCircle } from 'lucide-react'
 
+const title = 'Cours de Chant à Toulouse | Coach Vocal Certifié'
+const description = "Cours de chant individuels à Toulouse (quartier Minimes) avec Jessalynn, coach vocal certifiée. Technique vocale, tous niveaux, cours d'essai possible."
+const url = 'https://donnerdelavoix.fr/cours-chant'
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: { canonical: url },
+  openGraph: { title, description, url },
+  twitter: { title, description },
+}
+
 const faqItems = [
-  { id: 1, q: 'Faut-il savoir lire la musique ?', a: '<strong>Non !</strong> Le solfège n\'est pas nécessaire pour prendre des <strong>cours de chant</strong>. Nous travaillons à l\'oreille et par l\'expérimentation.', tint: 'bento-tint-primary' },
-  { id: 2, q: 'Je chante faux, est-ce que je peux progresser ?', a: '<strong>Absolument !</strong> La justesse se travaille. Avec des exercices adaptés, de la pratique et un bon accompagnement, tout le monde peut améliorer sa justesse vocale.', tint: 'bento-tint-primary-light' },
-  { id: 3, q: 'À quelle fréquence prendre des cours ?', a: 'L\'idéal est <strong>1 cours toutes les 2 semaines minimum</strong>, avec de la pratique entre les cours. Un cours par semaine permet une progression encore plus rapide.', tint: 'bento-tint-accent' },
-  { id: 4, q: 'Puis-je choisir les morceaux que je travaille ?', a: '<strong>Oui !</strong> Nous travaillons sur des morceaux qui vous plaisent, en respectant votre niveau et vos objectifs. Le plaisir est essentiel.', tint: 'bento-tint-teal' },
-  { id: 5, q: 'Quelle est la durée d\'un cours ? Y a-t-il un cours d\'essai ?', a: 'Un <strong>cours individuel</strong> dure <strong>1 heure</strong>. Cours d\'essai : première séance <strong>1 h 30</strong> (1 h payante + 30 min offertes). Aucun engagement.', tint: 'bento-tint-primary' },
-  { id: 6, q: 'Y a-t-il un âge minimum ou maximum ?', a: '<strong>Aucune limite d\'âge !</strong> J\'accompagne enfants, adolescents, adultes et seniors. L\'enseignement s\'adapte à chaque âge.', tint: 'bento-tint-accent' },
+  { id: 1, question: 'Faut-il savoir lire la musique ?', answer: '<strong>Non !</strong> Le solfège n\'est pas nécessaire pour prendre des <strong>cours de chant</strong>. Nous travaillons à l\'oreille et par l\'expérimentation.', tint: 'bento-tint-primary' },
+  { id: 2, question: 'Je chante faux, est-ce que je peux progresser ?', answer: '<strong>Absolument !</strong> La justesse se travaille. Avec des exercices adaptés, de la pratique et un bon accompagnement, tout le monde peut améliorer sa justesse vocale.', tint: 'bento-tint-primary-light' },
+  { id: 3, question: 'À quelle fréquence prendre des cours ?', answer: 'L\'idéal est <strong>1 cours toutes les 2 semaines minimum</strong>, avec de la pratique entre les cours. Un cours par semaine permet une progression encore plus rapide.', tint: 'bento-tint-accent' },
+  { id: 4, question: 'Puis-je choisir les morceaux que je travaille ?', answer: '<strong>Oui !</strong> Nous travaillons sur des morceaux qui vous plaisent, en respectant votre niveau et vos objectifs. Le plaisir est essentiel.', tint: 'bento-tint-teal' },
+  { id: 5, question: 'Quelle est la durée d\'un cours ? Y a-t-il un cours d\'essai ?', answer: 'Un <strong>cours individuel</strong> dure <strong>1 heure</strong>. Cours d\'essai : première séance <strong>1 h 30</strong> (1 h payante + 30 min offertes). Aucun engagement.', tint: 'bento-tint-primary' },
+  { id: 6, question: 'Y a-t-il un âge minimum ou maximum ?', answer: '<strong>Aucune limite d\'âge !</strong> J\'accompagne enfants, adolescents, adultes et seniors. L\'enseignement s\'adapte à chaque âge.', tint: 'bento-tint-accent' },
 ]
 
-function FaqCard({ item }: { item: typeof faqItems[0] }) {
-  const [open, setOpen] = useState(false)
-  return (
-    <div className={`faq-bento-card glass-panel-rose ${item.tint} rounded-2xl relative overflow-hidden`} role="listitem">
-      <button type="button" className="faq-bento-trigger" aria-expanded={open} onClick={() => setOpen(!open)}>
-        <span>{item.q}</span>
-        <span className={`faq-bento-icon material-symbols-outlined ${open ? 'rotate-180' : ''} transition-transform duration-250`} aria-hidden="true">expand_more</span>
-      </button>
-      <div className="faq-bento-panel" style={{ maxHeight: open ? '320px' : '0' }}>
-        <div className="faq-bento-panel-inner" dangerouslySetInnerHTML={{ __html: item.a }} />
-      </div>
-    </div>
-  )
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: stripHtml(item.answer),
+    },
+  })),
 }
 
 export default function CoursChantPage() {
   return (
     <main className="flex-1 overflow-y-auto relative" role="main">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <section className="hero-overlay relative h-screen overflow-hidden flex items-center pt-20 sm:pt-24 pb-12" aria-label="Hero">
         <div className="w-full max-w-5xl mx-auto px-4 md:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
           <div className="flex flex-col items-start gap-6 sm:gap-10">

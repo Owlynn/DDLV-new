@@ -4,15 +4,48 @@ import Link from 'next/link'
 import SocialBar from '@/components/SocialBar'
 import { Heart, Mic, Calendar, Sparkles, GraduationCap, User, Palette, Music, Target, BookOpen, Briefcase, Users, PenLine, Mic2, CalendarDays, MessageCircle, ArrowRight } from 'lucide-react'
 
+const title = 'Jessalynn | Professeur de Chant Certifié & Coach Vocal Toulouse'
+const description = 'Rencontrez Jessalynn, professeur de chant certifié à Toulouse depuis 10 ans. Formée à l\'approche Chant Voix et Corps d\'Emmanuelle Trinquesse. Spécialisée en improvisation vocale, circlesongs et technique vocale.'
+const url = 'https://donnerdelavoix.fr/about'
+
 export const metadata: Metadata = {
-  title: 'Jessalynn | Professeur de Chant Certifié & Coach Vocal Toulouse',
-  description: 'Rencontrez Jessalynn, professeur de chant certifié à Toulouse depuis 10 ans. Formée à l\'approche Chant Voix et Corps d\'Emmanuelle Trinquesse. Spécialisée en improvisation vocale, circlesongs et technique vocale.',
-  alternates: { canonical: 'https://donnerdelavoix.fr/about' },
+  title,
+  description,
+  alternates: { canonical: url },
+  openGraph: { title, description, url },
+  twitter: { title, description },
+}
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Jessalynn Choby',
+  jobTitle: 'Professeur de chant certifié & coach vocal',
+  description,
+  url,
+  worksFor: {
+    '@type': 'LocalBusiness',
+    name: 'Donner de la Voix',
+    url: 'https://donnerdelavoix.fr',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Toulouse',
+    addressCountry: 'FR',
+  },
+  sameAs: [
+    'https://www.instagram.com/donnerdelavoixchant/',
+    'https://www.facebook.com/donnerdelavoix',
+  ],
 }
 
 export default function AboutPage() {
   return (
     <main className="flex-1 overflow-y-auto relative" role="main">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
       <section className="hero-overlay relative h-screen overflow-hidden flex items-center pt-20 sm:pt-24 pb-12 md:pb-12" aria-label="Hero">
         <div className="w-full max-w-5xl mx-auto px-4 md:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
           <div className="flex flex-col items-start gap-6 sm:gap-10">

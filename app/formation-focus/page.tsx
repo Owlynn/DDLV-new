@@ -18,10 +18,16 @@ import {
   ExternalLink,
 } from 'lucide-react'
 
+const metaTitle = 'Formation Focus | Formation co-improvisation et circlesong | Toulouse'
+const metaDescription = 'Formation Focus : neuf mois pour développer sa technique, sa présence et son écoute du collectif en improvisation vocale, jusqu\'à un spectacle final. Toulouse, octobre 2026 → juin 2027.'
+const metaUrl = 'https://donnerdelavoix.fr/formation-focus'
+
 export const metadata: Metadata = {
-  title: 'Formation Focus | Formation co-improvisation et circlesong | Toulouse',
-  description: 'Formation Focus : neuf mois pour développer sa technique, sa présence et son écoute du collectif en improvisation vocale, jusqu\'à un spectacle final. Toulouse, octobre 2026 → juin 2027.',
-  alternates: { canonical: 'https://donnerdelavoix.fr/formation-focus' },
+  title: metaTitle,
+  description: metaDescription,
+  alternates: { canonical: metaUrl },
+  openGraph: { title: metaTitle, description: metaDescription, url: metaUrl },
+  twitter: { title: metaTitle, description: metaDescription },
 }
 
 const piliers = [

@@ -27,10 +27,8 @@ export default function HomePage() {
     const s2 = slide2Ref.current
     if (!s1 || !s2) return
 
-    s1.innerHTML = phrases[0].html
-    s2.innerHTML = phrases[1].html
-    s1.classList.add('slide-in')
-    s2.classList.add('slide-wait')
+    // Initial text/classes are already server-rendered (see JSX below) so the
+    // <h1> has real content before hydration; nothing to set here on mount.
 
     const duration = 420
     const interval = setInterval(() => {
@@ -136,8 +134,16 @@ export default function HomePage() {
           <div className="lg:col-span-1 flex flex-col gap-4 sm:gap-6 items-center justify-center lg:items-start lg:justify-start lg:pl-8 lg:pr-4 xl:pl-12 xl:pr-8 min-w-0 w-full max-w-[100vw]">
             <div className="hero-rotating-track hero-rotating-wrap relative w-full text-center lg:text-left mx-auto lg:mx-0" aria-live="polite">
               <h1 className="hero-rotating-title font-bold leading-tight tracking-tighter text-white drop-shadow-2xl h-full min-h-[11rem] sm:min-h-[17rem] lg:min-h-[20rem] xl:min-h-[24rem] relative block">
-                <span ref={slide1Ref} className="hero-rotating-slide absolute left-0 right-0 top-0" />
-                <span ref={slide2Ref} className="hero-rotating-slide absolute left-0 right-0 top-0" />
+                <span
+                  ref={slide1Ref}
+                  className="hero-rotating-slide absolute left-0 right-0 top-0 slide-in"
+                  dangerouslySetInnerHTML={{ __html: phrases[0].html }}
+                />
+                <span
+                  ref={slide2Ref}
+                  className="hero-rotating-slide absolute left-0 right-0 top-0 slide-wait"
+                  dangerouslySetInnerHTML={{ __html: phrases[1].html }}
+                />
               </h1>
             </div>
 

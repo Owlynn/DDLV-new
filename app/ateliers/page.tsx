@@ -3,10 +3,16 @@ import SocialBar from '@/components/SocialBar'
 import AteliersFormatPanel from '@/components/AteliersFormatPanel'
 import WorkshopsSection from '@/components/WorkshopsSection'
 
+const title = 'Stages & Ateliers | Circlesongs & Improvisation Vocale | Toulouse'
+const description = 'Stages et ateliers de circlesongs et improvisation vocale à Toulouse avec Donner de la Voix. Tous niveaux bienvenus.'
+const url = 'https://donnerdelavoix.fr/ateliers'
+
 export const metadata: Metadata = {
-  title: 'Stages & Ateliers | Circlesongs & Improvisation Vocale | Toulouse',
-  description: 'Stages et ateliers de circlesongs et improvisation vocale à Toulouse avec Donner de la Voix. Tous niveaux bienvenus.',
-  alternates: { canonical: 'https://donnerdelavoix.fr/ateliers' },
+  title,
+  description,
+  alternates: { canonical: url },
+  openGraph: { title, description, url },
+  twitter: { title, description },
 }
 
 function sanitizeExtId(extId: unknown): string {

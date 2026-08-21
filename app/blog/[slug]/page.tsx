@@ -28,10 +28,26 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const post = await getPost(slug)
   if (!post) return {}
+  const title = `${post.title} | Blog Donner de la Voix`
+  const description = excerpt(post.content)
+  const url = `https://donnerdelavoix.fr/blog/${post.slug}`
   return {
-    title: `${post.title} | Blog Donner de la Voix`,
-    description: excerpt(post.content),
-    alternates: { canonical: `https://donnerdelavoix.fr/blog/${post.slug}` },
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: 'article',
+      publishedTime: post.published_at,
+      ...(post.cover_image ? { images: [{ url: post.cover_image }] } : {}),
+    },
+    twitter: {
+      title,
+      description,
+      ...(post.cover_image ? { images: [post.cover_image] } : {}),
+    },
   }
 }
 
@@ -54,7 +70,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {post.cover_image && (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={post.cover_image} alt="" className="w-full max-h-[420px] object-cover rounded-2xl mb-8" />
+          <img src={post.cover_image} alt={post.title} className="w-full max-h-[420px] object-cover rounded-2xl mb-8" />
         )}
 
         <div className="tiptap-editor" dangerouslySetInnerHTML={{ __html: post.content }} />

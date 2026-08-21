@@ -14,7 +14,6 @@ const IMAGES = [
   '/assets/atelier (7).jpg',
   '/assets/atelier (8).jpg',
   '/assets/atelier (9).jpg',
-  '/assets/atelierfocus.png',
 ]
 
 const DRIFTS = ['photo-bubble-float-1', 'photo-bubble-float-2', 'photo-bubble-float-3']
