@@ -73,12 +73,17 @@ export default function PostEditor({ post, onBack, onSaved }: Props) {
   async function handleCoverUpload(file: File) {
     setError('')
     setUploadingCover(true)
-    const ext = file.name.split('.').pop()
-    const path = `${crypto.randomUUID()}.${ext}`
-    const { error: uploadErr } = await supabase.storage.from('blog-covers').upload(path, file, { upsert: true })
-    if (uploadErr) { setError(uploadErr.message); setUploadingCover(false); return }
-    const { data } = supabase.storage.from('blog-covers').getPublicUrl(path)
-    setCoverImage(data.publicUrl)
+    const { data: { session } } = await supabase.auth.getSession()
+    const formData = new FormData()
+    formData.append('file', file)
+    const res = await fetch('/api/admin/blog-cover', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${session?.access_token ?? ''}` },
+      body: formData,
+    })
+    const body = await res.json()
+    if (!res.ok) { setError(body.error ?? 'Erreur inconnue'); setUploadingCover(false); return }
+    setCoverImage(body.url)
     setUploadingCover(false)
   }
 
