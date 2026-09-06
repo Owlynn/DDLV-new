@@ -163,7 +163,7 @@ export default function AboutPage() {
               <p className="m-0 text-sm">Libérer la créativité, casser les rigidités, créer de la connexion. Pas du team-building cliché—quelque chose de vraiment transformateur.</p>
             </div>
             <div className="bento-f-1x1 glass-panel-rose rounded-2xl overflow-hidden p-0 h-full min-h-[160px] border border-white/20">
-              <Image src="/assets/jessalynn-1.jpg" alt="Jessalynn" width={400} height={400} className="w-full h-full object-cover" />
+              <Image src="/assets/about-atelier-groupe.jpg" alt="Jessalynn animant un atelier de circlesong en groupe à Toulouse" width={400} height={400} className="w-full h-full object-cover" />
             </div>
             <div className="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
               <div className="bento-icon-wrap"><Users className="bento-icon" aria-hidden="true" /></div>

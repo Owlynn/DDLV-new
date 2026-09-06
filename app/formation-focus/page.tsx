@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
 import SocialBar from '@/components/SocialBar'
@@ -283,6 +284,22 @@ export default function FormationFocusPage() {
                 </div>
               )
             })}
+          </div>
+        </section>
+
+        <section className="mb-12 md:mb-16 scroll-mt-28">
+          <h2 className="section-title-bentos">En immersion</h2>
+          <p className="text-white/80 text-sm mb-4">Un aperçu de l&apos;ambiance en stage : écoute, mouvement, expression collective.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="rounded-2xl overflow-hidden border border-white/20 aspect-[4/5]">
+              <Image src="/assets/formation-focus-groupe-cercle.jpg" alt="Groupe en cercle pendant un stage de co-improvisation vocale et circlesong à Toulouse" width={600} height={750} className="w-full h-full object-cover" />
+            </div>
+            <div className="rounded-2xl overflow-hidden border border-white/20 aspect-[4/5]">
+              <Image src="/assets/formation-focus-impro-expressive.jpg" alt="Jessalynn guidant un exercice d'expression vocale en stage de circlesong" width={600} height={750} className="w-full h-full object-cover" />
+            </div>
+            <div className="rounded-2xl overflow-hidden border border-white/20 aspect-[4/5]">
+              <Image src="/assets/formation-focus-mouvement.jpg" alt="Jessalynn en mouvement pendant un exercice d'improvisation vocale" width={600} height={750} className="w-full h-full object-cover" />
+            </div>
           </div>
         </section>
 

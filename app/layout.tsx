@@ -40,9 +40,11 @@ const localBusinessJsonLd = {
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Toulouse',
+    postalCode: '31200',
     addressCountry: 'FR',
   },
   areaServed: 'Toulouse',
+  priceRange: '50€–75€',
   founder: {
     '@type': 'Person',
     name: 'Jessalynn Choby',

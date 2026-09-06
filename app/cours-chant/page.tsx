@@ -3,7 +3,7 @@ import Link from 'next/link'
 import SocialBar from '@/components/SocialBar'
 import FaqCard from '@/components/FaqCard'
 import { stripHtml } from '@/lib/text'
-import { Users, Mic, Briefcase, Music, Sparkles, Heart, Award, Target, Layers, Music2, Volume2, Wind, Activity, Smile, Sun, ListOrdered, MessageCircle, Shield, AlertTriangle, CheckCircle, Info, MapPin, User, Sliders, CalendarDays, Clock, Timer, Package, CreditCard, HelpCircle } from 'lucide-react'
+import { Users, Mic, Briefcase, Music, Sparkles, Heart, Award, Target, Layers, Music2, Volume2, Wind, Activity, Smile, Sun, ListOrdered, MessageCircle, Shield, AlertTriangle, CheckCircle, Info, MapPin, User, Sliders, CalendarDays, Clock, Timer, Package, CreditCard, HelpCircle, Flame } from 'lucide-react'
 
 const title = 'Cours de Chant à Toulouse | Coach Vocal Certifié'
 const description = "Cours de chant individuels à Toulouse (quartier Minimes) avec Jessalynn, coach vocal certifiée. Technique vocale, tous niveaux, cours d'essai possible."
@@ -24,6 +24,8 @@ const faqItems = [
   { id: 4, question: 'Puis-je choisir les morceaux que je travaille ?', answer: '<strong>Oui !</strong> Nous travaillons sur des morceaux qui vous plaisent, en respectant votre niveau et vos objectifs. Le plaisir est essentiel.', tint: 'bento-tint-teal' },
   { id: 5, question: 'Quelle est la durée d\'un cours ? Y a-t-il un cours d\'essai ?', answer: 'Un <strong>cours individuel</strong> dure <strong>1 heure</strong>. Cours d\'essai : première séance <strong>1 h 30</strong> (1 h payante + 30 min offertes). Aucun engagement.', tint: 'bento-tint-primary' },
   { id: 6, question: 'Y a-t-il un âge minimum ou maximum ?', answer: '<strong>Aucune limite d\'âge !</strong> J\'accompagne enfants, adolescents, adultes et seniors. L\'enseignement s\'adapte à chaque âge.', tint: 'bento-tint-accent' },
+  { id: 7, question: 'Qu\'est-ce que le belting, et est-ce dangereux pour la voix ?', answer: 'Le <strong>belting</strong> est une technique qui permet de chanter puissamment dans l\'aigu, en gardant la couleur de la voix de poitrine, sans crier. Bien travaillé progressivement avec un accompagnement adapté, il ne présente pas de risque particulier.', tint: 'bento-tint-teal' },
+  { id: 8, question: 'Quelle est la différence entre voix de poitrine, voix de tête et voix mixte ?', answer: '<strong>Voix de poitrine</strong> et <strong>voix de tête</strong> sont les deux registres naturels de la voix. La <strong>voix mixte</strong> permet de passer de l\'un à l\'autre sans rupture, en gardant puissance et couleur sur toute la <strong>tessiture</strong>.', tint: 'bento-tint-primary-light' },
 ]
 
 const faqJsonLd = {
@@ -52,11 +54,13 @@ export default function CoursChantPage() {
             <h1 className="text-[2rem] sm:text-[2.8rem] md:text-[4.6rem] lg:text-[5.6rem] font-bold tracking-tight text-white leading-tight">
               <span className="block">Cours de</span>
               <span className="hero-gradient-word block">chant</span>
+              <span className="block text-[1.3rem] sm:text-[1.6rem] md:text-[2rem] lg:text-[2.4rem] font-medium text-white/80 mt-1">à Toulouse</span>
             </h1>
             <nav className="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-3 w-full sm:w-auto" aria-label="Sommaire">
               {[
                 { href: '#pour-qui', label: 'Pour qui ?' },
                 { href: '#approche', label: 'Mon approche' },
+                { href: '#technique', label: 'Technique vocale' },
                 { href: '#benefices', label: 'Les bénéfices' },
                 { href: '#tarifs', label: 'Tarifs' },
                 { href: '#faq', label: 'FAQ' },
@@ -148,6 +152,42 @@ export default function CoursChantPage() {
                 <p className="m-0 text-sm">Ma méthode s&apos;adapte à <strong>vos</strong> besoins, pas l&apos;inverse.</p>
                 <Link href="/impro-vocale" className="btn-rdv self-start">Découvrir l&apos;impro vocale</Link>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="formats-bentos-section mb-12 md:mb-16 scroll-mt-28" id="technique">
+          <h2 className="section-title-bentos">Les techniques vocales travaillées</h2>
+          <div className="bento-formats-zone bento-formats-zone--content">
+            <div className="bento-f-1x1 glass-panel-rose bento-tint-primary p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div className="bento-icon-wrap"><Wind className="bento-icon" /></div>
+              <h3>Respiration &amp; soutien</h3>
+              <p className="m-0 text-sm">Respiration diaphragmatique et <strong>soutien vocal</strong> : la base de toute <strong>technique vocale</strong> solide.</p>
+            </div>
+            <div className="bento-f-1x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div className="bento-icon-wrap"><MapPin className="bento-icon" /></div>
+              <h3>Placement de la voix</h3>
+              <p className="m-0 text-sm">Trouver la bonne <strong>pose de voix</strong> pour chanter sans forcer ni fatiguer les cordes vocales.</p>
+            </div>
+            <div className="bento-f-1x1 glass-panel-rose bento-tint-teal p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div className="bento-icon-wrap"><Sliders className="bento-icon" /></div>
+              <h3>Voix de poitrine, de tête, voix mixte</h3>
+              <p className="m-0 text-sm">Identifier ses <strong>registres vocaux</strong> et apprendre à passer de l&apos;un à l&apos;autre sans rupture.</p>
+            </div>
+            <div className="bento-f-1x1 glass-panel-rose bento-tint-primary-light p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div className="bento-icon-wrap"><Flame className="bento-icon" /></div>
+              <h3>Belting</h3>
+              <p className="m-0 text-sm">Chanter puissant dans l&apos;aigu sans crier : le <strong>belting</strong> se travaille progressivement, à votre rythme.</p>
+            </div>
+            <div className="bento-f-1x1 glass-panel-rose bento-tint-accent p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div className="bento-icon-wrap"><Shield className="bento-icon" /></div>
+              <h3>Hygiène &amp; prévention vocale</h3>
+              <p className="m-0 text-sm">Préserver sa voix sur le long terme, en particulier pour les <strong>professions vocales</strong> (enseignants, comédiens).</p>
+            </div>
+            <div className="bento-f-2x1 glass-panel-rose bento-tint-mix p-6 rounded-2xl flex flex-col gap-2 relative overflow-hidden bento-content-glass">
+              <div className="bento-icon-wrap"><Heart className="bento-icon" /></div>
+              <h3>La technique au service de l&apos;interprétation</h3>
+              <p className="m-0 text-sm">Respiration, placement, belting, voix mixte : ces outils ne sont jamais une fin en soi. Ils sont là pour se mettre au service de <strong>l&apos;interprétation</strong> et de <strong>l&apos;émotion</strong> à transmettre.</p>
             </div>
           </div>
         </section>

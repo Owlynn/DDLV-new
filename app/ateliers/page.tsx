@@ -159,6 +159,9 @@ export default async function AteliersPage() {
             { src: '/assets/atelier%20(1).jpeg', alt: 'Atelier d\'improvisation vocale à Toulouse' },
             { src: '/assets/atelier%20(5).jpg',  alt: 'Cercle vocal en plein air' },
             { src: '/assets/atelier%20(2).jpeg', alt: 'Groupe en circlesong' },
+            { src: '/assets/ateliers-cercle-groupe.jpg', alt: 'Groupe en cercle pendant un atelier de co-improvisation vocale à Toulouse' },
+            { src: '/assets/ateliers-exercice-duo.jpg', alt: 'Exercice d\'écoute et de connexion vocale en binôme pendant un atelier' },
+            { src: '/assets/ateliers-expression-vocale.jpg', alt: 'Jessalynn en pleine expression vocale pendant un atelier d\'improvisation' },
           ].map(({ src, alt }) => (
             // eslint-disable-next-line @next/next/no-img-element
             <img key={src} src={src} alt={alt} className="w-full h-40 md:h-52 object-cover rounded-2xl" loading="lazy" />
