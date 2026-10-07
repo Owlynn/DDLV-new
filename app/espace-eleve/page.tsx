@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase-client'
+import { homePathFor } from '@/lib/student-access'
 import SocialBar from '@/components/SocialBar'
 import { LogIn, Send } from 'lucide-react'
 
@@ -18,7 +19,7 @@ export default function EspaceElevePage() {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) router.push('/admin')
+      if (session) homePathFor(session.user.id).then(path => router.push(path))
     })
   }, [router])
 
@@ -26,13 +27,13 @@ export default function EspaceElevePage() {
     e.preventDefault()
     setError('')
     setLoading(true)
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) {
       setError(error.message)
       setLoading(false)
       return
     }
-    router.push('/admin')
+    router.push(await homePathFor(data.user.id))
   }
 
   async function handleForgotSubmit(e: React.FormEvent) {

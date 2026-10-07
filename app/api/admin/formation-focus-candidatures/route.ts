@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server'
-import { requireUser } from '@/lib/supabase-admin'
+import { requireAdmin } from '@/lib/supabase-admin'
 
 const TALLY_FORM_ID = '2EydxM'
 
 export async function GET(req: Request) {
-  const caller = await requireUser(req)
+  const caller = await requireAdmin(req)
   if (!caller) return NextResponse.json({ error: 'Non autorisé' }, { status: 401 })
 
   const apiKey = process.env.TALLY_API_KEY

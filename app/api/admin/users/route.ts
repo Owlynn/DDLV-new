@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server'
-import { getSupabaseAdmin, requireUser } from '@/lib/supabase-admin'
+import { getSupabaseAdmin, requireAdmin } from '@/lib/supabase-admin'
 
 export async function GET(req: Request) {
-  const caller = await requireUser(req)
+  const caller = await requireAdmin(req)
   if (!caller) return NextResponse.json({ error: 'Non autorisé' }, { status: 401 })
 
   const admin = getSupabaseAdmin()
@@ -23,7 +23,7 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-  const caller = await requireUser(req)
+  const caller = await requireAdmin(req)
   if (!caller) return NextResponse.json({ error: 'Non autorisé' }, { status: 401 })
 
   const body = await req.json().catch(() => null)

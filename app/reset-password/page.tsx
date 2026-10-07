@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase-client'
+import { homePathFor } from '@/lib/student-access'
 import SocialBar from '@/components/SocialBar'
 import { KeyRound } from 'lucide-react'
 
@@ -50,11 +51,12 @@ export default function ResetPasswordPage() {
     if (password !== confirmPassword) { setError('Les mots de passe ne correspondent pas.'); return }
 
     setLoading(true)
-    const { error } = await supabase.auth.updateUser({ password })
+    const { data, error } = await supabase.auth.updateUser({ password })
     setLoading(false)
     if (error) { setError(error.message); return }
     setDone(true)
-    setTimeout(() => router.push('/admin'), 1500)
+    const path = await homePathFor(data.user.id)
+    setTimeout(() => router.push(path), 1500)
   }
 
   return (

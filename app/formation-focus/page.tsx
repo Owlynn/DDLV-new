@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
 import SocialBar from '@/components/SocialBar'
+import { dotColors, legend, calendarMonths, dayLabels, buildMonthCells } from '@/lib/formation-focus'
 import {
   Layers,
   Heart,
@@ -95,82 +96,6 @@ const rythme = [
     tint: 'bento-tint-primary-light',
   },
 ]
-
-const dotColors: Record<string, string> = {
-  mercredi: '#5ec8d8',
-  weekend: '#8b6ec0',
-  soiree: '#f0a830',
-  rendu: '#e8789c',
-}
-
-const legend = [
-  { type: 'mercredi', label: 'Mercredi' },
-  { type: 'weekend', label: 'Week-end' },
-  { type: 'soiree', label: 'Soirée publique' },
-  { type: 'rendu', label: 'Rendu devoir' },
-]
-
-const events: Record<string, string> = {
-  '2026-10-07': 'mercredi', '2026-10-21': 'mercredi',
-  '2026-10-24': 'weekend', '2026-10-25': 'weekend',
-  '2026-10-16': 'rendu',
-
-  '2026-11-04': 'mercredi', '2026-11-18': 'mercredi',
-  '2026-11-02': 'soiree',
-  '2026-11-13': 'rendu', '2026-11-27': 'rendu',
-
-  '2026-12-16': 'mercredi',
-  '2026-12-19': 'weekend', '2026-12-20': 'weekend',
-  '2026-12-18': 'rendu',
-
-  '2027-01-06': 'mercredi', '2027-01-20': 'mercredi',
-  '2027-01-15': 'rendu', '2027-01-29': 'rendu',
-
-  '2027-02-17': 'mercredi',
-  '2027-02-13': 'weekend', '2027-02-14': 'weekend',
-  '2027-02-15': 'soiree',
-  '2027-02-12': 'rendu', '2027-02-26': 'rendu',
-
-  '2027-03-03': 'mercredi', '2027-03-17': 'mercredi', '2027-03-31': 'mercredi',
-  '2027-03-12': 'rendu', '2027-03-26': 'rendu',
-
-  '2027-04-28': 'mercredi',
-  '2027-04-17': 'weekend', '2027-04-18': 'weekend',
-  '2027-04-09': 'rendu', '2027-04-23': 'rendu',
-
-  '2027-05-05': 'mercredi', '2027-05-19': 'mercredi',
-  '2027-05-17': 'soiree',
-  '2027-05-14': 'rendu', '2027-05-28': 'rendu',
-
-  '2027-06-09': 'mercredi',
-  '2027-06-12': 'weekend', '2027-06-13': 'weekend',
-}
-
-const calendarMonths: [number, number, string][] = [
-  [2026, 9, 'Octobre 2026'],
-  [2026, 10, 'Novembre 2026'],
-  [2026, 11, 'Décembre 2026'],
-  [2027, 0, 'Janvier 2027'],
-  [2027, 1, 'Février 2027'],
-  [2027, 2, 'Mars 2027'],
-  [2027, 3, 'Avril 2027'],
-  [2027, 4, 'Mai 2027'],
-  [2027, 5, 'Juin 2027'],
-]
-
-const dayLabels = ['L', 'M', 'M', 'J', 'V', 'S', 'D']
-
-function buildMonthCells(year: number, monthIdx: number) {
-  const daysInMonth = new Date(year, monthIdx + 1, 0).getDate()
-  const startOffset = (new Date(year, monthIdx, 1).getDay() + 6) % 7
-  const cells: { day: number | null; type?: string }[] = []
-  for (let i = 0; i < startOffset; i++) cells.push({ day: null })
-  for (let d = 1; d <= daysInMonth; d++) {
-    const key = `${year}-${String(monthIdx + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`
-    cells.push({ day: d, type: events[key] })
-  }
-  return cells
-}
 
 const prerequis = [
   { icon: '🥁', text: 'Savoir tenir une pulse' },

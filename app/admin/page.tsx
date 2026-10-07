@@ -6,6 +6,7 @@ import { supabase } from '@/lib/supabase-client'
 import PostEditor, { type Post } from '@/components/admin/PostEditor'
 import type { User } from '@supabase/supabase-js'
 import { STUDENT_TAGS, type StudentTagKey } from '@/lib/student-tags'
+import { getMyTags } from '@/lib/student-access'
 
 type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'formation-focus'
 
@@ -55,8 +56,9 @@ export default function AdminPage() {
 
   /* ── Auth ── */
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (!session) { router.push('/espace-eleve'); return }
+      if (!(await getMyTags(session.user.id)).includes('admin')) { router.replace('/eleve'); return }
       setUser(session.user)
       setAuthLoading(false)
       loadStats()

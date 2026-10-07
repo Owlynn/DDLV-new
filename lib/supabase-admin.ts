@@ -20,3 +20,11 @@ export async function requireUser(req: Request): Promise<User | null> {
   if (error || !data.user) return null
   return data.user
 }
+
+/** Comme requireUser, mais exige en plus l'étiquette "admin" dans student_tags. */
+export async function requireAdmin(req: Request): Promise<User | null> {
+  const user = await requireUser(req)
+  if (!user) return null
+  const { data } = await getSupabaseAdmin().from('student_tags').select('tags').eq('user_id', user.id).maybeSingle()
+  return (data?.tags ?? []).includes('admin') ? user : null
+}

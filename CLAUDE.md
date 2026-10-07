@@ -19,8 +19,6 @@ No test runner is configured.
 
 ## TODO (prochaine session)
 
-- **Dashboard élève** — page dédiée pour les comptes élèves (distincte de `/admin`). Implique de distinguer l'accès : `/admin` ne doit être accessible qu'aux comptes admin (via l'étiquette "Admin" de `student_tags`), les autres comptes authentifiés doivent être redirigés vers le dashboard élève.
-- **Gérer les autorisations d'accès aux pages en fonction des tags** — logique de garde générale basée sur `student_tags` (pas seulement admin/élève : potentiellement restreindre l'accès à certaines pages selon Cours/Formation/Ateliers aussi).
 - **Vérifier que l'invitation élève fonctionne** de bout en bout en conditions réelles (un vrai élève reçoit l'email Resend, clique le lien, arrive sur `/reset-password`, définit son mot de passe, accède à son espace).
 - **Formulaire infos élève** — permettre à l'élève de renseigner nom, prénom, adresse et numéro de téléphone (probablement une nouvelle table Postgres liée à `auth.users.id`, sur le même modèle que `student_tags`).
 - **Créer le blog** — page(s) publique(s) affichant les articles publiés depuis la table `posts` (aujourd'hui seul `/admin` → Blog permet de les créer/éditer, rien ne les affiche encore sur le site).
@@ -42,8 +40,9 @@ No test runner is configured.
 - `app/offre-entreprise/page.tsx` — offre entreprise
 - `app/espace-eleve/page.tsx` — espace élève (connexion + mot de passe oublié)
 - `app/reset-password/page.tsx` — définir un nouveau mot de passe (lien reçu par email : reset ou invitation)
-- `app/admin/page.tsx` — admin (dashboard, blog, gestion des élèves, candidatures Formation Focus)
-- `app/formation-focus/page.tsx` — page de la formation longue "Formation Focus" (co-improvisation vocale & circlesong)
+- `app/admin/page.tsx` — admin (dashboard, blog, gestion des élèves, candidatures Formation Focus). Réservé aux comptes étiquetés `admin` ; les autres sont renvoyés vers `/eleve`.
+- `app/eleve/` — espace élève : `layout.tsx` (sidebar, garde de session, contexte `useStudent()` depuis `components/eleve/StudentContext.tsx`), `page.tsx` (accueil), `formation-focus/page.tsx` (dates, suivi des séances, devoirs — étiquette `focus2026-2027`). Les pages et l’étiquette requise sont déclarées dans `lib/student-pages.ts` (menu + garde d’accès ; un admin voit tout).
+- `app/formation-focus/page.tsx` — page de la formation longue "Formation Focus" (co-improvisation vocale & circlesong) ; son calendrier (dates, devoirs) vient de `lib/formation-focus.ts`, partagé avec l’espace élève
 - `app/mentions-legales/page.tsx` — mentions légales
 - `app/layout.tsx` — root layout (header, footer, global styles)
 
@@ -59,15 +58,15 @@ No test runner is configured.
 ### Backend / API
 
 - `app/api/billetweb/route.ts` — Next.js Route Handler, proxy to BilletWeb API. Reads `BILLETWEB_USER_ID`, `BILLETWEB_API_KEY` from environment variables. The API key must never be exposed client-side. (A legacy duplicate used to live at the repo-root `api/billetweb.js` — that top-level `/api` directory alongside Next.js App Router API routes caused Vercel to misroute all `/api/*` traffic through it in production; it has been removed.)
-- `app/api/admin/users/route.ts`, `app/api/admin/users/[id]/route.ts` — Next.js Route Handlers wrapping the Supabase Admin API (list/invite/delete auth users, for the "Élèves" tab in `/admin`). Use `lib/supabase-admin.ts` (server-only client built with `SUPABASE_SECRET_KEY`) — never import it from a `'use client'` file. Every handler verifies the caller's Supabase session via the `Authorization: Bearer <access_token>` header before touching the Admin API; there is no separate admin role, so any authenticated `/espace-eleve` account can manage students (accounts are only created by invite, no public signup).
-- `app/api/admin/formation-focus-candidatures/route.ts` — Route Handler proxying the Tally API (`GET /forms/{formId}/submissions`) to list responses to the Formation Focus application form ([tally.so/r/2EydxM](https://tally.so/r/2EydxM), linked from `/formation-focus`), for the "Candidatures Formation Focus" tab in `/admin`. Reads `TALLY_API_KEY` (server-only). Same `requireUser` session check as the users routes.
+- `app/api/admin/users/route.ts`, `app/api/admin/users/[id]/route.ts` — Next.js Route Handlers wrapping the Supabase Admin API (list/invite/delete auth users, for the "Élèves" tab in `/admin`). Use `lib/supabase-admin.ts` (server-only client built with `SUPABASE_SECRET_KEY`) — never import it from a `'use client'` file. Every handler verifies the caller's Supabase session via the `Authorization: Bearer <access_token>` header before touching the Admin API, then `requireAdmin` checks the caller has the `admin` tag in `student_tags` (accounts are only created by invite, no public signup).
+- `app/api/admin/formation-focus-candidatures/route.ts` — Route Handler proxying the Tally API (`GET /forms/{formId}/submissions`) to list responses to the Formation Focus application form ([tally.so/r/2EydxM](https://tally.so/r/2EydxM), linked from `/formation-focus`), for the "Candidatures Formation Focus" tab in `/admin`. Reads `TALLY_API_KEY` (server-only). Same `requireAdmin` check as the users routes.
 
 ### Auth (Supabase)
 
 - `lib/supabase-client.ts` — browser client (publishable key, safe to expose).
 - Login (`/espace-eleve`) is email/password only — no signup form. Accounts are created by an admin inviting a student from `/admin` → Élèves, which sends a Supabase invite email.
 - Both the "forgot password" email and the invite email redirect to `/reset-password`, which detects the recovery/invite session Supabase establishes on load and lets the user set a password via `updateUser`.
-- `public.student_tags` (Postgres table, RLS: any `authenticated` user can select/insert/update — see `grant select, insert, update on public.student_tags to authenticated;`) — `user_id uuid` (FK to `auth.users`, `on delete cascade`) + `tags text[]`. Queried directly client-side (like `posts`, no API route needed). Tag definitions (key/label/color) live in `lib/student-tags.ts` — add a new tag there and it appears automatically as a toggle pill in `/admin` → Élèves.
+- `public.student_tags` (Postgres table, RLS from `supabase/migrations/20261007_student_tags_admin_rls.sql`: a user reads only their own row; admins — via the `public.is_admin()` function — read and write all rows) — `user_id uuid` (FK to `auth.users`, `on delete cascade`) + `tags text[]`. Queried directly client-side (like `posts`, no API route needed). After login, `lib/student-access.ts` (`homePathFor`) sends admins to `/admin` and everyone else to `/eleve`. Tag definitions (key/label/color) live in `lib/student-tags.ts` — add a new tag there and it appears automatically as a toggle pill in `/admin` → Élèves.
 
 ### Styles
 
