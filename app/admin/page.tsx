@@ -140,7 +140,9 @@ export default function AdminPage() {
   async function deleteStudent(id: string) {
     if (!window.confirm('Révoquer l\'accès de cet élève ?')) return
     const res = await fetch(`/api/admin/users/${id}`, { method: 'DELETE', headers: await authHeader() })
-    if (res.ok) setStudents(s => s.filter(st => st.id !== id))
+    if (res.ok) { setStudents(s => s.filter(st => st.id !== id)); return }
+    const body = await res.json().catch(() => null)
+    window.alert(`Suppression impossible : ${body?.error ?? `erreur ${res.status}`}`)
   }
 
   async function loadCandidatures() {

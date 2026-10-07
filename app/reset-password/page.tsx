@@ -21,10 +21,24 @@ export default function ResetPasswordPage() {
       if (event === 'PASSWORD_RECOVERY') setReady(true)
     })
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) setReady(true)
-      else setInvalid(true)
-    })
+    // Lien au format token_hash (modèles d'email personnalisés) : on vérifie le jeton ici,
+    // ce qui évite la redirection Supabase et les scanners de liens qui consomment le jeton.
+    const params = new URLSearchParams(window.location.search)
+    const tokenHash = params.get('token_hash')
+    const type = params.get('type')
+
+    if (tokenHash && (type === 'invite' || type === 'recovery')) {
+      supabase.auth.verifyOtp({ token_hash: tokenHash, type }).then(({ error }) => {
+        window.history.replaceState(null, '', '/reset-password')
+        if (error) setInvalid(true)
+        else setReady(true)
+      })
+    } else {
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session) setReady(true)
+        else setInvalid(true)
+      })
+    }
 
     return () => listener.subscription.unsubscribe()
   }, [])
