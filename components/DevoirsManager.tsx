@@ -62,6 +62,13 @@ export default function DevoirsManager({ contexte, userId, canEdit, depotUrl }: 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { load() }, [contexte])
 
+  // Élève : son groupe (fiche élève), pour savoir où déposer son rendu
+  const [monGroupe, setMonGroupe] = useState<string | null | undefined>(undefined) // undefined = pas encore chargé
+  useEffect(() => {
+    if (!userId) return
+    fetchFiches().then(map => setMonGroupe(map.get(userId)?.groupe ?? null))
+  }, [userId])
+
   // Admin : emails des élèves pour afficher qui a rendu
   useEffect(() => {
     if (!canEdit) return
@@ -127,15 +134,32 @@ export default function DevoirsManager({ contexte, userId, canEdit, depotUrl }: 
         )}
       </div>
 
-      {depotUrl && (
-        <a href={depotUrl} target="_blank" rel="noopener noreferrer" className="hover:bg-white/10" style={{ ...card, display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem 1.25rem', marginBottom: '1.5rem', color: '#fff', textDecoration: 'none', transition: 'background 0.15s' }}>
-          <span className="material-symbols-outlined" style={{ fontSize: 26, color: contexte ? tagInfo(contexte).color : '#cf3594', flexShrink: 0 }}>add_to_drive</span>
-          <span style={{ flex: 1, minWidth: 0 }}>
-            <span style={{ display: 'block', fontSize: '0.95rem', fontWeight: 600 }}>Déposer mes enregistrements</span>
-            <span style={{ display: 'block', fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)', marginTop: '0.15rem' }}>Le dossier Google Drive partagé du groupe</span>
-          </span>
-          <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'rgba(255,255,255,0.45)' }}>open_in_new</span>
-        </a>
+      {(userId || depotUrl) && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
+          {userId && monGroupe !== undefined && (
+            <div style={{ ...card, flex: '1 1 220px', display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem 1.25rem' }}>
+              <span className="material-symbols-outlined" style={{ fontSize: 26, color: '#8e5bd8', flexShrink: 0 }}>groups</span>
+              <span style={{ minWidth: 0 }}>
+                <span style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.4)' }}>Mon groupe</span>
+                {monGroupe
+                  ? <span style={{ display: 'block', fontSize: '1.05rem', fontWeight: 600, marginTop: '0.15rem' }}>{monGroupe}</span>
+                  : <span style={{ display: 'block', fontSize: '0.85rem', color: 'rgba(255,255,255,0.55)', marginTop: '0.15rem' }}>Pas encore attribué</span>}
+              </span>
+            </div>
+          )}
+          {depotUrl && (
+            <a href={depotUrl} target="_blank" rel="noopener noreferrer" className="hover:bg-white/10" style={{ ...card, flex: '2 1 300px', display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem 1.25rem', color: '#fff', textDecoration: 'none', transition: 'background 0.15s' }}>
+              <span className="material-symbols-outlined" style={{ fontSize: 26, color: contexte ? tagInfo(contexte).color : '#cf3594', flexShrink: 0 }}>add_to_drive</span>
+              <span style={{ flex: 1, minWidth: 0 }}>
+                <span style={{ display: 'block', fontSize: '0.95rem', fontWeight: 600 }}>Déposer mes enregistrements</span>
+                <span style={{ display: 'block', fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)', marginTop: '0.15rem' }}>
+                  Le dossier Google Drive partagé du groupe
+                </span>
+              </span>
+              <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'rgba(255,255,255,0.45)' }}>open_in_new</span>
+            </a>
+          )}
+        </div>
       )}
 
       {!contexte && (
@@ -265,7 +289,15 @@ export default function DevoirsManager({ contexte, userId, canEdit, depotUrl }: 
               </>
             ) : (
               <>
-                <span style={{ flex: 1 }}><StatusBadge devoir={opened} today={today} /></span>
+                <span style={{ flex: 1, display: 'inline-flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.5rem' }}>
+                  <StatusBadge devoir={opened} today={today} />
+                  {monGroupe && (
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.72rem', padding: '0.2rem 0.6rem', borderRadius: 999, color: '#b89aec', border: '1px solid rgba(142,91,216,0.5)', background: 'rgba(142,91,216,0.15)', whiteSpace: 'nowrap' }}>
+                      <span className="material-symbols-outlined" style={{ fontSize: 14 }}>groups</span>
+                      {monGroupe}
+                    </span>
+                  )}
+                </span>
                 {depotUrl && hasContent(opened) && (
                   <a href={depotUrl} target="_blank" rel="noopener noreferrer" style={{ ...btnGhost, textDecoration: 'none' }}>
                     <span className="material-symbols-outlined" style={{ fontSize: 17 }}>add_to_drive</span>
