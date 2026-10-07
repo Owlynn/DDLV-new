@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase-client'
 import { card } from '@/components/eleve/ui'
-import { Modal, Field, FilterPill, IconButton, input, btnAccent, btnGhost, th, td } from '@/components/ManagerUI'
+import { Modal, Field, FilterPill, IconButton, ExerciceDetail, ConfirmDialog, RowActions, rowActionsWidth, type ConfirmRequest, input, btnAccent, btnGhost, th, td } from '@/components/ManagerUI'
 import { formatDay, todayKey } from '@/lib/formation-focus'
 import { STUDENT_TAGS, type StudentTagKey } from '@/lib/student-tags'
-import { EXERCICE_COLUMNS, SUIVI_CONTEXTES, tagInfo, type Exercice, type SuiviContexte, type SuiviSeance } from '@/lib/suivi'
+import { EXERCICE_COLUMNS, SUIVI_CONTEXTES, fetchNotions, notionLabels, tagInfo, type Exercice, type Notion, type SuiviContexte, type SuiviSeance } from '@/lib/suivi'
 
 type Draft = Omit<SuiviSeance, 'id'> & { id?: string }
 
@@ -23,6 +23,7 @@ export default function SuiviSeancesManager({ contexte, canEdit }: { contexte?: 
 
   const [seances, setSeances] = useState<SuiviSeance[]>([])
   const [exercices, setExercices] = useState<Exercice[]>([])
+  const [notions, setNotions] = useState<Map<string, Notion>>(new Map())
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [filter, setFilter] = useState<SuiviContexte | 'all'>('all')
@@ -30,6 +31,7 @@ export default function SuiviSeancesManager({ contexte, canEdit }: { contexte?: 
   const [openedId, setOpenedId] = useState<string | null>(null)
   const opened = seances.find(s => s.id === openedId) ?? null
   const [openedExoId, setOpenedExoId] = useState<string | null>(null)
+  const [confirmReq, setConfirmReq] = useState<ConfirmRequest | null>(null)
   const openedExo = exercices.find(e => e.id === openedExoId) ?? null
 
   async function load() {
@@ -43,17 +45,24 @@ export default function SuiviSeancesManager({ contexte, canEdit }: { contexte?: 
     if (s.error || e.error) setError((s.error ?? e.error)!.message)
     setSeances((s.data ?? []) as SuiviSeance[])
     setExercices((e.data ?? []) as Exercice[])
+    fetchNotions().then(list => setNotions(new Map(list.map(n => [n.id, n]))))
     setLoading(false)
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { load() }, [contexte])
 
-  async function remove(id: string) {
-    if (!window.confirm('Supprimer ce récap de séance ?')) return
-    const { error } = await supabase.from('suivi_seances').delete().eq('id', id)
-    if (error) { window.alert(`Suppression impossible : ${error.message}`); return }
-    setSeances(s => s.filter(x => x.id !== id))
+  function askRemove(s: SuiviSeance) {
+    setConfirmReq({
+      title: 'Supprimer ce récap ?',
+      message: `Le récap de la séance du ${formatDay(s.date, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })} sera définitivement supprimé.\nLes exercices restent dans la bibliothèque.`,
+      onConfirm: async () => {
+        const { error } = await supabase.from('suivi_seances').delete().eq('id', s.id)
+        if (error) { setError(`Suppression impossible : ${error.message}`); return }
+        setOpenedId(null)
+        setSeances(list => list.filter(x => x.id !== s.id))
+      },
+    })
   }
 
   const shown = filter === 'all' ? seances : seances.filter(s => s.contexte === filter)
@@ -100,7 +109,7 @@ export default function SuiviSeancesManager({ contexte, canEdit }: { contexte?: 
                 {!contexte && <th className="hidden md:table-cell" style={{ ...th, width: '8rem' }}>Contexte</th>}
                 <th style={th}>Récap</th>
                 <th className="hidden sm:table-cell" style={{ ...th, width: '7.5rem' }}>Exercices</th>
-                <th style={{ ...th, width: '2.5rem' }} aria-label="Ouvrir" />
+                <th style={{ ...th, width: rowActionsWidth(isAdmin) }} aria-label="Actions" />
               </tr>
             </thead>
             <tbody>
@@ -129,8 +138,8 @@ export default function SuiviSeancesManager({ contexte, canEdit }: { contexte?: 
                     <td className="hidden sm:table-cell" style={{ ...td, color: 'rgba(255,255,255,0.55)' }}>
                       {nbExos ? `${nbExos} exercice${nbExos > 1 ? 's' : ''}` : '—'}
                     </td>
-                    <td style={{ ...td, textAlign: 'right', color: 'rgba(255,255,255,0.35)' }}>
-                      <span className="material-symbols-outlined" style={{ fontSize: 18, verticalAlign: 'middle' }}>chevron_right</span>
+                    <td style={{ ...td, textAlign: 'right', padding: '0.5rem 0.75rem' }}>
+                      <RowActions onDelete={isAdmin ? () => askRemove(s) : undefined} deleteTitle="Supprimer ce récap" />
                     </td>
                   </tr>
                 )
@@ -143,7 +152,7 @@ export default function SuiviSeancesManager({ contexte, canEdit }: { contexte?: 
       {/* Modale d'exercice : remplace celle de la séance, qui réapparaît à la fermeture */}
       {opened && openedExo && !draft && (
         <Modal title={openedExo.titre} subtitle="Exercice" onClose={() => setOpenedExoId(null)}>
-          <ExerciceDetail exercice={openedExo} />
+          <ExerciceDetail exercice={openedExo} notions={notionLabels(openedExo, notions)} />
           <button type="button" onClick={() => setOpenedExoId(null)} style={{ ...btnGhost, marginTop: '1.5rem' }}>
             <span className="material-symbols-outlined" style={{ fontSize: 17 }}>arrow_back</span>
             Retour à la séance
@@ -172,8 +181,8 @@ export default function SuiviSeancesManager({ contexte, canEdit }: { contexte?: 
                       <span style={{ color: tagInfo(opened.contexte).color, fontWeight: 600 }}>{i + 1}.</span>
                       <span style={{ flex: 1, minWidth: 0 }}>
                         <span style={{ display: 'block', fontWeight: 500 }}>{e.titre}</span>
-                        {e.notions_objectifs && (
-                          <span style={{ display: 'block', color: 'rgba(255,255,255,0.5)', marginTop: '0.15rem', fontSize: '0.78rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{e.notions_objectifs}</span>
+                        {notionLabels(e, notions).length > 0 && (
+                          <span style={{ display: 'block', color: 'rgba(255,255,255,0.5)', marginTop: '0.15rem', fontSize: '0.78rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{notionLabels(e, notions).join(' · ')}</span>
                         )}
                       </span>
                       <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'rgba(255,255,255,0.35)' }}>chevron_right</span>
@@ -189,7 +198,7 @@ export default function SuiviSeancesManager({ contexte, canEdit }: { contexte?: 
               <span style={{ flex: 1, fontSize: '0.72rem', color: 'rgba(255,255,255,0.4)' }}>
                 Visible par : {opened.etiquettes.length ? opened.etiquettes.map(t => tagInfo(t).label).join(', ') : 'admins uniquement'}
               </span>
-              <button onClick={() => remove(opened.id)} style={{ ...btnGhost, color: '#f87171', borderColor: 'rgba(248,113,113,0.35)' }}>
+              <button onClick={() => askRemove(opened)} style={{ ...btnGhost, color: '#f87171', borderColor: 'rgba(248,113,113,0.35)' }}>
                 <span className="material-symbols-outlined" style={{ fontSize: 17 }}>delete</span>
                 Supprimer
               </button>
@@ -214,32 +223,14 @@ export default function SuiviSeancesManager({ contexte, canEdit }: { contexte?: 
           />
         </Modal>
       )}
+
+      {confirmReq && <ConfirmDialog request={confirmReq} onClose={() => setConfirmReq(null)} />}
     </div>
   )
 }
 
 function capitalize(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1)
-}
-
-function ExerciceDetail({ exercice }: { exercice: Exercice }) {
-  const sections = [
-    { label: 'Notions et objectifs', value: exercice.notions_objectifs },
-    { label: "Description de l'exercice", value: exercice.description },
-  ].filter(s => s.value?.trim())
-
-  if (!sections.length) return <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.4)', margin: 0 }}>Pas encore de détails pour cet exercice.</p>
-
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-      {sections.map(s => (
-        <section key={s.label}>
-          <div style={{ fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.35)', marginBottom: '0.45rem' }}>{s.label}</div>
-          <p style={{ fontSize: '0.92rem', lineHeight: 1.65, color: 'rgba(255,255,255,0.88)', whiteSpace: 'pre-wrap', margin: 0 }}>{s.value}</p>
-        </section>
-      ))}
-    </div>
-  )
 }
 
 function ContextePill({ contexte }: { contexte: string }) {

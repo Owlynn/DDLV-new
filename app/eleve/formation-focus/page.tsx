@@ -49,8 +49,8 @@ export default function FormationFocusElevePage() {
         <HighlightCard
           icon="assignment"
           label="Prochain devoir à rendre"
-          title={nextDevoir ? nextDevoir.label : 'Aucun devoir à venir'}
-          detail={nextDevoir ? `Pour le ${formatDay(nextDevoir.date)} · ${relative(daysUntil(nextDevoir.date, today))}` : undefined}
+          title={nextDevoir ? capitalize(formatDay(nextDevoir.date)) : 'Aucun devoir à venir'}
+          detail={nextDevoir ? capitalize(relative(daysUntil(nextDevoir.date, today))) : undefined}
           color={dotColors.rendu}
         />
         <div style={card}>
@@ -82,34 +82,18 @@ export default function FormationFocusElevePage() {
         })}
       </div>
 
-      {/* ── Devoirs ── */}
-      <SectionTitle>Devoirs à rendre</SectionTitle>
-      <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.8rem', margin: '-0.4rem 0 1rem', maxWidth: 640 }}>
-        Entre chaque séance, un exercice à réaliser avec un looper, à enregistrer et à déposer sur l'espace commun.
-      </p>
-      <div style={{ ...card, padding: 0, marginBottom: '2.5rem' }}>
-        {devoirs.map((d, i) => {
-          const past = d.date < today
-          const next = d === nextDevoir
-          const n = daysUntil(d.date, today)
-          return (
-            <div key={d.date} style={{ display: 'flex', alignItems: 'center', gap: '0.9rem', padding: '0.85rem 1.25rem', borderTop: i ? '1px solid rgba(255,255,255,0.06)' : 'none', background: next ? 'rgba(232,120,156,0.08)' : 'transparent', opacity: past ? 0.55 : 1 }}>
-              <span className="material-symbols-outlined" style={{ fontSize: 19, color: dotColors.rendu, flexShrink: 0 }}>{past ? 'task_alt' : 'assignment'}</span>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: '0.9rem', fontWeight: 500 }}>{d.label}</div>
-                {d.consigne && <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.65)', marginTop: '0.2rem' }}>{d.consigne}</div>}
-                <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)', marginTop: '0.15rem' }}>À rendre le {formatDay(d.date)}</div>
-              </div>
-              <StatusPill tone={past ? 'done' : next ? 'next' : 'todo'}>{past ? 'Échéance passée' : next ? relative(n) : 'À venir'}</StatusPill>
-            </div>
-          )
-        })}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
+        {[
+          { href: '/eleve/formation-focus/devoirs', icon: 'assignment', label: 'Voir les devoirs à rendre' },
+          { href: '/eleve/formation-focus/suivi', icon: 'history_edu', label: 'Voir le suivi des séances' },
+          { href: '/eleve/formation-focus/calendrier', icon: 'calendar_month', label: 'Voir le calendrier de formation' },
+        ].map(l => (
+          <Link key={l.href} href={l.href} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1.1rem', borderRadius: '0.75rem', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.8)', fontSize: '0.85rem', textDecoration: 'none' }}>
+            <span className="material-symbols-outlined" style={{ fontSize: 18 }}>{l.icon}</span>
+            {l.label}
+          </Link>
+        ))}
       </div>
-
-      <Link href="/eleve/formation-focus/calendrier" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1.1rem', borderRadius: '0.75rem', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.8)', fontSize: '0.85rem', textDecoration: 'none' }}>
-        <span className="material-symbols-outlined" style={{ fontSize: 18 }}>calendar_month</span>
-        Voir le calendrier de formation
-      </Link>
     </div>
   )
 }

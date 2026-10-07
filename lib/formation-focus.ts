@@ -5,6 +5,9 @@ export type FocusEventType = 'mercredi' | 'weekend' | 'soiree' | 'rendu'
 
 export const FOCUS_TAG = 'focus2026-2027'
 
+// Dossier Google Drive partagé où les élèves déposent leurs enregistrements de devoirs
+export const FOCUS_DRIVE_URL = 'https://drive.google.com/drive/folders/1UCjBKkOtYSDHMnGqHF6ht7wXVOgReibX?usp=sharing'
+
 export const dotColors: Record<FocusEventType, string> = {
   mercredi: '#5ec8d8',
   weekend: '#8b6ec0',
@@ -55,8 +58,6 @@ export const events: Record<string, FocusEventType> = {
   '2027-06-12': 'weekend', '2027-06-13': 'weekend',
 }
 
-// Consignes des devoirs, par date de rendu. Une date absente affiche simplement "Exercice n°X".
-export const devoirConsignes: Record<string, string> = {}
 
 export const calendarMonths: [number, number, string][] = [
   [2026, 9, 'Octobre 2026'],
@@ -113,7 +114,6 @@ export function getSessions(): FocusSession[] {
 export interface FocusDevoir {
   date: string
   label: string
-  consigne?: string
 }
 
 export function getDevoirs(): FocusDevoir[] {
@@ -121,7 +121,7 @@ export function getDevoirs(): FocusDevoir[] {
     .filter(([, t]) => t === 'rendu')
     .map(([date]) => date)
     .sort()
-    .map((date, i) => ({ date, label: `Exercice n°${i + 1}`, consigne: devoirConsignes[date] }))
+    .map((date, i) => ({ date, label: `Devoir n°${i + 1}` }))
 }
 
 function daysBetween(a: string, b: string) {
@@ -140,7 +140,7 @@ export function getAgenda(): FocusAgendaItem[] {
   for (const s of getSessions()) {
     s.dates.forEach((date, i) => items.push({ date, type: s.type, label: s.dates.length > 1 ? `${s.label} · jour ${i + 1}` : s.label }))
   }
-  for (const d of getDevoirs()) items.push({ date: d.date, type: 'rendu', label: `Rendu · ${d.label}` })
+  for (const d of getDevoirs()) items.push({ date: d.date, type: 'rendu', label: `Rendu du ${d.label.toLowerCase()}` })
   return items.sort((a, b) => a.date.localeCompare(b.date))
 }
 

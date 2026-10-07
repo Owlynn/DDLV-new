@@ -5,23 +5,15 @@ import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase-client'
 import PostEditor, { type Post } from '@/components/admin/PostEditor'
 import type { User } from '@supabase/supabase-js'
-import { STUDENT_TAGS, type StudentTagKey } from '@/lib/student-tags'
 import { getMyTags } from '@/lib/student-access'
 import SuiviSeancesManager from '@/components/SuiviSeancesManager'
 import ExercicesManager from '@/components/ExercicesManager'
+import DevoirsManager from '@/components/DevoirsManager'
+import ElevesManager from '@/components/ElevesManager'
 
-type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'suivi' | 'exercices' | 'formation-focus'
+type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'formation-focus'
 
 interface Stats { published: number; drafts: number }
-
-interface Student {
-  id: string
-  email: string | null
-  created_at: string
-  last_sign_in_at: string | null
-  confirmed_at: string | null
-  tags: StudentTagKey[]
-}
 
 interface CandidatureAnswer {
   label: string
@@ -47,10 +39,6 @@ export default function AdminPage() {
   const [stats, setStats] = useState<Stats>({ published: 0, drafts: 0 })
   const [posts, setPosts] = useState<Post[]>([])
   const [postsLoading, setPostsLoading] = useState(false)
-
-  const [students, setStudents] = useState<Student[]>([])
-  const [studentsLoading, setStudentsLoading] = useState(false)
-  const [studentsError, setStudentsError] = useState('')
 
   const [candidatures, setCandidatures] = useState<Candidature[]>([])
   const [candidaturesLoading, setCandidaturesLoading] = useState(false)
@@ -102,53 +90,6 @@ export default function AdminPage() {
     return { Authorization: `Bearer ${session?.access_token ?? ''}` }
   }
 
-  async function loadStudents() {
-    setStudentsLoading(true)
-    setStudentsError('')
-    try {
-      const [res, tagsRes] = await Promise.all([
-        fetch('/api/admin/users', { headers: await authHeader() }),
-        supabase.from('student_tags').select('user_id, tags'),
-      ])
-      const body = await res.json()
-      if (!res.ok) throw new Error(body.error ?? 'Erreur inconnue')
-      const tagMap = new Map((tagsRes.data ?? []).map(r => [r.user_id as string, (r.tags ?? []) as StudentTagKey[]]))
-      setStudents((body.users ?? []).map((u: Omit<Student, 'tags'>) => ({ ...u, tags: tagMap.get(u.id) ?? [] })))
-    } catch (e) {
-      setStudentsError(e instanceof Error ? e.message : 'Erreur inconnue')
-    }
-    setStudentsLoading(false)
-  }
-
-  async function toggleStudentTag(studentId: string, tagKey: StudentTagKey) {
-    const student = students.find(s => s.id === studentId)
-    if (!student) return
-    const newTags = student.tags.includes(tagKey)
-      ? student.tags.filter(t => t !== tagKey)
-      : [...student.tags, tagKey]
-    setStudents(s => s.map(st => st.id === studentId ? { ...st, tags: newTags } : st))
-    await supabase.from('student_tags').upsert({ user_id: studentId, tags: newTags, updated_at: new Date().toISOString() })
-  }
-
-  async function inviteStudent(email: string) {
-    const res = await fetch('/api/admin/users', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...(await authHeader()) },
-      body: JSON.stringify({ email }),
-    })
-    const body = await res.json()
-    if (!res.ok) throw new Error(body.error ?? 'Erreur inconnue')
-    loadStudents()
-  }
-
-  async function deleteStudent(id: string) {
-    if (!window.confirm('Révoquer l\'accès de cet élève ?')) return
-    const res = await fetch(`/api/admin/users/${id}`, { method: 'DELETE', headers: await authHeader() })
-    if (res.ok) { setStudents(s => s.filter(st => st.id !== id)); return }
-    const body = await res.json().catch(() => null)
-    window.alert(`Suppression impossible : ${body?.error ?? `erreur ${res.status}`}`)
-  }
-
   async function loadCandidatures() {
     setCandidaturesLoading(true)
     setCandidaturesError('')
@@ -171,7 +112,6 @@ export default function AdminPage() {
 
   function goToStudents() {
     setView('students')
-    loadStudents()
   }
 
   function goToCandidatures() {
@@ -190,11 +130,11 @@ export default function AdminPage() {
   }
 
   /* ── Sidebar nav ── */
-  function handleNav(target: 'dashboard' | 'blog' | 'students' | 'suivi' | 'exercices' | 'formation-focus') {
+  function handleNav(target: 'dashboard' | 'blog' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'formation-focus') {
     setSidebarOpen(false)
     if (target === 'blog') { goToBlog(); return }
     if (target === 'students') { goToStudents(); return }
-    if (target === 'suivi' || target === 'exercices') { setView(target); return }
+    if (target === 'suivi' || target === 'devoirs' || target === 'exercices') { setView(target); return }
     if (target === 'formation-focus') { goToCandidatures(); return }
     setView('dashboard')
   }
@@ -212,6 +152,7 @@ export default function AdminPage() {
     : view === 'blog' ? 'Blog'
     : view === 'students' ? 'Élèves'
     : view === 'suivi' ? 'Suivi des séances'
+    : view === 'devoirs' ? 'Devoirs à rendre'
     : view === 'exercices' ? 'Exercices'
     : view === 'formation-focus' ? 'Candidatures Formation Focus'
     : editingPost?.id ? "Modifier l'article"
@@ -258,10 +199,10 @@ export default function AdminPage() {
         </div>
 
         <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', flex: 1 }}>
-          {(['dashboard', 'blog', 'students', 'suivi', 'exercices', 'formation-focus'] as const).map(p => {
+          {(['dashboard', 'blog', 'students', 'suivi', 'devoirs', 'exercices', 'formation-focus'] as const).map(p => {
             const active = sidebarActive === p
-            const icon = p === 'dashboard' ? 'dashboard' : p === 'blog' ? 'article' : p === 'students' ? 'group' : p === 'suivi' ? 'history_edu' : p === 'exercices' ? 'library_music' : 'assignment_turned_in'
-            const label = p === 'dashboard' ? 'Dashboard' : p === 'blog' ? 'Blog' : p === 'students' ? 'Élèves' : p === 'suivi' ? 'Suivi des séances' : p === 'exercices' ? 'Exercices' : 'Candidatures Formation Focus'
+            const icon = p === 'dashboard' ? 'dashboard' : p === 'blog' ? 'article' : p === 'students' ? 'group' : p === 'suivi' ? 'history_edu' : p === 'devoirs' ? 'assignment' : p === 'exercices' ? 'library_music' : 'assignment_turned_in'
+            const label = p === 'dashboard' ? 'Dashboard' : p === 'blog' ? 'Blog' : p === 'students' ? 'Élèves' : p === 'suivi' ? 'Suivi des séances' : p === 'devoirs' ? 'Devoirs à rendre' : p === 'exercices' ? 'Exercices' : 'Candidatures Formation Focus'
             return (
               <button key={p} onClick={() => handleNav(p)} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', width: '100%', padding: '0.75rem 1rem', borderRadius: '0.75rem', border: 'none', background: active ? 'rgba(207,53,148,0.12)' : 'transparent', boxShadow: active ? 'inset 0 0 0 1px rgba(207,53,148,0.25)' : 'none', color: active ? '#cf3594' : 'rgba(255,255,255,0.6)', fontSize: '0.875rem', fontWeight: 500, letterSpacing: '0.02em', cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s', fontFamily: 'inherit' }}>
                 <span className="material-symbols-outlined" style={{ fontSize: 19, flexShrink: 0 }}>{icon}</span>
@@ -310,10 +251,13 @@ export default function AdminPage() {
             <BlogList posts={posts} loading={postsLoading} onNew={() => openEditor(null)} onEdit={openEditor} onDelete={deletePost} />
           )}
           {view === 'students' && (
-            <StudentsList students={students} loading={studentsLoading} error={studentsError} onInvite={inviteStudent} onDelete={deleteStudent} onToggleTag={toggleStudentTag} />
+            <ElevesManager />
           )}
           {view === 'suivi' && (
             <SuiviSeancesManager canEdit />
+          )}
+          {view === 'devoirs' && (
+            <DevoirsManager canEdit />
           )}
           {view === 'exercices' && (
             <ExercicesManager />
@@ -439,127 +383,6 @@ function PostRow({ post, onEdit, onDelete }: { post: Post; onEdit: (p: Post) => 
         <span className="material-symbols-outlined" style={{ fontSize: 18 }}>edit</span>
       </button>
       <button onClick={() => post.id && onDelete(post.id)} title="Supprimer" style={{ display: 'flex', padding: '0.3rem', border: 'none', background: 'transparent', color: 'rgba(248,113,113,0.5)', cursor: 'pointer', borderRadius: '0.5rem', flexShrink: 0 }}>
-        <span className="material-symbols-outlined" style={{ fontSize: 18 }}>delete</span>
-      </button>
-    </div>
-  )
-}
-
-/* ── Élèves ────────────────────────────────────────── */
-
-function StudentsList({ students, loading, error, onInvite, onDelete, onToggleTag }: {
-  students: Student[]
-  loading: boolean
-  error: string
-  onInvite: (email: string) => Promise<void>
-  onDelete: (id: string) => void
-  onToggleTag: (studentId: string, tagKey: StudentTagKey) => void
-}) {
-  const [email, setEmail] = useState('')
-  const [inviting, setInviting] = useState(false)
-  const [inviteError, setInviteError] = useState('')
-  const [inviteSuccess, setInviteSuccess] = useState('')
-
-  async function handleInvite(e: React.FormEvent) {
-    e.preventDefault()
-    setInviteError('')
-    setInviteSuccess('')
-    if (!email.trim()) return
-    setInviting(true)
-    try {
-      await onInvite(email.trim())
-      setInviteSuccess(`Invitation envoyée à ${email.trim()}.`)
-      setEmail('')
-    } catch (err) {
-      setInviteError(err instanceof Error ? err.message : 'Erreur inconnue')
-    }
-    setInviting(false)
-  }
-
-  return (
-    <div>
-      <div style={{ marginBottom: '2rem' }}>
-        <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#fff', marginBottom: '0.3rem' }}>Élèves</h2>
-        <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.85rem' }}>Invitez des élèves à créer leur compte. Ils ne peuvent pas s'inscrire seuls.</p>
-      </div>
-
-      <form onSubmit={handleInvite} style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '1rem', maxWidth: 520 }}>
-        <input
-          type="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          placeholder="Email de l'élève"
-          required
-          style={{ flex: 1, minWidth: 220, fontSize: '0.85rem', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.75rem', color: '#fff', padding: '0.625rem 1rem', outline: 'none', fontFamily: 'inherit' }}
-        />
-        <button type="submit" disabled={inviting} style={btnAccent}>
-          <span className="material-symbols-outlined" style={{ fontSize: 17 }}>send</span>
-          {inviting ? 'Envoi…' : 'Inviter'}
-        </button>
-      </form>
-      {inviteError && <p style={{ color: '#f87171', fontSize: '0.85rem', marginBottom: '1rem' }}>{inviteError}</p>}
-      {inviteSuccess && <p style={{ color: '#4db8aa', fontSize: '0.85rem', marginBottom: '1rem' }}>{inviteSuccess}</p>}
-
-      {loading ? (
-        <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.85rem' }}>Chargement…</p>
-      ) : error ? (
-        <p style={{ color: '#f87171', fontSize: '0.85rem' }}>{error}</p>
-      ) : students.length === 0 ? (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '4rem 2rem', textAlign: 'center', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1rem' }}>
-          <span className="material-symbols-outlined" style={{ fontSize: '3rem', color: 'rgba(255,255,255,0.18)', marginBottom: '1rem' }}>group</span>
-          <p style={{ color: 'rgba(255,255,255,0.35)' }}>Aucun élève invité pour le moment.</p>
-        </div>
-      ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-          {students.map(s => (
-            <StudentRow key={s.id} student={s} onDelete={onDelete} onToggleTag={onToggleTag} />
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
-
-function StudentRow({ student, onDelete, onToggleTag }: {
-  student: Student
-  onDelete: (id: string) => void
-  onToggleTag: (studentId: string, tagKey: StudentTagKey) => void
-}) {
-  const date = new Date(student.created_at).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' })
-  const active = !!student.confirmed_at
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.875rem 1.25rem', borderRadius: '0.875rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', flexWrap: 'wrap' }}>
-      <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'rgba(255,255,255,0.3)', flexShrink: 0 }}>person</span>
-      <span style={{ flex: 1, minWidth: 140, fontSize: '0.9rem', fontWeight: 500, color: 'rgba(255,255,255,0.85)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{student.email}</span>
-
-      <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap' }}>
-        {STUDENT_TAGS.map(tag => {
-          const on = student.tags.includes(tag.key)
-          return (
-            <button
-              key={tag.key}
-              onClick={() => onToggleTag(student.id, tag.key)}
-              title={on ? `Retirer l'étiquette ${tag.label}` : `Ajouter l'étiquette ${tag.label}`}
-              style={{
-                fontSize: '0.62rem', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600,
-                padding: '0.2rem 0.55rem', borderRadius: 999, cursor: 'pointer', fontFamily: 'inherit',
-                border: on ? `1px solid ${tag.color}` : '1px solid rgba(255,255,255,0.15)',
-                background: on ? `${tag.color}26` : 'transparent',
-                color: on ? tag.color : 'rgba(255,255,255,0.3)',
-                transition: 'all 0.15s',
-              }}
-            >
-              {tag.label}
-            </button>
-          )
-        })}
-      </div>
-
-      <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '0.15rem 0.6rem', borderRadius: 999, fontWeight: 600, flexShrink: 0, background: active ? 'rgba(77,184,170,0.2)' : 'rgba(255,255,255,0.1)', color: active ? '#4db8aa' : 'rgba(255,255,255,0.4)' }}>
-        {active ? 'Actif' : 'Invitation en attente'}
-      </span>
-      <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.3)', whiteSpace: 'nowrap', flexShrink: 0 }}>{date}</span>
-      <button onClick={() => onDelete(student.id)} title="Révoquer l'accès" style={{ display: 'flex', padding: '0.3rem', border: 'none', background: 'transparent', color: 'rgba(248,113,113,0.5)', cursor: 'pointer', borderRadius: '0.5rem', flexShrink: 0 }}>
         <span className="material-symbols-outlined" style={{ fontSize: 18 }}>delete</span>
       </button>
     </div>
