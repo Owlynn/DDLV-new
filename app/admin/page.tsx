@@ -7,8 +7,10 @@ import PostEditor, { type Post } from '@/components/admin/PostEditor'
 import type { User } from '@supabase/supabase-js'
 import { STUDENT_TAGS, type StudentTagKey } from '@/lib/student-tags'
 import { getMyTags } from '@/lib/student-access'
+import SuiviSeancesManager from '@/components/SuiviSeancesManager'
+import ExercicesManager from '@/components/ExercicesManager'
 
-type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'formation-focus'
+type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'suivi' | 'exercices' | 'formation-focus'
 
 interface Stats { published: number; drafts: number }
 
@@ -188,10 +190,11 @@ export default function AdminPage() {
   }
 
   /* ── Sidebar nav ── */
-  function handleNav(target: 'dashboard' | 'blog' | 'students' | 'formation-focus') {
+  function handleNav(target: 'dashboard' | 'blog' | 'students' | 'suivi' | 'exercices' | 'formation-focus') {
     setSidebarOpen(false)
     if (target === 'blog') { goToBlog(); return }
     if (target === 'students') { goToStudents(); return }
+    if (target === 'suivi' || target === 'exercices') { setView(target); return }
     if (target === 'formation-focus') { goToCandidatures(); return }
     setView('dashboard')
   }
@@ -208,6 +211,8 @@ export default function AdminPage() {
     view === 'dashboard' ? 'Dashboard'
     : view === 'blog' ? 'Blog'
     : view === 'students' ? 'Élèves'
+    : view === 'suivi' ? 'Suivi des séances'
+    : view === 'exercices' ? 'Exercices'
     : view === 'formation-focus' ? 'Candidatures Formation Focus'
     : editingPost?.id ? "Modifier l'article"
     : 'Nouvel article'
@@ -253,10 +258,10 @@ export default function AdminPage() {
         </div>
 
         <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', flex: 1 }}>
-          {(['dashboard', 'blog', 'students', 'formation-focus'] as const).map(p => {
+          {(['dashboard', 'blog', 'students', 'suivi', 'exercices', 'formation-focus'] as const).map(p => {
             const active = sidebarActive === p
-            const icon = p === 'dashboard' ? 'dashboard' : p === 'blog' ? 'article' : p === 'students' ? 'group' : 'assignment_turned_in'
-            const label = p === 'dashboard' ? 'Dashboard' : p === 'blog' ? 'Blog' : p === 'students' ? 'Élèves' : 'Candidatures Formation Focus'
+            const icon = p === 'dashboard' ? 'dashboard' : p === 'blog' ? 'article' : p === 'students' ? 'group' : p === 'suivi' ? 'history_edu' : p === 'exercices' ? 'library_music' : 'assignment_turned_in'
+            const label = p === 'dashboard' ? 'Dashboard' : p === 'blog' ? 'Blog' : p === 'students' ? 'Élèves' : p === 'suivi' ? 'Suivi des séances' : p === 'exercices' ? 'Exercices' : 'Candidatures Formation Focus'
             return (
               <button key={p} onClick={() => handleNav(p)} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', width: '100%', padding: '0.75rem 1rem', borderRadius: '0.75rem', border: 'none', background: active ? 'rgba(207,53,148,0.12)' : 'transparent', boxShadow: active ? 'inset 0 0 0 1px rgba(207,53,148,0.25)' : 'none', color: active ? '#cf3594' : 'rgba(255,255,255,0.6)', fontSize: '0.875rem', fontWeight: 500, letterSpacing: '0.02em', cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s', fontFamily: 'inherit' }}>
                 <span className="material-symbols-outlined" style={{ fontSize: 19, flexShrink: 0 }}>{icon}</span>
@@ -306,6 +311,12 @@ export default function AdminPage() {
           )}
           {view === 'students' && (
             <StudentsList students={students} loading={studentsLoading} error={studentsError} onInvite={inviteStudent} onDelete={deleteStudent} onToggleTag={toggleStudentTag} />
+          )}
+          {view === 'suivi' && (
+            <SuiviSeancesManager canEdit />
+          )}
+          {view === 'exercices' && (
+            <ExercicesManager />
           )}
           {view === 'formation-focus' && (
             <CandidaturesList candidatures={candidatures} loading={candidaturesLoading} error={candidaturesError} onRefresh={loadCandidatures} />

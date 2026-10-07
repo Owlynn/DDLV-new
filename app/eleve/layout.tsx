@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase-client'
 import { getMyTags } from '@/lib/student-access'
-import { STUDENT_PAGES, canAccess } from '@/lib/student-pages'
+import { STUDENT_PAGES, canAccess, findStudentPage } from '@/lib/student-pages'
 import { StudentContext, type StudentSession } from '@/components/eleve/StudentContext'
 
 export default function EleveLayout({ children }: { children: React.ReactNode }) {
@@ -22,8 +22,9 @@ export default function EleveLayout({ children }: { children: React.ReactNode })
   }, [router])
 
   const pages = session ? STUDENT_PAGES.filter(p => canAccess(p, session.tags)) : []
-  const current = STUDENT_PAGES.find(p => p.href === pathname)
-  const allowed = !current || (session && canAccess(current, session.tags))
+  const match = findStudentPage(pathname)
+  const allowed = !match || (session && canAccess(match.page, session.tags))
+  const title = match ? (match.parent ? `${match.parent.label} · ${match.page.label}` : match.page.label) : 'Espace élève'
 
   useEffect(() => {
     if (session && !allowed) router.replace('/eleve')
@@ -68,11 +69,31 @@ export default function EleveLayout({ children }: { children: React.ReactNode })
           <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', flex: 1 }}>
             {pages.map(p => {
               const active = pathname === p.href
-              return (
-                <Link key={p.href} href={p.href} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', width: '100%', padding: '0.75rem 1rem', borderRadius: '0.75rem', background: active ? 'rgba(207,53,148,0.12)' : 'transparent', boxShadow: active ? 'inset 0 0 0 1px rgba(207,53,148,0.25)' : 'none', color: active ? '#cf3594' : 'rgba(255,255,255,0.6)', fontSize: '0.875rem', fontWeight: 500, letterSpacing: '0.02em', textDecoration: 'none', transition: 'all 0.15s' }}>
+              const inSection = active || !!p.children?.some(c => c.href === pathname)
+              const headStyle: React.CSSProperties = { display: 'flex', alignItems: 'center', gap: '0.75rem', width: '100%', padding: '0.75rem 1rem', borderRadius: '0.75rem', background: active ? 'rgba(207,53,148,0.12)' : 'transparent', boxShadow: active ? 'inset 0 0 0 1px rgba(207,53,148,0.25)' : 'none', color: inSection ? '#cf3594' : 'rgba(255,255,255,0.6)', fontSize: '0.875rem', fontWeight: 500, letterSpacing: '0.02em', textDecoration: 'none', transition: 'all 0.15s' }
+              const head = (
+                <>
                   <span className="material-symbols-outlined" style={{ fontSize: 19, flexShrink: 0 }}>{p.icon}</span>
                   {p.label}
-                </Link>
+                </>
+              )
+              return (
+                <div key={p.href ?? p.label} style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
+                  {p.href ? <Link href={p.href} style={headStyle}>{head}</Link> : <div style={headStyle}>{head}</div>}
+                  {p.children && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem', marginLeft: '1.6rem', paddingLeft: '0.6rem', borderLeft: '1px solid rgba(255,255,255,0.1)' }}>
+                      {p.children.map(c => {
+                        const childActive = pathname === c.href
+                        return (
+                          <Link key={c.href} href={c.href} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', padding: '0.5rem 0.75rem', borderRadius: '0.6rem', background: childActive ? 'rgba(207,53,148,0.12)' : 'transparent', boxShadow: childActive ? 'inset 0 0 0 1px rgba(207,53,148,0.25)' : 'none', color: childActive ? '#cf3594' : 'rgba(255,255,255,0.5)', fontSize: '0.8rem', fontWeight: 500, textDecoration: 'none', transition: 'all 0.15s' }}>
+                            <span className="material-symbols-outlined" style={{ fontSize: 16, flexShrink: 0 }}>{c.icon}</span>
+                            {c.label}
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  )}
+                </div>
               )
             })}
             {session.tags.includes('admin') && (
@@ -103,7 +124,7 @@ export default function EleveLayout({ children }: { children: React.ReactNode })
             <button onClick={() => setSidebarOpen(true)} aria-label="Ouvrir le menu" className="md:hidden inline-flex -ml-1 p-1 border-0 bg-transparent text-white/70 cursor-pointer">
               <span className="material-symbols-outlined" style={{ fontSize: 22 }}>menu</span>
             </button>
-            <h1 style={{ fontSize: '1rem', fontWeight: 600, letterSpacing: '0.03em', color: 'rgba(255,255,255,0.9)', margin: 0 }}>{current?.label ?? 'Espace élève'}</h1>
+            <h1 style={{ fontSize: '1rem', fontWeight: 600, letterSpacing: '0.03em', color: 'rgba(255,255,255,0.9)', margin: 0 }}>{title}</h1>
           </div>
           <div className="p-4 md:p-8" style={{ flex: 1, overflow: 'auto' }}>
             {children}

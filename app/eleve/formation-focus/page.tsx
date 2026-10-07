@@ -1,24 +1,11 @@
 'use client'
 
 import { useMemo } from 'react'
+import Link from 'next/link'
 import {
-  buildMonthCells, calendarMonths, dayLabels, dotColors, legend,
-  getDevoirs, getSessions, type FocusSession,
+  dotColors, formatDay, getDevoirs, getSessions, parseDay, todayKey, type FocusSession,
 } from '@/lib/formation-focus'
-
-const todayKey = () => {
-  const d = new Date()
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
-}
-
-function parseDay(key: string) {
-  const [y, m, d] = key.split('-').map(Number)
-  return new Date(y, m - 1, d)
-}
-
-function formatDay(key: string, opts: Intl.DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long' }) {
-  return parseDay(key).toLocaleDateString('fr-FR', opts)
-}
+import { card, SectionTitle, StatusPill } from '@/components/eleve/ui'
 
 function formatSessionDates(s: FocusSession) {
   if (s.dates.length === 1) return formatDay(s.dates[0])
@@ -77,7 +64,7 @@ export default function FormationFocusElevePage() {
       </div>
 
       {/* ── Suivi des séances ── */}
-      <SectionTitle>Suivi des séances</SectionTitle>
+      <SectionTitle>Séances de l'année</SectionTitle>
       <div style={{ ...card, padding: 0, marginBottom: '2.5rem' }}>
         {sessions.map((s, i) => {
           const past = isPast(s)
@@ -119,56 +106,16 @@ export default function FormationFocusElevePage() {
         })}
       </div>
 
-      {/* ── Calendrier ── */}
-      <SectionTitle>Calendrier de l'année</SectionTitle>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem' }}>
-        {legend.map(l => (
-          <span key={l.type} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)' }}>
-            <span style={{ width: 9, height: 9, borderRadius: '50%', background: dotColors[l.type] }} />
-            {l.label}
-          </span>
-        ))}
-      </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))', gap: '1rem' }}>
-        {calendarMonths.map(([year, monthIdx, label]) => (
-          <div key={label} style={{ ...card, padding: '1rem' }}>
-            <div style={{ fontSize: '0.8rem', fontWeight: 600, marginBottom: '0.6rem' }}>{label}</div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 2, textAlign: 'center' }}>
-              {dayLabels.map((d, i) => (
-                <span key={i} style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.3)', paddingBottom: 4 }}>{d}</span>
-              ))}
-              {buildMonthCells(year, monthIdx).map((cell, i) => {
-                const key = cell.day ? `${year}-${String(monthIdx + 1).padStart(2, '0')}-${String(cell.day).padStart(2, '0')}` : ''
-                const isToday = key === today
-                return (
-                  <span key={i} style={{ position: 'relative', fontSize: '0.7rem', lineHeight: '24px', height: 24, borderRadius: 6, color: cell.type ? '#fff' : 'rgba(255,255,255,0.4)', fontWeight: cell.type ? 600 : 400, background: cell.type ? `${dotColors[cell.type]}40` : 'transparent', boxShadow: isToday ? 'inset 0 0 0 1px #cf3594' : 'none' }}>
-                    {cell.day ?? ''}
-                  </span>
-                )
-              })}
-            </div>
-          </div>
-        ))}
-      </div>
+      <Link href="/eleve/formation-focus/calendrier" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1.1rem', borderRadius: '0.75rem', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.8)', fontSize: '0.85rem', textDecoration: 'none' }}>
+        <span className="material-symbols-outlined" style={{ fontSize: 18 }}>calendar_month</span>
+        Voir le calendrier de formation
+      </Link>
     </div>
   )
 }
 
 function capitalize(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1)
-}
-
-const card: React.CSSProperties = {
-  borderRadius: '1rem',
-  padding: '1.5rem',
-  background: 'rgba(255,255,255,0.06)',
-  border: '1px solid rgba(255,255,255,0.12)',
-  backdropFilter: 'blur(20px)',
-  overflow: 'hidden',
-}
-
-function SectionTitle({ children }: { children: React.ReactNode }) {
-  return <h3 style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.35)', fontWeight: 500, marginBottom: '0.9rem' }}>{children}</h3>
 }
 
 function CardLabel({ icon, children }: { icon: string; children: React.ReactNode }) {
@@ -190,11 +137,3 @@ function HighlightCard({ icon, label, title, detail, color }: { icon: string; la
   )
 }
 
-function StatusPill({ tone, children }: { tone: 'done' | 'next' | 'todo'; children: React.ReactNode }) {
-  const styles = {
-    done: { color: 'rgba(255,255,255,0.45)', border: '1px solid rgba(255,255,255,0.15)', background: 'transparent' },
-    next: { color: '#cf3594', border: '1px solid rgba(207,53,148,0.5)', background: 'rgba(207,53,148,0.12)' },
-    todo: { color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.2)', background: 'rgba(255,255,255,0.04)' },
-  }[tone]
-  return <span style={{ ...styles, fontSize: '0.68rem', padding: '0.2rem 0.6rem', borderRadius: 999, whiteSpace: 'nowrap', flexShrink: 0 }}>{children}</span>
-}

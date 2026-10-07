@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useStudent } from '@/components/eleve/StudentContext'
-import { STUDENT_PAGES, canAccess } from '@/lib/student-pages'
+import { STUDENT_PAGES, canAccess, entryHref } from '@/lib/student-pages'
 
 export default function EleveHomePage() {
   const { tags } = useStudent()
@@ -22,7 +22,7 @@ export default function EleveHomePage() {
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1rem', maxWidth: 760 }}>
           {pages.map(p => (
-            <Link key={p.href} href={p.href} style={{ borderRadius: '1rem', padding: '1.5rem', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', backdropFilter: 'blur(20px)', color: '#fff', textDecoration: 'none', display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
+            <Link key={p.label} href={entryHref(p)!} style={{ borderRadius: '1rem', padding: '1.5rem', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', backdropFilter: 'blur(20px)', color: '#fff', textDecoration: 'none', display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
               <span className="material-symbols-outlined" style={{ fontSize: 26, color: '#cf3594' }}>{p.icon}</span>
               <span style={{ fontSize: '1.05rem', fontWeight: 600 }}>{p.label}</span>
             </Link>

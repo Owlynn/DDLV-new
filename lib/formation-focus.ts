@@ -78,8 +78,7 @@ export function buildMonthCells(year: number, monthIdx: number) {
   const cells: { day: number | null; type?: FocusEventType }[] = []
   for (let i = 0; i < startOffset; i++) cells.push({ day: null })
   for (let d = 1; d <= daysInMonth; d++) {
-    const key = `${year}-${String(monthIdx + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`
-    cells.push({ day: d, type: events[key] })
+    cells.push({ day: d, type: events[dateKey(year, monthIdx, d)] })
   }
   return cells
 }
@@ -127,4 +126,40 @@ export function getDevoirs(): FocusDevoir[] {
 
 function daysBetween(a: string, b: string) {
   return Math.round((Date.parse(b) - Date.parse(a)) / 86_400_000)
+}
+
+export interface FocusAgendaItem {
+  date: string
+  type: FocusEventType
+  label: string
+}
+
+/** Toutes les dates de la formation (séances jour par jour + rendus), triées. */
+export function getAgenda(): FocusAgendaItem[] {
+  const items: FocusAgendaItem[] = []
+  for (const s of getSessions()) {
+    s.dates.forEach((date, i) => items.push({ date, type: s.type, label: s.dates.length > 1 ? `${s.label} · jour ${i + 1}` : s.label }))
+  }
+  for (const d of getDevoirs()) items.push({ date: d.date, type: 'rendu', label: `Rendu · ${d.label}` })
+  return items.sort((a, b) => a.date.localeCompare(b.date))
+}
+
+/* ── Dates (clés 'YYYY-MM-DD' en heure locale) ── */
+
+export function dateKey(year: number, monthIdx: number, day: number) {
+  return `${year}-${String(monthIdx + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+}
+
+export function todayKey() {
+  const d = new Date()
+  return dateKey(d.getFullYear(), d.getMonth(), d.getDate())
+}
+
+export function parseDay(key: string) {
+  const [y, m, d] = key.split('-').map(Number)
+  return new Date(y, m - 1, d)
+}
+
+export function formatDay(key: string, opts: Intl.DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long' }) {
+  return parseDay(key).toLocaleDateString('fr-FR', opts)
 }
