@@ -30,7 +30,9 @@ export async function POST(req: Request) {
   const email = typeof body?.email === 'string' ? body.email.trim() : ''
   if (!email) return NextResponse.json({ error: 'Email requis' }, { status: 400 })
 
-  const origin = req.headers.get('origin') ?? new URL(req.url).origin
+  // URL fixe du site : le lien doit pointer vers la prod (autorisée dans Supabase → Redirect URLs),
+  // même si l'invitation part d'un déploiement de preview, de www. ou de localhost.
+  const origin = process.env.NEXT_PUBLIC_BASE_URL || 'https://donnerdelavoix.fr'
   const admin = getSupabaseAdmin()
   const { data, error } = await admin.auth.admin.inviteUserByEmail(email, {
     redirectTo: `${origin}/reset-password`,

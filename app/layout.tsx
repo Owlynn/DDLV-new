@@ -64,6 +64,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" />
         <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css" />
+        {/* Lien d'invitation / de réinitialisation arrivé sur une autre page (Supabase retombe sur
+            l'URL du site quand redirectTo n'est pas autorisé) : on renvoie vers /reset-password
+            avec le jeton, pour que l'élève choisisse son mot de passe. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var l=window.location;if(l.pathname==='/reset-password')return;var h=new URLSearchParams(l.hash.slice(1)),q=new URLSearchParams(l.search),t=h.get('type')||q.get('type');if(((h.get('access_token')||q.get('token_hash'))&&/^(invite|recovery|signup|magiclink)$/.test(t||''))||h.get('error_code')==='otp_expired'){l.replace('/reset-password'+l.search+l.hash)}}catch(e){}})();`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
