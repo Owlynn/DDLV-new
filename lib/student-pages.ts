@@ -16,6 +16,7 @@ export interface StudentPage {
 export const STUDENT_PAGES: StudentPage[] = [
   { href: '/eleve', label: 'Accueil', icon: 'home' },
   { href: '/eleve/infos', label: 'Mes informations', icon: 'badge' },
+  { href: '/eleve/paiements', label: 'Mes paiements', icon: 'payments' },
   {
     href: '/eleve/formation-focus', label: 'Formation Focus', icon: 'graphic_eq', tag: FOCUS_TAG,
     children: [
