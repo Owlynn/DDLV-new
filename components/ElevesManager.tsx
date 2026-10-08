@@ -62,7 +62,7 @@ export default function ElevesManager() {
   function askRemove(e: Eleve) {
     setConfirmReq({
       title: 'Supprimer cet élève ?',
-      message: `Le compte de ${fullName(e) || e.email} sera supprimé : il ne pourra plus se connecter.\nSa fiche, ses étiquettes et ses rendus de devoirs seront aussi supprimés.`,
+      message: `Le compte de ${fullName(e) || e.email} sera supprimé : il ne pourra plus se connecter.\nSa fiche, ses étiquettes et ses rendus de devoirs seront aussi supprimés.\nSes paiements sont conservés.`,
       onConfirm: async () => {
         const res = await fetch(`/api/admin/users/${e.id}`, { method: 'DELETE', headers: await authHeader() })
         if (!res.ok) {

@@ -1,4 +1,5 @@
 import type { SuiviContexte } from '@/lib/suivi'
+import { todayKey } from '@/lib/formation-focus'
 
 // Table public.paiements (voir supabase/migrations/20261008_paiements.sql) : une ligne par échéance.
 // Les admins gèrent tout ; un élève lit uniquement ses paiements (RLS).
@@ -26,7 +27,7 @@ export const MOYENS_PAIEMENT = ['Virement', 'Chèque', 'Espèces', 'CB'] as cons
 export type StatutPaiement = 'paye' | 'partiel' | 'en_attente' | 'en_retard'
 
 /** Statut calculé (non stocké) à partir des montants et de l'échéance. */
-export function statutPaiement(p: Paiement, today = new Date().toISOString().slice(0, 10)): StatutPaiement {
+export function statutPaiement(p: Paiement, today = todayKey()): StatutPaiement {
   const du = Number(p.montant_du)
   const paye = Number(p.montant_paye)
   if (paye >= du) return 'paye'

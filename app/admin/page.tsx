@@ -10,8 +10,9 @@ import SuiviSeancesManager from '@/components/SuiviSeancesManager'
 import ExercicesManager from '@/components/ExercicesManager'
 import DevoirsManager from '@/components/DevoirsManager'
 import ElevesManager from '@/components/ElevesManager'
+import PaiementsManager from '@/components/PaiementsManager'
 
-type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'formation-focus'
+type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'paiements' | 'formation-focus'
 
 interface Stats { published: number; drafts: number }
 
@@ -130,11 +131,11 @@ export default function AdminPage() {
   }
 
   /* ── Sidebar nav ── */
-  function handleNav(target: 'dashboard' | 'blog' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'formation-focus') {
+  function handleNav(target: 'dashboard' | 'blog' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'paiements' | 'formation-focus') {
     setSidebarOpen(false)
     if (target === 'blog') { goToBlog(); return }
     if (target === 'students') { goToStudents(); return }
-    if (target === 'suivi' || target === 'devoirs' || target === 'exercices') { setView(target); return }
+    if (target === 'suivi' || target === 'devoirs' || target === 'exercices' || target === 'paiements') { setView(target); return }
     if (target === 'formation-focus') { goToCandidatures(); return }
     setView('dashboard')
   }
@@ -154,6 +155,7 @@ export default function AdminPage() {
     : view === 'suivi' ? 'Suivi des séances'
     : view === 'devoirs' ? 'Devoirs à rendre'
     : view === 'exercices' ? 'Exercices'
+    : view === 'paiements' ? 'Paiements'
     : view === 'formation-focus' ? 'Candidatures Formation Focus'
     : editingPost?.id ? "Modifier l'article"
     : 'Nouvel article'
@@ -199,10 +201,10 @@ export default function AdminPage() {
         </div>
 
         <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', flex: 1 }}>
-          {(['dashboard', 'blog', 'students', 'suivi', 'devoirs', 'exercices', 'formation-focus'] as const).map(p => {
+          {(['dashboard', 'blog', 'students', 'suivi', 'devoirs', 'exercices', 'paiements', 'formation-focus'] as const).map(p => {
             const active = sidebarActive === p
-            const icon = p === 'dashboard' ? 'dashboard' : p === 'blog' ? 'article' : p === 'students' ? 'group' : p === 'suivi' ? 'history_edu' : p === 'devoirs' ? 'assignment' : p === 'exercices' ? 'library_music' : 'assignment_turned_in'
-            const label = p === 'dashboard' ? 'Dashboard' : p === 'blog' ? 'Blog' : p === 'students' ? 'Élèves' : p === 'suivi' ? 'Suivi des séances' : p === 'devoirs' ? 'Devoirs à rendre' : p === 'exercices' ? 'Exercices' : 'Candidatures Formation Focus'
+            const icon = p === 'dashboard' ? 'dashboard' : p === 'blog' ? 'article' : p === 'students' ? 'group' : p === 'suivi' ? 'history_edu' : p === 'devoirs' ? 'assignment' : p === 'exercices' ? 'library_music' : p === 'paiements' ? 'payments' : 'assignment_turned_in'
+            const label = p === 'dashboard' ? 'Dashboard' : p === 'blog' ? 'Blog' : p === 'students' ? 'Élèves' : p === 'suivi' ? 'Suivi des séances' : p === 'devoirs' ? 'Devoirs à rendre' : p === 'exercices' ? 'Exercices' : p === 'paiements' ? 'Paiements' : 'Candidatures Formation Focus'
             return (
               <button key={p} onClick={() => handleNav(p)} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', width: '100%', padding: '0.75rem 1rem', borderRadius: '0.75rem', border: 'none', background: active ? 'rgba(207,53,148,0.12)' : 'transparent', boxShadow: active ? 'inset 0 0 0 1px rgba(207,53,148,0.25)' : 'none', color: active ? '#cf3594' : 'rgba(255,255,255,0.6)', fontSize: '0.875rem', fontWeight: 500, letterSpacing: '0.02em', cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s', fontFamily: 'inherit' }}>
                 <span className="material-symbols-outlined" style={{ fontSize: 19, flexShrink: 0 }}>{icon}</span>
@@ -261,6 +263,9 @@ export default function AdminPage() {
           )}
           {view === 'exercices' && (
             <ExercicesManager />
+          )}
+          {view === 'paiements' && (
+            <PaiementsManager />
           )}
           {view === 'formation-focus' && (
             <CandidaturesList candidatures={candidatures} loading={candidaturesLoading} error={candidaturesError} onRefresh={loadCandidatures} />
