@@ -227,6 +227,19 @@ function EleveModal({ eleve, onClose, onDelete, onSaved }: {
   const [tags, setTags] = useState<StudentTagKey[]>(eleve.tags)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
+  const [resending, setResending] = useState(false)
+  const [resent, setResent] = useState('')
+
+  async function resend() {
+    setResending(true)
+    setError('')
+    setResent('')
+    const res = await fetch(`/api/admin/users/${eleve.id}`, { method: 'POST', headers: await authHeader() })
+    const body = await res.json().catch(() => null)
+    setResending(false)
+    if (!res.ok) { setError(body?.error ?? 'Erreur inconnue'); return }
+    setResent(body?.kind === 'invite' ? 'Invitation renvoyée.' : 'Lien pour définir un mot de passe envoyé.')
+  }
 
   const update = (patch: Partial<FicheEleve>) => setFiche(f => ({ ...f, ...patch }))
   const toggleTag = (key: StudentTagKey) => setTags(t => (t.includes(key) ? t.filter(x => x !== key) : [...t, key]))
@@ -278,6 +291,11 @@ function EleveModal({ eleve, onClose, onDelete, onSaved }: {
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.6rem', fontSize: '0.78rem', color: 'rgba(255,255,255,0.45)' }}>
           <StatusPill active={!!eleve.confirmed_at} />
           <span>Invité le {invitedOn}</span>
+          <button type="button" onClick={resend} disabled={resending} style={{ ...btnGhost, padding: '0.3rem 0.75rem', fontSize: '0.75rem' }}>
+            <span className="material-symbols-outlined" style={{ fontSize: 15 }}>forward_to_inbox</span>
+            {resending ? 'Envoi…' : eleve.confirmed_at ? 'Envoyer un lien de mot de passe' : "Renvoyer l'invitation"}
+          </button>
+          {resent && <span style={{ color: '#4db8aa' }}>{resent}</span>}
         </div>
 
         {error && <p style={{ color: '#f87171', fontSize: '0.85rem', margin: 0 }}>{error}</p>}
