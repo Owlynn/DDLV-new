@@ -3,20 +3,22 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { supabase } from '@/lib/supabase-client'
 import { card } from '@/components/eleve/ui'
-import { ConfirmDialog, type ConfirmRequest, input, btnAccent, btnDanger } from '@/components/ManagerUI'
+import { ConfirmDialog, IconButton, type ConfirmRequest, input, btnAccent, btnDanger, btnGhost } from '@/components/ManagerUI'
 import { FOCUS_SEANCE_COLUMNS, PILIERS, toFocusSeance, type FocusSeance, type PilierKey } from '@/lib/focus-seances'
+import { EXERCICE_COLUMNS, type Exercice } from '@/lib/suivi'
 
-// Onglet « Préparation des séances Focus » de /admin : une séance = une date + un thème + un texte par pilier.
+// Onglet « Préparation des séances Focus » de /admin : une séance = une date + un thème, et pour chaque pilier
+// un texte et des exercices de la bibliothèque (public.exercices).
 // Enregistrement automatique (debounce) dans focus_seances / focus_seance_piliers, tables réservées aux admins (RLS).
 
 type Champ = 'date' | 'theme' | PilierKey
 type SaveStatus = 'idle' | 'saving' | 'saved' | 'error'
 
-interface Modification {
-  seanceId: string
-  champ: Champ
-  valeur: string
-}
+type Modification =
+  | { seanceId: string; champ: Champ; valeur: string }
+  | { seanceId: string; champ: 'exercices'; pilier: PilierKey; valeur: string[] }
+
+const cleModification = (m: Modification) => (m.champ === 'exercices' ? `${m.seanceId}:exercices:${m.pilier}` : `${m.seanceId}:${m.champ}`)
 
 const DEBOUNCE_MS = 700
 
@@ -29,12 +31,14 @@ const PILIER_COLORS: Record<PilierKey, string> = {
   scene: '#cf3594',
 }
 
-async function enregistrer({ seanceId, champ, valeur }: Modification) {
-  const { data, error } = champ === 'date' || champ === 'theme'
-    ? await supabase.from('focus_seances').update({ [champ]: valeur }).eq('id', seanceId).select('id')
-    : await supabase.from('focus_seance_piliers')
-      .upsert({ seance_id: seanceId, pilier: champ, contenu: valeur }, { onConflict: 'seance_id,pilier' })
-      .select('id')
+async function enregistrer(m: Modification) {
+  // L'upsert ne touche que la colonne envoyée : le texte et les exercices d'un pilier s'enregistrent séparément
+  const pilier: Record<string, unknown> | null = m.champ === 'exercices'
+    ? { seance_id: m.seanceId, pilier: m.pilier, exercices: m.valeur }
+    : m.champ !== 'date' && m.champ !== 'theme' ? { seance_id: m.seanceId, pilier: m.champ, contenu: m.valeur } : null
+  const { data, error } = pilier
+    ? await supabase.from('focus_seance_piliers').upsert(pilier, { onConflict: 'seance_id,pilier' }).select('id')
+    : await supabase.from('focus_seances').update({ [m.champ]: m.valeur }).eq('id', m.seanceId).select('id')
   if (error) throw new Error(error.message)
   // Avec la RLS, un refus d'accès ne renvoie pas d'erreur mais aucune ligne
   if (!data?.length) throw new Error('séance introuvable ou accès refusé')
@@ -48,6 +52,7 @@ export default function FocusSeancesManager() {
   const [status, setStatus] = useState<SaveStatus>('idle')
   const [adding, setAdding] = useState(false)
   const [confirmReq, setConfirmReq] = useState<ConfirmRequest | null>(null)
+  const [exercices, setExercices] = useState<Exercice[]>([])
   const selected = seances.find(s => s.id === selectedId) ?? null
 
   // Dernière valeur en attente pour chaque champ de chaque séance
@@ -77,13 +82,17 @@ export default function FocusSeancesManager() {
 
   useEffect(() => {
     async function load() {
-      const { data, error } = await supabase.from('focus_seances').select(FOCUS_SEANCE_COLUMNS).order('ordre').order('created_at')
-      if (error) setError(`Chargement impossible : ${error.message}`)
-      else {
-        const list = (data ?? []).map(toFocusSeance)
+      const [s, e] = await Promise.all([
+        supabase.from('focus_seances').select(FOCUS_SEANCE_COLUMNS).order('ordre').order('created_at'),
+        supabase.from('exercices').select(EXERCICE_COLUMNS).order('titre'),
+      ])
+      if (s.error || e.error) setError(`Chargement impossible : ${(s.error ?? e.error)!.message}`)
+      if (!s.error) {
+        const list = (s.data ?? []).map(toFocusSeance)
         setSeances(list)
         setSelectedId(list[0]?.id ?? null)
       }
+      setExercices((e.data ?? []) as Exercice[])
       setLoading(false)
     }
     load()
@@ -101,16 +110,35 @@ export default function FocusSeancesManager() {
     }
   }, [flush])
 
+  function planifier(m: Modification, immediat = false) {
+    pending.current.set(cleModification(m), m)
+    setStatus('saving')
+    setError('')
+    if (timer.current) clearTimeout(timer.current)
+    if (immediat) flush()
+    else timer.current = setTimeout(flush, DEBOUNCE_MS)
+  }
+
   function modifier(seanceId: string, champ: Champ, valeur: string) {
     setSeances(list => list.map(s => {
       if (s.id !== seanceId) return s
       return champ === 'date' || champ === 'theme' ? { ...s, [champ]: valeur } : { ...s, piliers: { ...s.piliers, [champ]: valeur } }
     }))
-    pending.current.set(`${seanceId}:${champ}`, { seanceId, champ, valeur })
-    setStatus('saving')
-    setError('')
-    if (timer.current) clearTimeout(timer.current)
-    timer.current = setTimeout(flush, DEBOUNCE_MS)
+    planifier({ seanceId, champ, valeur })
+  }
+
+  // Ajout, retrait ou déplacement d'exercice : action ponctuelle, enregistrée tout de suite
+  function modifierExercices(seanceId: string, pilier: PilierKey, valeur: string[]) {
+    setSeances(list => list.map(s => (s.id === seanceId ? { ...s, exercices: { ...s.exercices, [pilier]: valeur } } : s)))
+    planifier({ seanceId, champ: 'exercices', pilier, valeur }, true)
+  }
+
+  async function creerExercice(titre: string): Promise<Exercice | null> {
+    const { data, error } = await supabase.from('exercices').insert({ titre }).select(EXERCICE_COLUMNS).single()
+    if (error || !data) { setError(`Création de l'exercice impossible : ${error?.message ?? 'erreur inconnue'}`); return null }
+    const exercice = data as Exercice
+    setExercices(list => [...list, exercice].sort((a, b) => a.titre.localeCompare(b.titre, 'fr')))
+    return exercice
   }
 
   async function ajouter() {
@@ -176,6 +204,9 @@ export default function FocusSeancesManager() {
             canDelete={seances.length > 1}
             onChange={(champ, valeur) => modifier(selected.id, champ, valeur)}
             onDelete={() => demanderSuppression(selected)}
+            exercices={exercices}
+            onExercicesChange={(pilier, ids) => modifierExercices(selected.id, pilier, ids)}
+            onCreateExercice={creerExercice}
           />
         </div>
       )}
@@ -260,12 +291,15 @@ function SeancesList({ seances, selectedId, onSelect }: { seances: FocusSeance[]
 
 const labelStyle: React.CSSProperties = { fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.45)' }
 
-function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete }: {
+function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exercices, onExercicesChange, onCreateExercice }: {
   seance: FocusSeance
   dateInputRef: React.RefObject<HTMLInputElement | null>
   canDelete: boolean
   onChange: (champ: Champ, valeur: string) => void
   onDelete: () => void
+  exercices: Exercice[]
+  onExercicesChange: (pilier: PilierKey, ids: string[]) => void
+  onCreateExercice: (titre: string) => Promise<Exercice | null>
 }) {
   const id = (champ: Champ) => `focus-seance-${champ}`
 
@@ -303,6 +337,14 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete }: {
                 onChange={v => onChange(p.key, v)}
                 accent={color}
               />
+              <ExercicesPilier
+                idBase={id(p.key)}
+                pilierLabel={p.label}
+                selection={seance.exercices[p.key] ?? []}
+                exercices={exercices}
+                onChange={ids => onExercicesChange(p.key, ids)}
+                onCreate={onCreateExercice}
+              />
             </li>
           )
         })}
@@ -316,6 +358,110 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete }: {
         </button>
       </div>
     </section>
+  )
+}
+
+/* ── Exercices d'un pilier : choix dans la bibliothèque ou création à la volée ── */
+
+function ExercicesPilier({ idBase, pilierLabel, selection, exercices, onChange, onCreate }: {
+  idBase: string
+  pilierLabel: string
+  selection: string[]
+  exercices: Exercice[]
+  onChange: (ids: string[]) => void
+  onCreate: (titre: string) => Promise<Exercice | null>
+}) {
+  const [creating, setCreating] = useState(false)
+  const [titre, setTitre] = useState('')
+  const [busy, setBusy] = useState(false)
+  const newInputRef = useRef<HTMLInputElement>(null)
+
+  const titreOf = (exId: string) => exercices.find(e => e.id === exId)?.titre ?? 'Exercice supprimé'
+  const available = exercices.filter(e => !selection.includes(e.id))
+
+  function move(index: number, delta: number) {
+    const list = [...selection]
+    const [item] = list.splice(index, 1)
+    list.splice(index + delta, 0, item)
+    onChange(list)
+  }
+
+  async function create() {
+    const t = titre.trim()
+    if (!t || busy) return
+    setBusy(true)
+    const ex = await onCreate(t)
+    setBusy(false)
+    if (!ex) return
+    onChange([...selection, ex.id])
+    setTitre('')
+    setCreating(false)
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+      {selection.length > 0 && (
+        <ol aria-label={`Exercices : ${pilierLabel}`} style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+          {selection.map((exId, i) => (
+            <li key={exId} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.35rem 0.6rem', borderRadius: '0.6rem', background: 'rgba(255,255,255,0.05)', fontSize: '0.85rem' }}>
+              <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16, color: 'rgba(255,255,255,0.35)' }}>library_music</span>
+              <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{titreOf(exId)}</span>
+              <IconButton icon="arrow_upward" title={`Monter « ${titreOf(exId)} »`} disabled={i === 0} onClick={() => move(i, -1)} />
+              <IconButton icon="arrow_downward" title={`Descendre « ${titreOf(exId)} »`} disabled={i === selection.length - 1} onClick={() => move(i, 1)} />
+              <IconButton icon="close" title={`Retirer « ${titreOf(exId)} »`} onClick={() => onChange(selection.filter(x => x !== exId))} />
+            </li>
+          ))}
+        </ol>
+      )}
+
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+        {available.length > 0 && (
+          <>
+            <label htmlFor={`${idBase}-ajout-exercice`} className="sr-only">Ajouter un exercice : {pilierLabel}</label>
+            <select
+              id={`${idBase}-ajout-exercice`}
+              value=""
+              onChange={e => e.target.value && onChange([...selection, e.target.value])}
+              style={{ ...input, flex: '1 1 220px', padding: '0.45rem 0.7rem', fontSize: '0.8rem' }}
+            >
+              <option value="" style={{ background: '#1a0b2e' }}>+ Ajouter un exercice…</option>
+              {available.map(e => <option key={e.id} value={e.id} style={{ background: '#1a0b2e' }}>{e.titre}</option>)}
+            </select>
+          </>
+        )}
+        {creating ? (
+          <div style={{ display: 'flex', gap: '0.5rem', flex: '1 1 260px' }}>
+            <label htmlFor={`${idBase}-nouvel-exercice`} className="sr-only">Titre du nouvel exercice : {pilierLabel}</label>
+            <input
+              ref={newInputRef}
+              id={`${idBase}-nouvel-exercice`}
+              value={titre}
+              onChange={e => setTitre(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === 'Enter') { e.preventDefault(); create() }
+                if (e.key === 'Escape') { setCreating(false); setTitre('') }
+              }}
+              placeholder="Titre du nouvel exercice"
+              autoComplete="off"
+              style={{ ...input, flex: 1, minWidth: 0, padding: '0.45rem 0.7rem', fontSize: '0.8rem' }}
+            />
+            <button type="button" onClick={create} disabled={!titre.trim() || busy} style={{ ...btnGhost, padding: '0.45rem 0.8rem', fontSize: '0.8rem', opacity: titre.trim() && !busy ? 1 : 0.4 }}>
+              {busy ? 'Création…' : 'Créer'}
+            </button>
+            <IconButton icon="close" title="Annuler" onClick={() => { setCreating(false); setTitre('') }} />
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={() => { setCreating(true); requestAnimationFrame(() => newInputRef.current?.focus()) }}
+            style={{ ...btnGhost, padding: '0.45rem 0.8rem', fontSize: '0.8rem' }}
+          >
+            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16 }}>add</span>
+            Nouvel exercice
+          </button>
+        )}
+      </div>
+    </div>
   )
 }
 

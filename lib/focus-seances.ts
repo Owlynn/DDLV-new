@@ -17,21 +17,26 @@ export interface FocusSeance {
   date: string
   theme: string
   ordre: number
-  piliers: Partial<Record<PilierKey, string>>
+  piliers: Partial<Record<PilierKey, string>> // texte de chaque pilier
+  exercices: Partial<Record<PilierKey, string[]>> // ids de public.exercices, dans l'ordre prévu
 }
 
-export const FOCUS_SEANCE_COLUMNS = 'id, date, theme, ordre, focus_seance_piliers (pilier, contenu)'
+export const FOCUS_SEANCE_COLUMNS = 'id, date, theme, ordre, focus_seance_piliers (pilier, contenu, exercices)'
 
 interface FocusSeanceRow {
   id: string
   date: string
   theme: string
   ordre: number
-  focus_seance_piliers: { pilier: PilierKey; contenu: string }[] | null
+  focus_seance_piliers: { pilier: PilierKey; contenu: string; exercices: string[] | null }[] | null
 }
 
 export function toFocusSeance(row: FocusSeanceRow): FocusSeance {
   const piliers: FocusSeance['piliers'] = {}
-  for (const p of row.focus_seance_piliers ?? []) piliers[p.pilier] = p.contenu
-  return { id: row.id, date: row.date, theme: row.theme, ordre: row.ordre, piliers }
+  const exercices: FocusSeance['exercices'] = {}
+  for (const p of row.focus_seance_piliers ?? []) {
+    piliers[p.pilier] = p.contenu
+    exercices[p.pilier] = p.exercices ?? []
+  }
+  return { id: row.id, date: row.date, theme: row.theme, ordre: row.ordre, piliers, exercices }
 }
