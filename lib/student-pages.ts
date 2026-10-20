@@ -21,7 +21,7 @@ export const STUDENT_PAGES: StudentPage[] = [
     href: '/eleve/formation-focus', label: 'Formation Focus', icon: 'graphic_eq', tag: FOCUS_TAG,
     children: [
       { href: '/eleve/formation-focus/calendrier', label: 'Calendrier', icon: 'calendar_month' },
-      { href: '/eleve/formation-focus/suivi', label: 'Suivi des séances', icon: 'history_edu' },
+      { href: '/eleve/formation-focus/seances', label: 'Séances', icon: 'event_note' },
       { href: '/eleve/formation-focus/devoirs', label: 'Devoirs à rendre', icon: 'assignment' },
     ],
   },

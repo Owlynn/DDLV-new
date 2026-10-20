@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/espace-eleve', '/admin'],
+      disallow: ['/espace-eleve', '/eleve', '/admin'],
     },
     sitemap: 'https://donnerdelavoix.fr/sitemap.xml',
   }

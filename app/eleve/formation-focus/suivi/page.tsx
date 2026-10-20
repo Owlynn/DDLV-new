@@ -1,7 +1,6 @@
-'use client'
+import { redirect } from 'next/navigation'
 
-import SuiviSeances from '@/components/eleve/SuiviSeances'
-
+// La Formation Focus n'a pas de « Suivi des séances » : ses élèves consultent les séances Focus.
 export default function Page() {
-  return <SuiviSeances contexte="focus2026-2027" />
+  redirect('/eleve/formation-focus/seances')
 }

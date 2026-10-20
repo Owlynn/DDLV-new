@@ -85,7 +85,7 @@ export default function FormationFocusElevePage() {
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
         {[
           { href: '/eleve/formation-focus/devoirs', icon: 'assignment', label: 'Voir les devoirs à rendre' },
-          { href: '/eleve/formation-focus/suivi', icon: 'history_edu', label: 'Voir le suivi des séances' },
+          { href: '/eleve/formation-focus/seances', icon: 'event_note', label: 'Voir les séances' },
           { href: '/eleve/formation-focus/calendrier', icon: 'calendar_month', label: 'Voir le calendrier de formation' },
         ].map(l => (
           <Link key={l.href} href={l.href} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1.1rem', borderRadius: '0.75rem', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.8)', fontSize: '0.85rem', textDecoration: 'none' }}>

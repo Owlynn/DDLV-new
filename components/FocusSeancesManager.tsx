@@ -5,12 +5,13 @@ import { supabase } from '@/lib/supabase-client'
 import { card } from '@/components/eleve/ui'
 import { ConfirmDialog, IconButton, Modal, type ConfirmRequest, input, btnAccent, btnDanger, btnGhost } from '@/components/ManagerUI'
 import { ExerciceForm } from '@/components/ExercicesManager'
-import { FOCUS_SEANCE_COLUMNS, PILIERS, toFocusSeance, type FocusSeance, type PilierKey } from '@/lib/focus-seances'
+import { FOCUS_SEANCE_ADMIN_COLUMNS, PILIERS, PILIER_COLORS, toFocusSeance, type FocusSeance, type PilierKey } from '@/lib/focus-seances'
 import { EXERCICE_COLUMNS, fetchNotions, type Exercice, type Notion } from '@/lib/suivi'
 
 // Onglet « Préparation des séances Focus » de /admin : une séance = une date + un thème, et pour chaque pilier
 // un texte et des exercices de la bibliothèque (public.exercices).
-// Enregistrement automatique (debounce) dans focus_seances / focus_seance_piliers, tables réservées aux admins (RLS).
+// Enregistrement automatique (debounce) dans focus_seances / focus_seance_piliers. Les admins gèrent tout (RLS) ;
+// une séance publiée est lisible par les élèves Focus (components/eleve/FocusSeancesEleve.tsx).
 
 type Champ = 'date' | 'theme' | PilierKey
 type SaveStatus = 'idle' | 'saving' | 'saved' | 'error'
@@ -18,28 +19,23 @@ type SaveStatus = 'idle' | 'saving' | 'saved' | 'error'
 type Modification =
   | { seanceId: string; champ: Champ; valeur: string }
   | { seanceId: string; champ: 'exercices'; pilier: PilierKey; valeur: string[] }
+  | { seanceId: string; champ: 'publiee'; valeur: boolean }
+  | { seanceId: string; champ: 'notes'; pilier: PilierKey; valeur: string }
 
-const cleModification = (m: Modification) => (m.champ === 'exercices' ? `${m.seanceId}:exercices:${m.pilier}` : `${m.seanceId}:${m.champ}`)
+const cleModification = (m: Modification) => (m.champ === 'exercices' || m.champ === 'notes' ? `${m.seanceId}:${m.champ}:${m.pilier}` : `${m.seanceId}:${m.champ}`)
 
 const DEBOUNCE_MS = 700
 
-// Couleurs de la marque, une par pilier
-const PILIER_COLORS: Record<PilierKey, string> = {
-  fondations: '#4db8c8',
-  posture: '#c46bb5',
-  collectif: '#e8789c',
-  autonome: '#8b6fd1',
-  scene: '#cf3594',
-}
-
 async function enregistrer(m: Modification) {
   // L'upsert ne touche que la colonne envoyée : le texte et les exercices d'un pilier s'enregistrent séparément
-  const pilier: Record<string, unknown> | null = m.champ === 'exercices'
-    ? { seance_id: m.seanceId, pilier: m.pilier, exercices: m.valeur }
-    : m.champ !== 'date' && m.champ !== 'theme' ? { seance_id: m.seanceId, pilier: m.champ, contenu: m.valeur } : null
-  const { data, error } = pilier
-    ? await supabase.from('focus_seance_piliers').upsert(pilier, { onConflict: 'seance_id,pilier' }).select('id')
-    : await supabase.from('focus_seances').update({ [m.champ]: m.valeur }).eq('id', m.seanceId).select('id')
+  const upsert = (table: string, row: Record<string, unknown>) =>
+    supabase.from(table).upsert({ seance_id: m.seanceId, ...row }, { onConflict: 'seance_id,pilier' }).select('id')
+  const { data, error } =
+    m.champ === 'notes' ? await upsert('focus_seance_notes', { pilier: m.pilier, notes: m.valeur })
+    : m.champ === 'exercices' ? await upsert('focus_seance_piliers', { pilier: m.pilier, exercices: m.valeur })
+    : m.champ === 'date' || m.champ === 'theme' || m.champ === 'publiee'
+      ? await supabase.from('focus_seances').update({ [m.champ]: m.valeur }).eq('id', m.seanceId).select('id')
+      : await upsert('focus_seance_piliers', { pilier: m.champ, contenu: m.valeur })
   if (error) throw new Error(error.message)
   // Avec la RLS, un refus d'accès ne renvoie pas d'erreur mais aucune ligne
   if (!data?.length) throw new Error('séance introuvable ou accès refusé')
@@ -86,7 +82,7 @@ export default function FocusSeancesManager() {
   useEffect(() => {
     async function load() {
       const [s, e, n] = await Promise.all([
-        supabase.from('focus_seances').select(FOCUS_SEANCE_COLUMNS).order('ordre').order('created_at'),
+        supabase.from('focus_seances').select(FOCUS_SEANCE_ADMIN_COLUMNS).order('ordre').order('created_at'),
         supabase.from('exercices').select(EXERCICE_COLUMNS).order('titre'),
         fetchNotions(),
       ])
@@ -132,6 +128,16 @@ export default function FocusSeancesManager() {
     planifier({ seanceId, champ, valeur })
   }
 
+  function modifierNotes(seanceId: string, pilier: PilierKey, valeur: string) {
+    setSeances(list => list.map(s => (s.id === seanceId ? { ...s, notes: { ...s.notes, [pilier]: valeur } } : s)))
+    planifier({ seanceId, champ: 'notes', pilier, valeur })
+  }
+
+  function modifierPublication(seanceId: string, publiee: boolean) {
+    setSeances(list => list.map(s => (s.id === seanceId ? { ...s, publiee } : s)))
+    planifier({ seanceId, champ: 'publiee', valeur: publiee }, true)
+  }
+
   // Ajout, retrait ou déplacement d'exercice : action ponctuelle, enregistrée tout de suite
   function modifierExercices(seanceId: string, pilier: PilierKey, valeur: string[]) {
     setSeances(list => list.map(s => (s.id === seanceId ? { ...s, exercices: { ...s.exercices, [pilier]: valeur } } : s)))
@@ -150,7 +156,7 @@ export default function FocusSeancesManager() {
     setAdding(true)
     setError('')
     const ordre = Math.max(0, ...seances.map(s => s.ordre)) + 1
-    const { data, error } = await supabase.from('focus_seances').insert({ date: '', theme: '', ordre }).select(FOCUS_SEANCE_COLUMNS).single()
+    const { data, error } = await supabase.from('focus_seances').insert({ date: '', theme: '', ordre }).select(FOCUS_SEANCE_ADMIN_COLUMNS).single()
     setAdding(false)
     if (error || !data) { setError(`Ajout impossible : ${error?.message ?? 'erreur inconnue'}`); return }
     const seance = toFocusSeance(data)
@@ -219,6 +225,8 @@ export default function FocusSeancesManager() {
             onExercicesChange={(pilier, ids) => modifierExercices(selected.id, pilier, ids)}
             onCreateExercice={creerExercice}
             onEditExercice={exId => setEditingExo(exercices.find(e => e.id === exId) ?? null)}
+            onPublicationChange={publiee => modifierPublication(selected.id, publiee)}
+            onNotesChange={(pilier, notes) => modifierNotes(selected.id, pilier, notes)}
           />
         </div>
       )}
@@ -269,7 +277,8 @@ function SaveIndicator({ status }: { status: SaveStatus }) {
 
 /* ── Liste des séances (colonne sur ordinateur, bande horizontale sur mobile) ── */
 
-function SeancesList({ seances, selectedId, onSelect }: { seances: FocusSeance[]; selectedId: string; onSelect: (id: string) => void }) {
+/** Liste des séances ; partagée avec l'espace élève (sans le badge « Publiée »). */
+export function SeancesList({ seances, selectedId, onSelect, showPublication = true }: { seances: FocusSeance[]; selectedId: string; onSelect: (id: string) => void; showPublication?: boolean }) {
   const selectedRef = useRef<HTMLButtonElement>(null)
 
   // Garde la séance sélectionnée visible dans la bande horizontale
@@ -298,8 +307,16 @@ function SeancesList({ seances, selectedId, onSelect }: { seances: FocusSeance[]
                   transition: 'background 0.15s, border-color 0.15s',
                 }}
               >
-                <span style={{ fontSize: '0.95rem', fontWeight: 600, color: active ? '#cf3594' : 'rgba(255,255,255,0.85)' }}>
-                  {s.date.trim() || 'Sans date'}
+                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', width: '100%' }}>
+                  <span style={{ fontSize: '0.95rem', fontWeight: 600, color: active ? '#cf3594' : 'rgba(255,255,255,0.85)' }}>
+                    {s.date.trim() || 'Sans date'}
+                  </span>
+                  {showPublication && s.publiee && (
+                    <span title="Visible par les élèves Focus" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.2rem', fontSize: '0.62rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#4db8c8' }}>
+                      <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 13 }}>visibility</span>
+                      Publiée
+                    </span>
+                  )}
                 </span>
                 <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '100%' }}>
                   {s.theme.trim() || 'Sans thème'}
@@ -317,7 +334,7 @@ function SeancesList({ seances, selectedId, onSelect }: { seances: FocusSeance[]
 
 const labelStyle: React.CSSProperties = { fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.45)' }
 
-function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exercices, onExercicesChange, onCreateExercice, onEditExercice }: {
+function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exercices, onExercicesChange, onCreateExercice, onEditExercice, onPublicationChange, onNotesChange }: {
   seance: FocusSeance
   dateInputRef: React.RefObject<HTMLInputElement | null>
   canDelete: boolean
@@ -327,11 +344,36 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exe
   onExercicesChange: (pilier: PilierKey, ids: string[]) => void
   onCreateExercice: (titre: string) => Promise<Exercice | null>
   onEditExercice: (exId: string) => void
+  onPublicationChange: (publiee: boolean) => void
+  onNotesChange: (pilier: PilierKey, notes: string) => void
 }) {
   const id = (champ: Champ) => `focus-seance-${champ}`
 
   return (
     <section aria-label={`Séance ${libelleSeance(seance)}`} className="flex-1 min-w-0" style={{ ...card, padding: '1.5rem' }}>
+      <label
+        htmlFor="focus-seance-publiee"
+        style={{ display: 'flex', alignItems: 'flex-start', gap: '0.7rem', padding: '0.75rem 1rem', marginBottom: '1.25rem', borderRadius: '0.75rem', cursor: 'pointer', border: `1px solid ${seance.publiee ? 'rgba(77,184,200,0.45)' : 'rgba(255,255,255,0.12)'}`, background: seance.publiee ? 'rgba(77,184,200,0.1)' : 'rgba(255,255,255,0.03)' }}
+      >
+        <input
+          id="focus-seance-publiee"
+          type="checkbox"
+          checked={seance.publiee}
+          onChange={e => onPublicationChange(e.target.checked)}
+          style={{ width: 18, height: 18, marginTop: 2, accentColor: '#4db8c8', flexShrink: 0, cursor: 'pointer' }}
+        />
+        <span>
+          <span style={{ display: 'block', fontSize: '0.9rem', fontWeight: 600, color: seance.publiee ? '#4db8c8' : 'rgba(255,255,255,0.85)' }}>
+            {seance.publiee ? 'Visible par les élèves Focus' : 'Privée'}
+          </span>
+          <span style={{ display: 'block', fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)', marginTop: '0.15rem' }}>
+            {seance.publiee
+              ? 'Les élèves Formation Focus 2026-2027 voient le thème, les 5 piliers et les exercices, en lecture seule.'
+              : 'Cochez pour rendre cette séance visible dans l’espace élève Formation Focus.'}
+          </span>
+        </span>
+      </label>
+
       <div className="grid gap-4 sm:grid-cols-[10rem_1fr]" style={{ marginBottom: '1.75rem' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
           <label htmlFor={id('date')} style={labelStyle}>Date</label>
@@ -372,6 +414,12 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exe
                 onChange={ids => onExercicesChange(p.key, ids)}
                 onCreate={onCreateExercice}
                 onEdit={onEditExercice}
+              />
+              <NotesPrivees
+                id={`${id(p.key)}-notes`}
+                pilierLabel={p.label}
+                value={seance.notes[p.key] ?? ''}
+                onChange={v => onNotesChange(p.key, v)}
               />
             </li>
           )
@@ -495,23 +543,74 @@ function ExercicesPilier({ idBase, pilierLabel, selection, exercices, onChange, 
   )
 }
 
+/* ── Notes privées d'un pilier (table focus_seance_notes, jamais visible des élèves) ── */
+
+function NotesPrivees({ id, pilierLabel, value, onChange }: {
+  id: string
+  pilierLabel: string
+  value: string
+  onChange: (value: string) => void
+}) {
+  // Ouvert d'office s'il y a déjà des notes
+  const [open, setOpen] = useState(() => !!value.trim())
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const etat = value.trim() ? ' (remplies)' : ''
+
+  return (
+    <div style={{ borderRadius: '0.6rem', border: '1px dashed rgba(240,168,48,0.35)', background: 'rgba(240,168,48,0.04)' }}>
+      <button
+        type="button"
+        onClick={() => { setOpen(o => !o); if (!open) requestAnimationFrame(() => textareaRef.current?.focus()) }}
+        aria-expanded={open}
+        aria-controls={id}
+        style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', width: '100%', padding: '0.45rem 0.7rem', border: 'none', background: 'transparent', color: '#f0a830', fontSize: '0.78rem', fontWeight: 600, fontFamily: 'inherit', cursor: 'pointer', textAlign: 'left' }}
+      >
+        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16 }}>lock</span>
+        <span style={{ flex: 1 }}>Notes privées{etat}</span>
+        <span style={{ fontSize: '0.7rem', fontWeight: 400, color: 'rgba(255,255,255,0.4)' }}>jamais visibles des élèves</span>
+        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 18, color: 'rgba(255,255,255,0.4)', transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 0.15s' }}>expand_more</span>
+      </button>
+      {open && (
+        <div style={{ padding: '0 0.7rem 0.7rem' }}>
+          <label htmlFor={id} className="sr-only">Notes privées : {pilierLabel}</label>
+          <AutoTextarea
+            ref={textareaRef}
+            id={id}
+            value={value}
+            onChange={onChange}
+            accent="#f0a830"
+            placeholder="Points de vigilance, plan B, rappels pour moi…"
+            minHeight="3.5rem"
+            rows={2}
+          />
+        </div>
+      )}
+    </div>
+  )
+}
+
 /* ── Zone de texte qui s'agrandit avec son contenu ────── */
 
-function AutoTextarea({ id, value, onChange, accent, ...rest }: {
+function AutoTextarea({ id, value, onChange, accent, placeholder = 'Exercices, intentions, déroulé…', minHeight = '5.5rem', rows = 3, ref: externalRef, ...rest }: {
   id: string
   value: string
   onChange: (value: string) => void
   accent: string
+  placeholder?: string
+  minHeight?: string
+  rows?: number
+  ref?: React.RefObject<HTMLTextAreaElement | null>
   'aria-describedby'?: string
 }) {
-  const ref = useRef<HTMLTextAreaElement>(null)
+  const localRef = useRef<HTMLTextAreaElement>(null)
+  const ref = externalRef ?? localRef
 
   const ajuster = useCallback(() => {
     const el = ref.current
     if (!el) return
     el.style.height = 'auto'
     el.style.height = `${el.scrollHeight + 2}px` // + les 2 px de bordure (box-sizing: border-box)
-  }, [])
+  }, [ref])
 
   useLayoutEffect(ajuster, [value, ajuster])
   useEffect(() => {
@@ -525,9 +624,9 @@ function AutoTextarea({ id, value, onChange, accent, ...rest }: {
       id={id}
       value={value}
       onChange={e => onChange(e.target.value)}
-      rows={3}
-      placeholder="Exercices, intentions, déroulé…"
-      style={{ ...input, width: '100%', minHeight: '5.5rem', resize: 'none', overflow: 'hidden', lineHeight: 1.6, borderLeft: `3px solid ${accent}99` }}
+      rows={rows}
+      placeholder={placeholder}
+      style={{ ...input, width: '100%', minHeight, resize: 'none', overflow: 'hidden', lineHeight: 1.6, borderLeft: `3px solid ${accent}99` }}
       {...rest}
     />
   )
