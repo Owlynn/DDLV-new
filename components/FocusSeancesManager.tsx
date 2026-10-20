@@ -6,7 +6,7 @@ import { card } from '@/components/eleve/ui'
 import { ConfirmDialog, IconButton, Modal, type ConfirmRequest, input, btnAccent, btnDanger, btnGhost } from '@/components/ManagerUI'
 import { ExerciceForm } from '@/components/ExercicesManager'
 import { DevoirForm, emptyDraft, type DevoirDraft } from '@/components/DevoirsManager'
-import { FOCUS_SEANCE_ADMIN_COLUMNS, PILIERS, PILIER_COLORS, toFocusSeance, type FocusSeance, type PilierKey } from '@/lib/focus-seances'
+import { FOCUS_SEANCE_ADMIN_COLUMNS, PILIERS, PILIER_COLORS, toFocusSeance, type FocusSeance, type NoteKey, type PilierKey } from '@/lib/focus-seances'
 import { FOCUS_TAG, formatDay } from '@/lib/formation-focus'
 import { DEVOIR_COLUMNS, hasContent, type Devoir } from '@/lib/devoirs'
 import { EXERCICE_COLUMNS, fetchNotions, type Exercice, type Notion } from '@/lib/suivi'
@@ -23,7 +23,7 @@ type Modification =
   | { seanceId: string; champ: Champ; valeur: string }
   | { seanceId: string; champ: 'exercices'; pilier: PilierKey; valeur: string[] }
   | { seanceId: string; champ: 'publiee'; valeur: boolean }
-  | { seanceId: string; champ: 'notes'; pilier: PilierKey; valeur: string }
+  | { seanceId: string; champ: 'notes'; pilier: NoteKey; valeur: string }
 
 const cleModification = (m: Modification) => (m.champ === 'exercices' || m.champ === 'notes' ? `${m.seanceId}:${m.champ}:${m.pilier}` : `${m.seanceId}:${m.champ}`)
 
@@ -136,7 +136,7 @@ export default function FocusSeancesManager() {
     planifier({ seanceId, champ, valeur })
   }
 
-  function modifierNotes(seanceId: string, pilier: PilierKey, valeur: string) {
+  function modifierNotes(seanceId: string, pilier: NoteKey, valeur: string) {
     setSeances(list => list.map(s => (s.id === seanceId ? { ...s, notes: { ...s.notes, [pilier]: valeur } } : s)))
     planifier({ seanceId, champ: 'notes', pilier, valeur })
   }
@@ -197,7 +197,7 @@ export default function FocusSeancesManager() {
     if (seances.length <= 1) return
     setConfirmReq({
       title: 'Supprimer cette séance ?',
-      message: `La séance ${libelleSeance(s)} et ses notes pour les 5 piliers seront définitivement supprimées.`
+      message: `La séance ${libelleSeance(s)} , son contenu pour les 5 piliers et toutes ses notes privées seront définitivement supprimés.`
         + (devoirs.some(d => d.seance_id === s.id) ? '\nSes devoirs à rendre sont conservés, sans séance.' : ''),
       onConfirm: async () => {
         for (const [key, m] of pending.current) if (m.seanceId === s.id) pending.current.delete(key)
@@ -386,7 +386,7 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exe
   onCreateExercice: (titre: string) => Promise<Exercice | null>
   onEditExercice: (exId: string) => void
   onPublicationChange: (publiee: boolean) => void
-  onNotesChange: (pilier: PilierKey, notes: string) => void
+  onNotesChange: (pilier: NoteKey, notes: string) => void
   devoirs: Devoir[]
   onNewDevoir: () => void
   onEditDevoir: (d: Devoir) => void
@@ -428,6 +428,23 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exe
           <label htmlFor={id('theme')} style={labelStyle}>Thème</label>
           <input id={id('theme')} value={seance.theme} onChange={e => onChange('theme', e.target.value)} placeholder="Thème de la séance" autoComplete="off" style={input} />
         </div>
+      </div>
+
+      {/* Note générale de la séance : même table que les notes par pilier (pilier = 'general'), jamais visible des élèves */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', marginBottom: '1.75rem', padding: '0.75rem', borderRadius: '0.75rem', border: '1px dashed rgba(240,168,48,0.35)', background: 'rgba(240,168,48,0.04)' }}>
+        <label htmlFor="focus-seance-notes-generales" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#f0a830', fontSize: '0.85rem', fontWeight: 600 }}>
+          <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 17 }}>lock</span>
+          <span style={{ flex: 1 }}>Notes générales de la séance</span>
+          <span style={{ fontSize: '0.7rem', fontWeight: 400, color: 'rgba(255,255,255,0.4)' }}>jamais visibles des élèves</span>
+        </label>
+        <AutoTextarea
+          id="focus-seance-notes-generales"
+          value={seance.notes.general ?? ''}
+          onChange={v => onNotesChange('general', v)}
+          accent="#f0a830"
+          placeholder="Intention globale, déroulé, matériel, points d'attention sur le groupe…"
+          minHeight="4.5rem"
+        />
       </div>
 
       <ol style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>

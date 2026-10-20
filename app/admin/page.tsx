@@ -12,8 +12,31 @@ import DevoirsManager from '@/components/DevoirsManager'
 import ElevesManager from '@/components/ElevesManager'
 import PaiementsManager from '@/components/PaiementsManager'
 import FocusSeancesManager from '@/components/FocusSeancesManager'
+import FocusCalendrier from '@/components/eleve/FocusCalendrier'
+import { FOCUS_TAG } from '@/lib/formation-focus'
 
-type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'paiements' | 'focus-prep' | 'formation-focus'
+type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'paiements' | 'focus-calendrier' | 'focus-prep' | 'formation-focus'
+type NavTarget = Exclude<View, 'editor'>
+
+// Menu de la sidebar ; un bloc avec `children` est un titre de section suivi de son sous-menu (comme dans /eleve)
+type NavItem = { view: NavTarget; label: string; icon: string }
+const NAV: (NavItem | { label: string; icon: string; children: NavItem[] })[] = [
+  { view: 'dashboard', label: 'Dashboard', icon: 'dashboard' },
+  { view: 'blog', label: 'Blog', icon: 'article' },
+  { view: 'students', label: 'Élèves', icon: 'group' },
+  { view: 'suivi', label: 'Suivi des séances', icon: 'history_edu' },
+  { view: 'exercices', label: 'Exercices', icon: 'library_music' },
+  { view: 'paiements', label: 'Paiements', icon: 'payments' },
+  {
+    label: 'Formation Focus', icon: 'graphic_eq',
+    children: [
+      { view: 'focus-calendrier', label: 'Calendrier', icon: 'calendar_month' },
+      { view: 'focus-prep', label: 'Préparation des séances', icon: 'edit_note' },
+      { view: 'devoirs', label: 'Devoirs à rendre', icon: 'assignment' },
+      { view: 'formation-focus', label: 'Candidatures', icon: 'assignment_turned_in' },
+    ],
+  },
+]
 
 interface Stats { published: number; drafts: number }
 
@@ -132,13 +155,12 @@ export default function AdminPage() {
   }
 
   /* ── Sidebar nav ── */
-  function handleNav(target: 'dashboard' | 'blog' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'paiements' | 'focus-prep' | 'formation-focus') {
+  function handleNav(target: NavTarget) {
     setSidebarOpen(false)
     if (target === 'blog') { goToBlog(); return }
     if (target === 'students') { goToStudents(); return }
-    if (target === 'suivi' || target === 'devoirs' || target === 'exercices' || target === 'paiements' || target === 'focus-prep') { setView(target); return }
     if (target === 'formation-focus') { goToCandidatures(); return }
-    setView('dashboard')
+    setView(target)
   }
 
   async function logout() {
@@ -154,9 +176,10 @@ export default function AdminPage() {
     : view === 'blog' ? 'Blog'
     : view === 'students' ? 'Élèves'
     : view === 'suivi' ? 'Suivi des séances'
-    : view === 'devoirs' ? 'Devoirs à rendre'
+    : view === 'devoirs' ? 'Devoirs à rendre Formation Focus'
     : view === 'exercices' ? 'Exercices'
     : view === 'paiements' ? 'Paiements'
+    : view === 'focus-calendrier' ? 'Calendrier Formation Focus'
     : view === 'focus-prep' ? 'Préparation des séances Focus'
     : view === 'formation-focus' ? 'Candidatures Formation Focus'
     : editingPost?.id ? "Modifier l'article"
@@ -203,14 +226,34 @@ export default function AdminPage() {
         </div>
 
         <nav className="sidebar-scroll" style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', flex: 1, minHeight: 0, overflowY: 'auto', margin: '0 -0.25rem', padding: '0 0.25rem' }}>
-          {(['dashboard', 'blog', 'students', 'suivi', 'devoirs', 'exercices', 'paiements', 'focus-prep', 'formation-focus'] as const).map(p => {
-            const active = sidebarActive === p
-            const icon = p === 'dashboard' ? 'dashboard' : p === 'blog' ? 'article' : p === 'students' ? 'group' : p === 'suivi' ? 'history_edu' : p === 'devoirs' ? 'assignment' : p === 'exercices' ? 'library_music' : p === 'paiements' ? 'payments' : p === 'focus-prep' ? 'edit_note' : 'assignment_turned_in'
-            const label = p === 'dashboard' ? 'Dashboard' : p === 'blog' ? 'Blog' : p === 'students' ? 'Élèves' : p === 'suivi' ? 'Suivi des séances' : p === 'devoirs' ? 'Devoirs à rendre' : p === 'exercices' ? 'Exercices' : p === 'paiements' ? 'Paiements' : p === 'focus-prep' ? 'Préparation des séances Focus' : 'Candidatures Formation Focus'
+          {NAV.map(item => {
+            if ('children' in item) {
+              const inSection = item.children.some(c => c.view === sidebarActive)
+              return (
+                <div key={item.label} style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.75rem 1rem', color: inSection ? '#cf3594' : 'rgba(255,255,255,0.6)', fontSize: '0.875rem', fontWeight: 500, letterSpacing: '0.02em' }}>
+                    <span className="material-symbols-outlined" style={{ fontSize: 19, flexShrink: 0 }}>{item.icon}</span>
+                    {item.label}
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem', marginLeft: '1.6rem', paddingLeft: '0.6rem', borderLeft: '1px solid rgba(255,255,255,0.1)' }}>
+                    {item.children.map(c => {
+                      const active = sidebarActive === c.view
+                      return (
+                        <button key={c.view} onClick={() => handleNav(c.view)} aria-current={active ? 'page' : undefined} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', width: '100%', padding: '0.5rem 0.75rem', borderRadius: '0.6rem', border: 'none', background: active ? 'rgba(207,53,148,0.12)' : 'transparent', boxShadow: active ? 'inset 0 0 0 1px rgba(207,53,148,0.25)' : 'none', color: active ? '#cf3594' : 'rgba(255,255,255,0.5)', fontSize: '0.8rem', fontWeight: 500, cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s', fontFamily: 'inherit' }}>
+                          <span className="material-symbols-outlined" style={{ fontSize: 16, flexShrink: 0 }}>{c.icon}</span>
+                          {c.label}
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+              )
+            }
+            const active = sidebarActive === item.view
             return (
-              <button key={p} onClick={() => handleNav(p)} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', width: '100%', padding: '0.75rem 1rem', borderRadius: '0.75rem', border: 'none', background: active ? 'rgba(207,53,148,0.12)' : 'transparent', boxShadow: active ? 'inset 0 0 0 1px rgba(207,53,148,0.25)' : 'none', color: active ? '#cf3594' : 'rgba(255,255,255,0.6)', fontSize: '0.875rem', fontWeight: 500, letterSpacing: '0.02em', cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s', fontFamily: 'inherit' }}>
-                <span className="material-symbols-outlined" style={{ fontSize: 19, flexShrink: 0 }}>{icon}</span>
-                {label}
+              <button key={item.view} onClick={() => handleNav(item.view)} aria-current={active ? 'page' : undefined} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', width: '100%', padding: '0.75rem 1rem', borderRadius: '0.75rem', border: 'none', background: active ? 'rgba(207,53,148,0.12)' : 'transparent', boxShadow: active ? 'inset 0 0 0 1px rgba(207,53,148,0.25)' : 'none', color: active ? '#cf3594' : 'rgba(255,255,255,0.6)', fontSize: '0.875rem', fontWeight: 500, letterSpacing: '0.02em', cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s', fontFamily: 'inherit' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: 19, flexShrink: 0 }}>{item.icon}</span>
+                {item.label}
               </button>
             )
           })}
@@ -261,13 +304,16 @@ export default function AdminPage() {
             <SuiviSeancesManager canEdit />
           )}
           {view === 'devoirs' && (
-            <DevoirsManager canEdit />
+            <DevoirsManager contexte={FOCUS_TAG} canEdit />
           )}
           {view === 'exercices' && (
             <ExercicesManager />
           )}
           {view === 'paiements' && (
             <PaiementsManager />
+          )}
+          {view === 'focus-calendrier' && (
+            <FocusCalendrier />
           )}
           {view === 'focus-prep' && (
             <FocusSeancesManager />

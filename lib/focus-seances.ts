@@ -20,8 +20,11 @@ export interface FocusSeance {
   publiee: boolean // visible par les élèves Focus (lecture seule)
   piliers: Partial<Record<PilierKey, string>> // texte de chaque pilier
   exercices: Partial<Record<PilierKey, string[]>> // ids de public.exercices, dans l'ordre prévu
-  notes: Partial<Record<PilierKey, string>> // notes privées (admin uniquement, table focus_seance_notes)
+  notes: Partial<Record<NoteKey, string>> // notes privées (admin uniquement, table focus_seance_notes)
 }
+
+/** Une note privée par pilier, plus une note générale pour toute la séance. */
+export type NoteKey = PilierKey | 'general'
 
 export const FOCUS_SEANCE_COLUMNS = 'id, date, theme, ordre, publiee, focus_seance_piliers (pilier, contenu, exercices)'
 /** Colonnes de l'admin : ajoute les notes privées. Ne jamais utiliser côté élève (la RLS les refuserait de toute façon). */
@@ -34,7 +37,7 @@ interface FocusSeanceRow {
   ordre: number
   publiee: boolean
   focus_seance_piliers: { pilier: PilierKey; contenu: string; exercices: string[] | null }[] | null
-  focus_seance_notes?: { pilier: PilierKey; notes: string }[] | null
+  focus_seance_notes?: { pilier: NoteKey; notes: string }[] | null
 }
 
 export function toFocusSeance(row: FocusSeanceRow): FocusSeance {
