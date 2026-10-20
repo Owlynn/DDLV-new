@@ -5,7 +5,10 @@ import { supabase } from '@/lib/supabase-client'
 import { card } from '@/components/eleve/ui'
 import { ConfirmDialog, IconButton, Modal, type ConfirmRequest, input, btnAccent, btnDanger, btnGhost } from '@/components/ManagerUI'
 import { ExerciceForm } from '@/components/ExercicesManager'
+import { DevoirForm, emptyDraft, type DevoirDraft } from '@/components/DevoirsManager'
 import { FOCUS_SEANCE_ADMIN_COLUMNS, PILIERS, PILIER_COLORS, toFocusSeance, type FocusSeance, type PilierKey } from '@/lib/focus-seances'
+import { FOCUS_TAG, formatDay } from '@/lib/formation-focus'
+import { DEVOIR_COLUMNS, hasContent, type Devoir } from '@/lib/devoirs'
 import { EXERCICE_COLUMNS, fetchNotions, type Exercice, type Notion } from '@/lib/suivi'
 
 // Onglet « Préparation des séances Focus » de /admin : une séance = une date + un thème, et pour chaque pilier
@@ -52,6 +55,8 @@ export default function FocusSeancesManager() {
   const [exercices, setExercices] = useState<Exercice[]>([])
   const [notions, setNotions] = useState<Notion[]>([])
   const [editingExo, setEditingExo] = useState<Exercice | null>(null)
+  const [devoirs, setDevoirs] = useState<Devoir[]>([]) // devoirs Focus, rattachés ou non à une séance
+  const [editingDevoir, setEditingDevoir] = useState<DevoirDraft | null>(null)
   const selected = seances.find(s => s.id === selectedId) ?? null
 
   // Dernière valeur en attente pour chaque champ de chaque séance
@@ -81,13 +86,16 @@ export default function FocusSeancesManager() {
 
   useEffect(() => {
     async function load() {
-      const [s, e, n] = await Promise.all([
+      const [s, e, n, d] = await Promise.all([
         supabase.from('focus_seances').select(FOCUS_SEANCE_ADMIN_COLUMNS).order('ordre').order('created_at'),
         supabase.from('exercices').select(EXERCICE_COLUMNS).order('titre'),
         fetchNotions(),
+        supabase.from('devoirs').select(DEVOIR_COLUMNS).eq('contexte', FOCUS_TAG).order('date_limite'),
       ])
       setNotions(n)
-      if (s.error || e.error) setError(`Chargement impossible : ${(s.error ?? e.error)!.message}`)
+      setDevoirs((d.data ?? []) as Devoir[])
+      const loadError = s.error ?? e.error ?? d.error
+      if (loadError) setError(`Chargement impossible : ${loadError.message}`)
       if (!s.error) {
         const list = (s.data ?? []).map(toFocusSeance)
         setSeances(list)
@@ -171,11 +179,26 @@ export default function FocusSeancesManager() {
     else setExercices((data ?? []) as Exercice[])
   }
 
+  async function rechargerDevoirs() {
+    const { data, error } = await supabase.from('devoirs').select(DEVOIR_COLUMNS).eq('contexte', FOCUS_TAG).order('date_limite')
+    if (error) setError(`Rechargement des devoirs impossible : ${error.message}`)
+    else setDevoirs((data ?? []) as Devoir[])
+  }
+
+  // Rattache un devoir existant à la séance, ou l'en détache (seanceId = null) : le devoir lui-même est conservé
+  async function rattacherDevoir(devoirId: string, seanceId: string | null) {
+    setError('')
+    const { data, error } = await supabase.from('devoirs').update({ seance_id: seanceId }).eq('id', devoirId).select('id')
+    if (error || !data?.length) { setError(`Modification du devoir impossible : ${error?.message ?? 'accès refusé'}`); return }
+    setDevoirs(list => list.map(d => (d.id === devoirId ? { ...d, seance_id: seanceId } : d)))
+  }
+
   function demanderSuppression(s: FocusSeance) {
     if (seances.length <= 1) return
     setConfirmReq({
       title: 'Supprimer cette séance ?',
-      message: `La séance ${libelleSeance(s)} et ses notes pour les 5 piliers seront définitivement supprimées.`,
+      message: `La séance ${libelleSeance(s)} et ses notes pour les 5 piliers seront définitivement supprimées.`
+        + (devoirs.some(d => d.seance_id === s.id) ? '\nSes devoirs à rendre sont conservés, sans séance.' : ''),
       onConfirm: async () => {
         for (const [key, m] of pending.current) if (m.seanceId === s.id) pending.current.delete(key)
         await queue.current
@@ -184,6 +207,7 @@ export default function FocusSeancesManager() {
         const index = seances.findIndex(x => x.id === s.id)
         const reste = seances.filter(x => x.id !== s.id)
         setSeances(reste)
+        setDevoirs(list => list.map(d => (d.seance_id === s.id ? { ...d, seance_id: null } : d))) // on delete set null
         setSelectedId(reste[Math.min(index, reste.length - 1)]?.id ?? null)
       },
     })
@@ -227,8 +251,25 @@ export default function FocusSeancesManager() {
             onEditExercice={exId => setEditingExo(exercices.find(e => e.id === exId) ?? null)}
             onPublicationChange={publiee => modifierPublication(selected.id, publiee)}
             onNotesChange={(pilier, notes) => modifierNotes(selected.id, pilier, notes)}
+            devoirs={devoirs}
+            onNewDevoir={() => setEditingDevoir(emptyDraft(FOCUS_TAG, selected.id))}
+            onEditDevoir={d => setEditingDevoir({ ...d, commentaire: d.commentaire ?? '' })}
+            onAttachDevoir={(devoirId, attach) => rattacherDevoir(devoirId, attach ? selected.id : null)}
           />
         </div>
+      )}
+
+      {/* Même formulaire que l'onglet « Devoirs à rendre » ; la suppression reste réservée à cet onglet */}
+      {editingDevoir && (
+        <Modal title={editingDevoir.id ? 'Modifier le devoir' : 'Nouveau devoir'} subtitle="Le travail autonome · Formation Focus" onClose={() => setEditingDevoir(null)}>
+          <DevoirForm
+            draft={editingDevoir}
+            contexteLocked
+            exercices={exercices}
+            onCancel={() => setEditingDevoir(null)}
+            onSaved={() => { setEditingDevoir(null); rechargerDevoirs() }}
+          />
+        </Modal>
       )}
 
       {/* Même formulaire que l'onglet « Exercices » ; la suppression reste réservée à cet onglet */}
@@ -334,7 +375,7 @@ export function SeancesList({ seances, selectedId, onSelect, showPublication = t
 
 const labelStyle: React.CSSProperties = { fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.45)' }
 
-function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exercices, onExercicesChange, onCreateExercice, onEditExercice, onPublicationChange, onNotesChange }: {
+function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exercices, onExercicesChange, onCreateExercice, onEditExercice, onPublicationChange, onNotesChange, devoirs, onNewDevoir, onEditDevoir, onAttachDevoir }: {
   seance: FocusSeance
   dateInputRef: React.RefObject<HTMLInputElement | null>
   canDelete: boolean
@@ -346,6 +387,10 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exe
   onEditExercice: (exId: string) => void
   onPublicationChange: (publiee: boolean) => void
   onNotesChange: (pilier: PilierKey, notes: string) => void
+  devoirs: Devoir[]
+  onNewDevoir: () => void
+  onEditDevoir: (d: Devoir) => void
+  onAttachDevoir: (devoirId: string, attach: boolean) => void
 }) {
   const id = (champ: Champ) => `focus-seance-${champ}`
 
@@ -406,15 +451,29 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exe
                 onChange={v => onChange(p.key, v)}
                 accent={color}
               />
-              <ExercicesPilier
-                idBase={id(p.key)}
-                pilierLabel={p.label}
-                selection={seance.exercices[p.key] ?? []}
-                exercices={exercices}
-                onChange={ids => onExercicesChange(p.key, ids)}
-                onCreate={onCreateExercice}
-                onEdit={onEditExercice}
-              />
+              {p.key === 'autonome' && (
+                <DevoirsSeance
+                  idBase={id(p.key)}
+                  seanceId={seance.id}
+                  devoirs={devoirs}
+                  exercices={exercices}
+                  onNew={onNewDevoir}
+                  onEdit={onEditDevoir}
+                  onAttach={onAttachDevoir}
+                />
+              )}
+              {/* Le travail autonome passe par les devoirs ; ses anciens exercices restent affichés pour pouvoir les retirer */}
+              {(p.key !== 'autonome' || (seance.exercices[p.key] ?? []).length > 0) && (
+                <ExercicesPilier
+                  idBase={id(p.key)}
+                  pilierLabel={p.label}
+                  selection={seance.exercices[p.key] ?? []}
+                  exercices={exercices}
+                  onChange={ids => onExercicesChange(p.key, ids)}
+                  onCreate={onCreateExercice}
+                  onEdit={onEditExercice}
+                />
+              )}
               <NotesPrivees
                 id={`${id(p.key)}-notes`}
                 pilierLabel={p.label}
@@ -538,6 +597,65 @@ function ExercicesPilier({ idBase, pilierLabel, selection, exercices, onChange, 
             Nouvel exercice
           </button>
         )}
+      </div>
+    </div>
+  )
+}
+
+/* ── Devoirs à rendre de la séance (bloc « Le travail autonome ») ── */
+
+function DevoirsSeance({ idBase, seanceId, devoirs, exercices, onNew, onEdit, onAttach }: {
+  idBase: string
+  seanceId: string
+  devoirs: Devoir[]
+  exercices: Exercice[]
+  onNew: () => void
+  onEdit: (d: Devoir) => void
+  onAttach: (devoirId: string, attach: boolean) => void
+}) {
+  const lies = devoirs.filter(d => d.seance_id === seanceId)
+  const libres = devoirs.filter(d => !d.seance_id)
+  const titreDevoir = (d: Devoir) =>
+    (d.exercice_id && exercices.find(e => e.id === d.exercice_id)?.titre)
+    || d.commentaire?.split('\n').find(l => l.trim())?.trim()
+    || 'Contenu à venir'
+  const dateDevoir = (d: Devoir) => formatDay(d.date_limite, { day: 'numeric', month: 'short', year: 'numeric' })
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+      {lies.length > 0 && (
+        <ul aria-label="Devoirs à rendre de la séance" style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+          {lies.map(d => (
+            <li key={d.id} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.35rem 0.6rem', borderRadius: '0.6rem', background: 'rgba(255,255,255,0.05)', fontSize: '0.85rem' }}>
+              <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16, color: 'rgba(255,255,255,0.35)' }}>assignment</span>
+              <span style={{ flexShrink: 0, color: PILIER_COLORS.autonome, fontWeight: 600, whiteSpace: 'nowrap' }}>{dateDevoir(d)}</span>
+              <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: hasContent(d) ? undefined : 'rgba(255,255,255,0.4)', fontStyle: hasContent(d) ? undefined : 'italic' }}>{titreDevoir(d)}</span>
+              <IconButton icon="edit" title={`Modifier le devoir du ${dateDevoir(d)}`} onClick={() => onEdit(d)} />
+              <IconButton icon="link_off" title={`Retirer de la séance le devoir du ${dateDevoir(d)} (il reste dans « Devoirs à rendre »)`} onClick={() => onAttach(d.id, false)} />
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+        {libres.length > 0 && (
+          <>
+            <label htmlFor={`${idBase}-rattacher-devoir`} className="sr-only">Rattacher un devoir existant à la séance</label>
+            <select
+              id={`${idBase}-rattacher-devoir`}
+              value=""
+              onChange={e => e.target.value && onAttach(e.target.value, true)}
+              style={{ ...input, flex: '1 1 220px', padding: '0.45rem 0.7rem', fontSize: '0.8rem' }}
+            >
+              <option value="" style={{ background: '#1a0b2e' }}>+ Rattacher un devoir existant…</option>
+              {libres.map(d => <option key={d.id} value={d.id} style={{ background: '#1a0b2e' }}>{dateDevoir(d)} · {titreDevoir(d)}</option>)}
+            </select>
+          </>
+        )}
+        <button type="button" onClick={onNew} style={{ ...btnGhost, padding: '0.45rem 0.8rem', fontSize: '0.8rem' }}>
+          <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16 }}>add</span>
+          Nouveau devoir
+        </button>
       </div>
     </div>
   )

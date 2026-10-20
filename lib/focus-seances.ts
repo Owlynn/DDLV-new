@@ -8,8 +8,8 @@ export const PILIERS: { key: PilierKey; label: string; sousTitre?: string }[] = 
   { key: 'fondations', label: 'Les fondations techniques', sousTitre: '1h minimum à chaque séance' },
   { key: 'posture', label: "La posture intérieure de l'improvisatrice" },
   { key: 'collectif', label: 'La dimension collective' },
-  { key: 'autonome', label: 'La pratique autonome' },
   { key: 'scene', label: "L'improvisation sur scène" },
+  { key: 'autonome', label: 'Le travail autonome', sousTitre: 'Les devoirs à rendre avant la prochaine séance' },
 ]
 
 export interface FocusSeance {

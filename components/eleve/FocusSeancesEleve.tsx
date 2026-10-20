@@ -1,18 +1,23 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { supabase } from '@/lib/supabase-client'
 import { card } from '@/components/eleve/ui'
 import { ExerciceDetail, Modal } from '@/components/ManagerUI'
 import { SeancesList } from '@/components/FocusSeancesManager'
 import { FOCUS_SEANCE_COLUMNS, PILIERS, PILIER_COLORS, toFocusSeance, type FocusSeance } from '@/lib/focus-seances'
+import { formatDay } from '@/lib/formation-focus'
+import { DEVOIR_COLUMNS, type Devoir } from '@/lib/devoirs'
 import { EXERCICE_COLUMNS, fetchNotions, notionLabels, type Exercice, type Notion } from '@/lib/suivi'
 
 // Espace élève Formation Focus : les séances publiées depuis /admin → Préparation des séances Focus, en lecture seule.
 // La RLS ne renvoie aux élèves que les séances publiées ; le filtre `publiee` montre aussi aux admins la vue élève.
+// Le bloc « Le travail autonome » liste les devoirs à rendre rattachés à la séance (le rendu se fait dans « Devoirs à rendre »).
 
 export default function FocusSeancesEleve() {
   const [seances, setSeances] = useState<FocusSeance[]>([])
+  const [devoirs, setDevoirs] = useState<Devoir[]>([])
   const [exercices, setExercices] = useState<Map<string, Exercice>>(new Map())
   const [notions, setNotions] = useState<Map<string, Notion>>(new Map())
   const [selectedId, setSelectedId] = useState<string | null>(null)
@@ -29,7 +34,14 @@ export default function FocusSeancesEleve() {
       setSeances(list)
       setSelectedId(list[list.length - 1]?.id ?? null) // la plus récente
 
-      const ids = [...new Set(list.flatMap(s => Object.values(s.exercices).flat()))].filter((id): id is string => !!id)
+      const d = list.length
+        ? await supabase.from('devoirs').select(DEVOIR_COLUMNS).in('seance_id', list.map(s => s.id)).order('date_limite')
+        : { data: [], error: null }
+      if (d.error) setError(`Chargement des devoirs impossible : ${d.error.message}`)
+      const devoirsLies = (d.data ?? []) as Devoir[]
+      setDevoirs(devoirsLies)
+
+      const ids = [...new Set([...list.flatMap(s => Object.values(s.exercices).flat()), ...devoirsLies.map(x => x.exercice_id)])].filter((id): id is string => !!id)
       const [e, n] = await Promise.all([
         ids.length ? supabase.from('exercices').select(EXERCICE_COLUMNS).in('id', ids) : Promise.resolve({ data: [] }),
         fetchNotions(),
@@ -57,7 +69,7 @@ export default function FocusSeancesEleve() {
       ) : (
         <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
           <SeancesList seances={seances} selectedId={selected.id} onSelect={setSelectedId} showPublication={false} />
-          <SeanceDetail key={selected.id} seance={selected} exercices={exercices} onOpenExercice={setOpenedExo} />
+          <SeanceDetail key={selected.id} seance={selected} devoirs={devoirs.filter(d => d.seance_id === selected.id)} exercices={exercices} onOpenExercice={setOpenedExo} />
         </div>
       )}
 
@@ -70,19 +82,21 @@ export default function FocusSeancesEleve() {
   )
 }
 
-function SeanceDetail({ seance, exercices, onOpenExercice }: {
+function SeanceDetail({ seance, devoirs, exercices, onOpenExercice }: {
   seance: FocusSeance
+  devoirs: Devoir[] // devoirs rattachés à cette séance
   exercices: Map<string, Exercice>
   onOpenExercice: (e: Exercice) => void
 }) {
-  // Un pilier sans texte ni exercice n'est pas affiché
+  // Un pilier sans texte, exercice ni devoir n'est pas affiché
   const piliers = PILIERS
     .map(p => ({
       ...p,
       texte: seance.piliers[p.key]?.trim() ?? '',
       exos: (seance.exercices[p.key] ?? []).map(id => exercices.get(id)).filter((e): e is Exercice => !!e),
+      devoirs: p.key === 'autonome' ? devoirs : [],
     }))
-    .filter(p => p.texte || p.exos.length)
+    .filter(p => p.texte || p.exos.length || p.devoirs.length)
 
   return (
     <article aria-labelledby="focus-seance-titre" className="flex-1 min-w-0" style={{ ...card, padding: '1.5rem' }}>
@@ -135,6 +149,46 @@ function SeanceDetail({ seance, exercices, onOpenExercice }: {
                         </li>
                       ))}
                     </ul>
+                  </div>
+                )}
+
+                {p.devoirs.length > 0 && (
+                  <div style={{ marginTop: p.texte || p.exos.length ? '0.9rem' : 0 }}>
+                    <div style={{ fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.4)', marginBottom: '0.45rem' }}>Devoirs à rendre</div>
+                    <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                      {p.devoirs.map(d => {
+                        const exo = d.exercice_id ? exercices.get(d.exercice_id) : undefined
+                        const commentaire = d.commentaire?.trim()
+                        return (
+                          <li key={d.id} style={{ padding: '0.75rem 0.9rem', borderRadius: '0.6rem', background: 'rgba(255,255,255,0.04)', border: `1px solid ${color}33` }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', fontWeight: 600, color }}>
+                              <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16 }}>assignment</span>
+                              À rendre le {formatDay(d.date_limite, { weekday: 'long', day: 'numeric', month: 'long' })}
+                            </div>
+                            {!exo && !commentaire && (
+                              <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.45)', fontStyle: 'italic', margin: '0.4rem 0 0' }}>Contenu à venir.</p>
+                            )}
+                            {exo && (
+                              <button
+                                type="button"
+                                onClick={() => onOpenExercice(exo)}
+                                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.5rem', padding: '0.4rem 0.8rem', borderRadius: 999, cursor: 'pointer', fontFamily: 'inherit', fontSize: '0.8rem', color: '#fff', border: `1px solid ${color}66`, background: `${color}1a` }}
+                              >
+                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 15, color }}>library_music</span>
+                                {exo.titre}
+                              </button>
+                            )}
+                            {commentaire && (
+                              <p style={{ fontSize: '0.88rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.8)', whiteSpace: 'pre-wrap', margin: '0.5rem 0 0' }}>{commentaire}</p>
+                            )}
+                          </li>
+                        )
+                      })}
+                    </ul>
+                    <Link href="/eleve/formation-focus/devoirs" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', marginTop: '0.6rem', fontSize: '0.8rem', color: 'rgba(255,255,255,0.65)' }}>
+                      Marquer comme rendu dans « Devoirs à rendre »
+                      <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16 }}>arrow_forward</span>
+                    </Link>
                   </div>
                 )}
               </li>

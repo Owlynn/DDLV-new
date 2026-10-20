@@ -10,9 +10,10 @@ import { EXERCICE_COLUMNS, SUIVI_CONTEXTES, fetchNotions, notionLabels, tagInfo,
 import { DEVOIR_COLUMNS, hasContent, type Devoir, type DevoirRendu } from '@/lib/devoirs'
 import { displayName, fetchFiches, type FicheEleve } from '@/lib/eleves'
 
-type Draft = Omit<Devoir, 'id'> & { id?: string }
+export type DevoirDraft = Omit<Devoir, 'id'> & { id?: string }
+type Draft = DevoirDraft
 
-const emptyDraft = (contexte: SuiviContexte): Draft => ({ contexte, date_limite: todayKey(), exercice_id: null, commentaire: '', etiquettes: [contexte] })
+export const emptyDraft = (contexte: SuiviContexte, seance_id: string | null = null): Draft => ({ contexte, date_limite: todayKey(), exercice_id: null, commentaire: '', etiquettes: [contexte], seance_id })
 
 /**
  * Devoirs à rendre. Chaque élève marque « J'ai rendu l'exercice » (table devoirs_rendus).
@@ -386,9 +387,9 @@ function firstLine(text: string | null) {
   return text?.split('\n').find(l => l.trim())?.trim() ?? ''
 }
 
-/* ── Formulaire admin ─────────────────────────────────── */
+/* ── Formulaire admin (aussi utilisé par la préparation des séances Focus) ── */
 
-function DevoirForm({ draft: initial, contexteLocked, exercices, onCancel, onSaved }: {
+export function DevoirForm({ draft: initial, contexteLocked, exercices, onCancel, onSaved }: {
   draft: Draft
   contexteLocked: boolean
   exercices: Exercice[]
@@ -421,6 +422,7 @@ function DevoirForm({ draft: initial, contexteLocked, exercices, onCancel, onSav
       exercice_id: draft.exercice_id || null,
       commentaire: draft.commentaire?.trim() || null,
       etiquettes: draft.etiquettes,
+      seance_id: draft.seance_id ?? null,
       updated_at: new Date().toISOString(),
     }
     const { error } = draft.id

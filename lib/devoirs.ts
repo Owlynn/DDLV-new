@@ -10,9 +10,10 @@ export interface Devoir {
   exercice_id: string | null
   commentaire: string | null
   etiquettes: StudentTagKey[]
+  seance_id: string | null // séance Focus (bloc « Le travail autonome »), voir 20261020_devoirs_seance_focus.sql
 }
 
-export const DEVOIR_COLUMNS = 'id, contexte, date_limite, exercice_id, commentaire, etiquettes'
+export const DEVOIR_COLUMNS = 'id, contexte, date_limite, exercice_id, commentaire, etiquettes, seance_id'
 
 export interface DevoirRendu {
   devoir_id: string
