@@ -54,7 +54,7 @@ export default function EleveLayout({ children }: { children: React.ReactNode })
 
         <aside
           className={`fixed md:relative inset-y-0 md:inset-auto left-0 z-50 md:z-[1] w-[260px] max-w-[80vw] transition-transform duration-300 ease-in-out md:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
-          style={{ flexShrink: 0, height: '100vh', display: 'flex', flexDirection: 'column', padding: '1.5rem 1rem', background: 'linear-gradient(160deg, rgba(255,252,255,0.12) 0%, rgba(255,240,248,0.06) 50%, rgba(240,235,255,0.10) 100%)', backdropFilter: 'blur(24px)', borderRight: '1px solid rgba(255,255,255,0.09)' }}
+          style={{ flexShrink: 0, height: '100dvh', display: 'flex', flexDirection: 'column', padding: '1.5rem 1rem', background: 'linear-gradient(160deg, rgba(255,252,255,0.12) 0%, rgba(255,240,248,0.06) 50%, rgba(240,235,255,0.10) 100%)', backdropFilter: 'blur(24px)', borderRight: '1px solid rgba(255,255,255,0.09)' }}
         >
           <div style={{ padding: '0.25rem 0.5rem', marginBottom: '2rem', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
             <div>
@@ -66,7 +66,7 @@ export default function EleveLayout({ children }: { children: React.ReactNode })
             </button>
           </div>
 
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', flex: 1 }}>
+          <nav className="sidebar-scroll" style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', flex: 1, minHeight: 0, overflowY: 'auto', margin: '0 -0.25rem', padding: '0 0.25rem' }}>
             {pages.map(p => {
               const active = pathname === p.href
               const inSection = active || !!p.children?.some(c => c.href === pathname)

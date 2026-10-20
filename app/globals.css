@@ -544,3 +544,41 @@ main img:not(.object-cover), .article-content img:not(.object-cover), .bento-con
     background-image: linear-gradient(135deg, rgba(255, 240, 248, 0.2) 0%, rgba(240, 235, 255, 0.15) 100%);
   }
 }
+
+/* Préparation des séances Focus (/admin) : focus visible malgré la règle globale "outline: none" */
+.focus-seances :focus-visible {
+  outline: 2px solid #4db8c8 !important;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .focus-seances *,
+  .focus-seances *::before,
+  .focus-seances *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Barre de défilement discrète des sidebars (/admin, /eleve) */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(91, 42, 181, 0.55), rgba(207, 53, 148, 0.55));
+}
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(91, 42, 181, 0.85), rgba(207, 53, 148, 0.85));
+}
+/* Firefox (pas de pseudo-éléments webkit) */
+@supports not selector(::-webkit-scrollbar) {
+  .sidebar-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(207, 53, 148, 0.5) transparent;
+  }
+}

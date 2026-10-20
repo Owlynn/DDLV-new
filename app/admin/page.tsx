@@ -11,8 +11,9 @@ import ExercicesManager from '@/components/ExercicesManager'
 import DevoirsManager from '@/components/DevoirsManager'
 import ElevesManager from '@/components/ElevesManager'
 import PaiementsManager from '@/components/PaiementsManager'
+import FocusSeancesManager from '@/components/FocusSeancesManager'
 
-type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'paiements' | 'formation-focus'
+type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'paiements' | 'focus-prep' | 'formation-focus'
 
 interface Stats { published: number; drafts: number }
 
@@ -131,11 +132,11 @@ export default function AdminPage() {
   }
 
   /* ── Sidebar nav ── */
-  function handleNav(target: 'dashboard' | 'blog' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'paiements' | 'formation-focus') {
+  function handleNav(target: 'dashboard' | 'blog' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'paiements' | 'focus-prep' | 'formation-focus') {
     setSidebarOpen(false)
     if (target === 'blog') { goToBlog(); return }
     if (target === 'students') { goToStudents(); return }
-    if (target === 'suivi' || target === 'devoirs' || target === 'exercices' || target === 'paiements') { setView(target); return }
+    if (target === 'suivi' || target === 'devoirs' || target === 'exercices' || target === 'paiements' || target === 'focus-prep') { setView(target); return }
     if (target === 'formation-focus') { goToCandidatures(); return }
     setView('dashboard')
   }
@@ -156,6 +157,7 @@ export default function AdminPage() {
     : view === 'devoirs' ? 'Devoirs à rendre'
     : view === 'exercices' ? 'Exercices'
     : view === 'paiements' ? 'Paiements'
+    : view === 'focus-prep' ? 'Préparation des séances Focus'
     : view === 'formation-focus' ? 'Candidatures Formation Focus'
     : editingPost?.id ? "Modifier l'article"
     : 'Nouvel article'
@@ -183,7 +185,7 @@ export default function AdminPage() {
       {/* ── Sidebar ── */}
       <aside
         className={`fixed md:relative inset-y-0 md:inset-auto left-0 z-50 md:z-[1] w-[260px] max-w-[80vw] transition-transform duration-300 ease-in-out md:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
-        style={{ flexShrink: 0, height: '100vh', display: 'flex', flexDirection: 'column', padding: '1.5rem 1rem', background: 'linear-gradient(160deg, rgba(255,252,255,0.12) 0%, rgba(255,240,248,0.06) 50%, rgba(240,235,255,0.10) 100%)', backdropFilter: 'blur(24px)', borderRight: '1px solid rgba(255,255,255,0.09)' }}
+        style={{ flexShrink: 0, height: '100dvh', display: 'flex', flexDirection: 'column', padding: '1.5rem 1rem', background: 'linear-gradient(160deg, rgba(255,252,255,0.12) 0%, rgba(255,240,248,0.06) 50%, rgba(240,235,255,0.10) 100%)', backdropFilter: 'blur(24px)', borderRight: '1px solid rgba(255,255,255,0.09)' }}
       >
 
         <div style={{ padding: '0.25rem 0.5rem', marginBottom: '2rem', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
@@ -200,11 +202,11 @@ export default function AdminPage() {
           </button>
         </div>
 
-        <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', flex: 1 }}>
-          {(['dashboard', 'blog', 'students', 'suivi', 'devoirs', 'exercices', 'paiements', 'formation-focus'] as const).map(p => {
+        <nav className="sidebar-scroll" style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', flex: 1, minHeight: 0, overflowY: 'auto', margin: '0 -0.25rem', padding: '0 0.25rem' }}>
+          {(['dashboard', 'blog', 'students', 'suivi', 'devoirs', 'exercices', 'paiements', 'focus-prep', 'formation-focus'] as const).map(p => {
             const active = sidebarActive === p
-            const icon = p === 'dashboard' ? 'dashboard' : p === 'blog' ? 'article' : p === 'students' ? 'group' : p === 'suivi' ? 'history_edu' : p === 'devoirs' ? 'assignment' : p === 'exercices' ? 'library_music' : p === 'paiements' ? 'payments' : 'assignment_turned_in'
-            const label = p === 'dashboard' ? 'Dashboard' : p === 'blog' ? 'Blog' : p === 'students' ? 'Élèves' : p === 'suivi' ? 'Suivi des séances' : p === 'devoirs' ? 'Devoirs à rendre' : p === 'exercices' ? 'Exercices' : p === 'paiements' ? 'Paiements' : 'Candidatures Formation Focus'
+            const icon = p === 'dashboard' ? 'dashboard' : p === 'blog' ? 'article' : p === 'students' ? 'group' : p === 'suivi' ? 'history_edu' : p === 'devoirs' ? 'assignment' : p === 'exercices' ? 'library_music' : p === 'paiements' ? 'payments' : p === 'focus-prep' ? 'edit_note' : 'assignment_turned_in'
+            const label = p === 'dashboard' ? 'Dashboard' : p === 'blog' ? 'Blog' : p === 'students' ? 'Élèves' : p === 'suivi' ? 'Suivi des séances' : p === 'devoirs' ? 'Devoirs à rendre' : p === 'exercices' ? 'Exercices' : p === 'paiements' ? 'Paiements' : p === 'focus-prep' ? 'Préparation des séances Focus' : 'Candidatures Formation Focus'
             return (
               <button key={p} onClick={() => handleNav(p)} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', width: '100%', padding: '0.75rem 1rem', borderRadius: '0.75rem', border: 'none', background: active ? 'rgba(207,53,148,0.12)' : 'transparent', boxShadow: active ? 'inset 0 0 0 1px rgba(207,53,148,0.25)' : 'none', color: active ? '#cf3594' : 'rgba(255,255,255,0.6)', fontSize: '0.875rem', fontWeight: 500, letterSpacing: '0.02em', cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s', fontFamily: 'inherit' }}>
                 <span className="material-symbols-outlined" style={{ fontSize: 19, flexShrink: 0 }}>{icon}</span>
@@ -266,6 +268,9 @@ export default function AdminPage() {
           )}
           {view === 'paiements' && (
             <PaiementsManager />
+          )}
+          {view === 'focus-prep' && (
+            <FocusSeancesManager />
           )}
           {view === 'formation-focus' && (
             <CandidaturesList candidatures={candidatures} loading={candidaturesLoading} error={candidaturesError} onRefresh={loadCandidatures} />
