@@ -158,7 +158,8 @@ export default function ExercicesManager() {
   )
 }
 
-function ExerciceForm({ draft: initial, usedIn, notions, onNotionCreated, onCancel, onDelete, onSaved }: {
+/** Formulaire d'exercice, partagé avec la préparation des séances Focus. */
+export function ExerciceForm({ draft: initial, usedIn, notions, onNotionCreated, onCancel, onDelete, onSaved }: {
   draft: Draft
   notions: Notion[]
   onNotionCreated: (n: Notion) => void

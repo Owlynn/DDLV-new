@@ -3,9 +3,10 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { supabase } from '@/lib/supabase-client'
 import { card } from '@/components/eleve/ui'
-import { ConfirmDialog, IconButton, type ConfirmRequest, input, btnAccent, btnDanger, btnGhost } from '@/components/ManagerUI'
+import { ConfirmDialog, IconButton, Modal, type ConfirmRequest, input, btnAccent, btnDanger, btnGhost } from '@/components/ManagerUI'
+import { ExerciceForm } from '@/components/ExercicesManager'
 import { FOCUS_SEANCE_COLUMNS, PILIERS, toFocusSeance, type FocusSeance, type PilierKey } from '@/lib/focus-seances'
-import { EXERCICE_COLUMNS, type Exercice } from '@/lib/suivi'
+import { EXERCICE_COLUMNS, fetchNotions, type Exercice, type Notion } from '@/lib/suivi'
 
 // Onglet « Préparation des séances Focus » de /admin : une séance = une date + un thème, et pour chaque pilier
 // un texte et des exercices de la bibliothèque (public.exercices).
@@ -53,6 +54,8 @@ export default function FocusSeancesManager() {
   const [adding, setAdding] = useState(false)
   const [confirmReq, setConfirmReq] = useState<ConfirmRequest | null>(null)
   const [exercices, setExercices] = useState<Exercice[]>([])
+  const [notions, setNotions] = useState<Notion[]>([])
+  const [editingExo, setEditingExo] = useState<Exercice | null>(null)
   const selected = seances.find(s => s.id === selectedId) ?? null
 
   // Dernière valeur en attente pour chaque champ de chaque séance
@@ -82,10 +85,12 @@ export default function FocusSeancesManager() {
 
   useEffect(() => {
     async function load() {
-      const [s, e] = await Promise.all([
+      const [s, e, n] = await Promise.all([
         supabase.from('focus_seances').select(FOCUS_SEANCE_COLUMNS).order('ordre').order('created_at'),
         supabase.from('exercices').select(EXERCICE_COLUMNS).order('titre'),
+        fetchNotions(),
       ])
+      setNotions(n)
       if (s.error || e.error) setError(`Chargement impossible : ${(s.error ?? e.error)!.message}`)
       if (!s.error) {
         const list = (s.data ?? []).map(toFocusSeance)
@@ -154,6 +159,12 @@ export default function FocusSeancesManager() {
     requestAnimationFrame(() => dateInputRef.current?.focus())
   }
 
+  async function rechargerExercices() {
+    const { data, error } = await supabase.from('exercices').select(EXERCICE_COLUMNS).order('titre')
+    if (error) setError(`Rechargement des exercices impossible : ${error.message}`)
+    else setExercices((data ?? []) as Exercice[])
+  }
+
   function demanderSuppression(s: FocusSeance) {
     if (seances.length <= 1) return
     setConfirmReq({
@@ -207,8 +218,23 @@ export default function FocusSeancesManager() {
             exercices={exercices}
             onExercicesChange={(pilier, ids) => modifierExercices(selected.id, pilier, ids)}
             onCreateExercice={creerExercice}
+            onEditExercice={exId => setEditingExo(exercices.find(e => e.id === exId) ?? null)}
           />
         </div>
+      )}
+
+      {/* Même formulaire que l'onglet « Exercices » ; la suppression reste réservée à cet onglet */}
+      {editingExo && (
+        <Modal title="Modifier l'exercice" subtitle="Les modifications s'appliquent partout où l'exercice est utilisé." onClose={() => setEditingExo(null)}>
+          <ExerciceForm
+            draft={editingExo}
+            usedIn={0}
+            notions={notions}
+            onNotionCreated={nv => setNotions(list => [...list, nv].sort((a, b) => a.libelle.localeCompare(b.libelle)))}
+            onCancel={() => setEditingExo(null)}
+            onSaved={() => { setEditingExo(null); rechargerExercices() }}
+          />
+        </Modal>
       )}
 
       {confirmReq && <ConfirmDialog request={confirmReq} onClose={() => setConfirmReq(null)} />}
@@ -291,7 +317,7 @@ function SeancesList({ seances, selectedId, onSelect }: { seances: FocusSeance[]
 
 const labelStyle: React.CSSProperties = { fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.45)' }
 
-function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exercices, onExercicesChange, onCreateExercice }: {
+function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exercices, onExercicesChange, onCreateExercice, onEditExercice }: {
   seance: FocusSeance
   dateInputRef: React.RefObject<HTMLInputElement | null>
   canDelete: boolean
@@ -300,6 +326,7 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exe
   exercices: Exercice[]
   onExercicesChange: (pilier: PilierKey, ids: string[]) => void
   onCreateExercice: (titre: string) => Promise<Exercice | null>
+  onEditExercice: (exId: string) => void
 }) {
   const id = (champ: Champ) => `focus-seance-${champ}`
 
@@ -344,6 +371,7 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exe
                 exercices={exercices}
                 onChange={ids => onExercicesChange(p.key, ids)}
                 onCreate={onCreateExercice}
+                onEdit={onEditExercice}
               />
             </li>
           )
@@ -363,13 +391,14 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exe
 
 /* ── Exercices d'un pilier : choix dans la bibliothèque ou création à la volée ── */
 
-function ExercicesPilier({ idBase, pilierLabel, selection, exercices, onChange, onCreate }: {
+function ExercicesPilier({ idBase, pilierLabel, selection, exercices, onChange, onCreate, onEdit }: {
   idBase: string
   pilierLabel: string
   selection: string[]
   exercices: Exercice[]
   onChange: (ids: string[]) => void
   onCreate: (titre: string) => Promise<Exercice | null>
+  onEdit: (exId: string) => void
 }) {
   const [creating, setCreating] = useState(false)
   const [titre, setTitre] = useState('')
@@ -408,6 +437,7 @@ function ExercicesPilier({ idBase, pilierLabel, selection, exercices, onChange, 
               <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{titreOf(exId)}</span>
               <IconButton icon="arrow_upward" title={`Monter « ${titreOf(exId)} »`} disabled={i === 0} onClick={() => move(i, -1)} />
               <IconButton icon="arrow_downward" title={`Descendre « ${titreOf(exId)} »`} disabled={i === selection.length - 1} onClick={() => move(i, 1)} />
+              <IconButton icon="edit" title={`Modifier « ${titreOf(exId)} »`} disabled={!exercices.some(e => e.id === exId)} onClick={() => onEdit(exId)} />
               <IconButton icon="close" title={`Retirer « ${titreOf(exId)} »`} onClick={() => onChange(selection.filter(x => x !== exId))} />
             </li>
           ))}
