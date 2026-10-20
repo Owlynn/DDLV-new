@@ -344,7 +344,7 @@ export default function DevoirsManager({ contexte, userId, canEdit, depotUrl }: 
 
       {draft && (
         <Modal title={draft.id ? 'Modifier le devoir' : 'Nouveau devoir'} subtitle={contexte && tagInfo(contexte).label} onClose={() => setDraft(null)}>
-          <DevoirForm draft={draft} contexteLocked={!!contexte} exercices={exercices} onCancel={() => setDraft(null)} onSaved={() => { setDraft(null); load() }} />
+          <DevoirForm draft={draft} contexteLocked={!!contexte} exercices={exercices} onExerciceCreated={ex => setExercices(list => [...list, ex].sort((a, b) => a.titre.localeCompare(b.titre, 'fr')))} onCancel={() => setDraft(null)} onSaved={() => { setDraft(null); load() }} />
         </Modal>
       )}
 
@@ -389,18 +389,35 @@ function firstLine(text: string | null) {
 
 /* ── Formulaire admin (aussi utilisé par la préparation des séances Focus) ── */
 
-export function DevoirForm({ draft: initial, contexteLocked, exercices, onCancel, onSaved }: {
+export function DevoirForm({ draft: initial, contexteLocked, exercices, onExerciceCreated, onCancel, onSaved }: {
   draft: Draft
   contexteLocked: boolean
   exercices: Exercice[]
+  onExerciceCreated: (exercice: Exercice) => void // ajoute l'exercice créé à la liste du parent
   onCancel: () => void
   onSaved: () => void
 }) {
   const [draft, setDraft] = useState<Draft>(initial)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
+  const [nouvelExo, setNouvelExo] = useState<string | null>(null) // titre en cours de saisie ; null = champ fermé
+  const [creatingExo, setCreatingExo] = useState(false)
 
   const update = (patch: Partial<Draft>) => setDraft(d => ({ ...d, ...patch }))
+
+  // Crée l'exercice dans la bibliothèque (titre seul, à compléter dans l'onglet Exercices) et le choisit pour le devoir
+  async function creerExercice() {
+    const titre = nouvelExo?.trim()
+    if (!titre || creatingExo) return
+    setCreatingExo(true)
+    setError('')
+    const { data, error } = await supabase.from('exercices').insert({ titre }).select(EXERCICE_COLUMNS).single()
+    setCreatingExo(false)
+    if (error || !data) { setError(`Création de l'exercice impossible : ${error?.message ?? 'erreur inconnue'}`); return }
+    onExerciceCreated(data as Exercice)
+    update({ exercice_id: (data as Exercice).id })
+    setNouvelExo(null)
+  }
 
   function toggleEtiquette(key: StudentTagKey) {
     update({ etiquettes: draft.etiquettes.includes(key) ? draft.etiquettes.filter(t => t !== key) : [...draft.etiquettes, key] })
@@ -453,7 +470,37 @@ export function DevoirForm({ draft: initial, contexteLocked, exercices, onCancel
           <option value="" style={{ background: '#1a0b2e' }}>— Aucun pour l'instant —</option>
           {exercices.map(ex => <option key={ex.id} value={ex.id} style={{ background: '#1a0b2e' }}>{ex.titre}</option>)}
         </select>
-        <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)' }}>Les exercices se créent dans Administration → Exercices.</span>
+        {nouvelExo === null ? (
+          <button type="button" onClick={() => setNouvelExo('')} style={{ ...btnGhost, alignSelf: 'flex-start', padding: '0.45rem 0.8rem', fontSize: '0.8rem' }}>
+            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16 }}>add</span>
+            Nouvel exercice
+          </button>
+        ) : (
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <label htmlFor="devoir-nouvel-exercice" className="sr-only">Titre du nouvel exercice</label>
+            <input
+              id="devoir-nouvel-exercice"
+              autoFocus
+              value={nouvelExo}
+              onChange={e => setNouvelExo(e.target.value)}
+              onKeyDown={e => {
+                // Entrée crée l'exercice sans envoyer le formulaire du devoir
+                if (e.key === 'Enter') { e.preventDefault(); creerExercice() }
+                if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); setNouvelExo(null) }
+              }}
+              placeholder="Titre du nouvel exercice"
+              autoComplete="off"
+              style={{ ...input, flex: 1, minWidth: 0 }}
+            />
+            <button type="button" onClick={creerExercice} disabled={!nouvelExo.trim() || creatingExo} style={{ ...btnGhost, opacity: nouvelExo.trim() && !creatingExo ? 1 : 0.4 }}>
+              {creatingExo ? 'Création…' : 'Créer'}
+            </button>
+            <button type="button" onClick={() => setNouvelExo(null)} aria-label="Annuler la création de l'exercice" title="Annuler" style={{ ...btnGhost, padding: '0.6rem' }}>
+              <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 17 }}>close</span>
+            </button>
+          </div>
+        )}
+        <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)' }}>Description et notions se complètent ensuite dans Administration → Exercices.</span>
       </Field>
 
       <Field label="Commentaire">

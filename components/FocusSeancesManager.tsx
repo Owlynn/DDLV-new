@@ -266,6 +266,7 @@ export default function FocusSeancesManager() {
             draft={editingDevoir}
             contexteLocked
             exercices={exercices}
+            onExerciceCreated={ex => setExercices(list => [...list, ex].sort((a, b) => a.titre.localeCompare(b.titre, 'fr')))}
             onCancel={() => setEditingDevoir(null)}
             onSaved={() => { setEditingDevoir(null); rechargerDevoirs() }}
           />
