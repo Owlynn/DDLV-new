@@ -14,6 +14,7 @@ import PaiementsManager from '@/components/PaiementsManager'
 import FocusSeancesManager from '@/components/FocusSeancesManager'
 import FocusCalendrier from '@/components/eleve/FocusCalendrier'
 import { FOCUS_TAG } from '@/lib/formation-focus'
+import { useSidebar } from '@/lib/use-sidebar'
 
 type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'paiements' | 'focus-calendrier' | 'focus-prep' | 'formation-focus'
 type NavTarget = Exclude<View, 'editor'>
@@ -59,7 +60,7 @@ export default function AdminPage() {
 
   const [view, setView] = useState<View>('dashboard')
   const [editingPost, setEditingPost] = useState<Post | null>(null)
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const { open: sidebarOpen, setOpen: setSidebarOpen, hidden: sidebarHidden, toggle: toggleSidebar } = useSidebar()
 
   const [stats, setStats] = useState<Stats>({ published: 0, drafts: 0 })
   const [posts, setPosts] = useState<Post[]>([])
@@ -207,8 +208,8 @@ export default function AdminPage() {
 
       {/* ── Sidebar ── */}
       <aside
-        className={`fixed md:relative inset-y-0 md:inset-auto left-0 z-50 md:z-[1] w-[260px] max-w-[80vw] transition-transform duration-300 ease-in-out md:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
-        style={{ flexShrink: 0, height: '100dvh', display: 'flex', flexDirection: 'column', padding: '1.5rem 1rem', background: 'linear-gradient(160deg, rgba(255,252,255,0.12) 0%, rgba(255,240,248,0.06) 50%, rgba(240,235,255,0.10) 100%)', backdropFilter: 'blur(24px)', borderRight: '1px solid rgba(255,255,255,0.09)' }}
+        className={`fixed md:relative inset-y-0 md:inset-auto left-0 z-50 md:z-[1] flex flex-col w-[260px] max-w-[80vw] transition-transform duration-300 ease-in-out md:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} ${sidebarHidden ? 'md:hidden' : ''}`}
+        style={{ flexShrink: 0, height: '100dvh', padding: '1.5rem 1rem', background: 'linear-gradient(160deg, rgba(255,252,255,0.12) 0%, rgba(255,240,248,0.06) 50%, rgba(240,235,255,0.10) 100%)', backdropFilter: 'blur(24px)', borderRight: '1px solid rgba(255,255,255,0.09)' }}
       >
 
         <div style={{ padding: '0.25rem 0.5rem', marginBottom: '2rem', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
@@ -281,9 +282,10 @@ export default function AdminPage() {
           style={{ borderBottom: '1px solid rgba(255,255,255,0.07)', backdropFilter: 'blur(20px)', background: 'rgba(13,2,24,0.65)', flexShrink: 0 }}
         >
           <button
-            onClick={() => setSidebarOpen(true)}
-            aria-label="Ouvrir le menu"
-            className="md:hidden inline-flex -ml-1 p-1 border-0 bg-transparent text-white/70 cursor-pointer"
+            onClick={toggleSidebar}
+            aria-label="Afficher ou masquer le menu"
+            title="Afficher ou masquer le menu"
+            className="inline-flex -ml-1 p-1 border-0 bg-transparent text-white/70 cursor-pointer"
           >
             <span className="material-symbols-outlined" style={{ fontSize: 22 }}>menu</span>
           </button>

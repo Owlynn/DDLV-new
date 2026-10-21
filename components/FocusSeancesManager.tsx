@@ -236,7 +236,7 @@ export default function FocusSeancesManager() {
       ) : !selected ? (
         <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem' }}>Aucune séance pour le moment. Commencez par « Ajouter une séance ».</p>
       ) : (
-        <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
+        <div className="flex flex-col xl:flex-row xl:items-start gap-4 xl:gap-6">
           <SeancesList seances={seances} selectedId={selected.id} onSelect={setSelectedId} />
           <SeanceEditor
             key={selected.id}
@@ -330,12 +330,13 @@ export function SeancesList({ seances, selectedId, onSelect, showPublication = t
   }, [selectedId])
 
   return (
-    <nav aria-label="Séances" className="md:w-64 md:shrink-0">
-      <ul className="flex md:flex-col gap-2 overflow-x-auto md:overflow-visible pb-2 md:pb-0" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+    <nav aria-label="Séances" className="xl:w-64 xl:shrink-0">
+      {/* Bande horizontale défilante jusqu'aux grands écrans, colonne à partir de xl */}
+      <ul className="flex xl:flex-col gap-2 overflow-x-auto xl:overflow-visible p-0 pb-2 xl:pb-0" style={{ listStyle: 'none', margin: 0 }}>
         {seances.map(s => {
           const active = s.id === selectedId
           return (
-            <li key={s.id} className="shrink-0 w-44 md:w-auto">
+            <li key={s.id} className="shrink-0 w-44 xl:w-auto">
               <button
                 ref={active ? selectedRef : undefined}
                 type="button"
@@ -396,7 +397,7 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exe
   const id = (champ: Champ) => `focus-seance-${champ}`
 
   return (
-    <section aria-label={`Séance ${libelleSeance(seance)}`} className="flex-1 min-w-0" style={{ ...card, padding: '1.5rem' }}>
+    <section aria-label={`Séance ${libelleSeance(seance)}`} className="flex-1 min-w-0 p-4 sm:p-6" style={{ ...card, padding: undefined }}>
       <label
         htmlFor="focus-seance-publiee"
         style={{ display: 'flex', alignItems: 'flex-start', gap: '0.7rem', padding: '0.75rem 1rem', marginBottom: '1.25rem', borderRadius: '0.75rem', cursor: 'pointer', border: `1px solid ${seance.publiee ? 'rgba(77,184,200,0.45)' : 'rgba(255,255,255,0.12)'}`, background: seance.publiee ? 'rgba(77,184,200,0.1)' : 'rgba(255,255,255,0.03)' }}
@@ -436,7 +437,7 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exe
         <label htmlFor="focus-seance-notes-generales" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#f0a830', fontSize: '0.85rem', fontWeight: 600 }}>
           <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 17 }}>lock</span>
           <span style={{ flex: 1 }}>Notes générales de la séance</span>
-          <span style={{ fontSize: '0.7rem', fontWeight: 400, color: 'rgba(255,255,255,0.4)' }}>jamais visibles des élèves</span>
+          <span className="hidden sm:inline" style={{ fontSize: '0.7rem', fontWeight: 400, color: 'rgba(255,255,255,0.4)' }}>jamais visibles des élèves</span>
         </label>
         <AutoTextarea
           id="focus-seance-notes-generales"
@@ -557,13 +558,18 @@ function ExercicesPilier({ idBase, pilierLabel, selection, exercices, onChange, 
       {selection.length > 0 && (
         <ol aria-label={`Exercices : ${pilierLabel}`} style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
           {selection.map((exId, i) => (
-            <li key={exId} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.35rem 0.6rem', borderRadius: '0.6rem', background: 'rgba(255,255,255,0.05)', fontSize: '0.85rem' }}>
-              <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16, color: 'rgba(255,255,255,0.35)' }}>library_music</span>
-              <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{titreOf(exId)}</span>
-              <IconButton icon="arrow_upward" title={`Monter « ${titreOf(exId)} »`} disabled={i === 0} onClick={() => move(i, -1)} />
-              <IconButton icon="arrow_downward" title={`Descendre « ${titreOf(exId)} »`} disabled={i === selection.length - 1} onClick={() => move(i, 1)} />
-              <IconButton icon="edit" title={`Modifier « ${titreOf(exId)} »`} disabled={!exercices.some(e => e.id === exId)} onClick={() => onEdit(exId)} />
-              <IconButton icon="close" title={`Retirer « ${titreOf(exId)} »`} onClick={() => onChange(selection.filter(x => x !== exId))} />
+            // Sur petit écran, les boutons passent sous le titre plutôt que de l'écraser
+            <li key={exId} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', columnGap: '0.5rem', padding: '0.35rem 0.6rem', borderRadius: '0.6rem', background: 'rgba(255,255,255,0.05)', fontSize: '0.85rem' }}>
+              <span style={{ flex: '1 1 12rem', minWidth: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.2rem 0' }}>
+                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16, color: 'rgba(255,255,255,0.35)', flexShrink: 0 }}>library_music</span>
+                <span style={{ lineHeight: 1.4, overflowWrap: 'anywhere' }}>{titreOf(exId)}</span>
+              </span>
+              <span style={{ display: 'flex', marginLeft: 'auto' }}>
+                <IconButton icon="arrow_upward" title={`Monter « ${titreOf(exId)} »`} disabled={i === 0} onClick={() => move(i, -1)} />
+                <IconButton icon="arrow_downward" title={`Descendre « ${titreOf(exId)} »`} disabled={i === selection.length - 1} onClick={() => move(i, 1)} />
+                <IconButton icon="edit" title={`Modifier « ${titreOf(exId)} »`} disabled={!exercices.some(e => e.id === exId)} onClick={() => onEdit(exId)} />
+                <IconButton icon="close" title={`Retirer « ${titreOf(exId)} »`} onClick={() => onChange(selection.filter(x => x !== exId))} />
+              </span>
             </li>
           ))}
         </ol>
@@ -644,12 +650,18 @@ function DevoirsSeance({ idBase, seanceId, devoirs, exercices, onNew, onEdit, on
       {lies.length > 0 && (
         <ul aria-label="Devoirs à rendre de la séance" style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
           {lies.map(d => (
-            <li key={d.id} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.35rem 0.6rem', borderRadius: '0.6rem', background: 'rgba(255,255,255,0.05)', fontSize: '0.85rem' }}>
-              <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16, color: 'rgba(255,255,255,0.35)' }}>assignment</span>
-              <span style={{ flexShrink: 0, color: PILIER_COLORS.autonome, fontWeight: 600, whiteSpace: 'nowrap' }}>{dateDevoir(d)}</span>
-              <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: hasContent(d) ? undefined : 'rgba(255,255,255,0.4)', fontStyle: hasContent(d) ? undefined : 'italic' }}>{titreDevoir(d)}</span>
-              <IconButton icon="edit" title={`Modifier le devoir du ${dateDevoir(d)}`} onClick={() => onEdit(d)} />
-              <IconButton icon="link_off" title={`Retirer de la séance le devoir du ${dateDevoir(d)} (il reste dans « Devoirs à rendre »)`} onClick={() => onAttach(d.id, false)} />
+            <li key={d.id} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', columnGap: '0.5rem', padding: '0.35rem 0.6rem', borderRadius: '0.6rem', background: 'rgba(255,255,255,0.05)', fontSize: '0.85rem' }}>
+              <span style={{ flex: '1 1 12rem', minWidth: 0, display: 'flex', alignItems: 'baseline', flexWrap: 'wrap', columnGap: '0.5rem', padding: '0.2rem 0' }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: PILIER_COLORS.autonome, fontWeight: 600, whiteSpace: 'nowrap' }}>
+                  <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16, color: 'rgba(255,255,255,0.35)' }}>assignment</span>
+                  {dateDevoir(d)}
+                </span>
+                <span style={{ lineHeight: 1.4, overflowWrap: 'anywhere', color: hasContent(d) ? undefined : 'rgba(255,255,255,0.4)', fontStyle: hasContent(d) ? undefined : 'italic' }}>{titreDevoir(d)}</span>
+              </span>
+              <span style={{ display: 'flex', marginLeft: 'auto' }}>
+                <IconButton icon="edit" title={`Modifier le devoir du ${dateDevoir(d)}`} onClick={() => onEdit(d)} />
+                <IconButton icon="link_off" title={`Retirer de la séance le devoir du ${dateDevoir(d)} (il reste dans « Devoirs à rendre »)`} onClick={() => onAttach(d.id, false)} />
+              </span>
             </li>
           ))}
         </ul>
@@ -703,7 +715,7 @@ function NotesPrivees({ id, pilierLabel, value, onChange }: {
       >
         <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16 }}>lock</span>
         <span style={{ flex: 1 }}>Notes privées{etat}</span>
-        <span style={{ fontSize: '0.7rem', fontWeight: 400, color: 'rgba(255,255,255,0.4)' }}>jamais visibles des élèves</span>
+        <span className="hidden sm:inline" style={{ fontSize: '0.7rem', fontWeight: 400, color: 'rgba(255,255,255,0.4)' }}>jamais visibles des élèves</span>
         <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 18, color: 'rgba(255,255,255,0.4)', transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 0.15s' }}>expand_more</span>
       </button>
       {open && (

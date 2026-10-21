@@ -67,7 +67,7 @@ export default function FocusSeancesEleve() {
       ) : !selected ? (
         !error && <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem' }}>Aucune séance n'est encore disponible.</p>
       ) : (
-        <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
+        <div className="flex flex-col xl:flex-row xl:items-start gap-4 xl:gap-6">
           <SeancesList seances={seances} selectedId={selected.id} onSelect={setSelectedId} showPublication={false} />
           <SeanceDetail key={selected.id} seance={selected} devoirs={devoirs.filter(d => d.seance_id === selected.id)} exercices={exercices} onOpenExercice={setOpenedExo} />
         </div>
@@ -99,7 +99,7 @@ function SeanceDetail({ seance, devoirs, exercices, onOpenExercice }: {
     .filter(p => p.texte || p.exos.length || p.devoirs.length)
 
   return (
-    <article aria-labelledby="focus-seance-titre" className="flex-1 min-w-0" style={{ ...card, padding: '1.5rem' }}>
+    <article aria-labelledby="focus-seance-titre" className="flex-1 min-w-0 p-4 sm:p-6" style={{ ...card, padding: undefined }}>
       <header style={{ marginBottom: '1.75rem' }}>
         <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.4)', marginBottom: '0.3rem' }}>
           Séance {seance.date.trim() ? `du ${seance.date.trim()}` : ''}
@@ -141,10 +141,10 @@ function SeanceDetail({ seance, devoirs, exercices, onOpenExercice }: {
                           <button
                             type="button"
                             onClick={() => onOpenExercice(e)}
-                            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.4rem 0.8rem', borderRadius: 999, cursor: 'pointer', fontFamily: 'inherit', fontSize: '0.8rem', color: '#fff', border: `1px solid ${color}66`, background: `${color}1a` }}
+                            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', maxWidth: '100%', padding: '0.4rem 0.8rem', borderRadius: '1rem', cursor: 'pointer', fontFamily: 'inherit', fontSize: '0.8rem', lineHeight: 1.35, textAlign: 'left', color: '#fff', border: `1px solid ${color}66`, background: `${color}1a` }}
                           >
-                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 15, color }}>library_music</span>
-                            {e.titre}
+                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 15, color, flexShrink: 0 }}>library_music</span>
+                            <span style={{ overflowWrap: 'anywhere' }}>{e.titre}</span>
                           </button>
                         </li>
                       ))}

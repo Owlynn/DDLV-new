@@ -551,6 +551,15 @@ main img:not(.object-cover), .article-content img:not(.object-cover), .bento-con
   outline-offset: 2px;
 }
 
+/* Séances Focus sur mobile : champs en 16 px (sinon iOS zoome au focus) */
+@media (max-width: 639px) {
+  .focus-seances input,
+  .focus-seances textarea,
+  .focus-seances select {
+    font-size: 16px !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .focus-seances *,
   .focus-seances *::before,
