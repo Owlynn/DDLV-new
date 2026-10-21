@@ -3,13 +3,13 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { supabase } from '@/lib/supabase-client'
 import { card } from '@/components/eleve/ui'
-import { ConfirmDialog, IconButton, Modal, type ConfirmRequest, input, btnAccent, btnDanger, btnGhost } from '@/components/ManagerUI'
+import { ConfirmDialog, ExerciceDetail, IconButton, Modal, type ConfirmRequest, input, btnAccent, btnDanger, btnGhost } from '@/components/ManagerUI'
 import { ExerciceForm } from '@/components/ExercicesManager'
 import { DevoirForm, emptyDraft, type DevoirDraft } from '@/components/DevoirsManager'
 import { FOCUS_SEANCE_ADMIN_COLUMNS, PILIERS, PILIER_COLORS, toFocusSeance, type FocusSeance, type NoteKey, type PilierKey } from '@/lib/focus-seances'
 import { FOCUS_TAG, formatDay } from '@/lib/formation-focus'
 import { DEVOIR_COLUMNS, hasContent, type Devoir } from '@/lib/devoirs'
-import { EXERCICE_COLUMNS, fetchNotions, type Exercice, type Notion } from '@/lib/suivi'
+import { EXERCICE_COLUMNS, fetchNotions, notionLabels, type Exercice, type Notion } from '@/lib/suivi'
 
 // Onglet « Préparation des séances Focus » de /admin : une séance = une date + un thème, et pour chaque pilier
 // un texte et des exercices de la bibliothèque (public.exercices).
@@ -55,6 +55,7 @@ export default function FocusSeancesManager() {
   const [exercices, setExercices] = useState<Exercice[]>([])
   const [notions, setNotions] = useState<Notion[]>([])
   const [editingExo, setEditingExo] = useState<Exercice | null>(null)
+  const [viewingExo, setViewingExo] = useState<Exercice | null>(null) // modale de détail, ouverte au clic sur un exercice
   const [devoirs, setDevoirs] = useState<Devoir[]>([]) // devoirs Focus, rattachés ou non à une séance
   const [editingDevoir, setEditingDevoir] = useState<DevoirDraft | null>(null)
   const selected = seances.find(s => s.id === selectedId) ?? null
@@ -249,6 +250,7 @@ export default function FocusSeancesManager() {
             onExercicesChange={(pilier, ids) => modifierExercices(selected.id, pilier, ids)}
             onCreateExercice={creerExercice}
             onEditExercice={exId => setEditingExo(exercices.find(e => e.id === exId) ?? null)}
+            onOpenExercice={exId => setViewingExo(exercices.find(e => e.id === exId) ?? null)}
             onPublicationChange={publiee => modifierPublication(selected.id, publiee)}
             onNotesChange={(pilier, notes) => modifierNotes(selected.id, pilier, notes)}
             devoirs={devoirs}
@@ -273,6 +275,18 @@ export default function FocusSeancesManager() {
         </Modal>
       )}
 
+      {viewingExo && !editingExo && (
+        <Modal title={viewingExo.titre} subtitle="Exercice" onClose={() => setViewingExo(null)}>
+          <ExerciceDetail exercice={viewingExo} notions={notionLabels(viewingExo, new Map(notions.map(n => [n.id, n])))} />
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1.5rem' }}>
+            <button type="button" onClick={() => setEditingExo(viewingExo)} style={btnGhost}>
+              <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 17 }}>edit</span>
+              Modifier l'exercice
+            </button>
+          </div>
+        </Modal>
+      )}
+
       {/* Même formulaire que l'onglet « Exercices » ; la suppression reste réservée à cet onglet */}
       {editingExo && (
         <Modal title="Modifier l'exercice" subtitle="Les modifications s'appliquent partout où l'exercice est utilisé." onClose={() => setEditingExo(null)}>
@@ -282,7 +296,7 @@ export default function FocusSeancesManager() {
             notions={notions}
             onNotionCreated={nv => setNotions(list => [...list, nv].sort((a, b) => a.libelle.localeCompare(b.libelle)))}
             onCancel={() => setEditingExo(null)}
-            onSaved={() => { setEditingExo(null); rechargerExercices() }}
+            onSaved={() => { setEditingExo(null); setViewingExo(null); rechargerExercices() }}
           />
         </Modal>
       )}
@@ -377,7 +391,7 @@ export function SeancesList({ seances, selectedId, onSelect, showPublication = t
 
 const labelStyle: React.CSSProperties = { fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.45)' }
 
-function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exercices, onExercicesChange, onCreateExercice, onEditExercice, onPublicationChange, onNotesChange, devoirs, onNewDevoir, onEditDevoir, onAttachDevoir }: {
+function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exercices, onExercicesChange, onCreateExercice, onEditExercice, onOpenExercice, onPublicationChange, onNotesChange, devoirs, onNewDevoir, onEditDevoir, onAttachDevoir }: {
   seance: FocusSeance
   dateInputRef: React.RefObject<HTMLInputElement | null>
   canDelete: boolean
@@ -387,6 +401,7 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exe
   onExercicesChange: (pilier: PilierKey, ids: string[]) => void
   onCreateExercice: (titre: string) => Promise<Exercice | null>
   onEditExercice: (exId: string) => void
+  onOpenExercice: (exId: string) => void
   onPublicationChange: (publiee: boolean) => void
   onNotesChange: (pilier: NoteKey, notes: string) => void
   devoirs: Devoir[]
@@ -479,6 +494,7 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exe
                   onNew={onNewDevoir}
                   onEdit={onEditDevoir}
                   onAttach={onAttachDevoir}
+                  onOpenExercice={onOpenExercice}
                 />
               )}
               {/* Le travail autonome passe par les devoirs ; ses anciens exercices restent affichés pour pouvoir les retirer */}
@@ -491,6 +507,7 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exe
                   onChange={ids => onExercicesChange(p.key, ids)}
                   onCreate={onCreateExercice}
                   onEdit={onEditExercice}
+                  onOpen={onOpenExercice}
                 />
               )}
               <NotesPrivees
@@ -517,7 +534,9 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exe
 
 /* ── Exercices d'un pilier : choix dans la bibliothèque ou création à la volée ── */
 
-function ExercicesPilier({ idBase, pilierLabel, selection, exercices, onChange, onCreate, onEdit }: {
+const exoTitreStyle: React.CSSProperties = { flex: '1 1 12rem', minWidth: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.2rem 0' }
+
+function ExercicesPilier({ idBase, pilierLabel, selection, exercices, onChange, onCreate, onEdit, onOpen }: {
   idBase: string
   pilierLabel: string
   selection: string[]
@@ -525,6 +544,7 @@ function ExercicesPilier({ idBase, pilierLabel, selection, exercices, onChange, 
   onChange: (ids: string[]) => void
   onCreate: (titre: string) => Promise<Exercice | null>
   onEdit: (exId: string) => void
+  onOpen: (exId: string) => void // modale de détail
 }) {
   const [creating, setCreating] = useState(false)
   const [titre, setTitre] = useState('')
@@ -560,10 +580,17 @@ function ExercicesPilier({ idBase, pilierLabel, selection, exercices, onChange, 
           {selection.map((exId, i) => (
             // Sur petit écran, les boutons passent sous le titre plutôt que de l'écraser
             <li key={exId} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', columnGap: '0.5rem', padding: '0.35rem 0.6rem', borderRadius: '0.6rem', background: 'rgba(255,255,255,0.05)', fontSize: '0.85rem' }}>
-              <span style={{ flex: '1 1 12rem', minWidth: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.2rem 0' }}>
-                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16, color: 'rgba(255,255,255,0.35)', flexShrink: 0 }}>library_music</span>
-                <span style={{ lineHeight: 1.4, overflowWrap: 'anywhere' }}>{titreOf(exId)}</span>
-              </span>
+              {exercices.some(e => e.id === exId) ? (
+                <button type="button" onClick={() => onOpen(exId)} title={`Voir le détail de « ${titreOf(exId)} »`} style={{ ...exoTitreStyle, border: 'none', background: 'transparent', cursor: 'pointer', fontFamily: 'inherit', fontSize: 'inherit', color: 'rgba(255,255,255,0.88)', textAlign: 'left' }}>
+                  <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16, color: 'rgba(255,255,255,0.35)', flexShrink: 0 }}>library_music</span>
+                  <span style={{ lineHeight: 1.4, overflowWrap: 'anywhere', textDecoration: 'underline', textDecorationColor: 'rgba(255,255,255,0.2)', textUnderlineOffset: 3 }}>{titreOf(exId)}</span>
+                </button>
+              ) : (
+                <span style={exoTitreStyle}>
+                  <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16, color: 'rgba(255,255,255,0.35)', flexShrink: 0 }}>library_music</span>
+                  <span style={{ lineHeight: 1.4, overflowWrap: 'anywhere', color: 'rgba(255,255,255,0.4)', fontStyle: 'italic' }}>{titreOf(exId)}</span>
+                </span>
+              )}
               <span style={{ display: 'flex', marginLeft: 'auto' }}>
                 <IconButton icon="arrow_upward" title={`Monter « ${titreOf(exId)} »`} disabled={i === 0} onClick={() => move(i, -1)} />
                 <IconButton icon="arrow_downward" title={`Descendre « ${titreOf(exId)} »`} disabled={i === selection.length - 1} onClick={() => move(i, 1)} />
@@ -628,7 +655,7 @@ function ExercicesPilier({ idBase, pilierLabel, selection, exercices, onChange, 
 
 /* ── Devoirs à rendre de la séance (bloc « Le travail autonome ») ── */
 
-function DevoirsSeance({ idBase, seanceId, devoirs, exercices, onNew, onEdit, onAttach }: {
+function DevoirsSeance({ idBase, seanceId, devoirs, exercices, onNew, onEdit, onAttach, onOpenExercice }: {
   idBase: string
   seanceId: string
   devoirs: Devoir[]
@@ -636,6 +663,7 @@ function DevoirsSeance({ idBase, seanceId, devoirs, exercices, onNew, onEdit, on
   onNew: () => void
   onEdit: (d: Devoir) => void
   onAttach: (devoirId: string, attach: boolean) => void
+  onOpenExercice: (exId: string) => void
 }) {
   const lies = devoirs.filter(d => d.seance_id === seanceId)
   const libres = devoirs.filter(d => !d.seance_id)
@@ -656,7 +684,13 @@ function DevoirsSeance({ idBase, seanceId, devoirs, exercices, onNew, onEdit, on
                   <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16, color: 'rgba(255,255,255,0.35)' }}>assignment</span>
                   {dateDevoir(d)}
                 </span>
-                <span style={{ lineHeight: 1.4, overflowWrap: 'anywhere', color: hasContent(d) ? undefined : 'rgba(255,255,255,0.4)', fontStyle: hasContent(d) ? undefined : 'italic' }}>{titreDevoir(d)}</span>
+                {d.exercice_id && exercices.some(e => e.id === d.exercice_id) ? (
+                  <button type="button" onClick={() => onOpenExercice(d.exercice_id!)} title={`Voir le détail de « ${titreDevoir(d)} »`} style={{ padding: 0, border: 'none', background: 'transparent', cursor: 'pointer', fontFamily: 'inherit', fontSize: 'inherit', lineHeight: 1.4, overflowWrap: 'anywhere', textAlign: 'left', color: 'rgba(255,255,255,0.88)', textDecoration: 'underline', textDecorationColor: 'rgba(255,255,255,0.2)', textUnderlineOffset: 3 }}>
+                    {titreDevoir(d)}
+                  </button>
+                ) : (
+                  <span style={{ lineHeight: 1.4, overflowWrap: 'anywhere', color: hasContent(d) ? undefined : 'rgba(255,255,255,0.4)', fontStyle: hasContent(d) ? undefined : 'italic' }}>{titreDevoir(d)}</span>
+                )}
               </span>
               <span style={{ display: 'flex', marginLeft: 'auto' }}>
                 <IconButton icon="edit" title={`Modifier le devoir du ${dateDevoir(d)}`} onClick={() => onEdit(d)} />
