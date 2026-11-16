@@ -6,7 +6,8 @@ import { card } from '@/components/eleve/ui'
 import { ConfirmDialog, ExerciceDetail, IconButton, Modal, type ConfirmRequest, input, btnAccent, btnDanger, btnGhost } from '@/components/ManagerUI'
 import { ExerciceForm } from '@/components/ExercicesManager'
 import { DevoirForm, emptyDraft, type DevoirDraft } from '@/components/DevoirsManager'
-import { FOCUS_SEANCE_ADMIN_COLUMNS, PILIERS, PILIER_COLORS, toFocusSeance, type FocusSeance, type NoteKey, type PilierKey } from '@/lib/focus-seances'
+import { FOCUS_SEANCE_ADMIN_COLUMNS, PILIERS, PILIER_COLORS, dateSaisie, toFocusSeance, type FocusSeance, type NoteKey, type PilierKey } from '@/lib/focus-seances'
+import SeancesNav from '@/components/SeancesNav'
 import { FOCUS_TAG, formatDay } from '@/lib/formation-focus'
 import { DEVOIR_COLUMNS, hasContent, type Devoir } from '@/lib/devoirs'
 import { EXERCICE_COLUMNS, fetchNotions, notionLabels, type Exercice, type Notion } from '@/lib/suivi'
@@ -161,11 +162,12 @@ export default function FocusSeancesManager() {
     return exercice
   }
 
-  async function ajouter() {
+  // Nouvelle séance, vide ou pré-datée depuis le calendrier (alertes « pas de séance enregistrée »)
+  async function ajouter(date = '') {
     setAdding(true)
     setError('')
     const ordre = Math.max(0, ...seances.map(s => s.ordre)) + 1
-    const { data, error } = await supabase.from('focus_seances').insert({ date: '', theme: '', ordre }).select(FOCUS_SEANCE_ADMIN_COLUMNS).single()
+    const { data, error } = await supabase.from('focus_seances').insert({ date, theme: '', ordre }).select(FOCUS_SEANCE_ADMIN_COLUMNS).single()
     setAdding(false)
     if (error || !data) { setError(`Ajout impossible : ${error?.message ?? 'erreur inconnue'}`); return }
     const seance = toFocusSeance(data)
@@ -223,7 +225,7 @@ export default function FocusSeancesManager() {
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
           <SaveIndicator status={status} />
-          <button type="button" onClick={ajouter} disabled={adding || loading} style={{ ...btnAccent, opacity: adding || loading ? 0.6 : 1 }}>
+          <button type="button" onClick={() => ajouter()} disabled={adding || loading} style={{ ...btnAccent, opacity: adding || loading ? 0.6 : 1 }}>
             <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 17 }}>add</span>
             {adding ? 'Ajout…' : 'Ajouter une séance'}
           </button>
@@ -238,7 +240,7 @@ export default function FocusSeancesManager() {
         <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem' }}>Aucune séance pour le moment. Commencez par « Ajouter une séance ».</p>
       ) : (
         <div className="flex flex-col xl:flex-row xl:items-start gap-4 xl:gap-6">
-          <SeancesList seances={seances} selectedId={selected.id} onSelect={setSelectedId} />
+          <SeancesNav seances={seances} selectedId={selected.id} onSelect={setSelectedId} alertes onCreate={session => ajouter(dateSaisie(session))} />
           <SeanceEditor
             key={selected.id}
             seance={selected}
@@ -328,62 +330,6 @@ function SaveIndicator({ status }: { status: SaveStatus }) {
         </>
       )}
     </span>
-  )
-}
-
-/* ── Liste des séances (colonne sur ordinateur, bande horizontale sur mobile) ── */
-
-/** Liste des séances ; partagée avec l'espace élève (sans le badge « Publiée »). */
-export function SeancesList({ seances, selectedId, onSelect, showPublication = true }: { seances: FocusSeance[]; selectedId: string; onSelect: (id: string) => void; showPublication?: boolean }) {
-  const selectedRef = useRef<HTMLButtonElement>(null)
-
-  // Garde la séance sélectionnée visible dans la bande horizontale
-  useEffect(() => {
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    selectedRef.current?.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: reduce ? 'auto' : 'smooth' })
-  }, [selectedId])
-
-  return (
-    <nav aria-label="Séances" className="xl:w-64 xl:shrink-0">
-      {/* Bande horizontale défilante jusqu'aux grands écrans, colonne à partir de xl */}
-      <ul className="flex xl:flex-col gap-2 overflow-x-auto xl:overflow-visible p-0 pb-2 xl:pb-0" style={{ listStyle: 'none', margin: 0 }}>
-        {seances.map(s => {
-          const active = s.id === selectedId
-          return (
-            <li key={s.id} className="shrink-0 w-44 xl:w-auto">
-              <button
-                ref={active ? selectedRef : undefined}
-                type="button"
-                onClick={() => onSelect(s.id)}
-                aria-current={active ? 'true' : undefined}
-                style={{
-                  display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '0.2rem', width: '100%',
-                  padding: '0.75rem 1rem', borderRadius: '0.75rem', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit',
-                  border: active ? '1px solid rgba(207,53,148,0.35)' : '1px solid rgba(255,255,255,0.1)',
-                  background: active ? 'rgba(207,53,148,0.12)' : 'rgba(255,255,255,0.04)',
-                  transition: 'background 0.15s, border-color 0.15s',
-                }}
-              >
-                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', width: '100%' }}>
-                  <span style={{ fontSize: '0.95rem', fontWeight: 600, color: active ? '#cf3594' : 'rgba(255,255,255,0.85)' }}>
-                    {s.date.trim() || 'Sans date'}
-                  </span>
-                  {showPublication && s.publiee && (
-                    <span title="Visible par les élèves Focus" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.2rem', fontSize: '0.62rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#4db8c8' }}>
-                      <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 13 }}>visibility</span>
-                      Publiée
-                    </span>
-                  )}
-                </span>
-                <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '100%' }}>
-                  {s.theme.trim() || 'Sans thème'}
-                </span>
-              </button>
-            </li>
-          )
-        })}
-      </ul>
-    </nav>
   )
 }
 

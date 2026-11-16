@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase-client'
 import { card } from '@/components/eleve/ui'
 import { ExerciceDetail, Modal } from '@/components/ManagerUI'
-import { SeancesList } from '@/components/FocusSeancesManager'
+import SeancesNav from '@/components/SeancesNav'
 import { FOCUS_SEANCE_COLUMNS, PILIERS, PILIER_COLORS, toFocusSeance, type FocusSeance } from '@/lib/focus-seances'
 import { formatDay } from '@/lib/formation-focus'
 import { DEVOIR_COLUMNS, type Devoir } from '@/lib/devoirs'
@@ -72,7 +72,7 @@ export default function FocusSeancesEleve() {
         !error && <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem' }}>Aucune séance n'est encore disponible.</p>
       ) : (
         <div className="flex flex-col xl:flex-row xl:items-start gap-4 xl:gap-6">
-          <SeancesList seances={seances} selectedId={selected.id} onSelect={setSelectedId} showPublication={false} />
+          <SeancesNav seances={seances} selectedId={selected.id} onSelect={setSelectedId} showPublication={false} />
           <SeanceDetail key={selected.id} seance={selected} devoirs={devoirs.filter(d => d.seance_id === selected.id)} videos={videosDeSeance(videos, selected)} exercices={exercices} onOpenExercice={setOpenedExo} />
         </div>
       )}
