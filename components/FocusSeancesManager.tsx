@@ -422,12 +422,13 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exe
                 </span>
                 <div style={{ minWidth: 0 }}>
                   <label htmlFor={id(p.key)} style={{ fontSize: '0.95rem', fontWeight: 600, color: 'rgba(255,255,255,0.9)' }}>{p.label}</label>
+                  <p id={`${id(p.key)}-resume`} style={{ fontSize: '0.78rem', lineHeight: 1.45, fontStyle: 'italic', color: 'rgba(255,255,255,0.5)', margin: '0.2rem 0 0' }}>{p.resume}</p>
                   {p.sousTitre && <div id={`${id(p.key)}-aide`} style={{ fontSize: '0.75rem', color, marginTop: '0.15rem' }}>{p.sousTitre}</div>}
                 </div>
               </div>
               <AutoTextarea
                 id={id(p.key)}
-                aria-describedby={p.sousTitre ? `${id(p.key)}-aide` : undefined}
+                aria-describedby={p.sousTitre ? `${id(p.key)}-resume ${id(p.key)}-aide` : `${id(p.key)}-resume`}
                 value={seance.piliers[p.key] ?? ''}
                 onChange={v => onChange(p.key, v)}
                 accent={color}

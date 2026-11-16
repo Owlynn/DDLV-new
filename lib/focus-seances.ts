@@ -5,13 +5,16 @@ import { getSessions, type FocusSession } from '@/lib/formation-focus'
 
 export type PilierKey = 'fondations' | 'posture' | 'collectif' | 'autonome' | 'scene'
 
-/** Les 5 piliers, dans l'ordre d'affichage. */
-export const PILIERS: { key: PilierKey; label: string; sousTitre?: string }[] = [
-  { key: 'fondations', label: 'Les fondations techniques', sousTitre: '1h minimum à chaque séance' },
-  { key: 'posture', label: "La posture intérieure de l'improvisatrice" },
-  { key: 'collectif', label: 'La dimension collective' },
-  { key: 'scene', label: "L'improvisation sur scène" },
-  { key: 'autonome', label: 'Le travail autonome', sousTitre: 'Les devoirs à rendre avant la prochaine séance' },
+/**
+ * Les 5 piliers, dans l'ordre d'affichage. `resume` : la phrase qui résume le pilier
+ * (reprise de la page publique /formation-focus), affichée dans la fiche de préparation.
+ */
+export const PILIERS: { key: PilierKey; label: string; sousTitre?: string; resume: string }[] = [
+  { key: 'fondations', label: 'Les fondations techniques', sousTitre: '1h minimum à chaque séance', resume: 'Gagner en compétences pour prendre confiance : pulse, écoute, réflexes d’impro, harmonie, arrangement, structure.' },
+  { key: 'posture', label: "La posture intérieure de l'improvisatrice", resume: 'Aller plus loin que les compétences techniques : écouter ses ressentis, dépasser ses peurs.' },
+  { key: 'collectif', label: 'La dimension collective', resume: 'Co-construire la musique en collectif : écoute des autres, prise et partage du lead, dynamiques de groupe.' },
+  { key: 'scene', label: "L'improvisation sur scène", resume: 'Passer de la pratique en groupe à une démonstration artistique.' },
+  { key: 'autonome', label: 'Le travail autonome', sousTitre: 'Les devoirs à rendre avant la prochaine séance', resume: 'Évoluer et progresser seul·e : pratique autonome entre les séances, enregistrements, retours personnalisés.' },
 ]
 
 export interface FocusSeance {
