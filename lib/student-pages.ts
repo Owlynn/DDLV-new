@@ -23,6 +23,7 @@ export const STUDENT_PAGES: StudentPage[] = [
       { href: '/eleve/formation-focus/calendrier', label: 'Calendrier', icon: 'calendar_month' },
       { href: '/eleve/formation-focus/seances', label: 'Séances', icon: 'event_note' },
       { href: '/eleve/formation-focus/devoirs', label: 'Devoirs à rendre', icon: 'assignment' },
+      { href: '/eleve/formation-focus/playlist', label: 'Playlist', icon: 'smart_display' },
     ],
   },
   {

@@ -13,10 +13,11 @@ import ElevesManager from '@/components/ElevesManager'
 import PaiementsManager from '@/components/PaiementsManager'
 import FocusSeancesManager from '@/components/FocusSeancesManager'
 import FocusCalendrier from '@/components/eleve/FocusCalendrier'
+import FocusPlaylist from '@/components/eleve/FocusPlaylist'
 import { FOCUS_TAG } from '@/lib/formation-focus'
 import { useSidebar } from '@/lib/use-sidebar'
 
-type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'paiements' | 'focus-calendrier' | 'focus-prep' | 'formation-focus'
+type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'paiements' | 'focus-calendrier' | 'focus-prep' | 'focus-playlist' | 'formation-focus'
 type NavTarget = Exclude<View, 'editor'>
 
 // Menu de la sidebar ; un bloc avec `children` est un titre de section suivi de son sous-menu (comme dans /eleve)
@@ -34,6 +35,7 @@ const NAV: (NavItem | { label: string; icon: string; children: NavItem[] })[] = 
       { view: 'focus-calendrier', label: 'Calendrier', icon: 'calendar_month' },
       { view: 'focus-prep', label: 'Préparation des séances', icon: 'edit_note' },
       { view: 'devoirs', label: 'Devoirs à rendre', icon: 'assignment' },
+      { view: 'focus-playlist', label: 'Playlist', icon: 'smart_display' },
       { view: 'formation-focus', label: 'Candidatures', icon: 'assignment_turned_in' },
     ],
   },
@@ -182,6 +184,7 @@ export default function AdminPage() {
     : view === 'paiements' ? 'Paiements'
     : view === 'focus-calendrier' ? 'Calendrier Formation Focus'
     : view === 'focus-prep' ? 'Préparation des séances Focus'
+    : view === 'focus-playlist' ? 'Playlist Formation Focus'
     : view === 'formation-focus' ? 'Candidatures Formation Focus'
     : editingPost?.id ? "Modifier l'article"
     : 'Nouvel article'
@@ -319,6 +322,9 @@ export default function AdminPage() {
           )}
           {view === 'focus-prep' && (
             <FocusSeancesManager />
+          )}
+          {view === 'focus-playlist' && (
+            <FocusPlaylist />
           )}
           {view === 'formation-focus' && (
             <CandidaturesList candidatures={candidatures} loading={candidaturesLoading} error={candidaturesError} onRefresh={loadCandidatures} />
