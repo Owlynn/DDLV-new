@@ -3,19 +3,22 @@
 import { useEffect, useMemo, useState } from 'react'
 import { supabase } from '@/lib/supabase-client'
 import { card } from '@/components/eleve/ui'
-import { btnAccent, input } from '@/components/ManagerUI'
+import { Modal, btnAccent, btnGhost, input } from '@/components/ManagerUI'
 import { COMMENTAIRE_COLUMNS, chargerCoSuivi, dateCourte, lienLecture, notifier, titreDevoir, type Commentaire, type DonneesCoSuivi, type Enregistrement } from '@/lib/co-suivi'
 import type { Devoir } from '@/lib/devoirs'
 
-// Co-suivi Formation Focus : les enregistrements des devoirs, rangés par devoir, que tout le groupe écoute et commente.
-// Espace élève (/eleve/formation-focus/co-suivi) et /admin → Formation Focus → Co-suivi (admin : commentaires
-// publics ou réservés à l'élève concerné, changement de visibilité).
+// Co-suivi Formation Focus : les enregistrements des devoirs, en cartes rangées par devoir, que tout le groupe
+// écoute et commente. Filtres combinables par personne et par devoir. Les commentaires s'ouvrent dans une modale
+// (avec le lecteur). Espace élève (/eleve/formation-focus/co-suivi) et /admin → Formation Focus → Co-suivi
+// (admin : commentaires publics ou réservés à l'élève concerné, changement de visibilité).
 
 export default function CoSuivi({ admin = false }: { admin?: boolean }) {
   const [donnees, setDonnees] = useState<DonneesCoSuivi | null>(null)
   const [moi, setMoi] = useState<string | null>(null)
   const [error, setError] = useState('')
-  const [filtre, setFiltre] = useState<string | null>(null) // user_id de l'élève affiché, ou tous
+  const [personne, setPersonne] = useState('') // user_id, ou '' pour tout le groupe
+  const [devoirFiltre, setDevoirFiltre] = useState('') // devoir_id, ou '' pour tous
+  const [ouvert, setOuvert] = useState<string | null>(null) // enregistrement dont les commentaires sont ouverts
 
   async function load() {
     try {
@@ -28,20 +31,31 @@ export default function CoSuivi({ admin = false }: { admin?: boolean }) {
   }
   useEffect(() => { load() }, [])
 
-  const parDevoir = useMemo(() => {
-    if (!donnees) return []
-    return donnees.devoirs
-      .map(d => ({ devoir: d, enregistrements: donnees.enregistrements.filter(e => e.devoir_id === d.id && (!filtre || e.user_id === filtre)) }))
-      .filter(x => x.enregistrements.length > 0)
-      .sort((a, b) => b.devoir.date_limite.localeCompare(a.devoir.date_limite)) // le plus récent en haut
-  }, [donnees, filtre])
-
-  // Élèves ayant au moins un enregistrement, pour le filtre
+  // Personnes et devoirs ayant au moins un enregistrement, pour les filtres
   const eleves = useMemo(() => {
     if (!donnees) return []
     const ids = [...new Set(donnees.enregistrements.map(e => e.user_id))]
     return ids.map(id => ({ id, nom: donnees.membres.get(id)?.nom ?? 'Élève' })).sort((a, b) => a.nom.localeCompare(b.nom, 'fr'))
   }, [donnees])
+  const devoirsAvecRendus = useMemo(() => {
+    if (!donnees) return []
+    const ids = new Set(donnees.enregistrements.map(e => e.devoir_id))
+    return donnees.devoirs.filter(d => ids.has(d.id)).sort((a, b) => b.date_limite.localeCompare(a.date_limite))
+  }, [donnees])
+
+  const parDevoir = useMemo(() => {
+    if (!donnees) return []
+    return devoirsAvecRendus
+      .filter(d => !devoirFiltre || d.id === devoirFiltre)
+      .map(d => ({
+        devoir: d,
+        enregistrements: donnees.enregistrements
+          .filter(e => e.devoir_id === d.id && (!personne || e.user_id === personne))
+          .sort((a, b) => (donnees.membres.get(a.user_id)?.nom ?? '').localeCompare(donnees.membres.get(b.user_id)?.nom ?? '', 'fr')),
+      }))
+      .filter(x => x.enregistrements.length > 0)
+  }, [donnees, devoirsAvecRendus, personne, devoirFiltre])
+  const nbAffiches = parDevoir.reduce((n, x) => n + x.enregistrements.length, 0)
 
   function ajouterCommentaire(c: Commentaire) {
     setDonnees(d => d && { ...d, commentaires: [...d.commentaires, c] })
@@ -53,8 +67,13 @@ export default function CoSuivi({ admin = false }: { admin?: boolean }) {
     setDonnees(d => d && { ...d, commentaires: d.commentaires.filter(x => x.id !== id) })
   }
 
+  const enregistrementOuvert = donnees?.enregistrements.find(e => e.id === ouvert) ?? null
+  const devoirOuvert = enregistrementOuvert ? donnees!.devoirs.find(d => d.id === enregistrementOuvert.devoir_id) ?? null : null
+  const select: React.CSSProperties = { ...input, padding: '0.5rem 0.7rem', fontSize: '0.85rem', flex: '1 1 200px', maxWidth: 320 }
+  const opt = { background: '#1a0b2e' }
+
   return (
-    <div style={{ maxWidth: 1000 }}>
+    <div style={{ maxWidth: 1200 }}>
       <div style={{ marginBottom: '1.25rem' }}>
         <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#fff', marginBottom: '0.3rem' }}>Co-suivi</h2>
         <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.85rem' }}>
@@ -72,131 +91,175 @@ export default function CoSuivi({ admin = false }: { admin?: boolean }) {
         </p>
       ) : (
         <>
-          {eleves.length > 1 && (
-            <div role="group" aria-label="Filtrer par élève" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '1.25rem' }}>
-              {[{ id: null as string | null, nom: 'Tout le groupe' }, ...eleves].map(e => (
-                <button
-                  key={e.id ?? 'tous'}
-                  type="button"
-                  onClick={() => setFiltre(e.id)}
-                  aria-pressed={filtre === e.id}
-                  style={{ padding: '0.3rem 0.8rem', borderRadius: 999, cursor: 'pointer', fontFamily: 'inherit', fontSize: '0.78rem', color: '#fff', border: `1px solid ${filtre === e.id ? 'rgba(207,53,148,0.6)' : 'rgba(255,255,255,0.15)'}`, background: filtre === e.id ? 'rgba(207,53,148,0.25)' : 'rgba(255,255,255,0.04)' }}
-                >
-                  {e.id === moi ? `${e.nom} (moi)` : e.nom}
-                </button>
+          {/* Filtres : personne ET devoir */}
+          <div role="search" aria-label="Filtrer les enregistrements" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.6rem', marginBottom: '1.5rem', padding: '0.75rem', borderRadius: '0.9rem', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 20, color: 'rgba(255,255,255,0.45)' }}>filter_list</span>
+            <select value={personne} onChange={e => setPersonne(e.target.value)} aria-label="Filtrer par personne" style={select}>
+              <option value="" style={opt}>Toutes les personnes</option>
+              {eleves.map(e => <option key={e.id} value={e.id} style={opt}>{e.id === moi ? `${e.nom} (moi)` : e.nom}</option>)}
+            </select>
+            <select value={devoirFiltre} onChange={e => setDevoirFiltre(e.target.value)} aria-label="Filtrer par devoir" style={select}>
+              <option value="" style={opt}>Tous les devoirs</option>
+              {devoirsAvecRendus.map(d => <option key={d.id} value={d.id} style={opt}>{dateCourte(d.date_limite)} · {titreDevoir(d, donnees.exercices)}</option>)}
+            </select>
+            {moi && eleves.some(e => e.id === moi) && personne !== moi && (
+              <button type="button" onClick={() => setPersonne(moi)} style={{ ...btnGhost, padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>Mes devoirs</button>
+            )}
+            {(personne || devoirFiltre) && (
+              <button type="button" onClick={() => { setPersonne(''); setDevoirFiltre('') }} style={{ ...btnGhost, padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>
+                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16 }}>close</span>
+                Effacer les filtres
+              </button>
+            )}
+            <span role="status" style={{ marginLeft: 'auto', fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)' }}>
+              {nbAffiches} enregistrement{nbAffiches > 1 ? 's' : ''}
+            </span>
+          </div>
+
+          {parDevoir.length === 0 ? (
+            <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem' }}>Aucun enregistrement pour cette personne et ce devoir.</p>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+              {parDevoir.map(({ devoir, enregistrements }) => (
+                <section key={devoir.id} aria-labelledby={`devoir-${devoir.id}`}>
+                  <h3 id={`devoir-${devoir.id}`} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', gap: '0.25rem 0.6rem', fontSize: '1rem', fontWeight: 600, color: '#fff', margin: '0 0 0.8rem' }}>
+                    <span style={{ color: '#8b6fd1' }}>Devoir du {dateCourte(devoir.date_limite)}</span>
+                    <span style={{ color: 'rgba(255,255,255,0.75)', fontWeight: 500 }}>{titreDevoir(devoir, donnees.exercices)}</span>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 400, color: 'rgba(255,255,255,0.4)' }}>
+                      {enregistrements.length} enregistrement{enregistrements.length > 1 ? 's' : ''}
+                    </span>
+                  </h3>
+                  <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 260px), 1fr))', gap: '1rem' }}>
+                    {enregistrements.map(e => (
+                      <li key={e.id} style={{ display: 'flex' }}>
+                        <CarteEnregistrement enregistrement={e} devoir={devoir} donnees={donnees} moi={moi} onOuvrir={() => setOuvert(e.id)} />
+                      </li>
+                    ))}
+                  </ul>
+                </section>
               ))}
             </div>
           )}
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-            {parDevoir.map(({ devoir, enregistrements }) => (
-              <section key={devoir.id} aria-labelledby={`devoir-${devoir.id}`}>
-                <h3 id={`devoir-${devoir.id}`} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', gap: '0.25rem 0.6rem', fontSize: '1rem', fontWeight: 600, color: '#fff', margin: '0 0 0.7rem' }}>
-                  <span style={{ color: '#8b6fd1' }}>Devoir du {dateCourte(devoir.date_limite)}</span>
-                  <span style={{ color: 'rgba(255,255,255,0.75)', fontWeight: 500 }}>{titreDevoir(devoir, donnees.exercices)}</span>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 400, color: 'rgba(255,255,255,0.4)' }}>
-                    {enregistrements.length} enregistrement{enregistrements.length > 1 ? 's' : ''}
-                  </span>
-                </h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                  {enregistrements.map(e => (
-                    <CarteEnregistrement
-                      key={e.id}
-                      enregistrement={e}
-                      devoir={devoir}
-                      donnees={donnees}
-                      moi={moi}
-                      admin={admin}
-                      onAjout={ajouterCommentaire}
-                      onModif={remplacerCommentaire}
-                      onSuppr={retirerCommentaire}
-                    />
-                  ))}
-                </div>
-              </section>
-            ))}
-          </div>
         </>
+      )}
+
+      {donnees && enregistrementOuvert && devoirOuvert && (
+        <Modal
+          title={`${donnees.membres.get(enregistrementOuvert.user_id)?.nom ?? 'Élève'} · devoir du ${dateCourte(devoirOuvert.date_limite)}`}
+          subtitle={titreDevoir(devoirOuvert, donnees.exercices)}
+          onClose={() => setOuvert(null)}
+        >
+          <Lecteur enregistrement={enregistrementOuvert} />
+          <FilCommentaires
+            enregistrement={enregistrementOuvert}
+            auteurEnregistrement={donnees.membres.get(enregistrementOuvert.user_id)?.nom ?? 'Élève'}
+            commentaires={donnees.commentaires.filter(c => c.enregistrement_id === enregistrementOuvert.id)}
+            donnees={donnees}
+            moi={moi}
+            admin={admin}
+            onAjout={ajouterCommentaire}
+            onModif={remplacerCommentaire}
+            onSuppr={retirerCommentaire}
+          />
+        </Modal>
       )}
     </div>
   )
 }
 
-function CarteEnregistrement({ enregistrement: e, devoir, donnees, moi, admin, onAjout, onModif, onSuppr }: {
-  enregistrement: Enregistrement
-  devoir: Devoir
-  donnees: DonneesCoSuivi
-  moi: string | null
-  admin: boolean
-  onAjout: (c: Commentaire) => void
-  onModif: (c: Commentaire) => void
-  onSuppr: (id: string) => void
-}) {
+/** Bouton « Écouter » qui devient le lecteur audio (ou vidéo) une fois le lien de lecture obtenu. */
+function Lecteur({ enregistrement: e, compact = false }: { enregistrement: Enregistrement; compact?: boolean }) {
   const [url, setUrl] = useState<string | null>(null)
   const [chargement, setChargement] = useState(false)
-  const [erreurLecture, setErreurLecture] = useState('')
-  const commentaires = donnees.commentaires.filter(c => c.enregistrement_id === e.id)
-  const [ouvert, setOuvert] = useState(false)
-  const auteur = donnees.membres.get(e.user_id)?.nom ?? 'Élève'
-  const estMoi = e.user_id === moi
+  const [erreur, setErreur] = useState('')
   const video = e.mime_type?.startsWith('video/')
 
   async function ecouter() {
     setChargement(true)
-    setErreurLecture('')
-    try { setUrl(await lienLecture(e.id)) } catch (err) { setErreurLecture(`Lecture impossible : ${err instanceof Error ? err.message : 'erreur'}`) }
+    setErreur('')
+    try { setUrl(await lienLecture(e.id)) } catch (err) { setErreur(`Lecture impossible : ${err instanceof Error ? err.message : 'erreur'}`) }
     setChargement(false)
   }
 
   return (
-    <article aria-label={`Enregistrement de ${auteur} pour le devoir du ${dateCourte(devoir.date_limite)}`} style={{ ...card, padding: '1rem 1.1rem' }}>
-      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.5rem 0.9rem' }}>
-        <span aria-hidden="true" style={{ width: 34, height: 34, borderRadius: '50%', flexShrink: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem', fontWeight: 700, color: '#fff', background: estMoi ? 'rgba(207,53,148,0.45)' : 'rgba(139,111,209,0.4)' }}>
+    <div>
+      {url ? (
+        video
+          ? <video src={url} controls autoPlay playsInline style={{ display: 'block', width: '100%', maxHeight: compact ? 220 : 420, borderRadius: '0.6rem', background: '#000' }} />
+          : <audio src={url} controls autoPlay style={{ display: 'block', width: '100%' }} />
+      ) : (
+        <button
+          type="button"
+          onClick={ecouter}
+          disabled={chargement}
+          style={{ ...btnAccent, width: '100%', justifyContent: 'center', padding: compact ? '0.55rem 0.9rem' : '0.65rem 1rem', fontSize: '0.85rem', opacity: chargement ? 0.6 : 1 }}
+        >
+          <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 20 }}>{chargement ? 'hourglass_top' : 'play_arrow'}</span>
+          {chargement ? 'Chargement… (quelques secondes)' : video ? 'Regarder' : 'Écouter'}
+        </button>
+      )}
+      {erreur && <p role="alert" style={{ color: '#f87171', fontSize: '0.8rem', margin: '0.5rem 0 0' }}>{erreur}</p>}
+    </div>
+  )
+}
+
+function CarteEnregistrement({ enregistrement: e, devoir, donnees, moi, onOuvrir }: {
+  enregistrement: Enregistrement
+  devoir: Devoir
+  donnees: DonneesCoSuivi
+  moi: string | null
+  onOuvrir: () => void
+}) {
+  const commentaires = donnees.commentaires.filter(c => c.enregistrement_id === e.id)
+  const dernier = commentaires[commentaires.length - 1]
+  const auteur = donnees.membres.get(e.user_id)?.nom ?? 'Élève'
+  const estMoi = e.user_id === moi
+  const prives = commentaires.filter(c => !c.public).length
+
+  return (
+    <article
+      aria-label={`Enregistrement de ${auteur} pour le devoir du ${dateCourte(devoir.date_limite)}`}
+      style={{ ...card, padding: '1rem', width: '100%', display: 'flex', flexDirection: 'column', gap: '0.85rem', border: estMoi ? '1px solid rgba(207,53,148,0.45)' : card.border }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem', minWidth: 0 }}>
+        <span aria-hidden="true" style={{ width: 40, height: 40, borderRadius: '50%', flexShrink: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem', fontWeight: 700, color: '#fff', background: estMoi ? 'linear-gradient(135deg, #cf3594, #8b6fd1)' : 'linear-gradient(135deg, #5b2ab5, #4db8c8)' }}>
           {auteur.charAt(0).toUpperCase()}
         </span>
-        <div style={{ minWidth: 0, flex: '1 1 12rem' }}>
+        <div style={{ minWidth: 0 }}>
           <div style={{ fontSize: '0.95rem', fontWeight: 600, color: '#fff' }}>{auteur}{estMoi ? ' (moi)' : ''}</div>
-          <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={e.nom}>{e.nom}</div>
+          <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.45)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={e.nom}>{e.nom}</div>
         </div>
-        {!url && (
-          <button type="button" onClick={ecouter} disabled={chargement} style={{ ...btnAccent, padding: '0.45rem 0.9rem', fontSize: '0.82rem', opacity: chargement ? 0.6 : 1 }}>
-            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 18 }}>play_arrow</span>
-            {chargement ? 'Chargement…' : video ? 'Regarder' : 'Écouter'}
-          </button>
+      </div>
+
+      <Lecteur enregistrement={e} compact />
+
+      {/* Aperçu du dernier commentaire */}
+      <div style={{ flex: 1, minHeight: '2.6rem', fontSize: '0.8rem', lineHeight: 1.45, color: 'rgba(255,255,255,0.6)' }}>
+        {dernier ? (
+          <p style={{ margin: 0, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+            <strong style={{ color: donnees.membres.get(dernier.auteur_id)?.admin ? '#cf3594' : 'rgba(255,255,255,0.85)', fontWeight: 600 }}>
+              {donnees.membres.get(dernier.auteur_id)?.nom ?? 'Élève'} :
+            </strong>{' '}
+            {dernier.contenu}
+          </p>
+        ) : (
+          <p style={{ margin: 0, fontStyle: 'italic', color: 'rgba(255,255,255,0.35)' }}>Pas encore de commentaire.</p>
         )}
       </div>
 
-      {url && (
-        video
-          ? <video src={url} controls autoPlay playsInline style={{ display: 'block', width: '100%', maxHeight: 420, marginTop: '0.8rem', borderRadius: '0.6rem', background: '#000' }} />
-          : <audio src={url} controls autoPlay style={{ display: 'block', width: '100%', marginTop: '0.8rem' }} />
-      )}
-      {erreurLecture && <p role="alert" style={{ color: '#f87171', fontSize: '0.8rem', margin: '0.6rem 0 0' }}>{erreurLecture}</p>}
-
-      <div style={{ marginTop: '0.8rem', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '0.6rem' }}>
-        <button type="button" onClick={() => setOuvert(o => !o)} aria-expanded={ouvert} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', padding: 0, border: 0, background: 'transparent', cursor: 'pointer', fontFamily: 'inherit', fontSize: '0.8rem', color: 'rgba(255,255,255,0.7)' }}>
-          <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 17 }}>forum</span>
-          {commentaires.length ? `${commentaires.length} commentaire${commentaires.length > 1 ? 's' : ''}` : 'Commenter'}
-          <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 17 }}>{ouvert ? 'expand_less' : 'expand_more'}</span>
-        </button>
-
-        {ouvert && (
-          <FilCommentaires
-            enregistrement={e}
-            auteurEnregistrement={auteur}
-            commentaires={commentaires}
-            donnees={donnees}
-            moi={moi}
-            admin={admin}
-            onAjout={onAjout}
-            onModif={onModif}
-            onSuppr={onSuppr}
-          />
-        )}
-      </div>
+      <button
+        type="button"
+        onClick={onOuvrir}
+        style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', width: '100%', padding: '0.5rem 0.8rem', borderRadius: 999, cursor: 'pointer', fontFamily: 'inherit', fontSize: '0.8rem', color: '#fff', border: '1px solid rgba(255,255,255,0.18)', background: 'rgba(255,255,255,0.05)' }}
+      >
+        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 17 }}>forum</span>
+        {commentaires.length ? `${commentaires.length} commentaire${commentaires.length > 1 ? 's' : ''}` : 'Commenter'}
+        {prives > 0 && <span title="Dont des commentaires privés" className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 15, color: '#f0a830' }}>lock</span>}
+      </button>
     </article>
   )
 }
+
 
 function FilCommentaires({ enregistrement, auteurEnregistrement, commentaires, donnees, moi, admin, onAjout, onModif, onSuppr }: {
   enregistrement: Enregistrement
