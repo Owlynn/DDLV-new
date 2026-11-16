@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase-client'
 import { card } from '@/components/eleve/ui'
-import { Modal, Field, FilterPill, IconButton, ExerciceDetail, ConfirmDialog, RowActions, rowActionsWidth, type ConfirmRequest, input, btnAccent, btnGhost, th, td } from '@/components/ManagerUI'
+import { Modal, Field, SearchSelect, FilterPill, IconButton, ExerciceDetail, ConfirmDialog, RowActions, rowActionsWidth, type ConfirmRequest, input, btnAccent, btnGhost, th, td } from '@/components/ManagerUI'
 import { formatDay, todayKey } from '@/lib/formation-focus'
 import { STUDENT_TAGS, type StudentTagKey } from '@/lib/student-tags'
 import { EXERCICE_COLUMNS, SUIVI_CONTEXTES, fetchNotions, notionLabels, tagInfo, type Exercice, type Notion, type SuiviContexte, type SuiviSeance } from '@/lib/suivi'
@@ -350,10 +350,12 @@ function SeanceForm({ draft: initial, contexteLocked, exercices, onCancel, onSav
         )}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
           {available.length > 0 && (
-            <select value="" onChange={e => e.target.value && update({ exercices: [...draft.exercices, e.target.value] })} style={{ ...input, flex: '1 1 200px' }}>
-              <option value="" style={{ background: '#1a0b2e' }}>Ajouter un exercice existant…</option>
-              {available.map(e => <option key={e.id} value={e.id} style={{ background: '#1a0b2e' }}>{e.titre}</option>)}
-            </select>
+            <SearchSelect
+              options={available.map(e => ({ id: e.id, label: e.titre }))}
+              onSelect={exId => update({ exercices: [...draft.exercices, exId] })}
+              placeholder="Ajouter un exercice existant… (tapez pour chercher)"
+              style={{ flex: '1 1 200px' }}
+            />
           )}
           <div style={{ display: 'flex', gap: '0.5rem', flex: '1 1 260px' }}>
             <input value={newExo} onChange={e => setNewExo(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); createExo() } }} placeholder="Ou créer un nouvel exercice" style={{ ...input, flex: 1 }} />

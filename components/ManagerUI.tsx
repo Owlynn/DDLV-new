@@ -248,6 +248,117 @@ export function NotionPicker({ notions, selected, onChange, onCreate }: {
   )
 }
 
+/** Minuscules sans accents, pour une recherche tolérante (« echauffement » trouve « Échauffement »). */
+export function normaliser(s: string) {
+  return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim()
+}
+
+/**
+ * Liste déroulante avec recherche : on tape pour filtrer, ↑/↓ pour se déplacer, Entrée pour choisir.
+ * Avec onCreate, propose aussi de créer l'élément tapé quand aucun ne porte exactement ce nom.
+ */
+export function SearchSelect({ id, options, onSelect, onCreate, placeholder, style }: {
+  id?: string
+  options: { id: string; label: string }[]
+  onSelect: (id: string) => void
+  onCreate?: (label: string) => Promise<boolean> // true si créé (le champ est alors vidé)
+  placeholder: string
+  style?: React.CSSProperties
+}) {
+  const [query, setQuery] = useState('')
+  const [open, setOpen] = useState(false)
+  const [active, setActive] = useState(0)
+  const [creating, setCreating] = useState(false)
+  const boxRef = useRef<HTMLDivElement>(null)
+  const listRef = useRef<HTMLUListElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    const onDown = (e: MouseEvent) => { if (!boxRef.current?.contains(e.target as Node)) setOpen(false) }
+    document.addEventListener('mousedown', onDown)
+    return () => document.removeEventListener('mousedown', onDown)
+  }, [open])
+
+  const q = normaliser(query)
+  const matches = q ? options.filter(o => normaliser(o.label).includes(q)) : options
+  const peutCreer = !!onCreate && !!q && !options.some(o => normaliser(o.label) === q)
+  const total = matches.length + (peutCreer ? 1 : 0)
+
+  // Garde l'élément actif visible pendant la navigation au clavier
+  useEffect(() => {
+    listRef.current?.querySelector<HTMLElement>(`[data-index="${active}"]`)?.scrollIntoView({ block: 'nearest' })
+  }, [active])
+
+  function choisir(optionId: string) {
+    onSelect(optionId)
+    setQuery('')
+    setActive(0)
+    setOpen(false)
+  }
+
+  async function creer() {
+    if (!onCreate || creating) return
+    setCreating(true)
+    const ok = await onCreate(query.trim())
+    setCreating(false)
+    if (ok) { setQuery(''); setOpen(false) }
+  }
+
+  const listId = `${id ?? 'search-select'}-liste`
+  return (
+    <div ref={boxRef} style={{ position: 'relative', ...style }}>
+      <input
+        id={id}
+        role="combobox"
+        aria-expanded={open && total > 0}
+        aria-controls={listId}
+        aria-autocomplete="list"
+        aria-activedescendant={open && total > 0 ? `${listId}-${active}` : undefined}
+        value={query}
+        onChange={e => { setQuery(e.target.value); setActive(0); setOpen(true) }}
+        onFocus={() => setOpen(true)}
+        onClick={() => setOpen(true)}
+        onKeyDown={e => {
+          if (e.key === 'ArrowDown') { e.preventDefault(); setOpen(true); setActive(a => Math.min(a + 1, total - 1)) }
+          else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(a => Math.max(a - 1, 0)) }
+          else if (e.key === 'Enter') {
+            e.preventDefault()
+            if (active < matches.length && matches[active]) choisir(matches[active].id)
+            else if (peutCreer) creer()
+          } else if (e.key === 'Escape' && open) { e.stopPropagation(); setOpen(false) }
+        }}
+        placeholder={placeholder}
+        autoComplete="off"
+        style={{ ...input, width: '100%', padding: '0.45rem 0.7rem', fontSize: '0.8rem' }}
+      />
+      {open && total > 0 && (
+        <ul ref={listRef} id={listId} role="listbox" style={{ position: 'absolute', zIndex: 20, top: 'calc(100% + 4px)', left: 0, right: 0, maxHeight: 260, overflowY: 'auto', margin: 0, padding: '0.3rem', listStyle: 'none', borderRadius: '0.6rem', background: '#1f0d35', border: '1px solid rgba(255,255,255,0.15)', boxShadow: '0 12px 30px rgba(0,0,0,0.45)' }}>
+          {matches.map((o, i) => (
+            <li key={o.id} id={`${listId}-${i}`} role="option" aria-selected={i === active} data-index={i}>
+              <button type="button" tabIndex={-1} onMouseEnter={() => setActive(i)} onClick={() => choisir(o.id)} style={{ ...pickerItem, fontSize: '0.82rem', background: i === active ? 'rgba(255,255,255,0.1)' : 'transparent' }}>
+                {o.label}
+              </button>
+            </li>
+          ))}
+          {peutCreer && (
+            <li id={`${listId}-${matches.length}`} role="option" aria-selected={active === matches.length} data-index={matches.length}>
+              <button type="button" tabIndex={-1} onMouseEnter={() => setActive(matches.length)} onClick={creer} disabled={creating} style={{ ...pickerItem, fontSize: '0.82rem', color: '#cf3594', background: active === matches.length ? 'rgba(255,255,255,0.1)' : 'transparent' }}>
+                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16, verticalAlign: 'middle', marginRight: 6 }}>add</span>
+                {creating ? 'Création…' : `Créer « ${query.trim()} »`}
+              </button>
+            </li>
+          )}
+        </ul>
+      )}
+      {open && q && total === 0 && (
+        <div style={{ position: 'absolute', zIndex: 20, top: 'calc(100% + 4px)', left: 0, right: 0, padding: '0.6rem 0.8rem', borderRadius: '0.6rem', background: '#1f0d35', border: '1px solid rgba(255,255,255,0.15)', fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)' }}>
+          Aucun résultat
+        </div>
+      )}
+    </div>
+  )
+}
+
 const pickerItem: React.CSSProperties = {
   display: 'block', width: '100%', padding: '0.5rem 0.7rem', borderRadius: '0.45rem', border: 'none',
   background: 'transparent', color: '#fff', fontSize: '0.85rem', fontFamily: 'inherit', textAlign: 'left', cursor: 'pointer',

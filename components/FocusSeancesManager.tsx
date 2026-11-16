@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { supabase } from '@/lib/supabase-client'
 import { card } from '@/components/eleve/ui'
-import { ConfirmDialog, ExerciceDetail, IconButton, Modal, type ConfirmRequest, input, btnAccent, btnDanger, btnGhost } from '@/components/ManagerUI'
+import { ConfirmDialog, ExerciceDetail, IconButton, Modal, SearchSelect, normaliser, type ConfirmRequest, input, btnAccent, btnDanger, btnGhost } from '@/components/ManagerUI'
 import { ExerciceForm } from '@/components/ExercicesManager'
 import { DevoirForm, emptyDraft, type DevoirDraft } from '@/components/DevoirsManager'
 import { FOCUS_SEANCE_ADMIN_COLUMNS, PILIERS, PILIER_COLORS, dateSaisie, toFocusSeance, type FocusSeance, type NoteKey, type PilierKey } from '@/lib/focus-seances'
@@ -357,7 +357,7 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exe
   const id = (champ: Champ) => `focus-seance-${champ}`
 
   return (
-    <section aria-label={`Séance ${libelleSeance(seance)}`} className="flex-1 min-w-0 p-4 sm:p-6" style={{ ...card, padding: undefined }}>
+    <section aria-label={`Séance ${libelleSeance(seance)}`} className="flex-1 min-w-0 p-4 sm:p-6" style={{ ...card, padding: undefined, overflow: 'visible' /* la recherche d’exercice déborde sous son champ */ }}>
       <label
         htmlFor="focus-seance-publiee"
         style={{ display: 'flex', alignItems: 'flex-start', gap: '0.7rem', padding: '0.75rem 1rem', marginBottom: '1.25rem', borderRadius: '0.75rem', cursor: 'pointer', border: `1px solid ${seance.publiee ? 'rgba(77,184,200,0.45)' : 'rgba(255,255,255,0.12)'}`, background: seance.publiee ? 'rgba(77,184,200,0.1)' : 'rgba(255,255,255,0.03)' }}
@@ -551,15 +551,20 @@ function ExercicesPilier({ idBase, pilierLabel, selection, exercices, onChange, 
         {available.length > 0 && (
           <>
             <label htmlFor={`${idBase}-ajout-exercice`} className="sr-only">Ajouter un exercice : {pilierLabel}</label>
-            <select
+            <SearchSelect
               id={`${idBase}-ajout-exercice`}
-              value=""
-              onChange={e => e.target.value && onChange([...selection, e.target.value])}
-              style={{ ...input, flex: '1 1 220px', padding: '0.45rem 0.7rem', fontSize: '0.8rem' }}
-            >
-              <option value="" style={{ background: '#1a0b2e' }}>+ Ajouter un exercice…</option>
-              {available.map(e => <option key={e.id} value={e.id} style={{ background: '#1a0b2e' }}>{e.titre}</option>)}
-            </select>
+              options={available.map(e => ({ id: e.id, label: e.titre }))}
+              onSelect={exId => onChange([...selection, exId])}
+              onCreate={async t => {
+                // Déjà dans la séance sous ce nom : pas de doublon dans la bibliothèque
+                if (exercices.some(e => selection.includes(e.id) && normaliser(e.titre) === normaliser(t))) return true
+                const ex = await onCreate(t)
+                if (ex) onChange([...selection, ex.id])
+                return !!ex
+              }}
+              placeholder="+ Ajouter un exercice… (tapez pour chercher)"
+              style={{ flex: '1 1 220px' }}
+            />
           </>
         )}
         {creating ? (
