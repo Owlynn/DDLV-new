@@ -14,10 +14,11 @@ import PaiementsManager from '@/components/PaiementsManager'
 import FocusSeancesManager from '@/components/FocusSeancesManager'
 import FocusCalendrier from '@/components/eleve/FocusCalendrier'
 import FocusVideos from '@/components/eleve/FocusVideos'
+import NotionsManager from '@/components/NotionsManager'
 import { FOCUS_TAG } from '@/lib/formation-focus'
 import { useSidebar } from '@/lib/use-sidebar'
 
-type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'paiements' | 'focus-calendrier' | 'focus-prep' | 'focus-videos' | 'formation-focus'
+type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'paiements' | 'focus-calendrier' | 'focus-prep' | 'focus-videos' | 'formation-focus' | 'reglages-etiquettes'
 type NavTarget = Exclude<View, 'editor'>
 
 // Menu de la sidebar ; un bloc avec `children` est un titre de section suivi de son sous-menu (comme dans /eleve)
@@ -37,6 +38,12 @@ const NAV: (NavItem | { label: string; icon: string; children: NavItem[] })[] = 
       { view: 'devoirs', label: 'Devoirs à rendre', icon: 'assignment' },
       { view: 'focus-videos', label: 'Vidéos', icon: 'smart_display' },
       { view: 'formation-focus', label: 'Candidatures', icon: 'assignment_turned_in' },
+    ],
+  },
+  {
+    label: 'Réglages', icon: 'settings',
+    children: [
+      { view: 'reglages-etiquettes', label: 'Étiquettes des exercices', icon: 'sell' },
     ],
   },
 ]
@@ -186,6 +193,7 @@ export default function AdminPage() {
     : view === 'focus-prep' ? 'Préparation des séances Focus'
     : view === 'focus-videos' ? 'Vidéos Formation Focus'
     : view === 'formation-focus' ? 'Candidatures Formation Focus'
+    : view === 'reglages-etiquettes' ? 'Étiquettes des exercices'
     : editingPost?.id ? "Modifier l'article"
     : 'Nouvel article'
 
@@ -325,6 +333,9 @@ export default function AdminPage() {
           )}
           {view === 'focus-videos' && (
             <FocusVideos />
+          )}
+          {view === 'reglages-etiquettes' && (
+            <NotionsManager />
           )}
           {view === 'formation-focus' && (
             <CandidaturesList candidatures={candidatures} loading={candidaturesLoading} error={candidaturesError} onRefresh={loadCandidatures} />
