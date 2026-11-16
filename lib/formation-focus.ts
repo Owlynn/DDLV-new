@@ -6,7 +6,8 @@ export type FocusEventType = 'mercredi' | 'weekend' | 'soiree' | 'rendu'
 export const FOCUS_TAG = 'focus2026-2027'
 
 // Dossier Google Drive partagé où les élèves déposent leurs enregistrements de devoirs
-export const FOCUS_DRIVE_URL = 'https://drive.google.com/drive/folders/1UCjBKkOtYSDHMnGqHF6ht7wXVOgReibX?usp=sharing'
+export const FOCUS_DRIVE_FOLDER_ID = '1UCjBKkOtYSDHMnGqHF6ht7wXVOgReibX'
+export const FOCUS_DRIVE_URL = `https://drive.google.com/drive/folders/${FOCUS_DRIVE_FOLDER_ID}?usp=sharing`
 
 // Playlist YouTube de la formation (espace élève et /admin → Formation Focus → Vidéos)
 export const FOCUS_PLAYLIST_ID = 'PLTU4-3W8Z5no'

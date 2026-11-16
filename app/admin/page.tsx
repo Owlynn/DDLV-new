@@ -15,10 +15,12 @@ import FocusSeancesManager from '@/components/FocusSeancesManager'
 import FocusCalendrier from '@/components/eleve/FocusCalendrier'
 import FocusVideos from '@/components/eleve/FocusVideos'
 import NotionsManager from '@/components/NotionsManager'
+import CoSuivi from '@/components/eleve/CoSuivi'
+import DriveAttribution from '@/components/DriveAttribution'
 import { FOCUS_TAG } from '@/lib/formation-focus'
 import { useSidebar } from '@/lib/use-sidebar'
 
-type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'paiements' | 'focus-calendrier' | 'focus-prep' | 'focus-videos' | 'formation-focus' | 'reglages-etiquettes'
+type View = 'dashboard' | 'blog' | 'editor' | 'students' | 'suivi' | 'devoirs' | 'exercices' | 'paiements' | 'focus-calendrier' | 'focus-prep' | 'focus-videos' | 'focus-cosuivi' | 'focus-drive' | 'formation-focus' | 'reglages-etiquettes'
 type NavTarget = Exclude<View, 'editor'>
 
 // Menu de la sidebar ; un bloc avec `children` est un titre de section suivi de son sous-menu (comme dans /eleve)
@@ -37,6 +39,8 @@ const NAV: (NavItem | { label: string; icon: string; children: NavItem[] })[] = 
       { view: 'focus-prep', label: 'Préparation des séances', icon: 'edit_note' },
       { view: 'devoirs', label: 'Devoirs à rendre', icon: 'assignment' },
       { view: 'focus-videos', label: 'Vidéos', icon: 'smart_display' },
+      { view: 'focus-cosuivi', label: 'Co-suivi', icon: 'forum' },
+      { view: 'focus-drive', label: 'Fichiers du Drive', icon: 'add_to_drive' },
       { view: 'formation-focus', label: 'Candidatures', icon: 'assignment_turned_in' },
     ],
   },
@@ -192,6 +196,8 @@ export default function AdminPage() {
     : view === 'focus-calendrier' ? 'Calendrier Formation Focus'
     : view === 'focus-prep' ? 'Préparation des séances Focus'
     : view === 'focus-videos' ? 'Vidéos Formation Focus'
+    : view === 'focus-cosuivi' ? 'Co-suivi Formation Focus'
+    : view === 'focus-drive' ? 'Fichiers du Drive Focus'
     : view === 'formation-focus' ? 'Candidatures Formation Focus'
     : view === 'reglages-etiquettes' ? 'Étiquettes des exercices'
     : editingPost?.id ? "Modifier l'article"
@@ -333,6 +339,12 @@ export default function AdminPage() {
           )}
           {view === 'focus-videos' && (
             <FocusVideos />
+          )}
+          {view === 'focus-cosuivi' && (
+            <CoSuivi admin />
+          )}
+          {view === 'focus-drive' && (
+            <DriveAttribution />
           )}
           {view === 'reglages-etiquettes' && (
             <NotionsManager />
