@@ -1,48 +1,31 @@
-import { createHmac, createSign, timingSafeEqual } from 'crypto'
+import { createHmac, timingSafeEqual } from 'crypto'
 
-// Accès au Drive Focus par un compte de service Google (lecture seule), côté serveur uniquement :
-// ne jamais importer depuis un fichier 'use client' (comme lib/supabase-admin.ts).
-// Variable d'environnement GOOGLE_SERVICE_ACCOUNT_KEY : le contenu du fichier JSON de la clé du compte de service.
-// Le dossier Drive doit être partagé (lecteur) avec l'adresse e-mail du compte de service.
+// Accès au Drive Focus, côté serveur uniquement : ne jamais importer depuis un fichier 'use client'
+// (comme lib/supabase-admin.ts). Le Drive est lu par un script Google Apps Script exécuté avec le compte Google
+// de la formatrice (scripts/drive-focus.gs, gratuit, sans console Google Cloud) :
+// - GOOGLE_APPS_SCRIPT_URL : l'URL de déploiement de l'application web (…/exec)
+// - GOOGLE_APPS_SCRIPT_TOKEN : le jeton secret, identique à la constante JETON du script
 
-interface ServiceAccountKey { client_email: string; private_key: string }
-
-function serviceAccount(): ServiceAccountKey {
-  const raw = process.env.GOOGLE_SERVICE_ACCOUNT_KEY
-  if (!raw) throw new Error("GOOGLE_SERVICE_ACCOUNT_KEY manquante dans les variables d'environnement.")
-  const key = JSON.parse(raw) as ServiceAccountKey
-  return { client_email: key.client_email, private_key: key.private_key.replace(/\\n/g, '\n') }
+function config() {
+  const url = process.env.GOOGLE_APPS_SCRIPT_URL
+  const token = process.env.GOOGLE_APPS_SCRIPT_TOKEN
+  return url && token ? { url, token } : null
 }
 
-export function serviceAccountEmail(): string | null {
-  try { return serviceAccount().client_email } catch { return null }
+export function driveConfigured() {
+  return !!config()
 }
 
-let cached: { token: string; exp: number } | null = null
-
-/** Jeton d'accès Google (OAuth 2, flux « JWT bearer » du compte de service), mis en cache jusqu'à expiration. */
-async function accessToken(): Promise<string> {
-  if (cached && cached.exp > Date.now() + 60_000) return cached.token
-  const { client_email, private_key } = serviceAccount()
-  const now = Math.floor(Date.now() / 1000)
-  const b64 = (o: object) => Buffer.from(JSON.stringify(o)).toString('base64url')
-  const unsigned = `${b64({ alg: 'RS256', typ: 'JWT' })}.${b64({
-    iss: client_email,
-    scope: 'https://www.googleapis.com/auth/drive.readonly',
-    aud: 'https://oauth2.googleapis.com/token',
-    iat: now,
-    exp: now + 3600,
-  })}`
-  const signature = createSign('RSA-SHA256').update(unsigned).sign(private_key).toString('base64url')
-  const res = await fetch('https://oauth2.googleapis.com/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({ grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer', assertion: `${unsigned}.${signature}` }),
-  })
-  const data = await res.json()
-  if (!res.ok) throw new Error(`Connexion à Google impossible : ${data.error_description ?? data.error ?? res.status}`)
-  cached = { token: data.access_token, exp: Date.now() + data.expires_in * 1000 }
-  return cached.token
+async function appelScript<T>(params: Record<string, string>): Promise<T> {
+  const c = config()
+  if (!c) throw new Error('Le Drive n’est pas connecté (GOOGLE_APPS_SCRIPT_URL / GOOGLE_APPS_SCRIPT_TOKEN manquants).')
+  // Le jeton est envoyé de serveur à serveur uniquement, jamais au navigateur
+  const res = await fetch(`${c.url}?${new URLSearchParams({ ...params, token: c.token })}`, { cache: 'no-store', redirect: 'follow' })
+  const texte = await res.text()
+  let data: T & { error?: string }
+  try { data = JSON.parse(texte) } catch { throw new Error(`Réponse inattendue du script Google (HTTP ${res.status}) : vérifiez l’URL et l’accès « Tout le monde ».`) }
+  if (data.error) throw new Error(`Script Google : ${data.error}`)
+  return data
 }
 
 export interface DriveFile {
@@ -54,48 +37,53 @@ export interface DriveFile {
   dossier: string // chemin des sous-dossiers depuis le dossier Focus ('' à la racine)
 }
 
-const FOLDER = 'application/vnd.google-apps.folder'
-
-/** Tous les fichiers du dossier et de ses sous-dossiers (3 niveaux au plus), du plus récent au plus ancien. */
-export async function listFolder(folderId: string): Promise<DriveFile[]> {
-  const token = await accessToken()
-  const files: DriveFile[] = []
-
-  async function parcourir(id: string, chemin: string, profondeur: number) {
-    let pageToken: string | undefined
-    do {
-      const params = new URLSearchParams({
-        q: `'${id}' in parents and trashed = false`,
-        fields: 'nextPageToken, files(id, name, mimeType, modifiedTime, size)',
-        pageSize: '1000',
-        supportsAllDrives: 'true',
-        includeItemsFromAllDrives: 'true',
-      })
-      if (pageToken) params.set('pageToken', pageToken)
-      const res = await fetch(`https://www.googleapis.com/drive/v3/files?${params}`, { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' })
-      const data = await res.json()
-      if (!res.ok) throw new Error(`Lecture du Drive impossible : ${data.error?.message ?? res.status}`)
-      for (const f of data.files as Omit<DriveFile, 'dossier'>[]) {
-        if (f.mimeType === FOLDER) {
-          if (profondeur < 3) await parcourir(f.id, chemin ? `${chemin} / ${f.name}` : f.name, profondeur + 1)
-        } else {
-          files.push({ ...f, dossier: chemin })
-        }
-      }
-      pageToken = data.nextPageToken
-    } while (pageToken)
-  }
-
-  await parcourir(folderId, '', 0)
+/** Tous les fichiers du dossier Focus et de ses sous-dossiers, du plus récent au plus ancien. */
+export async function listFolder(): Promise<DriveFile[]> {
+  const { files } = await appelScript<{ files: DriveFile[] }>({ action: 'list' })
   return files.sort((a, b) => b.modifiedTime.localeCompare(a.modifiedTime))
 }
 
-/** Contenu d'un fichier, en transmettant l'en-tête Range (lecture audio / vidéo avec avance rapide). */
-export async function fetchMedia(fileId: string, range: string | null): Promise<Response> {
-  const token = await accessToken()
-  const headers: Record<string, string> = { Authorization: `Bearer ${token}` }
-  if (range) headers.Range = range
-  return fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}?alt=media&supportsAllDrives=true`, { headers, cache: 'no-store' })
+export interface MorceauMedia { mimeType: string; total: number; start: number; end: number; data: Buffer }
+
+/** Taille d'un morceau : la même que TAILLE_MORCEAU dans scripts/drive-focus.gs. */
+export const TAILLE_MORCEAU = 2 * 1024 * 1024
+
+/** Un morceau d'un fichier (2 Mo au plus) à partir de l'octet `start`. */
+export async function fetchMorceau(fileId: string, start: number): Promise<MorceauMedia> {
+  const m = await appelScript<{ mimeType: string; total: number; start: number; end: number; data: string }>({ action: 'file', id: fileId, start: String(start) })
+  return { ...m, data: Buffer.from(m.data, 'base64') }
+}
+
+/* ── Cache des morceaux ──
+   Le script recharge tout le fichier à chaque appel (≈ 10 s pour un WAV de 30 Mo) : on garde en mémoire les
+   morceaux déjà lus (alignés sur TAILLE_MORCEAU), et la route de lecture précharge les suivants pendant l'écoute.
+   Cache par instance serveur, limité en taille et en durée. */
+
+const CACHE_MAX_OCTETS = 300 * 1024 * 1024
+const CACHE_DUREE_MS = 30 * 60_000
+const cache = new Map<string, { promesse: Promise<MorceauMedia>; octets: number; vu: number }>()
+
+function nettoyerCache() {
+  const maintenant = Date.now()
+  for (const [k, v] of cache) if (maintenant - v.vu > CACHE_DUREE_MS) cache.delete(k)
+  let total = [...cache.values()].reduce((s, v) => s + v.octets, 0)
+  for (const [k, v] of [...cache.entries()].sort((a, b) => a[1].vu - b[1].vu)) {
+    if (total <= CACHE_MAX_OCTETS) break
+    cache.delete(k)
+    total -= v.octets
+  }
+}
+
+/** Le morceau n° `index` du fichier (octets index × 2 Mo …), depuis le cache ou le script. */
+export function morceau(fileId: string, index: number): Promise<MorceauMedia> {
+  const cle = `${fileId}:${index}`
+  const existant = cache.get(cle)
+  if (existant) { existant.vu = Date.now(); return existant.promesse }
+  const promesse = fetchMorceau(fileId, index * TAILLE_MORCEAU)
+  const entree = { promesse, octets: TAILLE_MORCEAU, vu: Date.now() }
+  cache.set(cle, entree)
+  promesse.then(m => { entree.octets = m.data.length; nettoyerCache() }, () => cache.delete(cle)) // un échec n'est pas gardé
+  return promesse
 }
 
 /* ── Liens de lecture signés ──

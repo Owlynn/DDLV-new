@@ -8,15 +8,14 @@ import { ENREGISTREMENT_COLUMNS, chargerCoSuivi, dateCourte, enTeteAuth, titreDe
 import { FOCUS_DRIVE_URL } from '@/lib/formation-focus'
 
 // /admin → Formation Focus → Co-suivi → Fichiers du Drive : chaque fichier déposé sur le Drive Focus est attribué
-// à un élève et à un devoir ; il apparaît alors dans le co-suivi. Le Drive est lu par un compte de service
-// (app/api/admin/drive/files/route.ts).
+// à un élève et à un devoir ; il apparaît alors dans le co-suivi. Le Drive est lu par le script Google Apps Script
+// scripts/drive-focus.gs (app/api/admin/drive/files/route.ts).
 
 interface DriveFile { id: string; name: string; mimeType: string; modifiedTime: string; size?: string; dossier: string }
 type Filtre = 'a-attribuer' | 'tous'
 
 export default function DriveAttribution({ onChange }: { onChange?: () => void }) {
   const [files, setFiles] = useState<DriveFile[] | null>(null)
-  const [compte, setCompte] = useState<string | null>(null)
   const [nonConfigure, setNonConfigure] = useState(false)
   const [donnees, setDonnees] = useState<DonneesCoSuivi | null>(null)
   const [error, setError] = useState('')
@@ -32,7 +31,6 @@ export default function DriveAttribution({ onChange }: { onChange?: () => void }
       chargerCoSuivi().catch(e => { setError(e.message); return null }),
     ])
     setDonnees(d)
-    setCompte(res.body.serviceAccount ?? null)
     setNonConfigure(res.body.code === 'non_configure')
     if (!res.ok) { setError(res.body.error ?? 'Lecture du Drive impossible'); setFiles([]) }
     else setFiles(res.body.files as DriveFile[])
@@ -105,9 +103,9 @@ export default function DriveAttribution({ onChange }: { onChange?: () => void }
           {error && (
             <div role="alert" style={{ color: '#f87171', fontSize: '0.85rem', marginBottom: '1rem' }}>
               {error}
-              {compte && files?.length === 0 && (
+              {files?.length === 0 && (
                 <p style={{ color: 'rgba(255,255,255,0.6)', margin: '0.4rem 0 0' }}>
-                  Vérifiez que le dossier Drive Focus est partagé (en lecture) avec <code style={{ color: '#fff' }}>{compte}</code>.
+                  Vérifiez l’URL du script (elle finit par <code>/exec</code>), que le déploiement est en accès « Tout le monde », et que le jeton est le même dans le script et dans Vercel.
                 </p>
               )}
             </div>
@@ -241,18 +239,21 @@ function LigneFichier({ fichier: f, enregistrement, donnees, eleves, suggestion,
   )
 }
 
-/** Mode d'emploi tant que la clé du compte de service n'est pas installée. */
+/** Mode d'emploi tant que le script Google n'est pas branché. */
 function ConfigurationDrive() {
   const etape: React.CSSProperties = { margin: '0 0 0.6rem', fontSize: '0.85rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.8)' }
   return (
     <section style={{ ...card }}>
-      <h3 style={{ fontSize: '1rem', fontWeight: 600, color: '#fff', marginTop: 0 }}>Connecter le Drive Focus</h3>
+      <h3 style={{ fontSize: '1rem', fontWeight: 600, color: '#fff', marginTop: 0 }}>Connecter le Drive Focus (gratuit, sans carte bancaire)</h3>
       <ol style={{ paddingLeft: '1.2rem', margin: 0 }}>
-        <li style={etape}>Sur <a href="https://console.cloud.google.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#cf3594' }}>console.cloud.google.com</a>, créez un projet, puis activez l’API « Google Drive API ».</li>
-        <li style={etape}>Menu « IAM et administration » → « Comptes de service » → créez un compte de service, puis dans son onglet « Clés », ajoutez une clé au format JSON (un fichier se télécharge).</li>
-        <li style={etape}>Sur le Drive, partagez le dossier Focus (en « Lecteur ») avec l’adresse e-mail du compte de service (elle finit par <code>.iam.gserviceaccount.com</code>).</li>
-        <li style={etape}>Copiez tout le contenu du fichier JSON dans la variable <code>GOOGLE_SERVICE_ACCOUNT_KEY</code> : dans <code>.env.local</code> pour le site en local, et dans Vercel → Settings → Environment Variables pour la prod (puis redéployez).</li>
+        <li style={etape}>Avec le compte Google propriétaire du dossier Focus, ouvrez <a href="https://script.google.com/home/projects/create" target="_blank" rel="noopener noreferrer" style={{ color: '#cf3594' }}>script.google.com</a> (nouveau projet).</li>
+        <li style={etape}>Remplacez le code par celui du fichier <code>scripts/drive-focus.gs</code>, et collez le jeton secret dans <code>JETON</code>. Enregistrez.</li>
+        <li style={etape}>« Déployer » → « Nouveau déploiement » → type « Application Web » : exécuter en tant que « Moi », accès « Tout le monde ». Autorisez l’accès au Drive quand Google le demande, puis copiez l’URL qui finit par <code>/exec</code>.</li>
+        <li style={etape}>Ajoutez <code>GOOGLE_APPS_SCRIPT_URL</code> (cette URL) et <code>GOOGLE_APPS_SCRIPT_TOKEN</code> (le jeton) dans Vercel → Settings → Environment Variables, puis redéployez (et dans <code>.env.local</code> pour le site en local).</li>
       </ol>
+      <p style={{ margin: '0.4rem 0 0', fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)' }}>
+        « Tout le monde » veut dire que l’URL répond sans connexion Google : le script refuse toute demande sans le jeton secret, et ne lit que le dossier Focus.
+      </p>
     </section>
   )
 }
