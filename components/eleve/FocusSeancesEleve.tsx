@@ -10,6 +10,7 @@ import { FOCUS_SEANCE_COLUMNS, PILIERS, PILIER_COLORS, toFocusSeance, type Focus
 import { formatDay } from '@/lib/formation-focus'
 import { DEVOIR_COLUMNS, type Devoir } from '@/lib/devoirs'
 import { EXERCICE_COLUMNS, fetchNotions, notionLabels, type Exercice, type Notion } from '@/lib/suivi'
+import { fetchFocusVideos, videoDate, videoLabel, videosDeSeance, videoThumbnail, type FocusVideo } from '@/lib/focus-videos'
 
 // Espace élève Formation Focus : les séances publiées depuis /admin → Préparation des séances Focus, en lecture seule.
 // La RLS ne renvoie aux élèves que les séances publiées ; le filtre `publiee` montre aussi aux admins la vue élève.
@@ -18,6 +19,7 @@ import { EXERCICE_COLUMNS, fetchNotions, notionLabels, type Exercice, type Notio
 export default function FocusSeancesEleve() {
   const [seances, setSeances] = useState<FocusSeance[]>([])
   const [devoirs, setDevoirs] = useState<Devoir[]>([])
+  const [videos, setVideos] = useState<FocusVideo[]>([])
   const [exercices, setExercices] = useState<Map<string, Exercice>>(new Map())
   const [notions, setNotions] = useState<Map<string, Notion>>(new Map())
   const [selectedId, setSelectedId] = useState<string | null>(null)
@@ -32,7 +34,9 @@ export default function FocusSeancesEleve() {
       if (error) { setError(`Chargement impossible : ${error.message}`); setLoading(false); return }
       const list = (data ?? []).map(toFocusSeance)
       setSeances(list)
-      setSelectedId(list[list.length - 1]?.id ?? null) // la plus récente
+      const wanted = new URLSearchParams(window.location.search).get('seance') // lien depuis « Vidéos »
+      setSelectedId(list.find(s => s.id === wanted)?.id ?? list[list.length - 1]?.id ?? null) // sinon la plus récente
+      fetchFocusVideos().then(setVideos).catch(() => {}) // vidéos rattachées par date
 
       const d = list.length
         ? await supabase.from('devoirs').select(DEVOIR_COLUMNS).in('seance_id', list.map(s => s.id)).order('date_limite')
@@ -69,7 +73,7 @@ export default function FocusSeancesEleve() {
       ) : (
         <div className="flex flex-col xl:flex-row xl:items-start gap-4 xl:gap-6">
           <SeancesList seances={seances} selectedId={selected.id} onSelect={setSelectedId} showPublication={false} />
-          <SeanceDetail key={selected.id} seance={selected} devoirs={devoirs.filter(d => d.seance_id === selected.id)} exercices={exercices} onOpenExercice={setOpenedExo} />
+          <SeanceDetail key={selected.id} seance={selected} devoirs={devoirs.filter(d => d.seance_id === selected.id)} videos={videosDeSeance(videos, selected)} exercices={exercices} onOpenExercice={setOpenedExo} />
         </div>
       )}
 
@@ -82,9 +86,10 @@ export default function FocusSeancesEleve() {
   )
 }
 
-function SeanceDetail({ seance, devoirs, exercices, onOpenExercice }: {
+function SeanceDetail({ seance, devoirs, videos, exercices, onOpenExercice }: {
   seance: FocusSeance
   devoirs: Devoir[] // devoirs rattachés à cette séance
+  videos: FocusVideo[] // vidéos de la playlist à la date de la séance
   exercices: Map<string, Exercice>
   onOpenExercice: (e: Exercice) => void
 }) {
@@ -108,6 +113,30 @@ function SeanceDetail({ seance, devoirs, exercices, onOpenExercice }: {
           {seance.theme.trim() || 'Sans thème'}
         </h3>
       </header>
+
+      {videos.length > 0 && (
+        <section aria-label="Vidéos de la séance" style={{ marginBottom: '1.75rem' }}>
+          <div style={{ fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.4)', marginBottom: '0.6rem' }}>Vidéos de la séance</div>
+          <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '0.75rem' }}>
+            {videos.map(v => {
+              const d = videoDate(v)
+              return (
+                <li key={v.id}>
+                  <Link href={`/eleve/formation-focus/videos?v=${v.id}`} style={{ display: 'block', textDecoration: 'none' }}>
+                    <span style={{ position: 'relative', display: 'block' }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={videoThumbnail(v.id)} alt="" loading="lazy" style={{ display: 'block', width: '100%', aspectRatio: '16 / 9', objectFit: 'cover', borderRadius: '0.6rem', background: 'rgba(255,255,255,0.05)' }} />
+                      <span className="material-symbols-outlined" aria-hidden="true" style={{ position: 'absolute', inset: 0, margin: 'auto', width: 44, height: 44, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%', fontSize: 28, color: '#fff', background: 'rgba(0,0,0,0.55)' }}>play_arrow</span>
+                    </span>
+                    <span style={{ display: 'block', marginTop: '0.4rem', fontSize: '0.82rem', lineHeight: 1.35, fontWeight: 600, color: '#fff' }}>{videoLabel(v)}</span>
+                    {d && <span style={{ display: 'block', fontSize: '0.72rem', color: 'rgba(255,255,255,0.45)' }}>{formatDay(d, { day: 'numeric', month: 'short' })}</span>}
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+        </section>
+      )}
 
       {piliers.length === 0 ? (
         <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem', margin: 0 }}>Le contenu de cette séance arrive bientôt.</p>

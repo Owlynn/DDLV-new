@@ -1,7 +1,6 @@
-'use client'
+import { redirect } from 'next/navigation'
 
-import FocusPlaylist from '@/components/eleve/FocusPlaylist'
-
-export default function PlaylistFormationPage() {
-  return <FocusPlaylist />
+// Ancienne adresse de l'onglet « Vidéos »
+export default function PlaylistRedirect() {
+  redirect('/eleve/formation-focus/videos')
 }

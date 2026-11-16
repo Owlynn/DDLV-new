@@ -8,7 +8,7 @@ export const FOCUS_TAG = 'focus2026-2027'
 // Dossier Google Drive partagé où les élèves déposent leurs enregistrements de devoirs
 export const FOCUS_DRIVE_URL = 'https://drive.google.com/drive/folders/1UCjBKkOtYSDHMnGqHF6ht7wXVOgReibX?usp=sharing'
 
-// Playlist YouTube de la formation (espace élève et /admin → Formation Focus → Playlist)
+// Playlist YouTube de la formation (espace élève et /admin → Formation Focus → Vidéos)
 export const FOCUS_PLAYLIST_ID = 'PLTU4-3W8Z5no'
 export const FOCUS_PLAYLIST_URL = `https://www.youtube.com/watch?v=6eiCgTGMBT4&list=${FOCUS_PLAYLIST_ID}`
 
