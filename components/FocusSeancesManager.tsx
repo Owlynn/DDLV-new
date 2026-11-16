@@ -255,6 +255,7 @@ export default function FocusSeancesManager() {
             onPublicationChange={publiee => modifierPublication(selected.id, publiee)}
             onNotesChange={(pilier, notes) => modifierNotes(selected.id, pilier, notes)}
             devoirs={devoirs}
+            libelleSeanceDe={sid => { const s = seances.find(x => x.id === sid); return s ? libelleSeance(s) : 'supprimée' }}
             onNewDevoir={() => setEditingDevoir(emptyDraft(FOCUS_TAG, selected.id))}
             onEditDevoir={d => setEditingDevoir({ ...d, commentaire: d.commentaire ?? '' })}
             onAttachDevoir={(devoirId, attach) => rattacherDevoir(devoirId, attach ? selected.id : null)}
@@ -336,7 +337,7 @@ function SaveIndicator({ status }: { status: SaveStatus }) {
 
 const labelStyle: React.CSSProperties = { fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.45)' }
 
-function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exercices, onExercicesChange, onCreateExercice, onEditExercice, onOpenExercice, onPublicationChange, onNotesChange, devoirs, onNewDevoir, onEditDevoir, onAttachDevoir }: {
+function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exercices, onExercicesChange, onCreateExercice, onEditExercice, onOpenExercice, onPublicationChange, onNotesChange, devoirs, libelleSeanceDe, onNewDevoir, onEditDevoir, onAttachDevoir }: {
   seance: FocusSeance
   dateInputRef: React.RefObject<HTMLInputElement | null>
   canDelete: boolean
@@ -350,6 +351,7 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exe
   onPublicationChange: (publiee: boolean) => void
   onNotesChange: (pilier: NoteKey, notes: string) => void
   devoirs: Devoir[]
+  libelleSeanceDe: (seanceId: string) => string // « du 04/11 », pour un devoir rattaché à une autre séance
   onNewDevoir: () => void
   onEditDevoir: (d: Devoir) => void
   onAttachDevoir: (devoirId: string, attach: boolean) => void
@@ -435,6 +437,7 @@ function SeanceEditor({ seance, dateInputRef, canDelete, onChange, onDelete, exe
                   idBase={id(p.key)}
                   seanceId={seance.id}
                   devoirs={devoirs}
+                  libelleSeanceDe={libelleSeanceDe}
                   exercices={exercices}
                   onNew={onNewDevoir}
                   onEdit={onEditDevoir}
@@ -605,10 +608,11 @@ function ExercicesPilier({ idBase, pilierLabel, selection, exercices, onChange, 
 
 /* ── Devoirs à rendre de la séance (bloc « Le travail autonome ») ── */
 
-function DevoirsSeance({ idBase, seanceId, devoirs, exercices, onNew, onEdit, onAttach, onOpenExercice }: {
+function DevoirsSeance({ idBase, seanceId, devoirs, libelleSeanceDe, exercices, onNew, onEdit, onAttach, onOpenExercice }: {
   idBase: string
   seanceId: string
   devoirs: Devoir[]
+  libelleSeanceDe: (seanceId: string) => string
   exercices: Exercice[]
   onNew: () => void
   onEdit: (d: Devoir) => void
@@ -616,12 +620,21 @@ function DevoirsSeance({ idBase, seanceId, devoirs, exercices, onNew, onEdit, on
   onOpenExercice: (exId: string) => void
 }) {
   const lies = devoirs.filter(d => d.seance_id === seanceId)
-  const libres = devoirs.filter(d => !d.seance_id)
+  // Tous les devoirs Focus hors de cette séance : sans séance d'abord, puis ceux d'une autre séance (les choisir les déplace ici)
+  const autres = devoirs
+    .filter(d => d.seance_id !== seanceId)
+    .sort((a, b) => Number(!!a.seance_id) - Number(!!b.seance_id) || a.date_limite.localeCompare(b.date_limite))
   const titreDevoir = (d: Devoir) =>
     (d.exercice_id && exercices.find(e => e.id === d.exercice_id)?.titre)
     || d.commentaire?.split('\n').find(l => l.trim())?.trim()
     || 'Contenu à venir'
-  const dateDevoir = (d: Devoir) => formatDay(d.date_limite, { day: 'numeric', month: 'short', year: 'numeric' })
+  // jj/mm/aa, ex. 13/11/26
+  const dateDevoir = (d: Devoir) => formatDay(d.date_limite, { day: '2-digit', month: '2-digit', year: '2-digit' })
+  // Autres façons de taper la date dans la recherche : 13/11/2026, 13-11, 13.11, 13 novembre
+  const autresDates = (d: Devoir) => {
+    const [y, m, j] = d.date_limite.split('-')
+    return [`${j}/${m}/${y}`, `${j}-${m}`, `${j}.${m}`, formatDay(d.date_limite, { day: 'numeric', month: 'long', year: 'numeric' })].join(' ')
+  }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -652,18 +665,20 @@ function DevoirsSeance({ idBase, seanceId, devoirs, exercices, onNew, onEdit, on
       )}
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-        {libres.length > 0 && (
+        {autres.length > 0 && (
           <>
             <label htmlFor={`${idBase}-rattacher-devoir`} className="sr-only">Rattacher un devoir existant à la séance</label>
-            <select
+            <SearchSelect
               id={`${idBase}-rattacher-devoir`}
-              value=""
-              onChange={e => e.target.value && onAttach(e.target.value, true)}
-              style={{ ...input, flex: '1 1 220px', padding: '0.45rem 0.7rem', fontSize: '0.8rem' }}
-            >
-              <option value="" style={{ background: '#1a0b2e' }}>+ Rattacher un devoir existant…</option>
-              {libres.map(d => <option key={d.id} value={d.id} style={{ background: '#1a0b2e' }}>{dateDevoir(d)} · {titreDevoir(d)}</option>)}
-            </select>
+              options={autres.map(d => ({
+                id: d.id,
+                label: `${dateDevoir(d)} · ${titreDevoir(d)}${d.seance_id ? ` — déjà dans la séance ${libelleSeanceDe(d.seance_id)}` : ''}`,
+                keywords: autresDates(d),
+              }))}
+              onSelect={devoirId => onAttach(devoirId, true)}
+              placeholder="+ Rattacher un devoir existant… (date 13/11 ou titre)"
+              style={{ flex: '1 1 220px' }}
+            />
           </>
         )}
         <button type="button" onClick={onNew} style={{ ...btnGhost, padding: '0.45rem 0.8rem', fontSize: '0.8rem' }}>

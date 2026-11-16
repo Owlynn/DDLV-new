@@ -259,7 +259,7 @@ export function normaliser(s: string) {
  */
 export function SearchSelect({ id, options, onSelect, onCreate, placeholder, style }: {
   id?: string
-  options: { id: string; label: string }[]
+  options: { id: string; label: string; keywords?: string }[] // keywords : texte cherchable en plus du libellé, non affiché
   onSelect: (id: string) => void
   onCreate?: (label: string) => Promise<boolean> // true si créé (le champ est alors vidé)
   placeholder: string
@@ -280,7 +280,7 @@ export function SearchSelect({ id, options, onSelect, onCreate, placeholder, sty
   }, [open])
 
   const q = normaliser(query)
-  const matches = q ? options.filter(o => normaliser(o.label).includes(q)) : options
+  const matches = q ? options.filter(o => normaliser(`${o.label} ${o.keywords ?? ''}`).includes(q)) : options
   const peutCreer = !!onCreate && !!q && !options.some(o => normaliser(o.label) === q)
   const total = matches.length + (peutCreer ? 1 : 0)
 
