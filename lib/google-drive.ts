@@ -28,6 +28,24 @@ async function appelScript<T>(params: Record<string, string>): Promise<T> {
   return data
 }
 
+/** Envoie un e-mail depuis le compte Google du script (MailApp, 100 par jour). */
+export async function envoyerMail(mail: { to: string; subject: string; text: string; html?: string }) {
+  const c = config()
+  if (!c) throw new Error('Script Google non configuré : e-mail non envoyé.')
+  // POST : Apps Script répond par une redirection, suivie en GET vers le résultat
+  const res = await fetch(c.url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // text/plain évite une requête préalable inutile
+    body: JSON.stringify({ ...mail, action: 'mail', token: c.token }),
+    cache: 'no-store',
+    redirect: 'follow',
+  })
+  const texte = await res.text()
+  let data: { ok?: boolean; error?: string }
+  try { data = JSON.parse(texte) } catch { throw new Error(`Réponse inattendue du script Google (HTTP ${res.status}) : nouvelle version du script déployée ?`) }
+  if (data.error) throw new Error(`Script Google : ${data.error}`)
+}
+
 export interface DriveFile {
   id: string
   name: string

@@ -9,6 +9,7 @@ import { STUDENT_TAGS, type StudentTagKey } from '@/lib/student-tags'
 import { EXERCICE_COLUMNS, SUIVI_CONTEXTES, fetchNotions, notionLabels, tagInfo, type Exercice, type Notion, type SuiviContexte } from '@/lib/suivi'
 import { DEVOIR_COLUMNS, hasContent, type Devoir, type DevoirRendu } from '@/lib/devoirs'
 import { displayName, fetchFiches, type FicheEleve } from '@/lib/eleves'
+import { notifier } from '@/lib/co-suivi'
 
 export type DevoirDraft = Omit<Devoir, 'id'> & { id?: string }
 type Draft = DevoirDraft
@@ -91,6 +92,7 @@ export default function DevoirsManager({ contexte, userId, canEdit, depotUrl }: 
       : await supabase.from('devoirs_rendus').insert({ devoir_id: devoir.id, user_id: userId })
     setBusy(null)
     if (error) { setError(error.message); return }
+    if (!mine) notifier('rendu', devoir.id) // e-mail à la formatrice (devoirs Focus seulement, filtré côté serveur)
     load()
   }
 

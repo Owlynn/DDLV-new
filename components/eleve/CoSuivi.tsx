@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { supabase } from '@/lib/supabase-client'
 import { card } from '@/components/eleve/ui'
 import { btnAccent, input } from '@/components/ManagerUI'
-import { COMMENTAIRE_COLUMNS, chargerCoSuivi, dateCourte, lienLecture, titreDevoir, type Commentaire, type DonneesCoSuivi, type Enregistrement } from '@/lib/co-suivi'
+import { COMMENTAIRE_COLUMNS, chargerCoSuivi, dateCourte, lienLecture, notifier, titreDevoir, type Commentaire, type DonneesCoSuivi, type Enregistrement } from '@/lib/co-suivi'
 import type { Devoir } from '@/lib/devoirs'
 
 // Co-suivi Formation Focus : les enregistrements des devoirs, rangés par devoir, que tout le groupe écoute et commente.
@@ -225,6 +225,7 @@ function FilCommentaires({ enregistrement, auteurEnregistrement, commentaires, d
     setBusy(false)
     if (error || !data) { setError(`Envoi impossible : ${error?.message ?? 'erreur inconnue'}`); return }
     onAjout(data as Commentaire)
+    notifier('commentaire', (data as Commentaire).id) // e-mail à l'élève de l'enregistrement (sauf s'il s'agit de lui)
     setTexte('')
   }
 

@@ -2,7 +2,8 @@
  * Drive Focus → site Donner de la Voix (co-suivi Formation Focus).
  *
  * Petit script Google Apps Script, exécuté avec TON compte Google : il donne au site la liste des fichiers
- * du dossier Drive Focus et leur contenu (par morceaux), sans rendre les fichiers publics.
+ * du dossier Drive Focus et leur contenu (par morceaux), sans rendre les fichiers publics,
+ * et envoie les e-mails de notification du co-suivi (doPost).
  * Le site l'appelle côté serveur avec un jeton secret (variables GOOGLE_APPS_SCRIPT_URL et GOOGLE_APPS_SCRIPT_TOKEN).
  *
  * Installation : voir app/api/admin/drive/files/route.ts ou /admin → Formation Focus → Fichiers du Drive.
@@ -23,6 +24,26 @@ function doGet(e) {
   try {
     if (p.action === 'list') return reponse({ files: lister(DriveApp.getFolderById(DOSSIER_FOCUS), '', 0) })
     if (p.action === 'file') return reponse(morceau(p.id, Number(p.start || 0)))
+    return reponse({ error: 'Action inconnue' })
+  } catch (err) {
+    return reponse({ error: String(err && err.message ? err.message : err) })
+  }
+}
+
+/**
+ * Envoi d'un e-mail de notification (devoir rendu, nouveau commentaire), depuis le compte Google du script.
+ * Corps JSON : { token, action: 'mail', to, subject, text, html }. Quota Gmail : 100 e-mails par jour.
+ */
+function doPost(e) {
+  let p = {}
+  try { p = JSON.parse((e.postData && e.postData.contents) || '{}') } catch (err) { return reponse({ error: 'JSON invalide' }) }
+  if (!p.token || p.token !== JETON) return reponse({ error: 'Jeton invalide' })
+  try {
+    if (p.action === 'mail') {
+      if (!p.to || !p.subject || !p.text) return reponse({ error: 'Destinataire, sujet ou texte manquant' })
+      MailApp.sendEmail({ to: p.to, subject: p.subject, body: p.text, htmlBody: p.html || undefined, name: 'Donner de la Voix' })
+      return reponse({ ok: true, restant: MailApp.getRemainingDailyQuota() })
+    }
     return reponse({ error: 'Action inconnue' })
   } catch (err) {
     return reponse({ error: String(err && err.message ? err.message : err) })

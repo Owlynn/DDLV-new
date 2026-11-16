@@ -77,6 +77,17 @@ export async function enTeteAuth(): Promise<Record<string, string>> {
   return { Authorization: `Bearer ${session?.access_token ?? ''}` }
 }
 
+/**
+ * Demande l'e-mail de notification d'une action qui vient d'être enregistrée (app/api/focus/notifications/route.ts) :
+ * 'rendu' (id = devoir) → la formatrice ; 'commentaire' (id = commentaire) → l'élève de l'enregistrement.
+ * Sans attendre ni bloquer : un e-mail raté ne gêne pas l'élève.
+ */
+export function notifier(type: 'rendu' | 'commentaire', id: string) {
+  enTeteAuth()
+    .then(headers => fetch('/api/focus/notifications', { method: 'POST', headers: { ...headers, 'Content-Type': 'application/json' }, body: JSON.stringify({ type, id }), keepalive: true }))
+    .catch(() => { /* notification facultative */ })
+}
+
 /** URL de lecture signée d'un enregistrement (valable quelques heures). */
 export async function lienLecture(enregistrementId: string): Promise<string> {
   const res = await fetch(`/api/focus/enregistrements/${enregistrementId}/lien`, { headers: await enTeteAuth() })
