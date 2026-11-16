@@ -150,7 +150,7 @@ export function ecartsCalendrier(seances: FocusSeance[], today: string): EcartsC
       const seance = seances.find(s => dates.get(s.id)!.some(d => session.dates.includes(d))) ?? null
       return { session, seance, statut: !seance ? 'manquante' : seanceRemplie(seance) ? 'prete' : 'vide' }
     })
-  const joursPrevus = new Set(getSessions().flatMap(s => s.dates))
+  const joursPrevus = new Set(prevues.flatMap(p => p.session.dates)) // mercredis et week-ends seulement
   return {
     prevues,
     aCompleter: prevues.filter(p => p.statut !== 'prete' && p.session.dates[0] <= limite),

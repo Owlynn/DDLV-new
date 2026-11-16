@@ -239,8 +239,7 @@ export default function FocusSeancesManager() {
       ) : !selected ? (
         <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem' }}>Aucune séance pour le moment. Commencez par « Ajouter une séance ».</p>
       ) : (
-        <div className="flex flex-col xl:flex-row xl:items-start gap-4 xl:gap-6">
-          <SeancesNav seances={seances} selectedId={selected.id} onSelect={setSelectedId} alertes onCreate={session => ajouter(dateSaisie(session))} />
+        <SeancesNav seances={seances} selectedId={selected.id} onSelect={setSelectedId} alertes onCreate={session => ajouter(dateSaisie(session))}>
           <SeanceEditor
             key={selected.id}
             seance={selected}
@@ -260,7 +259,7 @@ export default function FocusSeancesManager() {
             onEditDevoir={d => setEditingDevoir({ ...d, commentaire: d.commentaire ?? '' })}
             onAttachDevoir={(devoirId, attach) => rattacherDevoir(devoirId, attach ? selected.id : null)}
           />
-        </div>
+        </SeancesNav>
       )}
 
       {/* Même formulaire que l'onglet « Devoirs à rendre » ; la suppression reste réservée à cet onglet */}

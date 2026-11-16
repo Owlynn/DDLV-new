@@ -71,10 +71,9 @@ export default function FocusSeancesEleve() {
       ) : !selected ? (
         !error && <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem' }}>Aucune séance n'est encore disponible.</p>
       ) : (
-        <div className="flex flex-col xl:flex-row xl:items-start gap-4 xl:gap-6">
-          <SeancesNav seances={seances} selectedId={selected.id} onSelect={setSelectedId} showPublication={false} />
+        <SeancesNav seances={seances} selectedId={selected.id} onSelect={setSelectedId} showPublication={false}>
           <SeanceDetail key={selected.id} seance={selected} devoirs={devoirs.filter(d => d.seance_id === selected.id)} videos={videosDeSeance(videos, selected)} exercices={exercices} onOpenExercice={setOpenedExo} />
-        </div>
+        </SeancesNav>
       )}
 
       {openedExo && (
